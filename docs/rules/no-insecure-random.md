@@ -2,7 +2,7 @@
 
 Methods such as Math.random or crypto.pseudoRandomBytes do not produce cryptographically-secure random numbers and must not be used for security purposes such as generating tokens, passwords or keys.
 
-Use crypto.randomBytes() or window.crypto.getRandomValues() instead.
+Use crypto.randomBytes() or window\.crypto.getRandomValues() instead.
 
 ## Related Rules
 

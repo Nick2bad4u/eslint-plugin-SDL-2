@@ -138,7 +138,7 @@ const assertEslintMajor = (expectedMajor) => {
 
     console.log(
         `${pc.green("✓")}` +
-        ` ESLint runtime ${pc.bold(runtimeVersion)} detected for compatibility smoke checks.`
+            ` ESLint runtime ${pc.bold(runtimeVersion)} detected for compatibility smoke checks.`
     );
 };
 
@@ -203,17 +203,17 @@ const createCompatibilityConfig = (ruleId, typed, fixturePath) => {
                     tsconfigRootDir: repositoryRootPath,
                     ...(typed
                         ? {
-                            projectService: {
-                                ...baseProjectServiceOptions,
-                                allowDefaultProject: [
-                                    ...new Set([
-                                        ...existingAllowDefaultProject,
-                                        relativeFixturePath,
-                                    ]),
-                                ],
-                                defaultProject: "tsconfig.eslint.json",
-                            },
-                        }
+                              projectService: {
+                                  ...baseProjectServiceOptions,
+                                  allowDefaultProject: [
+                                      ...new Set([
+                                          ...existingAllowDefaultProject,
+                                          relativeFixturePath,
+                                      ]),
+                                  ],
+                                  defaultProject: "tsconfig.eslint.json",
+                              },
+                          }
                         : {}),
                 },
             },
@@ -303,9 +303,9 @@ const runScenario = async ({
 
     console.log(
         `${pc.green("✓")}` +
-        ` ${pc.bold(name)} ${pc.gray("->")} ${pc.bold(ruleId)} (${typed ? "typed" : "non-typed"}, fix=${fix}) produced ${pc.magenta(
-            String(matchingMessages.length)
-        )} message(s).`
+            ` ${pc.bold(name)} ${pc.gray("->")} ${pc.bold(ruleId)} (${typed ? "typed" : "non-typed"}, fix=${fix}) produced ${pc.magenta(
+                String(matchingMessages.length)
+            )} message(s).`
     );
 };
 

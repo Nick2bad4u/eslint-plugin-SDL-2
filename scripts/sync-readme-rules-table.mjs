@@ -291,7 +291,7 @@ export const syncReadmeRulesTable = async ({ writeChanges }) => {
     const suffix = readmeText.slice(sectionEndOffset);
 
     const generatedSection = generateReadmeRulesSectionFromRules(
-        /** @type {ReadmeRulesMap} */(builtPlugin.rules)
+        /** @type {ReadmeRulesMap} */ (builtPlugin.rules)
     );
 
     const normalizedSuffix = suffix.startsWith("\n") ? suffix : `\n${suffix}`;

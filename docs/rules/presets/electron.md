@@ -27,6 +27,6 @@ export default [...sdl.configs.electron];
   - `💡` = suggestions available
   - `—` = report only
 
-| Rule | Fix |
-| --- | :-: |
-| [`no-electron-node-integration`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-node-integration) | — |
+| Rule                                                                                                                       | Fix |
+| -------------------------------------------------------------------------------------------------------------------------- | :-: |
+| [`no-electron-node-integration`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-node-integration) |  —  |

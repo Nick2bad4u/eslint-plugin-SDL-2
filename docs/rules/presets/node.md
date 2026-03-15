@@ -27,6 +27,6 @@ export default [...sdl.configs.node];
   - `💡` = suggestions available
   - `—` = report only
 
-| Rule | Fix |
-| --- | :-: |
-| [`no-unsafe-alloc`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-alloc) | — |
+| Rule                                                                                             | Fix |
+| ------------------------------------------------------------------------------------------------ | :-: |
+| [`no-unsafe-alloc`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-alloc) |  —  |

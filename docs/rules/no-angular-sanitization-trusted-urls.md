@@ -41,5 +41,5 @@ export default [
 
 ## Further reading
 
-- [AngularJS $compileProvider docs](https://docs.angularjs.org/api/ng/provider/$compileProvider)
+- [AngularJS `$compileProvider` docs](https://docs.angularjs.org/api/ng/provider/%24compileProvider)
 - [AngularJS security guide](https://docs.angularjs.org/guide/security)

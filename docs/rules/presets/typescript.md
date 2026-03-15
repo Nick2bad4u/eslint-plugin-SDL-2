@@ -28,5 +28,5 @@ export default [...sdl.configs.typescript];
   - `—` = report only
 
 | Rule | Fix |
-| --- | :-: |
-| — | — |
+| ---- | :-: |
+| —    |  —  |

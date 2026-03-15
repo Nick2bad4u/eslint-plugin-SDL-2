@@ -159,7 +159,7 @@ const getHeadingsByDepth = (tree, depth) =>
  *
  * @returns {(tree: Node, file: VFile) => void}
  */
-export default function remarkLintRuleDocHeadings () {
+export default function remarkLintRuleDocHeadings() {
     return (tree, file) => {
         if (typeof file.path !== "string") {
             return;

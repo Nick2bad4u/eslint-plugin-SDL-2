@@ -2,8 +2,8 @@
 
 Thanks for your interest in contributing.
 
-This repository contains an ESLint plugin focused on `type-fest` and
-`ts-extras` usage patterns for TypeScript codebases.
+This repository contains a security-focused ESLint plugin with SDL-oriented
+rules for JavaScript and TypeScript codebases.
 
 ## Prerequisites
 
@@ -75,37 +75,23 @@ Use these commands locally before submitting a pull request:
 - `npm test`
 - `npm run lint:all:fix:quiet`
 
-## Snapshot testing guidance
+## Testing guidance
 
-This repository uses Vitest snapshots selectively for stable contract surfaces,
-not as a replacement for explicit rule behavior assertions.
+Use focused test runs while iterating on a rule, then run the full test suite
+before opening a pull request.
 
-Use snapshots for:
-
-- normalized plugin contract summaries
-- normalized rule metadata matrices
-- generated documentation artifacts (for example README rules sections)
-- docs structure schemas where heading order and presence are contractual
-
-Avoid snapshots for:
-
-- raw AST trees
-- broad ESLint diagnostics payloads in rule tests
-- unnormalized objects with volatile or environment-specific fields
-
-Focused update flow:
+Focused runs:
 
 ```bash
-npx vitest run test/plugin-contract-snapshots.test.ts -u
-npx vitest run test/rule-metadata-snapshots.test.ts -u
-npm run sync:readme-rules-table:update
-npx vitest run test/docs-heading-snapshots.test.ts -u
+npx vitest run test/rules-sdl.test.ts
+npx vitest run test/plugin-entry.test.ts
+npx vitest run test/rule-reporting-policy-contract.test.ts
 ```
 
-Verification flow:
+Final verification:
 
 ```bash
-npx vitest run test/plugin-contract-snapshots.test.ts test/rule-metadata-snapshots.test.ts test/readme-rules-table-sync.test.ts test/docs-heading-snapshots.test.ts
+npm test
 ```
 
 For detailed design and review guidance, see the developer documentation under
@@ -127,7 +113,7 @@ Format:
 
 Examples:
 
-- `:sparkles: feat(rule): add prefer-type-fest-xyz`
+- `:sparkles: feat(rule): add no-insecure-random`
 - `:bug: fix(rule): avoid false positive in union type handling`
 - `:memo: docs: clarify configuration for type-aware rules`
 
