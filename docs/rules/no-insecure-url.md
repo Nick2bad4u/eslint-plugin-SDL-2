@@ -1,75 +1,72 @@
-# Do not use insecure URLs (no-insecure-url)
+# no-insecure-url
 
-Insecure protocols such as [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) or [FTP](https://en.wikipedia.org/wiki/File_Transfer_Protocol) should be replaced by their encrypted counterparts ([HTTPS](https://en.wikipedia.org/wiki/HTTPS), [FTPS](https://en.wikipedia.org/wiki/FTPS)) to avoid sending potentially sensitive data over untrusted networks in plaintext.
+Disallow insecure URL protocols in application code.
 
-- [Rule Source](../../src/rules/no-insecure-url.ts)
+## Targeted pattern scope
 
-## Options
+This rule targets insecure URL patterns such as:
 
-This rule comes with three default lists in the implementation source:
+- `http://...`
+- `ftp://...`
+- configurable blocklisted patterns defined in rule options.
 
-- <../../src/rules/no-insecure-url.ts>
+## What this rule reports
 
-- **blocklist** - a RegEx list of insecure URL patterns.
+This rule reports string literals and option-matched values that use insecure
+or explicitly blocked URL schemes.
 
-- **exceptions** - a RegEx list of common false positive patterns. For example, HTTP URLs to XML schemas are usually allowed as they are used as identifiers, not for establishing actual network connections.
+## Why this rule exists
 
-- **varExceptions** - a RegEx list of false positive patterns which a derivated from the variable name. For example, a variable that is called "insecureURL" which is used to test HTTP explicitly.
+Unencrypted transports can expose credentials, tokens, and sensitive payloads
+to interception or tampering.
 
-These lists can be overrided by providing options.
+## ❌ Incorrect
 
----
-
-For example, providing these options... :
-
-```javascript
-"@microsoft/sdl/no-insecure-url": ["error", {
-            "blocklist": ["^(http|ftp):\\/\\/", "^https:\\/\\/www\\.disallow-example\\.com"],
-            "exceptions": ["^http:\\/\\/schemas\\.microsoft\\.com\\/\\/?.*"],
-            "varExceptions": ["insecure?.*"]
-        }]
+```ts
+const endpoint = "http://api.example.com/v1/data";
 ```
 
-... overrides the internal blocklist, blocking the following URL patterns... :
+## ✅ Correct
 
-- `http://`...
-- `ftp://`...
-- `https://www.disallow-example.com`
-
-... and also overrides the internal exceptions list, allowing the following URL patterns as exceptions.:
-
-- `http://schemas.microsoft.com`
-  - `http://schemas.microsoft.com/sharepoint`
-  - `http://schemas.microsoft.com/path/subpath`
-
-... and also overrides the internal variable exceptions list, allowing the following declaration name patterns as exceptions.:
-
-- `var insecureURL = "http://..."`
-- `var insecureWebsite = "http://..."`
-- ...
-
-URLs in neither the blocklist nor the exceptions list, are allowed:
-
-- `telnet://`...
-- `ws://`...
-- ...
-
----
-
-**Note**: The RegEx for the lists is provided within a string in a JSON. It is without delimiting slashes `/ /` and thus users cannot pass RegEx parameters. We make it case-insensitive after user input. Do not forget to escape characters:
-
-```javascript
-let pureRegex = /^https:\/\/www\.disallow-example\.com/;
-let regexInString = "^https:\\/\\/www\\.disallow-example\\.com";
+```ts
+const endpoint = "https://api.example.com/v1/data";
 ```
 
-## Related Rules
+## ESLint flat config example
 
-- [tslint-microsoft-contrib/no-http-string](https://github.com/microsoft/tslint-microsoft-contrib/blob/master/src/noHttpStringRule.ts)
-- [CodeQL/InsecureDownloadCustomizations.qll](https://github.com/github/codeql/blob/master/javascript/ql/src/semmle/javascript/security/dataflow/InsecureDownloadCustomizations.qll#L62)
-- [DevSkim/DS137138](https://github.com/microsoft/DevSkim/blob/main/guidance/DS137138.md)
-- [Fortify/insecure\_transport](https://vulncat.fortify.com/en/detail?id=desc.config.java.insecure_transport#JavaScript%2fTypeScript)
+```ts
+import sdl from "eslint-plugin-sdl-2";
 
-## Further Reading
+export default [
+  {
+    plugins: { sdl },
+    rules: {
+      "sdl/no-insecure-url": [
+        "error",
+        {
+          blocklist: ["^(http|ftp):\\/\\/"],
+          exceptions: ["^http:\\/\\/schemas\\.microsoft\\.com\\/?.*"],
+          varExceptions: ["insecure?.*"],
+        },
+      ],
+    },
+  },
+];
+```
 
-- [HTTPS Everywhere](https://en.wikipedia.org/wiki/HTTPS_Everywhere)
+## When not to use it
+
+Disable only when scanning datasets or tests that intentionally include insecure
+URLs.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-insecure-url.ts)
+
+## Further reading
+
+> **Rule catalog ID:** R213
+
+- [MDN: HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS)
+- [DevSkim DS137138 guidance](https://github.com/microsoft/DevSkim/blob/main/guidance/DS137138.md)
+- [CodeQL insecure download guidance](https://codeql.github.com/codeql-query-help/javascript/js-clear-text-logging-sensitive-info/)

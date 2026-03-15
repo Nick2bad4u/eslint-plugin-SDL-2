@@ -1,9 +1,70 @@
-# Do not enable Node.js Integration for Remote Content (no-electron-node-integration)
+# no-electron-node-integration
 
-[Node.js Integration](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content) must not be enabled in any renderer that loads remote content to avoid remote code execution attacks.
+Disallow enabling Electron Node.js integration for renderers with remote content.
 
-[Rule Source Code](../../src/rules/no-electron-node-integration.ts)
+## Targeted pattern scope
 
-## Related Rules
+This rule targets Electron BrowserWindow and webPreferences configurations that
+enable `nodeIntegration` where remote content is loaded.
 
-- [codeql/js/enabling-electron-renderer-node-integration](https://help.semmle.com/wiki/display/JS/Enabling+Node.js+integration+for+Electron+web+content+renderers)
+## What this rule reports
+
+This rule reports renderer configurations that combine untrusted content with
+Node.js APIs.
+
+## Why this rule exists
+
+Enabling Node.js integration for remote content increases remote code execution
+risk in Electron apps.
+
+## ❌ Incorrect
+
+```ts
+new BrowserWindow({
+  webPreferences: {
+    nodeIntegration: true,
+  },
+});
+```
+
+## ✅ Correct
+
+```ts
+new BrowserWindow({
+  webPreferences: {
+    nodeIntegration: false,
+    contextIsolation: true,
+  },
+});
+```
+
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+  {
+    plugins: { sdl },
+    rules: {
+      "sdl/no-electron-node-integration": "error",
+    },
+  },
+];
+```
+
+## When not to use it
+
+Disable only for offline renderers with no untrusted input and compensating
+controls.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-electron-node-integration.ts)
+
+## Further reading
+
+> **Rule catalog ID:** R209
+
+- [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
+- [CodeQL reference: Electron renderer Node integration](https://codeql.github.com/codeql-query-help/javascript/js-enabling-electron-renderer-node-integration/)

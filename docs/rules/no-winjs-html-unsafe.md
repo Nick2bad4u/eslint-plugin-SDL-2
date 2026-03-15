@@ -1,5 +1,60 @@
-# Do not set HTML using unsafe methods from WinJS.Utilities (no-winjs-html-unsafe)
+# no-winjs-html-unsafe
 
-Calls to `setInnerHTMLUnsafe`, `setOuterHTMLUnsafe`, or `insertAdjacentHTMLUnsafe` methods from Windows Library for JavaScript (WinJS) do not perform input validation and should be avoided.
+Disallow unsafe WinJS HTML helpers that bypass validation.
 
-Use safer alternatives such as `setInnerHTML` and explicit DOM construction APIs instead.
+## Targeted pattern scope
+
+This rule targets WinJS unsafe sink helpers such as:
+
+- `WinJS.Utilities.setInnerHTMLUnsafe(...)`
+- `WinJS.Utilities.setOuterHTMLUnsafe(...)`
+- `WinJS.Utilities.insertAdjacentHTMLUnsafe(...)`.
+
+## What this rule reports
+
+This rule reports direct use of WinJS unsafe HTML insertion helpers.
+
+## Why this rule exists
+
+Unsafe HTML helper APIs increase XSS risk when supplied with untrusted content.
+
+## ❌ Incorrect
+
+```ts
+WinJS.Utilities.setInnerHTMLUnsafe(element, userSuppliedHtml);
+```
+
+## ✅ Correct
+
+```ts
+WinJS.Utilities.setInnerHTML(element, trustedTemplateHtml);
+```
+
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+  {
+    plugins: { sdl },
+    rules: {
+      "sdl/no-winjs-html-unsafe": "error",
+    },
+  },
+];
+```
+
+## When not to use it
+
+Disable only for fully controlled HTML templates with an audited trust chain.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-winjs-html-unsafe.ts)
+
+## Further reading
+
+> **Rule catalog ID:** R217
+
+- [WinJS utilities API overview](https://learn.microsoft.com/en-us/previous-versions/windows/apps/br229839\(v=win.10\))

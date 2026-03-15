@@ -1,11 +1,62 @@
-# Do not allocate uninitialized buffers in Node.js (no-unsafe-alloc)
+# no-unsafe-alloc
 
-When calling [`Buffer.allocUnsafe`](https://nodejs.org/api/buffer.html#buffer_static_method_buffer_allocunsafe_size) and [`Buffer.allocUnsafeSlow`](https://nodejs.org/api/buffer.html#buffer_static_method_buffer_allocunsafeslow_size), the allocated memory is not wiped-out and can contain old, potentially sensitive data.
+Disallow unsafe uninitialized buffer allocation APIs in Node.js.
 
-These methods should be used only in justifiable cases (e.g. due to performance reasons) after thorough security review.
+## Targeted pattern scope
 
-- [Rule Source](../../src/rules/no-unsafe-alloc.ts)
+This rule targets:
 
-## Resources
+- `Buffer.allocUnsafe(...)`
+- `Buffer.allocUnsafeSlow(...)`.
 
-- [Node.js - What makes Buffer.allocUnsafe() and Buffer.allocUnsafeSlow() "unsafe"?](https://nodejs.org/api/buffer.html#buffer_what_makes_buffer_allocunsafe_and_buffer_allocunsafeslow_unsafe)
+## What this rule reports
+
+This rule reports calls to unsafe buffer constructors that may expose stale
+memory data.
+
+## Why this rule exists
+
+Unsafe buffer allocation can leak sensitive process memory contents if buffers
+are consumed before full initialization.
+
+## ❌ Incorrect
+
+```ts
+const payload = Buffer.allocUnsafe(64);
+```
+
+## ✅ Correct
+
+```ts
+const payload = Buffer.alloc(64);
+```
+
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+  {
+    plugins: { sdl },
+    rules: {
+      "sdl/no-unsafe-alloc": "error",
+    },
+  },
+];
+```
+
+## When not to use it
+
+Disable only for profiled performance hotspots that guarantee complete buffer
+initialization before use.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-unsafe-alloc.ts)
+
+## Further reading
+
+> **Rule catalog ID:** R216
+
+- [Node.js buffer security note](https://nodejs.org/api/buffer.html#what-makes-bufferallocunsafe-and-bufferallocunsafeslow-unsafe)

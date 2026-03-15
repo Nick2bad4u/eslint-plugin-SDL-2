@@ -1,7 +1,59 @@
-# Do not enable SVG support in AngularJS (no-angularjs-enable-svg)
+# no-angularjs-enable-svg
 
-Calls to [`$sanitizeProvider.enableSvg(true)`](https://docs.angularjs.org/api/ngSanitize/provider/\$sanitizeProvider#enableSvg) increase attack surface of the application by enabling SVG support in AngularJS sanitizer and need to be reviewed.
+Disallow enabling AngularJS sanitizer SVG support without strict review.
 
-SVG support should be enabled only in rare and justifiable cases after careful review so that the risk of introducing Clickjacking vulnerability is minimized.
+## Targeted pattern scope
 
-See [official documentation](https://docs.angularjs.org/api/ngSanitize/provider/\$sanitizeProvider#enableSvg) for more details about the issue.
+This rule targets `$sanitizeProvider.enableSvg(true)` calls.
+
+## What this rule reports
+
+This rule reports code that enables SVG support in AngularJS sanitization
+configuration.
+
+## Why this rule exists
+
+SVG content can introduce scriptable surfaces and raise injection risk when
+enabled in sanitizers.
+
+## ❌ Incorrect
+
+```ts
+$sanitizeProvider.enableSvg(true);
+```
+
+## ✅ Correct
+
+```ts
+$sanitizeProvider.enableSvg(false);
+```
+
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+  {
+    plugins: { sdl },
+    rules: {
+      "sdl/no-angularjs-enable-svg": "error",
+    },
+  },
+];
+```
+
+## When not to use it
+
+Disable only when SVG rendering is mandatory and guarded by a reviewed
+sanitization strategy.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-angularjs-enable-svg.ts)
+
+## Further reading
+
+> **Rule catalog ID:** R204
+
+- [AngularJS `$sanitizeProvider.enableSvg` docs](https://docs.angularjs.org/api/ngSanitize/provider/%24sanitizeProvider#enableSvg)

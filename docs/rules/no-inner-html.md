@@ -1,10 +1,65 @@
-# Do not write to DOM directly using innerHTML/outerHTML property (no-inner-html)
+# no-inner-html
 
-Assignments to [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)/[outerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/outerHTML) properties or calls to [insertAdjacentHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML) method manipulate DOM directly without any sanitization and should be avoided. Use document.createElement() or similar methods instead.
+Disallow unsafe direct HTML writes through DOM HTML sink properties and methods.
 
-- [Rule Source](../../src/rules/no-inner-html.ts)
+## Targeted pattern scope
 
-## Related Rules
+This rule targets:
 
-- [tslint-microsoft-contrib/no-inner-html](https://github.com/microsoft/tslint-microsoft-contrib/blob/master/src/noInnerHtml.ts)
-- [eslint-plugin-no-unsanitized](https://github.com/mozilla/eslint-plugin-no-unsanitized/blob/master/docs/rules/method.md)
+- `element.innerHTML = ...`
+- `element.outerHTML = ...`
+- `element.insertAdjacentHTML(...)`.
+
+## What this rule reports
+
+This rule reports direct HTML sink writes that bypass safe text-based DOM APIs.
+
+## Why this rule exists
+
+HTML sink APIs are common XSS entry points when they receive unsanitized or
+partially sanitized input.
+
+## ❌ Incorrect
+
+```ts
+container.innerHTML = userSuppliedHtml;
+container.insertAdjacentHTML("beforeend", userSuppliedHtml);
+```
+
+## ✅ Correct
+
+```ts
+const node = document.createElement("p");
+node.textContent = userSuppliedHtml;
+container.append(node);
+```
+
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+  {
+    plugins: { sdl },
+    rules: {
+      "sdl/no-inner-html": "error",
+    },
+  },
+];
+```
+
+## When not to use it
+
+Disable only when a dedicated, reviewed sanitizer guarantees safe markup.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-inner-html.ts)
+
+## Further reading
+
+> **Rule catalog ID:** R211
+
+- [MDN: `innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)
+- [MDN: `insertAdjacentHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML)
