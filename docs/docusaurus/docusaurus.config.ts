@@ -6,8 +6,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import { fileURLToPath } from "node:url";
 
 /** Route base path where docs site is deployed (GitHub Pages project path). */
-const baseUrl =
-    process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-typefest/";
+const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-sdl-2/";
 /** Opt-in flag for experimental Docusaurus performance features. */
 const enableExperimentalFaster =
     process.env["DOCUSAURUS_ENABLE_EXPERIMENTAL"] === "true";
@@ -15,7 +14,7 @@ const enableExperimentalFaster =
 /** GitHub organization used for edit links and project metadata. */
 const organizationName = "Nick2bad4u";
 /** Repository name used for edit links and project metadata. */
-const projectName = "eslint-plugin-typefest";
+const projectName = "eslint-plugin-sdl-2";
 /** Client module path for runtime DOM enhancement bootstrap script. */
 const modernEnhancementsClientModule = fileURLToPath(
     new URL("src/js/modernEnhancements.ts", import.meta.url)
@@ -64,7 +63,7 @@ const futureConfig = {
 
 /** Full Docusaurus site configuration exported to the build/runtime. */
 const config: Config = {
-    baseUrl: "/eslint-plugin-typefest/",
+    baseUrl: "/eslint-plugin-sdl-2/",
     baseUrlIssueBanner: true,
     deploymentBranch: "gh-pages",
     favicon: "img/logo.svg",
@@ -167,10 +166,10 @@ const config: Config = {
             {
                 blog: {
                     blogDescription:
-                        "Updates, architecture notes, and practical guidance for eslint-plugin-typefest users.",
+                        "Updates, architecture notes, and practical guidance for eslint-plugin-sdl-2 users.",
                     blogSidebarCount: "ALL",
                     blogSidebarTitle: "All posts",
-                    blogTitle: "eslint-plugin-typefest Blog",
+                    blogTitle: "eslint-plugin-sdl-2 Blog",
                     editUrl: `https://github.com/${organizationName}/${projectName}/blob/main/docs/docusaurus/`,
                     feedOptions: {
                         type: ["rss", "atom"],
@@ -254,7 +253,7 @@ const config: Config = {
     ],
     projectName,
     tagline:
-        "Type-safe ESLint rules for preferring type-fest and ts-extras patterns.",
+        "Security-focused ESLint rules and flat-config presets for SDL-first codebases.",
     themeConfig: {
         colorMode: {
             defaultMode: "dark",
@@ -263,7 +262,7 @@ const config: Config = {
         },
         metadata: [
             {
-                content: "eslint-plugin-typefest",
+                content: "eslint-plugin-sdl-2",
                 name: "keywords",
             },
         ],
@@ -298,16 +297,12 @@ const config: Config = {
                             label: "\ueb09 Releases",
                         },
                         {
-                            href: `https://nick2bad4u.github.io/eslint-plugin-typefest/eslint-inspector/`,
+                            href: `https://nick2bad4u.github.io/eslint-plugin-sdl-2/eslint-inspector/`,
                             label: "\ue7d2 ESLint Inspector",
                         },
                         {
-                            href: `https://www.npmjs.com/package/ts-extras`,
-                            label: "\uf113 ts-extras",
-                        },
-                        {
-                            href: `https://www.npmjs.com/package/type-fest`,
-                            label: "\ue65b type-fest",
+                            href: `https://www.npmjs.com/package/${projectName}`,
+                            label: "\uf113 NPM package",
                         },
                     ],
                     title: "📁 Project",
@@ -335,7 +330,7 @@ const config: Config = {
                 },
             ],
             logo: {
-                alt: "eslint-plugin-typefest logo",
+                alt: "eslint-plugin-sdl-2 logo",
                 href: `https://github.com/${organizationName}/${projectName}`,
                 src: "img/logo.svg",
                 width: 60,
@@ -363,10 +358,6 @@ const config: Config = {
                             label: "• Getting Started",
                             to: "/docs/rules/getting-started",
                         },
-                        {
-                            label: "• Adoption & Rollout",
-                            to: "/docs/rules/category/-adoption--rollout",
-                        },
                     ],
                 },
                 {
@@ -381,12 +372,20 @@ const config: Config = {
                             to: "/docs/rules",
                         },
                         {
-                            label: "💠 Rules for ts-extras",
-                            to: "/docs/rules/category/ts-extras",
+                            label: "🅰️ Angular",
+                            to: "/docs/rules/no-angular-bypass-sanitizer",
                         },
                         {
-                            label: "✴️ Rules for type-fest",
-                            to: "/docs/rules/category/type-fest",
+                            label: "🧭 AngularJS",
+                            to: "/docs/rules/no-angularjs-bypass-sce",
+                        },
+                        {
+                            label: "🟢 Browser",
+                            to: "/docs/rules/no-insecure-url",
+                        },
+                        {
+                            label: "⚡ Runtime",
+                            to: "/docs/rules/no-unsafe-alloc",
                         },
                     ],
                 },
@@ -402,28 +401,28 @@ const config: Config = {
                             to: "/docs/rules/presets",
                         },
                         {
-                            label: "🟢 Minimal",
-                            to: "/docs/rules/presets/minimal",
+                            label: "🟢 common",
+                            to: "/docs/rules/presets/common",
                         },
                         {
-                            label: "🟡 Recommended",
+                            label: "🔷 typescript",
+                            to: "/docs/rules/presets/typescript",
+                        },
+                        {
+                            label: "🅰️ angular",
+                            to: "/docs/rules/presets/angular",
+                        },
+                        {
+                            label: "🧭 angularjs",
+                            to: "/docs/rules/presets/angularjs",
+                        },
+                        {
+                            label: "✅ required",
+                            to: "/docs/rules/presets/required",
+                        },
+                        {
+                            label: "⭐ recommended",
                             to: "/docs/rules/presets/recommended",
-                        },
-                        {
-                            label: "🔴 Strict",
-                            to: "/docs/rules/presets/strict",
-                        },
-                        {
-                            label: "🟣 All",
-                            to: "/docs/rules/presets/all",
-                        },
-                        {
-                            label: "💠 type-fest",
-                            to: "/docs/rules/presets/type-fest-types",
-                        },
-                        {
-                            label: "✴️ ts-extras",
-                            to: "/docs/rules/presets/ts-extras-type-guards",
                         },
                     ],
                 },
@@ -490,34 +489,21 @@ const config: Config = {
                             label: "• \ue616 NPM",
                         },
                         {
-                            href: `https://github.com/sindresorhus/type-fest`,
+                            href: `https://github.com/${organizationName}/${projectName}/releases`,
                             className: "navbar-dropdown-divider-before",
-                            label: "💠 \ue709 type-fest",
-                        },
-                        {
-                            href: `https://www.npmjs.com/package/type-fest`,
-                            label: "💠 \ue616 type-fest",
-                        },
-                        {
-                            href: `https://github.com/sindresorhus/ts-extras`,
-                            className: "navbar-dropdown-divider-before",
-                            label: "✴️ \ue709 ts-extras",
-                        },
-                        {
-                            href: `https://www.npmjs.com/package/ts-extras`,
-                            label: "✴️ \ue616 ts-extras",
+                            label: "• Releases",
                         },
                     ],
                 },
             ],
             logo: {
-                alt: "eslint-plugin-typefest logo",
+                alt: "eslint-plugin-sdl-2 logo",
                 height: 48,
                 href: baseUrl,
                 src: "img/logo.svg",
                 width: 48,
             },
-            title: "eslint-plugin-typefest",
+            title: "eslint-plugin-sdl-2",
         },
         prism: {
             additionalLanguages: [
@@ -576,7 +562,7 @@ const config: Config = {
             },
         ],
     ],
-    title: "eslint-plugin-typefest",
+    title: "eslint-plugin-sdl-2",
     trailingSlash: false,
     url: "https://nick2bad4u.github.io",
 };

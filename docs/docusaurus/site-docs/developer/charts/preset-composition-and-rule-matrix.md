@@ -1,12 +1,12 @@
 ---
 title: Preset Composition and Rule Matrix
-description: How base/recommended/type-checked presets are assembled and how rule metadata flows into preset-level documentation.
+description: How SDL presets are assembled and how rule metadata flows into preset-level documentation.
 sidebar_position: 8
 ---
 
 # Preset composition and rule matrix
 
-This diagram explains how rule metadata and preset definitions combine into user-facing preset guidance and rule enablement matrices.
+This diagram explains how SDL rule metadata and preset definitions combine into user-facing preset guidance and rule enablement matrices.
 
 ```mermaid
 flowchart LR
@@ -16,13 +16,13 @@ flowchart LR
     classDef docs fill:#7c2d12,stroke:#fdba74,color:#fff7ed,stroke-width:1px
 
     A[src/rules/*.ts\nmeta.docs + requiresTypeChecking]
-    B[src/_internal/rule-catalog.ts]
-    C[src/_internal/rule-docs-metadata.ts]
-    D[src/plugin.ts\ntypefestConfigs]
+    B[src/_internal/rules-registry.ts]
+    C[src/_internal/config-references.ts]
+    D[src/plugin.ts\nconfigs]
 
-    E[typefest.configs.base]
-    F[typefest.configs.recommended]
-    G[typefest.configs.recommendedTypeChecked]
+    E[sdl.configs.common]
+    F[sdl.configs.required]
+    G[sdl.configs.recommended]
 
     H[docs/rules/presets/*.md]
     I[Rule matrix sections]
@@ -51,11 +51,11 @@ flowchart LR
 ## Practical use
 
 - Use this chart when adding or reclassifying a rule across presets.
-- Verify `requiresTypeChecking` and recommendation flags align with target preset.
+- Verify rule intent aligns with target preset (framework/runtime/type layering).
 - Keep preset docs and rule matrix sections synchronized with metadata outputs.
 
 ## Common failure modes
 
 1. Rule added to config object but omitted from docs matrix.
 2. Rule listed in matrix but missing from actual preset object.
-3. Type-aware rule accidentally included in non-type-checked preset without guardrails.
+3. Rule doc matrix not updated after preset composition changes.

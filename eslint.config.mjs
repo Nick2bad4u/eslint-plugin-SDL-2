@@ -84,7 +84,7 @@ import { fileURLToPath } from "node:url";
 import * as tomlEslintParser from "toml-eslint-parser";
 import * as yamlEslintParser from "yaml-eslint-parser";
 
-import typefest from "./plugin.mjs";
+import sdl from "./plugin.mjs";
 
 // NOTE: eslint-plugin-json-schema-validator may attempt to fetch remote schemas
 // at lint time. That makes linting flaky/offline-hostile.
@@ -216,7 +216,8 @@ const readPluginNamedConfigValue = (pluginValue, configName) => {
  *
  * @returns {EslintRulesConfig}
  */
-const readPluginConfigRules = (pluginValue, configName) => readConfigRules(readPluginNamedConfigValue(pluginValue, configName));
+const readPluginConfigRules = (pluginValue, configName) =>
+    readConfigRules(readPluginNamedConfigValue(pluginValue, configName));
 
 const require = createRequire(import.meta.url);
 // eslint-disable-next-line unicorn/prefer-import-meta-properties -- n/no-unsupported-features reports import.meta.dirname as unsupported in this config context.
@@ -413,7 +414,6 @@ export default defineConfig([
         name: "ESLint comments recommended (code files only)",
     },
     {
-
         ...arrayFunc.configs.all,
         files: ["**/*.{js,jsx,mjs,cjs,ts,tsx,cts,mts}"],
         name: "Array func all (code files only)",
@@ -1510,12 +1510,12 @@ export default defineConfig([
             "src/**/*.{ts,tsx,mts,cts}",
             //    "test/**/*.{ts,tsx,mts,cts}"
         ],
-        name: "Local typefest plugin manual dogfooding rules",
+        name: "Local sdl plugin manual dogfooding rules",
         plugins: {
-            typefest: typefest,
+            sdl: sdl,
         },
         rules: {
-            ...readConfigRules(typefest.configs?.["all"]),
+            ...readConfigRules(sdl.configs?.["all"]),
         },
     },
     // #endregion
@@ -1867,6 +1867,49 @@ export default defineConfig([
             vitest: {
                 typecheck: true,
             },
+        },
+    },
+    // #endregion
+    // #region SDL migrated rule ports
+    {
+        files: ["src/rules/**/*.ts"],
+        name: "SDL migrated rules - relaxed authoring checks",
+        rules: {
+            "@typescript-eslint/prefer-readonly-parameter-types": "off",
+            "eslint-plugin/require-meta-default-options": "off",
+            "eslint-plugin/require-meta-docs-description": "off",
+            "eslint-plugin/require-meta-docs-recommended": "off",
+            "eslint-plugin/require-meta-docs-url": "off",
+            "eslint-plugin/require-meta-schema-description": "off",
+            "prefer-named-capture-group": "off",
+            "regexp/optimal-quantifier-concatenation": "off",
+            "regexp/prefer-named-capture-group": "off",
+            "security/detect-non-literal-regexp": "off",
+            "tsdoc-require-2/require": "off",
+            "unicorn/no-array-callback-reference": "off",
+        },
+    },
+    {
+        files: ["src/plugin.ts"],
+        name: "SDL plugin entrypoint - relaxed authoring checks",
+        rules: {
+            "@typescript-eslint/prefer-readonly-parameter-types": "off",
+            "tsdoc-require-2/require": "off",
+        },
+    },
+    {
+        files: ["src/_internal/rules-registry.ts"],
+        name: "SDL rules registry - allow intentional re-exports",
+        rules: {
+            "canonical/no-re-export": "off",
+        },
+    },
+    {
+        files: ["src/_internal/**/*.ts"],
+        name: "SDL internals - relaxed authoring checks",
+        rules: {
+            "@typescript-eslint/prefer-readonly-parameter-types": "off",
+            "tsdoc-require-2/require": "off",
         },
     },
     // #endregion

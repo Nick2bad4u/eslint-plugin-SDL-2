@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-description: Enable eslint-plugin-typefest quickly in Flat Config.
+description: Enable eslint-plugin-sdl-2 quickly in Flat Config.
 ---
 
 # Getting Started
@@ -8,67 +8,65 @@ description: Enable eslint-plugin-typefest quickly in Flat Config.
 Install the plugin:
 
 ```bash
-npm install --save-dev eslint-plugin-typefest typescript
+npm install --save-dev eslint-plugin-sdl-2
 ```
 
 Enable one preset in your Flat Config:
 
 ```ts
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
 export default [
-    typefest.configs.recommended,
+    ...sdl.configs.recommended,
 ];
 ```
 
-`recommended` does not require type information.
+## Layering presets
 
-If you want the same baseline plus type-aware helper rules, use
-`typefest.configs["recommended-type-checked"]`.
+`recommended` already includes:
+
+- browser/security baseline (`common`)
+- framework/runtime overlays (`angular`, `angularjs`, `electron`, `node`)
+- TypeScript parser integration (`typescript`)
 
 ## Alternative: manual scoped setup
 
 If you prefer to apply plugin rules inside your own file-scoped config object, spread the preset rules manually.
 
 ```ts
-import tsParser from "@typescript-eslint/parser";
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
 export default [
+    ...sdl.configs.typescript,
     {
         files: ["**/*.{ts,tsx,mts,cts}"],
-        languageOptions: {
-            parser: tsParser,
-            parserOptions: {
-                ecmaVersion: "latest",
-                // Enable only when using a type-aware preset.
-                // projectService: true,
-                sourceType: "module",
-            },
-        },
         plugins: {
-            typefest,
+            sdl,
         },
         rules: {
-            ...typefest.configs.recommended.rules,
+            "sdl/no-insecure-random": "error",
+            "sdl/no-insecure-url": "error",
         },
     },
 ];
 ```
 
-Use this pattern when you only extend rules and want full control over parser setup per scope.
+Use this pattern only when you need strict per-glob control. In most projects,
+prefer `...sdl.configs.<preset>` directly.
 
 ## Recommended rollout
 
-1. Start with `recommended` (or `minimal` if you want low initial noise).
+1. Start with `...sdl.configs.recommended`.
 2. Fix violations in small batches.
-3. Move to `recommended-type-checked` when you are ready for typed rules.
-4. Move to `strict` once your baseline is stable.
-5. Use `all` only when you explicitly want every rule, including experimental rules.
+3. Add framework/runtime presets (`angular`, `react`, `electron`, etc.) as
+   needed.
+4. Keep `typescript` enabled for TS projects.
 
-## Need a subset instead of a full preset?
+## Need a narrower subset?
 
-- 💠 `typefest.configs["type-fest/types"]`
-- ✴️ `typefest.configs["ts-extras/type-guards"]`
+- Use `...sdl.configs.common` for browser-centric checks.
+- Use `...sdl.configs.node` for Node-specific checks.
+- Use `...sdl.configs.angular` / `...sdl.configs.angularjs` for framework
+  overlays.
 
-See the **Presets** section in this sidebar for details and examples.
+See [Presets](./presets/index.md) for full examples and rules per preset.

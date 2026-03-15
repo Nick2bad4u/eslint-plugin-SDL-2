@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * Contract tests for shared rule-reporting policy usage across rule modules.
+ * Contract tests for consistent SDL rule-module authoring patterns.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -26,12 +26,32 @@ const getRuleSourceFiles = (): readonly (readonly [string, string])[] => {
 };
 
 describe("rule reporting policy contract", () => {
-    it("prevents direct context.report calls inside rule modules", () => {
+    it("enforces createRule usage for every rule module", () => {
         for (const [fileName, sourceText] of getRuleSourceFiles()) {
+            const expectedRuleName = fileName.replace(/\.ts$/v, "");
+
             expect(
                 sourceText,
-                `Rule '${fileName}' must report via shared rule-reporting helpers`
-            ).not.toMatch(/\bcontext\.report\s*\(/v);
+                `Rule '${fileName}' must import the shared createRule helper`
+            ).toContain(
+                'import { createRule } from "../_internal/create-rule.js";'
+            );
+
+            expect(
+                sourceText.includes("createRule(") ||
+                    sourceText.includes("createRule<"),
+                `Rule '${fileName}' must be declared through createRule(...)`
+            ).toBeTruthy();
+
+            expect(
+                sourceText,
+                `Rule '${fileName}' must declare a stable rule name`
+            ).toContain(`name: "${expectedRuleName}"`);
+
+            expect(
+                sourceText,
+                `Rule '${fileName}' must declare defaultOptions for option schema stability`
+            ).toContain("defaultOptions:");
         }
     });
 });

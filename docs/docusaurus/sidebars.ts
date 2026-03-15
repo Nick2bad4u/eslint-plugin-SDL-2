@@ -4,7 +4,6 @@
  */
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
-/** Main sidebar configuration for the default docs plugin instance. */
 const sidebars: SidebarsConfig = {
     docs: [
         {
@@ -37,20 +36,20 @@ const sidebars: SidebarsConfig = {
                 },
                 {
                     className: "sb-api-overview-item",
-                    id: "developer/api/plugin/type-aliases/TypefestPlugin",
-                    label: "🧠 Type aliases · TypefestPlugin",
+                    id: "developer/api/plugin/type-aliases/SdlPlugin",
+                    label: "🧠 Type aliases · SdlPlugin",
                     type: "doc",
                 },
                 {
                     className: "sb-api-overview-item",
-                    id: "developer/api/plugin/variables/typefestPlugin",
-                    label: "⚙️ Runtime exports · typefestPlugin",
+                    id: "developer/api/plugin/variables/sdlPlugin",
+                    label: "⚙️ Runtime exports · sdlPlugin",
                     type: "doc",
                 },
                 {
                     className: "sb-api-overview-item",
-                    id: "developer/api/plugin/variables/typefestConfigs",
-                    label: "⚙️ Runtime exports · typefestConfigs",
+                    id: "developer/api/plugin/variables/configs",
+                    label: "⚙️ Runtime exports · configs",
                     type: "doc",
                 },
             ],
@@ -152,7 +151,7 @@ const sidebars: SidebarsConfig = {
             label: "🧭 Architecture Decisions",
             collapsible: true,
             description:
-                "Architectural decisions and design rationale for eslint-plugin-typefest.",
+                "Architectural decisions and design rationale for eslint-plugin-sdl-2.",
             link: {
                 id: "developer/adr/index",
                 type: "doc",
@@ -319,7 +318,7 @@ const sidebars: SidebarsConfig = {
             label: "Runtime",
             link: {
                 description:
-                    "Runtime exports and internal utility API references from eslint-plugin-typefest.",
+                    "Runtime exports and internal utility API references from eslint-plugin-sdl-2.",
                 title: "Runtime Exports",
                 type: "generated-index",
             },
@@ -361,12 +360,12 @@ const sidebars: SidebarsConfig = {
                     type: "link",
                 },
                 {
-                    href: "/blog/the-thinking-behind-eslint-plugin-typefest",
+                    href: "/blog/thinking-behind-eslint-plugin-sdl-2",
                     label: "🧠 Blog · Thinking behind plugin",
                     type: "link",
                 },
                 {
-                    href: "/blog/designing-safe-autofixes-for-eslint-plugin-typefest",
+                    href: "/blog/designing-safe-autofixes-for-eslint-plugin-sdl-2",
                     label: "🛡️ Blog · Designing safe autofixes",
                     type: "link",
                 },
@@ -386,22 +385,22 @@ const sidebars: SidebarsConfig = {
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-typefest/issues?q=is%3Aissue%20is%3Aopen",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen",
                     label: "🐛 Open issues",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-typefest/issues?q=is%3Aissue%20is%3Aopen%20label%3Abug",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Abug",
                     label: "🐞 Issues · bug",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-typefest/issues?q=is%3Aissue%20is%3Aopen%20label%3Adocumentation",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Adocumentation",
                     label: "📚 Issues · documentation",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-typefest/issues?q=is%3Aissue%20is%3Aopen%20label%3Arules",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Arules",
                     label: "🧩 Issues · rules",
                     type: "link",
                 },

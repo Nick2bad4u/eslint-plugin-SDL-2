@@ -1,47 +1,45 @@
 ---
 title: ADR 0005 - Runtime vs Type-Level Rule Families
-description: Decision record for keeping ts-extras and type-fest rules as distinct families with distinct migration semantics.
+description: Decision record for keeping runtime API hardening rules and framework-specific SDL overlays as distinct families.
 sidebar_position: 5
 ---
 
-# ADR 0005: Keep runtime-helper and type-utility rules as separate families
+# ADR 0005: Keep core API hardening and framework overlays as separate families
 
 - Status: Accepted
 - Date: 2026-02-25
 
 ## Context
 
-The plugin enforces two different migration categories:
+The plugin enforces multiple SDL rule families with different operational scope:
 
-1. **Runtime helper migrations** (`prefer-ts-extras-*`): code-emitting changes such as `Object.keys` -> `objectKeys`.
-2. **Type utility migrations** (`prefer-type-fest-*`): compile-time-only alias/type-shape normalization.
+1. **Core API hardening rules** (`no-insecure-url`, `no-insecure-random`, `no-inner-html`, etc.).
+2. **Framework/runtime overlay rules** (`no-angular-*`, `no-angularjs-*`, `no-electron-*`, `no-unsafe-alloc`).
 
-Mixing these categories into one conceptual family created confusion in documentation and rollout planning because runtime and type-level migrations have different review risk profiles.
+Mixing these categories into one conceptual family makes rollout planning harder because framework overlays are environment-specific while core API hardening applies broadly.
 
 ## Decision
 
-Keep two explicit rule families and document them as separate design tracks:
+Keep explicit rule families and document them as separate design tracks:
 
-- `prefer-ts-extras-*` is treated as runtime behavior standardization.
-- `prefer-type-fest-*` is treated as type-level expressiveness and consistency standardization.
+- Core API hardening rules are the baseline SDL safety layer.
+- Framework/runtime overlays are additive and enabled by dedicated presets.
 
 Rule docs, release notes, and migration guidance should continue to preserve this split.
 
 ## Rationale
 
-1. **Clear risk model**: runtime migrations require behavioral confidence checks; type-level migrations focus on assignability and API clarity.
-2. **Cleaner rollout strategy**: teams can phase runtime and type-only changes independently.
-3. **Better rule authoring discipline**: rule metadata, fixes, and examples remain aligned with the migration category.
+1. **Clear risk model**: global API hardening can be enabled early; framework overlays are activated only where relevant.
+2. **Cleaner rollout strategy**: teams can phase common, framework, and runtime rules independently.
+3. **Better docs quality**: preset guidance maps cleanly to deployment surface (browser, Node, Electron, Angular, AngularJS).
 
 ## Consequences
 
 - Documentation and changelogs should explicitly label which family a rule belongs to.
-- Bulk autofix campaigns can be grouped by risk profile (runtime vs type-level).
 - New rules should declare category intent up front during design/review.
 
 ## Revisit Triggers
 
 Re-evaluate if:
 
-- the project introduces cross-family rules that intentionally combine runtime and type-level transformations,
-- or users report that the split no longer reflects how migration work is planned.
+- users report that preset boundaries no longer map to real deployment surfaces.

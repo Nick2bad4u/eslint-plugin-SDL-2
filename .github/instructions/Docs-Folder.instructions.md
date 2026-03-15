@@ -63,7 +63,7 @@ Rule documentation files in `docs/rules/<rule-id>.md` should follow this structu
 - **The "Fix":** If the rule is `fixable`, explicitly state what the auto-fixer does (e.g., "The auto-fixer will replace `var` with `let`.").
 - **Type Information:** If the rule requires type information (`parserServices`), add a specific note at the top of the docs:
   > ⚠️ This rule requires type information to run. It will not work without `projectService` (or equivalent typed parser setup) configured.
-- **Preset awareness:** Repository presets such as `typefest.configs["recommended-type-checked"]`, `typefest.configs.strict`, and `typefest.configs.all` already wire the typed parser setup for you; do not imply that users must always configure it manually.
+- **Preset awareness:** Repository presets such as `sdl.configs["recommended-type-checked"]`, `sdl.configs.strict`, and `sdl.configs.all` already wire the typed parser setup for you; do not imply that users must always configure it manually.
 - **Consistency:** Ensure the examples actually trigger the rule. Do not use hypothetical examples that strictly wouldn't fail the specific AST selector of the rule.
 
   </guidelines>
@@ -142,13 +142,13 @@ const retryIndex = arrayFindLastIndex(attempts, (attempt) => !attempt.success);
 ## ESLint flat config example
 
 ```ts
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
 export default [
     {
-        plugins: { typefest },
+        plugins: { sdl },
         rules: {
-            "typefest/prefer-ts-extras-array-find-last-index": "error",
+            "sdl/prefer-ts-extras-array-find-last-index": "error",
         },
     },
 ];
@@ -179,8 +179,8 @@ Reference links:
 
 ## Adoption resources
 
-- [Rule adoption checklist](https://nick2bad4u.github.io/eslint-plugin-typefest/docs/rules/guides/adoption-checklist)
-- [Rollout and fix safety](https://nick2bad4u.github.io/eslint-plugin-typefest/docs/rules/guides/rollout-and-fix-safety)
+- [Rule adoption checklist](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/guides/adoption-checklist)
+- [Rollout and fix safety](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/guides/rollout-and-fix-safety)
 
 ```
 

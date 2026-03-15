@@ -49,7 +49,7 @@ const headingOrderIndex = new Map(
 );
 
 const helperDocPathPattern =
-    /(^|\/)docs\/rules\/(?!overview\.md$|getting-started\.md$|presets\/)[^/]+\.md$/u;
+    /(^|\/)docs\/rules\/prefer-(?:type-fest|ts-extras)-[^/]+\.md$/u;
 const typeFestDocPathPattern = /(^|\/)docs\/rules\/prefer-type-fest-/u;
 const tsExtrasDocPathPattern = /(^|\/)docs\/rules\/prefer-ts-extras-/u;
 const ruleCatalogIdLinePattern = /^> \*\*Rule catalog ID:\*\* R\d{3}$/u;

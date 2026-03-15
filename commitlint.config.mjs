@@ -1,5 +1,5 @@
 /**
- * Commitlint configuration for eslint-plugin-typefest.
+ * Commitlint configuration for eslint-plugin-sdl-2.
  *
  * Enforces the repository's hybrid Gitmoji format, e.g.:
  *

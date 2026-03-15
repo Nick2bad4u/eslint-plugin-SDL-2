@@ -7,31 +7,33 @@ sidebar_position: 2
 Install the plugin:
 
 ```bash
-npm install --save-dev eslint-plugin-typefest
+npm install --save-dev eslint-plugin-sdl-2
 ```
 
 Then enable it in your Flat Config:
 
 ```ts
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
 export default [
-    {
-        plugins: {
-            typefest,
-        },
-        rules: {
-            "typefest/prefer-ts-extras-is-defined": "error",
-        },
-    },
+    ...sdl.configs.recommended,
 ];
 ```
 
 ## Recommended approach
 
-- Start with one ruleset (`typefest.configs.recommended` or `typefest.configs.strict`).
+- Start with `...sdl.configs.recommended`.
 - Fix violations in small batches.
 - Promote warnings to errors after stabilization.
+
+You can layer additional presets as needed:
+
+- `...sdl.configs.common`
+- `...sdl.configs.angular`
+- `...sdl.configs.angularjs`
+- `...sdl.configs.node`
+- `...sdl.configs.react`
+- `...sdl.configs.electron`
 
 ## Rule navigation
 

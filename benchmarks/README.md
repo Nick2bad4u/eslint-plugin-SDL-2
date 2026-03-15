@@ -1,14 +1,14 @@
 # ESLint Benchmark Suite
 
-This directory contains **meaningful ESLint performance benchmarks** for `eslint-plugin-typefest`.
+This directory contains **meaningful ESLint performance benchmarks** for `eslint-plugin-sdl-2`.
 
-The suite intentionally measures three complementary workloads:
+The suite intentionally measures complementary SDL workloads:
 
-- **Real corpus benchmarks** against `test/fixtures/typed/*.invalid.ts` so rule timing reflects real rule inputs.
-- **Valid corpus benchmarks** against `test/fixtures/typed/*.valid.ts` to track near-clean traversal overhead.
-- **Curated zero-message benchmark** against `benchmarks/fixtures/recommended-zero-message.baseline.ts` for a true steady-state baseline.
-- **Preset-focused benchmarks** (`recommended`, `strict`, `ts-extras/type-guards`, `type-fest/types`) so regressions are attributable to a config surface.
-- **Single-rule stress benchmarks** for focused hot-path investigation (`prefer-ts-extras-is-present`, `prefer-ts-extras-safe-cast-to`, `prefer-ts-extras-set-has`, `prefer-ts-extras-string-split`, `prefer-type-fest-arrayable`), including both `fix=false` and `fix=true` for `prefer-ts-extras-safe-cast-to`.
+- **Real invalid corpus benchmarks** against SDL-specific fixtures (`compat-no-insecure-url` / `compat-no-insecure-random`).
+- **Valid corpus benchmarks** against `test/fixtures/ts/estree.ts` to track near-clean traversal overhead.
+- **Curated zero-message benchmark** against `benchmarks/fixtures/recommended-zero-message.baseline.ts` for a steady-state baseline.
+- **Preset-focused benchmarks** (`common`, `recommended`, `required`) to detect config-level regressions.
+- **Single-rule stress benchmarks** for `sdl/no-insecure-url` (with and without fixes) and `sdl/no-insecure-random`.
 
 ## Why this is meaningful
 
@@ -25,7 +25,7 @@ The suite intentionally measures three complementary workloads:
 npm run bench
 ```
 
-This runs `benchmarks/run-eslint-stats.mjs` with the default iteration/warmup settings and writes JSON to `coverage/benchmarks/eslint-stats.json`.
+This runs `benchmarks/run-eslint-stats.mjs` and writes JSON to `coverage/benchmarks/eslint-stats.json`.
 
 ### ESLint stats summary runner
 
@@ -33,25 +33,7 @@ This runs `benchmarks/run-eslint-stats.mjs` with the default iteration/warmup se
 npm run bench:eslint:stats
 ```
 
-Optional knobs:
-
-```bash
-node benchmarks/run-eslint-stats.mjs --iterations=5 --warmup=2
-```
-
-Compare against a previously generated stats file:
-
-```bash
-node benchmarks/run-eslint-stats.mjs --compare=coverage/benchmarks/eslint-stats.json
-```
-
-Or use the convenience script:
-
-```bash
-npm run bench:compare
-```
-
-This writes scenario metrics and top-rule timing breakdowns to `coverage/benchmarks/eslint-stats.json`.
+This writes scenario metrics to `coverage/benchmarks/eslint-stats.json`.
 
 ### Optional Vitest benchmark mode (experimental)
 
@@ -89,6 +71,6 @@ This command enables `TIMING=all` and `--stats` to mirror ESLint's documented ru
 
 - Use `recommended-invalid-corpus` as your baseline for day-to-day regressions.
 - Use `recommended-valid-corpus` to measure steady-state cost on already-correct code paths.
-- Use `recommended-zero-message-corpus` for a strict zero-violation steady-state baseline.
+- Use `common-zero-message-corpus` for a strict zero-violation steady-state baseline.
 - Use single-rule stress scenarios to isolate specific rule regressions before broad config runs.
-- Compare `fix=false` vs `fix=true` to understand whether regressions come from detection or fixer generation.
+- Compare `single-rule-no-insecure-url-fix` with non-fix scenarios to estimate fixer overhead.

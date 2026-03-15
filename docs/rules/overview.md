@@ -1,49 +1,68 @@
 ---
 title: Overview
-description: README-style overview for eslint-plugin-typefest.
+description: README-style overview for eslint-plugin-sdl-2.
 ---
 
-# eslint-plugin-typefest
+# eslint-plugin-sdl-2
 
-ESLint plugin for teams that want consistent TypeScript-first conventions based on:
+SDL-focused ESLint plugin with modern flat-config presets and TypeScript-first
+rule implementations.
 
-- [`type-fest`](https://github.com/sindresorhus/type-fest)
-- [`ts-extras`](https://github.com/sindresorhus/ts-extras)
-
-The plugin ships focused rule sets for modern Flat Config usage, with parser setup included in each preset.
+The plugin targets common security pitfalls and risky web/runtime APIs that are
+often surfaced during security reviews.
 
 ## Installation
 
 ```bash
-npm install --save-dev eslint-plugin-typefest typescript
+npm install --save-dev eslint-plugin-sdl-2
 ```
-
-> `@typescript-eslint/parser` is loaded automatically by plugin presets.
 
 ## Quick start (Flat Config)
 
 ```ts
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
-export default [typefest.configs.recommended];
+export default [...sdl.configs.recommended];
 ```
 
-That is enough for TypeScript files (`**/*.{ts,tsx,mts,cts}`).
+## Available presets
 
-## Presets
+- `sdl.configs.common`
+- `sdl.configs.typescript`
+- `sdl.configs.angular`
+- `sdl.configs.angularjs`
+- `sdl.configs.node`
+- `sdl.configs.react`
+- `sdl.configs.electron`
+- `sdl.configs.required`
+- `sdl.configs.recommended`
 
-| Preset                                            | Preset page                                                         |
-| ------------------------------------------------- | ------------------------------------------------------------------- |
-| 🟢 `typefest.configs.minimal`                     | [Minimal](./presets/minimal.md)                                     |
-| 🟡 `typefest.configs.recommended`                 | [Recommended](./presets/recommended.md)                             |
-| 🟠 `typefest.configs["recommended-type-checked"]` | [Recommended (type-checked)](./presets/recommended-type-checked.md) |
-| 🔴 `typefest.configs.strict`                      | [Strict](./presets/strict.md)                                       |
-| 🟣 `typefest.configs.all`                         | [All](./presets/all.md)                                             |
-| 💠 `typefest.configs["type-fest/types"]`          | [type-fest/types](./presets/type-fest-types.md)                     |
-| ✴️ `typefest.configs["ts-extras/type-guards"]`    | [ts-extras/type-guards](./presets/ts-extras-type-guards.md)         |
+See [Presets](./presets/index.md) for examples and per-preset rule tables.
+
+## Rules
+
+Custom rules currently documented:
+
+- `no-angular-bypass-sanitizer`
+- `no-angular-sanitization-trusted-urls`
+- `no-angularjs-bypass-sce`
+- `no-angularjs-enable-svg`
+- `no-angularjs-sanitization-whitelist`
+- `no-cookies`
+- `no-document-domain`
+- `no-document-write`
+- `no-electron-node-integration`
+- `no-html-method`
+- `no-inner-html`
+- `no-insecure-random`
+- `no-insecure-url`
+- `no-msapp-exec-unsafe`
+- `no-postmessage-star-origin`
+- `no-unsafe-alloc`
+- `no-winjs-html-unsafe`
 
 ## Next steps
 
-- Open **Getting Started** in this sidebar.
-- Browse [**Presets**](./presets/index.md) for preset-by-preset guidance.
-- Use **Rules** to review every rule with examples.
+- Open [Getting Started](./getting-started.md).
+- Review [Presets](./presets/index.md) for rollout options.
+- Browse rule docs in the sidebar.

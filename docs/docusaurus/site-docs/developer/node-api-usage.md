@@ -12,16 +12,16 @@ Use this pattern when embedding linting in scripts, custom tooling, or release c
 
 ```js
 import { ESLint } from "eslint";
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
 const eslint = new ESLint({
   overrideConfig: {
     files: ["**/*.ts"],
     plugins: {
-      typefest,
+      sdl,
     },
     rules: {
-      "typefest/prefer-type-fest-primitive": "error",
+      "sdl/no-insecure-url": "error",
     },
   },
 });
@@ -29,7 +29,7 @@ const eslint = new ESLint({
 const fileResults = await eslint.lintFiles(["src/**/*.ts"]);
 
 const textResults = await eslint.lintText(
-  "type PrimitiveAlias = string | number | bigint | boolean | symbol | null | undefined;",
+  "const endpoint = 'http://example.com';",
   { filePath: "virtual.ts" }
 );
 

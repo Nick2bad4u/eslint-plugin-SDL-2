@@ -23,7 +23,7 @@ sequenceDiagram
     participant TS as TypeChecker
     end
     box LightGreen Reporting and rewriting
-    participant Report as reportWithTypefestPolicy
+    participant Report as centralized SDL reporting policy
     participant Fix as Fix/Suggestion Builder
     end
 

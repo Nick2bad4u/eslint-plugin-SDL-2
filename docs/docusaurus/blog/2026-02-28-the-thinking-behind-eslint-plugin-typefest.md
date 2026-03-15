@@ -1,6 +1,6 @@
 ---
-slug: thinking-behind-eslint-plugin-typefest
-title: The Thinking Behind eslint-plugin-typefest
+slug: thinking-behind-eslint-plugin-sdl-2
+title: The Thinking Behind eslint-plugin-sdl-2
 authors:
   - nick
 tags:
@@ -12,7 +12,7 @@ tags:
 description: Why this plugin exists, what constraints shaped it, and how we balance strictness with developer experience.
 ---
 
-`eslint-plugin-typefest` was built around a simple goal: make safer TypeScript patterns easier to adopt at scale without turning linting into noise.
+`eslint-plugin-sdl-2` was built around a simple goal: make safer TypeScript patterns easier to adopt at scale without turning linting into noise.
 
 <!-- truncate -->
 

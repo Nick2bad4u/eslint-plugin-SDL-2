@@ -40,15 +40,16 @@ const heroBadges = [
  */
 const heroStats = [
     {
-        description: "Type-safe patterns from type-fest and ts-extras.",
-        headline: "\uf0ca 70+ Rules",
+        description: "SDL-focused protections for web and runtime APIs.",
+        headline: "\uf0ca 17 Security Rules",
     },
     {
-        description: "Start small, then scale to stricter coverage.",
-        headline: "\ue690 6 Presets",
+        description:
+            "Start with common checks and layer framework/runtime presets.",
+        headline: "\ue690 9 Presets",
     },
     {
-        description: "Safe rewrites where semantics are preserved.",
+        description: "Autofix support where safe transformations are possible.",
         headline: "\udb80\udc68 DX-first Autofix & Suggestions",
     },
 ];
@@ -85,7 +86,7 @@ const homeCards = [
         icon: "\uf135",
         title: "Get Started",
         description:
-            "Install the plugin, enable a preset, and start enforcing type-safe ts-extras and type-fest patterns.",
+            "Install the plugin, enable a preset, and start enforcing SDL-focused security rules.",
         to: "/docs/rules/getting-started",
     },
     {
@@ -109,8 +110,8 @@ export default function Home() {
 
     return (
         <Layout
-            title="eslint-plugin-typefest docs"
-            description="Documentation for eslint-plugin-typefest"
+            title="eslint-plugin-sdl-2 docs"
+            description="Documentation for eslint-plugin-sdl-2"
         >
             <header className={styles.heroBanner}>
                 <div className={`container ${styles.heroContent}`}>
@@ -120,29 +121,12 @@ export default function Home() {
                                 {`${heroKickerIcon} ESLint plugin for modern TypeScript teams ${heroKickerIcon2}`}
                             </p>
                             <Heading as="h1" className={styles.heroTitle}>
-                                eslint-plugin-typefest
+                                eslint-plugin-sdl-2
                             </Heading>
                             <p className={styles.heroSubtitle}>
-                                ESLint rules that recommend safer, clearer
-                                TypeScript types, type guards, and other
-                                patterns by utilizing{" "}
-                                <Link
-                                    className={`${styles.heroInlineLink} ${styles.heroInlineLinkTypeFest}`}
-                                    href="https://github.com/sindresorhus/type-fest"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    type-fest
-                                </Link>{" "}
-                                and{" "}
-                                <Link
-                                    className={`${styles.heroInlineLink} ${styles.heroInlineLinkTsExtras}`}
-                                    href="https://github.com/sindresorhus/ts-extras"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    ts-extras
-                                </Link>
+                                SDL-oriented ESLint rules that flag insecure
+                                APIs and unsafe patterns across browser, Node,
+                                Electron, Angular, and AngularJS codebases.
                             </p>
 
                             <div className={styles.heroBadgeRow}>
@@ -189,7 +173,7 @@ export default function Home() {
 
                         <aside className={styles.heroPanel}>
                             <img
-                                alt="eslint-plugin-typefest logo"
+                                alt="eslint-plugin-sdl-2 logo"
                                 className={styles.heroPanelLogo}
                                 decoding="async"
                                 height="240"

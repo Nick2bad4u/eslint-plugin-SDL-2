@@ -24,24 +24,16 @@ Recommended checks:
 
 ```js
 // eslint.config.mjs
-import typefest from "eslint-plugin-typefest";
+import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    files: ["**/*.{ts,tsx}"],
-    plugins: {
-      typefest,
-    },
-    rules: {
-      ...typefest.configs.recommended.rules,
-    },
-  },
+  ...sdl.configs.recommended,
 ];
 ```
 
 ## Type-aware parser setup notes
 
-`typefest.configs.recommended` already enables `projectService`.
+`sdl.configs.typescript` provides parser setup for TypeScript files.
 
 If you build a fully manual config block (instead of consuming a preset), configure parser services in the TypeScript-targeted config block:
 

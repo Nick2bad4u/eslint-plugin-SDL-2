@@ -1,4 +1,4 @@
-# Contributing to eslint-plugin-typefest
+# Contributing to eslint-plugin-sdl-2
 
 Thanks for your interest in contributing.
 
@@ -108,8 +108,8 @@ Verification flow:
 npx vitest run test/plugin-contract-snapshots.test.ts test/rule-metadata-snapshots.test.ts test/readme-rules-table-sync.test.ts test/docs-heading-snapshots.test.ts
 ```
 
-For detailed design and review guidance, see
-[`docs/rules/guides/snapshot-testing.md`](./docs/rules/guides/snapshot-testing.md).
+For detailed design and review guidance, see the developer documentation under
+`docs/internal/` and `docs/docusaurus/site-docs/developer/`.
 
 Optional focused checks:
 

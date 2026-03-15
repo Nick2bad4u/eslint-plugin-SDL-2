@@ -419,7 +419,7 @@
         "ini",
         "diff"
     ],
-    "hostedBaseUrl": "https://nick2bad4u.github.io/eslint-plugin-typefest/",
+    "hostedBaseUrl": "https://nick2bad4u.github.io/eslint-plugin-sdl-2/",
     "includeDocCommentReferences": false,
     "includeHierarchySummary": true,
     "includeVersion": true,
@@ -517,7 +517,7 @@
         "@sealed",
         "@virtual"
     ],
-    "name": "eslint-plugin-typefest Documentation",
+    "name": "eslint-plugin-sdl-2 Documentation",
     "navigation": {
         "compactFolders": false,
         "excludeReferences": false,
@@ -525,7 +525,7 @@
         "includeFolders": true,
         "includeGroups": true
     },
-    "out": "C:/Users/Nick/Dropbox/PC (2)/Documents/GitHub/eslint-plugin-typefest/docs/docusaurus/site-docs/developer/api",
+    "out": "C:/Users/Nick/Dropbox/PC (2)/Documents/GitHub/eslint-plugin-sdl-2/docs/docusaurus/site-docs/developer/api",
     "placeInternalsInOwningModule": true,
     "plugin": [
         "./typedoc-plugins/hashToBangLinks.mjs",
@@ -543,7 +543,7 @@
     ],
     "preserveLinkText": true,
     "preserveWatchOutput": false,
-    "prettierConfigFile": "C:/Users/Nick/Dropbox/PC (2)/Documents/GitHub/eslint-plugin-typefest/.prettierrc",
+    "prettierConfigFile": "C:/Users/Nick/Dropbox/PC (2)/Documents/GitHub/eslint-plugin-sdl-2/.prettierrc",
     "readme": "none",
     "replaceText": {
         "inCodeCommentTags": true,

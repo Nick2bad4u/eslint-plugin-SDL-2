@@ -9,7 +9,7 @@ tags:
   - automation
   - adr
   - quality
-description: How eslint-plugin-typefest keeps docs tables, preset matrices, and rule metadata aligned through canonical generators.
+description: How eslint-plugin-sdl-2 keeps docs tables, preset matrices, and rule metadata aligned through canonical generators.
 ---
 
 Documentation drift is one of the easiest ways to lose trust in a lint plugin.
@@ -63,6 +63,6 @@ This ordering keeps intent and generated truth aligned.
 
 ## Related docs
 
-- [Rule catalog and docs synchronization chart](https://nick2bad4u.github.io/eslint-plugin-typefest/docs/developer/charts/rule-catalog-and-doc-sync)
-- [Preset composition and rule matrix chart](https://nick2bad4u.github.io/eslint-plugin-typefest/docs/developer/charts/preset-composition-and-rule-matrix)
-- [Presets page](https://nick2bad4u.github.io/eslint-plugin-typefest/docs/rules/presets)
+- [Rule catalog and docs synchronization chart](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/developer/charts/rule-catalog-and-doc-sync)
+- [Preset composition and rule matrix chart](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/developer/charts/preset-composition-and-rule-matrix)
+- [Presets page](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/presets)

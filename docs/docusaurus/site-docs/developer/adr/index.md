@@ -1,6 +1,6 @@
 ---
 title: Architecture Decision Records (ADR) Index
-description: Index of architecture decisions for eslint-plugin-typefest maintainers and contributors.
+description: Index of architecture decisions for eslint-plugin-sdl-2 maintainers and contributors.
 sidebar_position: 0
 ---
 

@@ -6,15 +6,15 @@ export default defineConfig({
         {
             cases: [
                 {
-                    testPath: "./cases/prefer-ts-extras-is-defined/baseline.ts",
+                    testPath: "./cases/no-insecure-url/baseline.ts",
                 },
                 {
-                    testPath: "./cases/prefer-ts-extras-is-defined/complex.ts",
+                    testPath: "./cases/no-insecure-url/complex.ts",
                 },
             ],
-            name: "Rule: prefer-ts-extras-is-defined",
-            ruleId: "typefest/prefer-ts-extras-is-defined",
-            rulePath: "../src/rules/prefer-ts-extras-is-defined.ts",
+            name: "Rule: no-insecure-url",
+            ruleId: "sdl/no-insecure-url",
+            rulePath: "../src/rules/no-insecure-url.ts",
             warmup: {
                 iterations: 15,
             },

@@ -1,6 +1,6 @@
 ---
-slug: designing-safe-autofixes-for-eslint-plugin-typefest
-title: Designing Safe Autofixes for eslint-plugin-typefest
+slug: designing-safe-autofixes-for-eslint-plugin-sdl-2
+title: Designing Safe Autofixes for eslint-plugin-sdl-2
 authors:
   - nick
 tags:
@@ -9,7 +9,7 @@ tags:
   - typescript
   - static-analysis
   - developer-experience
-description: How eslint-plugin-typefest decides between automatic fixes and suggestions to protect runtime behavior.
+description: How eslint-plugin-sdl-2 decides between automatic fixes and suggestions to protect runtime behavior.
 ---
 
 Autofix is one of the biggest quality-of-life features in ESLint, but it is also one of the fastest ways to damage trust if a rule gets it wrong.

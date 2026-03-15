@@ -2,18 +2,18 @@
 sidebar_position: 1
 ---
 
-# eslint-plugin-typefest
+# eslint-plugin-sdl-2
 
-`eslint-plugin-typefest` helps TypeScript codebases adopt more explicit, safer patterns with:
-
-- [`type-fest`](https://github.com/sindresorhus/type-fest) utility types.
-- [`ts-extras`](https://github.com/sindresorhus/ts-extras) runtime helpers.
+`eslint-plugin-sdl-2` helps TypeScript and JavaScript codebases enforce SDL-oriented
+security constraints across browser, Node, Electron, Angular, and AngularJS
+surfaces.
 
 ## What this documentation includes
 
-- A complete **rule reference** with examples for every rule.
+- A complete **rule reference** with examples for every SDL rule.
 - **Getting Started** guidance for Flat Config projects.
-- A small **Developer API** section generated with TypeDoc.
+- Preset documentation for `common`, `recommended`, and framework/runtime overlays.
+- A **Developer API** section generated with TypeDoc.
 
 ## Next step
 

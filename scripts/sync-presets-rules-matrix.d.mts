@@ -3,10 +3,6 @@ export interface PresetsRuleModule {
         | {
               readonly docs?:
                   | {
-                        readonly typefestConfigs?:
-                            | readonly string[]
-                            | string
-                            | undefined;
                         readonly url?: string | undefined;
                     }
                   | undefined;

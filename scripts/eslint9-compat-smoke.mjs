@@ -28,13 +28,13 @@ import plugin from "../plugin.mjs";
 
 const scriptsDirectoryPath = fileURLToPath(new URL(".", import.meta.url));
 const repositoryRootPath = path.resolve(scriptsDirectoryPath, "..");
-const typedFixturePath = path.resolve(
+const insecureUrlFixturePath = path.resolve(
     repositoryRootPath,
-    "test/fixtures/typed/prefer-ts-extras-safe-cast-to.invalid.ts"
+    "test/fixtures/ts/compat-no-insecure-url.invalid.ts"
 );
-const arrayableFixturePath = path.resolve(
+const insecureRandomFixturePath = path.resolve(
     repositoryRootPath,
-    "test/fixtures/typed/prefer-type-fest-arrayable.invalid.ts"
+    "test/fixtures/ts/compat-no-insecure-random.invalid.ts"
 );
 
 const expectedEslintMajorArgumentPrefix = "--expect-eslint-major=";
@@ -138,7 +138,7 @@ const assertEslintMajor = (expectedMajor) => {
 
     console.log(
         `${pc.green("✓")}` +
-            ` ESLint runtime ${pc.bold(runtimeVersion)} detected for compatibility smoke checks.`
+        ` ESLint runtime ${pc.bold(runtimeVersion)} detected for compatibility smoke checks.`
     );
 };
 
@@ -203,23 +203,23 @@ const createCompatibilityConfig = (ruleId, typed, fixturePath) => {
                     tsconfigRootDir: repositoryRootPath,
                     ...(typed
                         ? {
-                              projectService: {
-                                  ...baseProjectServiceOptions,
-                                  allowDefaultProject: [
-                                      ...new Set([
-                                          ...existingAllowDefaultProject,
-                                          relativeFixturePath,
-                                      ]),
-                                  ],
-                                  defaultProject: "tsconfig.eslint.json",
-                              },
-                          }
+                            projectService: {
+                                ...baseProjectServiceOptions,
+                                allowDefaultProject: [
+                                    ...new Set([
+                                        ...existingAllowDefaultProject,
+                                        relativeFixturePath,
+                                    ]),
+                                ],
+                                defaultProject: "tsconfig.eslint.json",
+                            },
+                        }
                         : {}),
                 },
             },
             name: `compat-smoke:${ruleId}`,
             plugins: {
-                typefest: plugin,
+                sdl: plugin,
             },
             rules: {
                 [ruleId]: "error",
@@ -303,9 +303,9 @@ const runScenario = async ({
 
     console.log(
         `${pc.green("✓")}` +
-            ` ${pc.bold(name)} ${pc.gray("->")} ${pc.bold(ruleId)} (${typed ? "typed" : "non-typed"}, fix=${fix}) produced ${pc.magenta(
-                String(matchingMessages.length)
-            )} message(s).`
+        ` ${pc.bold(name)} ${pc.gray("->")} ${pc.bold(ruleId)} (${typed ? "typed" : "non-typed"}, fix=${fix}) produced ${pc.magenta(
+            String(matchingMessages.length)
+        )} message(s).`
     );
 };
 
@@ -313,27 +313,27 @@ const scenarios = /** @type {const} */ ([
     {
         expectedMinimumMessages: 1,
         fix: false,
-        fixturePath: typedFixturePath,
-        name: "typed-detection",
-        ruleId: "typefest/prefer-ts-extras-safe-cast-to",
-        typed: true,
+        fixturePath: insecureUrlFixturePath,
+        name: "no-insecure-url-detection",
+        ruleId: "sdl/no-insecure-url",
+        typed: false,
     },
     {
         expectedMaximumMessages: 0,
         expectedMinimumMessages: 0,
-        expectedOutputIncludes: ["safeCastTo<"],
+        expectedOutputIncludes: ["https://example.com/api"],
         fix: true,
-        fixturePath: typedFixturePath,
-        name: "typed-autofix",
-        ruleId: "typefest/prefer-ts-extras-safe-cast-to",
-        typed: true,
+        fixturePath: insecureUrlFixturePath,
+        name: "no-insecure-url-autofix",
+        ruleId: "sdl/no-insecure-url",
+        typed: false,
     },
     {
         expectedMinimumMessages: 1,
         fix: false,
-        fixturePath: arrayableFixturePath,
-        name: "non-typed-detection",
-        ruleId: "typefest/prefer-type-fest-arrayable",
+        fixturePath: insecureRandomFixturePath,
+        name: "no-insecure-random-detection",
+        ruleId: "sdl/no-insecure-random",
         typed: false,
     },
 ]);

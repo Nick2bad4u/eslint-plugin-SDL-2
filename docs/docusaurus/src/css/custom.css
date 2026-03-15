@@ -71,16 +71,18 @@
     --sb-accent-dev-charts: #38bdf8;
     --sb-accent-dev-links: #10b981;
     --sb-accent-adr: #f59e0b;
-    --sb-accent-rules-ts: #22c55e;
-    --sb-accent-rules-type-fest: #a855f7;
+    --sb-accent-rules-angular: #22c55e;
+    --sb-accent-rules-runtime: #a855f7;
     --sb-prefix-rule-number: #52525b;
-    --sb-preset-minimal: #22c55e;
+    --sb-preset-common: #22c55e;
+    --sb-preset-typescript: #0ea5e9;
+    --sb-preset-angular: #ef4444;
+    --sb-preset-angularjs: #8b5cf6;
+    --sb-preset-node: #16a34a;
+    --sb-preset-react: #3b82f6;
+    --sb-preset-electron: #f97316;
+    --sb-preset-required: #14b8a6;
     --sb-preset-recommended: #facc15;
-    --sb-preset-recommended-type-checked: #fb923c;
-    --sb-preset-strict: #f43f5e;
-    --sb-preset-all: #a855f7;
-    --sb-preset-type-fest: #60a5fa;
-    --sb-preset-type-guards: #fb923c;
 }
 
 [data-theme="dark"] {
@@ -103,16 +105,18 @@
     --sb-accent-dev-charts: #7dd3fc;
     --sb-accent-dev-links: #34d399;
     --sb-accent-adr: #fbbf24;
-    --sb-accent-rules-ts: #4ade80;
-    --sb-accent-rules-type-fest: #c084fc;
+    --sb-accent-rules-angular: #4ade80;
+    --sb-accent-rules-runtime: #c084fc;
     --sb-prefix-rule-number: #a1a1aa;
-    --sb-preset-minimal: #4ade80;
+    --sb-preset-common: #4ade80;
+    --sb-preset-typescript: #38bdf8;
+    --sb-preset-angular: #f87171;
+    --sb-preset-angularjs: #a78bfa;
+    --sb-preset-node: #4ade80;
+    --sb-preset-react: #60a5fa;
+    --sb-preset-electron: #fb923c;
+    --sb-preset-required: #2dd4bf;
     --sb-preset-recommended: #fde047;
-    --sb-preset-recommended-type-checked: #fdba74;
-    --sb-preset-strict: #fb7185;
-    --sb-preset-all: #c084fc;
-    --sb-preset-type-fest: #93c5fd;
-    --sb-preset-type-guards: #fdba74;
 }
 
 .navbar .dropdown__menu .navbar-dropdown-divider {
@@ -843,39 +847,49 @@
     border-inline-start-color: #0284c7;
 }
 
-.sb-cat-presets .sb-preset-minimal > .menu__link,
-.sb-cat-presets .menu__link.sb-preset-minimal {
-    border-inline-start-color: var(--sb-preset-minimal);
+.sb-cat-presets .sb-preset-common > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-common {
+    border-inline-start-color: var(--sb-preset-common);
+}
+
+.sb-cat-presets .sb-preset-typescript > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-typescript {
+    border-inline-start-color: var(--sb-preset-typescript);
+}
+
+.sb-cat-presets .sb-preset-angular > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-angular {
+    border-inline-start-color: var(--sb-preset-angular);
+}
+
+.sb-cat-presets .sb-preset-angularjs > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-angularjs {
+    border-inline-start-color: var(--sb-preset-angularjs);
+}
+
+.sb-cat-presets .sb-preset-node > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-node {
+    border-inline-start-color: var(--sb-preset-node);
+}
+
+.sb-cat-presets .sb-preset-react > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-react {
+    border-inline-start-color: var(--sb-preset-react);
+}
+
+.sb-cat-presets .sb-preset-electron > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-electron {
+    border-inline-start-color: var(--sb-preset-electron);
+}
+
+.sb-cat-presets .sb-preset-required > .menu__link,
+.sb-cat-presets .menu__link.sb-preset-required {
+    border-inline-start-color: var(--sb-preset-required);
 }
 
 .sb-cat-presets .sb-preset-recommended > .menu__link,
 .sb-cat-presets .menu__link.sb-preset-recommended {
     border-inline-start-color: var(--sb-preset-recommended);
-}
-
-.sb-cat-presets .sb-preset-recommended-type-checked > .menu__link,
-.sb-cat-presets .menu__link.sb-preset-recommended-type-checked {
-    border-inline-start-color: var(--sb-preset-recommended-type-checked);
-}
-
-.sb-cat-presets .sb-preset-strict > .menu__link,
-.sb-cat-presets .menu__link.sb-preset-strict {
-    border-inline-start-color: var(--sb-preset-strict);
-}
-
-.sb-cat-presets .sb-preset-all > .menu__link,
-.sb-cat-presets .menu__link.sb-preset-all {
-    border-inline-start-color: var(--sb-preset-all);
-}
-
-.sb-cat-presets .sb-preset-type-fest > .menu__link,
-.sb-cat-presets .menu__link.sb-preset-type-fest {
-    border-inline-start-color: var(--sb-preset-type-fest);
-}
-
-.sb-cat-presets .sb-preset-type-guards > .menu__link,
-.sb-cat-presets .menu__link.sb-preset-type-guards {
-    border-inline-start-color: var(--sb-preset-type-guards);
 }
 
 .markdown h1,

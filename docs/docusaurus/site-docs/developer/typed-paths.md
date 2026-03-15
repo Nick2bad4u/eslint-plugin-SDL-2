@@ -1,13 +1,13 @@
 ---
 title: Typed service path inventory
-description: Inventory of typed parser-service and TypeScript-checker callpaths used by eslint-plugin-typefest.
+description: Inventory of typed parser-service and TypeScript-checker callpaths used by eslint-plugin-sdl-2.
 ---
 
 # Typed service path inventory
 
 This page inventories the current typed callpaths that can reach parser services or the TypeScript checker.
 
-> Source document: [`docs/internal/typed-paths.md`](https://github.com/Nick2bad4u/eslint-plugin-typefest/blob/main/docs/internal/typed-paths.md)
+> Source document: [`docs/internal/typed-paths.md`](https://github.com/Nick2bad4u/eslint-plugin-sdl-2/blob/main/docs/internal/typed-paths.md)
 
 ## Guard model
 
