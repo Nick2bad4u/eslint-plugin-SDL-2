@@ -58,7 +58,7 @@ strictly reviewed and monitored.
 
 ## Further reading
 
-> **Rule catalog ID:** R202
+> **Rule catalog ID:** R002
 
 - [AngularJS `$compileProvider` API](https://docs.angularjs.org/api/ng/provider/%24compileProvider)
 - [AngularJS security guide](https://docs.angularjs.org/guide/security)

@@ -55,7 +55,7 @@ or shared environment can inherit the override.
 
 ## Further reading
 
-> **Rule catalog ID:** R224
+> **Rule catalog ID:** R023
 
 - [Node.js environment variables](https://nodejs.org/api/cli.html#environment-variables)
 - [OWASP Transport Layer Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html)

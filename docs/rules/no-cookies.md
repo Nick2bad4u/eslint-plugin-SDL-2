@@ -55,7 +55,7 @@ with hardened attributes and server controls.
 
 ## Further reading
 
-> **Rule catalog ID:** R206
+> **Rule catalog ID:** R006
 
 - [MDN: Using HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 - [Legacy rule inspiration](https://github.com/microsoft/tslint-microsoft-contrib/blob/master/src/noCookiesRule.ts)

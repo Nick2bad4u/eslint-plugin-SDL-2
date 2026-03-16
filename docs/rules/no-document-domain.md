@@ -53,7 +53,7 @@ Disable only for vetted legacy integrations that cannot be migrated away from
 
 ## Further reading
 
-> **Rule catalog ID:** R207
+> **Rule catalog ID:** R007
 
 - [MDN: `document.domain`](https://developer.mozilla.org/en-US/docs/Web/API/Document/domain)
 - [MDN: Same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#changing_origin)

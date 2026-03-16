@@ -59,6 +59,6 @@ isolated and reviewed.
 
 ## Further reading
 
-> **Rule catalog ID:** R203
+> **Rule catalog ID:** R003
 
 - [AngularJS `$sce` strict contextual escaping](https://docs.angularjs.org/api/ng/service/%24sce#strict-contextual-escaping)

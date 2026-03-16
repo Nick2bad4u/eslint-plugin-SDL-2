@@ -60,7 +60,7 @@ type flow and the source is strictly controlled.
 
 ## Further reading
 
-> **Rule catalog ID:** R201
+> **Rule catalog ID:** R001
 
 - [Angular `DomSanitizer` security guidance](https://angular.io/api/platform-browser/DomSanitizer#security-risk)
 - [Angular security guide](https://angular.io/guide/security)

@@ -59,7 +59,7 @@ Disable only when a dedicated, reviewed sanitizer guarantees safe markup.
 
 ## Further reading
 
-> **Rule catalog ID:** R211
+> **Rule catalog ID:** R019
 
 - [MDN: `innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)
 - [MDN: `insertAdjacentHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML)

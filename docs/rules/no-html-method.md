@@ -53,6 +53,6 @@ Disable only for trusted, static markup paths where inputs are guaranteed safe.
 
 ## Further reading
 
-> **Rule catalog ID:** R210
+> **Rule catalog ID:** R018
 
 - [Legacy rule inspiration](https://github.com/microsoft/tslint-microsoft-contrib/blob/master/src/noInnerHtml.ts)

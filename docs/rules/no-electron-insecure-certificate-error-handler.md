@@ -66,7 +66,7 @@ enterprise trust logic outside this callback path and has security sign-off.
 
 ## Further reading
 
-> **Rule catalog ID:** R227
+> **Rule catalog ID:** R015
 
 - [Electron app certificate-error event](https://www.electronjs.org/docs/latest/api/app#event-certificate-error)
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)

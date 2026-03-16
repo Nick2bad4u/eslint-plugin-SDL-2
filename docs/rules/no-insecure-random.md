@@ -59,7 +59,7 @@ acceptable.
 
 ## Further reading
 
-> **Rule catalog ID:** R212
+> **Rule catalog ID:** R020
 
 - [OWASP: Insecure randomness](https://owasp.org/www-community/vulnerabilities/Insecure_Randomness)
 - [CodeQL query help: Insecure randomness](https://codeql.github.com/codeql-query-help/javascript/js-insecure-randomness/)

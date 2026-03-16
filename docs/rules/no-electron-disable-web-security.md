@@ -63,7 +63,7 @@ compensating controls and no untrusted content.
 
 ## Further reading
 
-> **Rule catalog ID:** R218
+> **Rule catalog ID:** R013
 
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
 - [Electron BrowserWindow webPreferences](https://www.electronjs.org/docs/latest/api/browser-window#new-browserwindowoptions)

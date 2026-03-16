@@ -63,7 +63,7 @@ strict isolation controls documented outside this rule.
 
 ## Further reading
 
-> **Rule catalog ID:** R219
+> **Rule catalog ID:** R009
 
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
 - [Electron BrowserWindow webPreferences](https://www.electronjs.org/docs/latest/api/browser-window#new-browserwindowoptions)

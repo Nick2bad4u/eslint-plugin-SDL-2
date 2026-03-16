@@ -58,6 +58,6 @@ strictly bounded and reviewed.
 
 ## Further reading
 
-> **Rule catalog ID:** R205
+> **Rule catalog ID:** R005
 
 - [AngularJS `$compileProvider` API](https://docs.angularjs.org/api/ng/provider/%24compileProvider)

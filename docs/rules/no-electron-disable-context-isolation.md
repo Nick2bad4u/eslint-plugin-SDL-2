@@ -63,7 +63,7 @@ with strict, documented compensating controls.
 
 ## Further reading
 
-> **Rule catalog ID:** R220
+> **Rule catalog ID:** R011
 
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
 - [Electron context isolation](https://www.electronjs.org/docs/latest/tutorial/context-isolation)

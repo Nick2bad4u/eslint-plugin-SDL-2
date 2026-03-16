@@ -59,7 +59,7 @@ values are already strictly validated before `openExternal`.
 
 ## Further reading
 
-> **Rule catalog ID:** R223
+> **Rule catalog ID:** R017
 
 - [Electron shell.openExternal](https://www.electronjs.org/docs/latest/api/shell#shellopenexternalurl-options)
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)

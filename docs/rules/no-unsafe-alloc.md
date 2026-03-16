@@ -57,6 +57,6 @@ initialization before use.
 
 ## Further reading
 
-> **Rule catalog ID:** R216
+> **Rule catalog ID:** R025
 
 - [Node.js buffer security note](https://nodejs.org/api/buffer.html#what-makes-bufferallocunsafe-and-bufferallocunsafeslow-unsafe)

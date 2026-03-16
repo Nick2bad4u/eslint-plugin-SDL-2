@@ -64,7 +64,7 @@ controls.
 
 ## Further reading
 
-> **Rule catalog ID:** R209
+> **Rule catalog ID:** R016
 
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
 - [CodeQL reference: Electron renderer Node integration](https://codeql.github.com/codeql-query-help/javascript/js-enabling-electron-renderer-node-integration/)

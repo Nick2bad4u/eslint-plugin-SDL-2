@@ -54,6 +54,6 @@ sanitization strategy.
 
 ## Further reading
 
-> **Rule catalog ID:** R204
+> **Rule catalog ID:** R004
 
 - [AngularJS `$sanitizeProvider.enableSvg` docs](https://docs.angularjs.org/api/ngSanitize/provider/%24sanitizeProvider#enableSvg)

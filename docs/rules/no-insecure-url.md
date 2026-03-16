@@ -65,7 +65,7 @@ URLs.
 
 ## Further reading
 
-> **Rule catalog ID:** R213
+> **Rule catalog ID:** R021
 
 - [MDN: HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS)
 - [DevSkim DS137138 guidance](https://github.com/microsoft/DevSkim/blob/main/guidance/DS137138.md)

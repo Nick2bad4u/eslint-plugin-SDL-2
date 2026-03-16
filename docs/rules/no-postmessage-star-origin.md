@@ -54,6 +54,6 @@ Disable only in controlled test harnesses where wildcard messaging is required.
 
 ## Further reading
 
-> **Rule catalog ID:** R215
+> **Rule catalog ID:** R024
 
 - [MDN: `Window.postMessage` security concerns](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#security_concerns)

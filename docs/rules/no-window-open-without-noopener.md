@@ -57,7 +57,7 @@ different audited opener-hardening abstraction.
 
 ## Further reading
 
-> **Rule catalog ID:** R225
+> **Rule catalog ID:** R026
 
 - [MDN: Window.open()](https://developer.mozilla.org/docs/Web/API/Window/open)
 - [OWASP: Reverse Tabnabbing](https://owasp.org/www-community/attacks/Reverse_Tabnabbing)

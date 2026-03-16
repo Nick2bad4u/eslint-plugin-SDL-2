@@ -58,7 +58,7 @@ document stream writes.
 
 ## Further reading
 
-> **Rule catalog ID:** R208
+> **Rule catalog ID:** R008
 
 - [MDN: `document.write`](https://developer.mozilla.org/en-US/docs/Web/API/Document/write)
 - [Legacy rule inspiration](https://github.com/microsoft/tslint-microsoft-contrib/blob/master/src/noDocumentWriteRule.ts)

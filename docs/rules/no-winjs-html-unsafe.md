@@ -55,6 +55,6 @@ Disable only for fully controlled HTML templates with an audited trust chain.
 
 ## Further reading
 
-> **Rule catalog ID:** R217
+> **Rule catalog ID:** R027
 
 - [WinJS utilities API overview](https://learn.microsoft.com/en-us/previous-versions/windows/apps/br229839\(v=win.10\))

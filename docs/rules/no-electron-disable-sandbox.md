@@ -63,7 +63,7 @@ acceptance and compensating controls.
 
 ## Further reading
 
-> **Rule catalog ID:** R221
+> **Rule catalog ID:** R012
 
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
 - [Electron process sandboxing](https://www.electronjs.org/docs/latest/tutorial/sandbox)

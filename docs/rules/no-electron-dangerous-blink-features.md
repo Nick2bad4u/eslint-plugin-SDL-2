@@ -71,7 +71,7 @@ Blink feature requirements with compensating security controls.
 
 ## Further reading
 
-> **Rule catalog ID:** R226
+> **Rule catalog ID:** R010
 
 - [Electron BrowserWindow webPreferences](https://www.electronjs.org/docs/latest/api/browser-window#new-browserwindowoptions)
 - [Electron security checklist](https://www.electronjs.org/docs/latest/tutorial/security)
