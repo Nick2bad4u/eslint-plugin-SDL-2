@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../_internal/create-rule.js";
 
@@ -24,7 +25,8 @@ const isSecuritySensitiveExpression = (
     return false;
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             TSNonNullExpression(node: TSESTree.TSNonNullExpression) {
@@ -43,7 +45,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow non-null assertions on likely security-sensitive input values.",
+                "disallow non-null assertions on likely security-sensitive input values.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-nonnull-assertion-on-security-input",
         },
         messages: {
             default:
@@ -56,3 +60,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

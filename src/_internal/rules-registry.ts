@@ -1,3 +1,4 @@
+/* eslint-disable canonical/no-re-export -- Rule registry intentionally aggregates imported rule modules into a single exported map. */
 import type { TSESLint } from "@typescript-eslint/utils";
 import type { UnknownArray } from "type-fest";
 
@@ -47,10 +48,13 @@ import noUnsafeCastToTrustedTypesRule from "../rules/no-unsafe-cast-to-trusted-t
 import noWindowOpenWithoutNoopenerRule from "../rules/no-window-open-without-noopener.js";
 import noWinjsHtmlUnsafeRule from "../rules/no-winjs-html-unsafe.js";
 
+/** Canonical SDL rule module type used in the exported registry map. */
 export type SdlRuleModule = TSESLint.RuleModule<string, Readonly<UnknownArray>>;
 
+/** Naming convention for SDL security rule identifiers. */
 export type SdlRuleNamePattern = `no-${string}`;
 
+/** SDL rule registry keyed by rule name for plugin export wiring. */
 export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-angular-bypass-sanitizer": noAngularBypassSanitizerRule,
     "no-angular-bypass-security-trust-html":
@@ -114,3 +118,4 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
 };
 
 export default sdlRules;
+/* eslint-enable canonical/no-re-export -- End of intentional registry aggregation. */

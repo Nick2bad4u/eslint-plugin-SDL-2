@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import {
     getFullTypeChecker,
@@ -9,7 +10,8 @@ import { createRule } from "../_internal/create-rule.js";
 const isEmptyStringLiteral = (node: TSESTree.Node): boolean =>
     node.type === "Literal" && node.value === "";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -75,7 +77,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow unsafe direct DOM HTML writes via innerHTML/outerHTML/insertAdjacentHTML.",
+                "disallow unsafe direct DOM HTML writes via innerHTML/outerHTML/insertAdjacentHTML.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-inner-html",
         },
         messages: {
             noInnerHtml:
@@ -90,3 +94,4 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

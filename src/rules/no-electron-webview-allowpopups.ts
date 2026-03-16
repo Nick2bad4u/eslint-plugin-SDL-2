@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../_internal/create-rule.js";
 
@@ -55,7 +56,8 @@ const isTruthyJsxAttributeValue = (
     return true;
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
@@ -88,7 +90,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow enabling allowpopups in Electron webview elements.",
+                "disallow enabling allowpopups in Electron webview elements.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-webview-allowpopups",
         },
         messages: {
             default: "Do not enable allowpopups on Electron webview elements.",
@@ -100,3 +104,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

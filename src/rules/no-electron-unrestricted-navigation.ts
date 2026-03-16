@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { arrayFirst } from "ts-extras";
@@ -54,6 +55,7 @@ const hasPreventDefaultCall = (
 ): boolean => {
     const callbackSourceText = context.sourceCode.getText(callbackNode);
     const escapedName = eventParameterName.replaceAll("$", String.raw`\$`);
+    // eslint-disable-next-line security/detect-non-literal-regexp -- Event parameter identifier is escaped before interpolation for preventDefault-call detection.
     const preventDefaultPattern = new RegExp(
         String.raw`\b${escapedName}\s*\.\s*preventDefault\s*\(`,
         "u"
@@ -62,7 +64,8 @@ const hasPreventDefaultCall = (
     return preventDefaultPattern.test(callbackSourceText);
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
@@ -145,7 +148,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow Electron navigation handlers that allow unrestricted navigation or window opening.",
+                "disallow Electron navigation handlers that allow unrestricted navigation or window opening.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-unrestricted-navigation",
         },
         messages: {
             default:
@@ -158,3 +163,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

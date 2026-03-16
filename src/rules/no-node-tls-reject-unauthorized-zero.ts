@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { arrayFirst } from "ts-extras";
 
@@ -64,7 +65,8 @@ const isUnsafeOverrideValue = (node: TSESTree.Expression): boolean => {
     );
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             AssignmentExpression(node: TSESTree.AssignmentExpression) {
@@ -91,7 +93,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0' overrides in Node.js runtime code.",
+                "disallow process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0' overrides in Node.js runtime code.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-reject-unauthorized-zero",
         },
         messages: {
             default:
@@ -104,3 +108,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

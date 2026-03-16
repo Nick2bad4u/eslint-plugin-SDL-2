@@ -1,8 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
-
 import { createRule } from "../_internal/create-rule.js";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         return {
             "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationWhitelist$/]"(
@@ -19,7 +18,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow AngularJS sanitizer whitelist mutations via $compileProvider.*SanitizationWhitelist.",
+                "disallow AngularJS sanitizer whitelist mutations via $compileProvider.*SanitizationWhitelist.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angularjs-sanitization-whitelist",
         },
         messages: {
             noSanitizationWhitelist:

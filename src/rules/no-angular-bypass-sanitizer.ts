@@ -1,8 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
-
 import { createRule } from "../_internal/create-rule.js";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         return {
             "CallExpression[arguments.length>0][callee.property.name=/^bypassSecurityTrust(?:html|resourceurl|script|style|url)$/i]"(
@@ -19,7 +18,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow bypassing Angular DomSanitizer trust APIs such as bypassSecurityTrustHtml.",
+                "disallow bypassing Angular DomSanitizer trust APIs such as bypassSecurityTrustHtml.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angular-bypass-sanitizer",
         },
         messages: {
             noBypass: "Do not bypass Angular's built-in sanitizer.",

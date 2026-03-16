@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../_internal/create-rule.js";
 
@@ -26,7 +27,8 @@ const getMemberPropertyName = (
 
 const isWildcardValue = (value: string): boolean => value.includes("*");
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
@@ -77,7 +79,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow wildcard entries in AngularJS SCE resource URL whitelists.",
+                "disallow wildcard entries in AngularJS SCE resource URL whitelists.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angularjs-sce-resource-url-wildcard",
         },
         messages: {
             default:
@@ -90,3 +94,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

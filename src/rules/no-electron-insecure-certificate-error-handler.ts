@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { arrayAt, arrayFirst } from "ts-extras";
@@ -43,6 +44,7 @@ const getCallbackParameterName = (
 };
 
 const toUnsafeCallbackTruePattern = (callbackName: string): RegExp =>
+    // eslint-disable-next-line security/detect-non-literal-regexp -- Callback identifier is static source text and safely interpolated for targeted pattern matching.
     new RegExp(String.raw`\b${callbackName}\s*\(\s*true\b`, "u");
 
 const hasUnsafeCallbackTrueCall = (
@@ -71,7 +73,8 @@ const isCertificateErrorEventRegistration = (
     return getStaticStringValue(firstArgument) === "certificate-error";
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
@@ -123,7 +126,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow Electron certificate-error handlers that call the callback with true.",
+                "disallow Electron certificate-error handlers that call the callback with true.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-insecure-certificate-error-handler",
         },
         messages: {
             default:
@@ -136,3 +141,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

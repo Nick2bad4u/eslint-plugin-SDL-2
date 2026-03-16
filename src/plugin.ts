@@ -8,11 +8,12 @@ import securityPlugin from "eslint-plugin-security";
 import type { SdlConfigName } from "./_internal/config-references.js";
 
 import packageJson from "../package.json" with { type: "json" };
-import { sdlRules } from "./_internal/rules-registry.js";
+import sdlRules from "./_internal/rules-registry.js";
 
 type SdlConfig = Readonly<Linter.Config>;
 type SdlConfigArray = readonly SdlConfig[];
 type SdlConfigMap = Record<SdlConfigName, SdlConfigArray>;
+type SdlPlugin = Readonly<ESLint.Plugin>;
 type SdlPluginWithConfigs = ESLint.Plugin & {
     readonly configs: Readonly<Record<SdlConfigName, SdlConfigArray>>;
 };
@@ -23,7 +24,7 @@ const securityEslintPlugin = securityPlugin as unknown as ESLint.Plugin;
 
 const typeScriptFiles = ["**/*.{ts,tsx,mts,cts}"];
 
-const createAngularConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         plugins: {
             sdl: plugin,
@@ -37,7 +38,7 @@ const createAngularConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createAngularJsConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         plugins: {
             sdl: plugin,
@@ -52,7 +53,7 @@ const createAngularJsConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createCommonConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         plugins: {
             sdl: plugin,
@@ -81,7 +82,7 @@ const createCommonConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createElectronConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         plugins: {
             sdl: plugin,
@@ -106,7 +107,7 @@ const createElectronConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createNodeConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         plugins: {
             n: nodeEslintPlugin,
@@ -129,7 +130,7 @@ const createNodeConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createReactConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         languageOptions: {
             parserOptions: {
@@ -146,7 +147,7 @@ const createReactConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createTypeScriptConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
+const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
     {
         languageOptions: {
             parserOptions: {
@@ -180,7 +181,9 @@ const createTypeScriptConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
     },
 ];
 
-const createRequiredConfig = (configs: SdlConfigMap): SdlConfigArray => [
+const createRequiredConfig = (
+    configs: Readonly<SdlConfigMap>
+): SdlConfigArray => [
     ...configs.angular,
     ...configs.angularjs,
     ...configs.common,
@@ -189,7 +192,9 @@ const createRequiredConfig = (configs: SdlConfigMap): SdlConfigArray => [
     ...configs.react,
 ];
 
-const createRecommendedConfig = (configs: SdlConfigMap): SdlConfigArray => [
+const createRecommendedConfig = (
+    configs: Readonly<SdlConfigMap>
+): SdlConfigArray => [
     ...configs.required,
     ...configs.typescript,
     {
@@ -204,7 +209,7 @@ const packageJsonVersion =
         ? packageJson.version
         : "0.0.0";
 
-const pluginCore: ESLint.Plugin = {
+const pluginCore: SdlPlugin = {
     meta: {
         name: "eslint-plugin-sdl-2",
         namespace: "sdl",
@@ -228,6 +233,7 @@ const configs: SdlConfigMap = {
 configs.required = createRequiredConfig(configs);
 configs.recommended = createRecommendedConfig(configs);
 
+/** ESLint plugin entrypoint with SDL rule set and flat-config presets. */
 const sdlPlugin: SdlPluginWithConfigs = {
     ...pluginCore,
     configs,

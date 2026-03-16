@@ -1,8 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
-
 import { createRule } from "../_internal/create-rule.js";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         return {
             "CallExpression[callee.object.object.name='WinJS'][callee.object.property.name='Utilities'][callee.property.name=/^(?:insertAdjacent|setInner|setOuter)HTMLUnsafe$/]"(
@@ -19,7 +18,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow WinJS.Utilities unsafe HTML write APIs (setInnerHTMLUnsafe, setOuterHTMLUnsafe, insertAdjacentHTMLUnsafe).",
+                "disallow WinJS.Utilities unsafe HTML write APIs (setInnerHTMLUnsafe, setOuterHTMLUnsafe, insertAdjacentHTMLUnsafe).",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-winjs-html-unsafe",
         },
         messages: {
             default:

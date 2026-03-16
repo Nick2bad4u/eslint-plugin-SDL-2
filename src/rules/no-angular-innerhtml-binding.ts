@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { arrayFirst } from "ts-extras";
 
@@ -9,7 +10,8 @@ type MessageIds = "default";
 const hasInnerHtmlBindingPattern = (text: string): boolean =>
     /\[\s*innerhtml\s*\]\s*=/iu.test(text);
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             Literal(node: TSESTree.Literal) {
@@ -52,7 +54,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow Angular [innerHTML] template bindings without a reviewed sanitization/trusted-types strategy.",
+                "disallow Angular [innerHTML] template bindings without a reviewed sanitization/trusted-types strategy.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angular-innerhtml-binding",
         },
         messages: {
             default:
@@ -65,3 +69,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

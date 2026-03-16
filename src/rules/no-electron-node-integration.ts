@@ -1,8 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
-
 import { createRule } from "../_internal/create-rule.js";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         return {
             "NewExpression[callee.name=/^(?:BrowserWindow|BrowserView)$/] > ObjectExpression.arguments > Property.properties[key.name='webPreferences'] > ObjectExpression.value > Property.properties[key.name=/^(?:nodeIntegration|nodeIntegrationInWorker|nodeIntegrationInSubFrames)$/][value.value=true]"(
@@ -19,7 +18,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow enabling Electron Node.js integration in BrowserWindow/BrowserView webPreferences.",
+                "disallow enabling Electron Node.js integration in BrowserWindow/BrowserView webPreferences.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-node-integration",
         },
         messages: {
             default: "Do not enable Node.js integration for remote content.",

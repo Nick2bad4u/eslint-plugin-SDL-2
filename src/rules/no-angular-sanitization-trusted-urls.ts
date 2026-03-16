@@ -1,8 +1,7 @@
-import type { TSESLint } from "@typescript-eslint/utils";
-
 import { createRule } from "../_internal/create-rule.js";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         return {
             "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationTrustedUrlList$/]"(
@@ -19,7 +18,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow AngularJS trusted URL list mutations via $compileProvider.*SanitizationTrustedUrlList.",
+                "disallow AngularJS trusted URL list mutations via $compileProvider.*SanitizationTrustedUrlList.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angular-sanitization-trusted-urls",
         },
         messages: {
             noSanitizationTrustedUrls:

@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { arrayFirst } from "ts-extras";
 
@@ -54,7 +55,8 @@ const isAllowedOriginLiteral = (origin: string): boolean => {
     return /^https?:\/\//iu.test(normalizedOrigin);
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
@@ -96,7 +98,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Require explicit, allowlisted postMessage target origins instead of wildcard/dynamic values.",
+                "require explicit, allowlisted postMessage target origins instead of wildcard/dynamic values.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-without-origin-allowlist",
         },
         messages: {
             default:
@@ -109,3 +113,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

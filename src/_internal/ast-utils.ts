@@ -62,11 +62,11 @@ export const getFullTypeChecker = (
 
 /** Resolve the textual type for an ESTree node via parser services. */
 export const getNodeTypeAsString = (
-    fullTypeChecker: ts.TypeChecker | undefined,
-    node: null | TSESTree.Node | undefined,
+    fullTypeChecker: Readonly<ts.TypeChecker> | undefined,
+    node: null | Readonly<TSESTree.Node> | undefined,
     context: RuleContext
 ): string => {
-    if (!isDefined(fullTypeChecker) || !isDefined(node)) {
+    if (!isDefined(fullTypeChecker) || node === null || node === undefined) {
         return "any";
     }
 
@@ -76,8 +76,9 @@ export const getNodeTypeAsString = (
         return "any";
     }
 
-    const normalizedNode = node!;
-    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(normalizedNode);
+    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(
+        safeCastTo<TSESTree.Node>(node)
+    );
 
     if (!isDefined(tsNode)) {
         return "any";
@@ -94,7 +95,7 @@ const isWindowIdentifierName = (name: string): boolean =>
     name.toLowerCase().endsWith("window");
 
 const getMemberPropertyName = (
-    node: TSESTree.MemberExpression
+    node: Readonly<TSESTree.MemberExpression>
 ): string | undefined => {
     if (node.property.type === "Identifier") {
         return node.property.name;
@@ -111,7 +112,7 @@ const getMemberPropertyName = (
 };
 
 const isDocumentMemberReference = (
-    node: TSESTree.MemberExpression
+    node: Readonly<TSESTree.MemberExpression>
 ): boolean => {
     const propertyName = getMemberPropertyName(node);
 
@@ -149,9 +150,9 @@ const isDocumentMemberReference = (
  * Falls back to syntactic checks when parser services are unavailable.
  */
 export const isDocumentObject = (
-    node: TSESTree.Node,
+    node: Readonly<TSESTree.Node>,
     context: RuleContext,
-    fullTypeChecker: ts.TypeChecker | undefined
+    fullTypeChecker: Readonly<ts.TypeChecker> | undefined
 ): boolean => {
     if (fullTypeChecker !== undefined) {
         return (

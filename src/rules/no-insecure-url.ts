@@ -1,19 +1,23 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { safeCastTo } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
 
-const defaultBlocklist: readonly RegExp[] = [/^(ftp|http|telnet|ws):\/\//iu];
+/** Default insecure-protocol blocklist patterns. */
+const defaultBlocklist: readonly RegExp[] = [/^(?:ftp|http|telnet|ws):\/\//iu];
 
+/** Default allowlisted literal URL exceptions. */
 const defaultExceptions: readonly RegExp[] = [
-    /^http:(\/\/|\\u002f\\u002f)schemas\.microsoft\.com(\/\/|\\u002f\\u002f)?.*/iu,
-    /^http:(\/\/|\\u002f\\u002f)schemas\.openxmlformats\.org(\/\/|\\u002f\\u002f)?.*/iu,
-    /^http:(\/|\\u002f){2}localhost(:|\/|\\u002f)*/iu,
-    /^http:(\/\/)w{3}\.w3\.org\/1999\/xhtml/iu,
-    /^http:(\/\/)w{3}\.w3\.org\/2000\/svg/iu,
+    /^http:(?:\/\/|\\u002f\\u002f)schemas\.microsoft\.com.*/iu,
+    /^http:(?:\/\/|\\u002f\\u002f)schemas\.openxmlformats\.org.*/iu,
+    /^http:(?:\/|\\u002f){2}localhost(?::|\/|\\u002f)*/iu,
+    /^http:\/\/w{3}\.w3\.org\/1999\/xhtml/iu,
+    /^http:\/\/w{3}\.w3\.org\/2000\/svg/iu,
 ];
 
+/** Default source-text exceptions for variable/template contexts. */
 const defaultVariableExceptions: readonly RegExp[] = [];
 
 type MessageIds = "doNotUseInsecureUrl";
@@ -26,13 +30,21 @@ type NoInsecureUrlOptions = Readonly<{
 
 type Options = [NoInsecureUrlOptions];
 
-const asCaseInsensitiveRegex = (pattern: RegExp | string): RegExp =>
-    pattern instanceof RegExp
-        ? new RegExp(pattern.source, "iu")
-        : new RegExp(pattern, "iu");
+const asCaseInsensitiveRegex = (pattern: RegExp | string): RegExp => {
+    if (pattern instanceof RegExp) {
+        // eslint-disable-next-line security/detect-non-literal-regexp -- Rebuild trusted RegExp source with normalized flags only.
+        return new RegExp(pattern.source, "iu");
+    }
+
+    // eslint-disable-next-line security/detect-non-literal-regexp -- User-configured regex patterns are intentionally compiled for matching behavior.
+    return new RegExp(pattern, "iu");
+};
 
 const matches = (patterns: readonly RegExp[], value: string): boolean =>
     patterns.some((pattern) => pattern.test(value));
+
+const toRegexSources = (patterns: readonly RegExp[]): readonly string[] =>
+    patterns.map((pattern) => pattern.source);
 
 const shouldAttemptFix = (
     variableExceptions: readonly RegExp[],
@@ -66,21 +78,19 @@ const reportInsecureUrl = (
     });
 };
 
-const rule: TSESLint.RuleModule<MessageIds, Options> = createRule<
-    Options,
-    MessageIds
->({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
     create(context) {
         const [options = {}] = context.options;
         const blocklist = (options.blocklist ?? defaultBlocklist).map(
-            asCaseInsensitiveRegex
+            (pattern) => asCaseInsensitiveRegex(pattern)
         );
         const exceptions = (options.exceptions ?? defaultExceptions).map(
-            asCaseInsensitiveRegex
+            (pattern) => asCaseInsensitiveRegex(pattern)
         );
         const variableExceptions = (
             options.varExceptions ?? defaultVariableExceptions
-        ).map(asCaseInsensitiveRegex);
+        ).map((pattern) => asCaseInsensitiveRegex(pattern));
 
         return {
             Literal(node) {
@@ -137,11 +147,26 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = createRule<
             },
         };
     },
-    defaultOptions: safeCastTo<Options>([{}]),
+    defaultOptions: safeCastTo<Options>([
+        {
+            blocklist: toRegexSources(defaultBlocklist),
+            exceptions: toRegexSources(defaultExceptions),
+            varExceptions: toRegexSources(defaultVariableExceptions),
+        },
+    ]),
     meta: {
+        defaultOptions: [
+            {
+                blocklist: toRegexSources(defaultBlocklist),
+                exceptions: toRegexSources(defaultExceptions),
+                varExceptions: toRegexSources(defaultVariableExceptions),
+            },
+        ],
         docs: {
             description:
-                "Disallow insecure URL protocols such as http:// and ftp:// with configurable exceptions.",
+                "disallow insecure URL protocols such as http:// and ftp:// with configurable exceptions.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-url",
         },
         fixable: "code",
         messages: {
@@ -152,14 +177,20 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = createRule<
                 additionalProperties: false,
                 properties: {
                     blocklist: {
+                        description:
+                            "Regular-expression strings that identify insecure URL patterns to block.",
                         items: { type: "string" },
                         type: "array",
                     },
                     exceptions: {
+                        description:
+                            "Regular-expression strings that identify allowed URL literals excluded from blocklist checks.",
                         items: { type: "string" },
                         type: "array",
                     },
                     varExceptions: {
+                        description:
+                            "Regular-expression strings that identify source-text contexts where automatic fixing should be skipped.",
                         items: { type: "string" },
                         type: "array",
                     },
@@ -174,3 +205,4 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = createRule<
 
 export { defaultBlocklist, defaultExceptions, defaultVariableExceptions };
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

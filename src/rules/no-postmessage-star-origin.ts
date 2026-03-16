@@ -1,4 +1,4 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { arrayIncludes, isDefined } from "ts-extras";
 
@@ -8,7 +8,8 @@ import {
 } from "../_internal/ast-utils.js";
 import { createRule } from "../_internal/create-rule.js";
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -52,7 +53,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow '*' targetOrigin in postMessage calls to prevent cross-origin data leakage.",
+                "disallow '*' targetOrigin in postMessage calls to prevent cross-origin data leakage.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-star-origin",
         },
         messages: {
             default:

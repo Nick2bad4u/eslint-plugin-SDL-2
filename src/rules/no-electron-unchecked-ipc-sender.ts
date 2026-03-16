@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { arrayFirst } from "ts-extras";
@@ -73,6 +74,7 @@ const hasSenderValidationPattern = (
 ): boolean => {
     const callbackSourceText = context.sourceCode.getText(callbackNode);
     const escapedEventName = eventParameterName.replaceAll("$", String.raw`\$`);
+    // eslint-disable-next-line security/detect-non-literal-regexp -- Event parameter identifier is escaped before interpolation for sender-access detection.
     const eventSenderPattern = new RegExp(
         String.raw`\b${escapedEventName}\s*\.\s*(?:sender|senderFrame)\b`,
         "u"
@@ -86,7 +88,8 @@ const hasSenderValidationPattern = (
     );
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
@@ -131,7 +134,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow privileged ipcMain handlers that do not validate sender/frame trust.",
+                "disallow privileged ipcMain handlers that do not validate sender/frame trust.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-unchecked-ipc-sender",
         },
         messages: {
             default:
@@ -144,3 +149,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

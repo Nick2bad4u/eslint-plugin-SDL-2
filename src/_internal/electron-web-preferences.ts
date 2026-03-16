@@ -7,12 +7,13 @@ type ElectronWebPreferenceCheck = Readonly<{
     preferenceName: string;
 }>;
 
-type RuleContext = TSESLint.RuleContext<
-    ElectronPreferenceMessageIds,
-    unknown[]
+type RuleContext = Readonly<
+    TSESLint.RuleContext<ElectronPreferenceMessageIds, unknown[]>
 >;
 
-const getPropertyName = (property: TSESTree.Property): string | undefined => {
+const getPropertyName = (
+    property: Readonly<TSESTree.Property>
+): string | undefined => {
     if (property.computed) {
         return undefined;
     }
@@ -32,7 +33,7 @@ const getPropertyName = (property: TSESTree.Property): string | undefined => {
 };
 
 const getPropertyByName = (
-    objectExpression: TSESTree.ObjectExpression,
+    objectExpression: Readonly<TSESTree.ObjectExpression>,
     propertyName: string
 ): TSESTree.Property | undefined => {
     for (const propertyNode of objectExpression.properties) {
@@ -49,7 +50,7 @@ const getPropertyByName = (
 };
 
 const getBooleanLiteralValue = (
-    valueNode: TSESTree.Node
+    valueNode: Readonly<TSESTree.Node>
 ): boolean | undefined => {
     if (valueNode.type !== "Literal" || typeof valueNode.value !== "boolean") {
         return undefined;
@@ -58,12 +59,16 @@ const getBooleanLiteralValue = (
     return valueNode.value;
 };
 
+/**
+ * Creates a listener that reports unsafe boolean Electron `webPreferences`
+ * values.
+ */
 export const createElectronWebPreferencesBooleanListener = (
     context: RuleContext,
     check: ElectronWebPreferenceCheck
 ): TSESLint.RuleListener => ({
     "NewExpression[callee.name=/^(?:BrowserWindow|BrowserView)$/]"(
-        node: TSESTree.NewExpression
+        node: Readonly<TSESTree.NewExpression>
     ) {
         const [firstArgument] = node.arguments;
 

@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { basename, parse } from "node:path";
 import { arrayIncludes, isDefined } from "ts-extras";
@@ -24,7 +25,8 @@ const isBannedRandomLibrary = (value: string): boolean =>
         value as (typeof bannedRandomLibraries)[number]
     );
 
-const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -123,7 +125,9 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow insecure pseudo-random APIs and known non-cryptographic random libraries for security-sensitive code.",
+                "disallow insecure pseudo-random APIs and known non-cryptographic random libraries for security-sensitive code.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-random",
         },
         messages: {
             default:
@@ -136,3 +140,4 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

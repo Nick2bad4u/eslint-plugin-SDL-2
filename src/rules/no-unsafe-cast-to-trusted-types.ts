@@ -1,4 +1,5 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+import type { TSESTree } from "@typescript-eslint/utils";
 
 import { isDefined, setHas } from "ts-extras";
 
@@ -65,7 +66,8 @@ const isKnownTrustedFactoryCall = (
     );
 };
 
-const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
+/** Rule implementation. */
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             TSAsExpression(node: TSESTree.TSAsExpression) {
@@ -102,7 +104,9 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
     meta: {
         docs: {
             description:
-                "Disallow unsafe casts to Trusted Types without validated/trusted factory paths.",
+                "disallow unsafe casts to Trusted Types without validated/trusted factory paths.",
+            recommended: false,
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-cast-to-trusted-types",
         },
         messages: {
             default: "Do not cast unvalidated values to Trusted Types.",
@@ -114,3 +118,4 @@ const rule: TSESLint.RuleModule<MessageIds, unknown[]> = createRule({
 });
 
 export default rule;
+/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */
