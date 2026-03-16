@@ -1,15 +1,22 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { arrayIncludes } from "ts-extras";
+
 import { createRule } from "../_internal/create-rule.js";
 
-const isExplicitlyDisabledSvgLiteral = (argument: TSESTree.Node): boolean =>
-    argument.type === "Literal" &&
-    [
-        0,
-        "0",
-        false,
-        "false",
-    ].includes(argument.value as never);
+const isExplicitlyDisabledSvgLiteral = (
+    argument: TSESTree.Node | undefined
+): boolean =>
+    argument?.type === "Literal" &&
+    arrayIncludes(
+        [
+            0,
+            "0",
+            false,
+            "false",
+        ],
+        argument.value
+    );
 
 const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
     create(context) {
@@ -22,10 +29,6 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
                 }
 
                 const [firstArgument] = node.arguments;
-
-                if (!firstArgument) {
-                    return;
-                }
 
                 if (isExplicitlyDisabledSvgLiteral(firstArgument)) {
                     return;

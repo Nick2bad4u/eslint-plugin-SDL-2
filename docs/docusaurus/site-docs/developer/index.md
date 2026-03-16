@@ -14,7 +14,7 @@ This section is for contributors and advanced users.
 - [🧭 Architecture Decisions (ADR)](./adr/index.md)
 - [📊 Architecture and operations charts](./charts/index.md)
 - [🧬 Typed service path inventory](./typed-paths.md)
-- [🧠 Type aliases reference](./api/plugin/type-aliases/SdlPlugin.md)
+- [🧠 Type aliases reference](./api/plugin/type-aliases/SdlPluginWithConfigs.md)
 - [⚙️ Runtime exports reference](./api/plugin/variables/sdlPlugin.md)
 
 ## Maintainer operations guides

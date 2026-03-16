@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { arrayIncludes, isDefined } from "ts-extras";
+
 import {
     getFullTypeChecker,
     getNodeTypeAsString,
@@ -17,14 +19,15 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
                 const [, targetOrigin] = node.arguments;
 
                 if (
-                    targetOrigin?.type !== "Literal" ||
+                    !isDefined(targetOrigin) ||
+                    targetOrigin.type !== "Literal" ||
                     targetOrigin.value !== "*"
                 ) {
                     return;
                 }
 
                 if (
-                    fullTypeChecker !== undefined &&
+                    isDefined(fullTypeChecker) &&
                     node.callee.type === "MemberExpression"
                 ) {
                     const calleeObjectType = getNodeTypeAsString(
@@ -33,7 +36,7 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
                         context
                     );
 
-                    if (!["any", "Window"].includes(calleeObjectType)) {
+                    if (!arrayIncludes(["any", "Window"], calleeObjectType)) {
                         return;
                     }
                 }

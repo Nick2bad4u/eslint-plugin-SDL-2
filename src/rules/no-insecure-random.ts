@@ -1,6 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
 import { basename, parse } from "node:path";
+import { arrayIncludes, isDefined } from "ts-extras";
 
 import {
     getFullTypeChecker,
@@ -18,7 +19,8 @@ const bannedRandomLibraries = [
 ] as const;
 
 const isBannedRandomLibrary = (value: string): boolean =>
-    bannedRandomLibraries.includes(
+    arrayIncludes(
+        bannedRandomLibraries,
         value as (typeof bannedRandomLibraries)[number]
     );
 
@@ -30,17 +32,17 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
             "CallExpression > MemberExpression[property.name='pseudoRandomBytes']"(
                 node: TSESTree.MemberExpression
             ) {
-                const isUnsafe =
-                    fullTypeChecker === undefined
-                        ? node.object.type === "Identifier" &&
-                          node.object.name === "crypto"
-                        : ["any", "Crypto"].includes(
-                              getNodeTypeAsString(
-                                  fullTypeChecker,
-                                  node.object,
-                                  context
-                              )
-                          );
+                const isUnsafe = isDefined(fullTypeChecker)
+                    ? arrayIncludes(
+                          ["any", "Crypto"],
+                          getNodeTypeAsString(
+                              fullTypeChecker,
+                              node.object,
+                              context
+                          )
+                      )
+                    : node.object.type === "Identifier" &&
+                      node.object.name === "crypto";
 
                 if (!isUnsafe) {
                     return;
@@ -54,17 +56,17 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
             "CallExpression > MemberExpression[property.name='random']"(
                 node: TSESTree.MemberExpression
             ) {
-                const isUnsafe =
-                    fullTypeChecker === undefined
-                        ? node.object.type === "Identifier" &&
-                          node.object.name === "Math"
-                        : ["any", "Math"].includes(
-                              getNodeTypeAsString(
-                                  fullTypeChecker,
-                                  node.object,
-                                  context
-                              )
-                          );
+                const isUnsafe = isDefined(fullTypeChecker)
+                    ? arrayIncludes(
+                          ["any", "Math"],
+                          getNodeTypeAsString(
+                              fullTypeChecker,
+                              node.object,
+                              context
+                          )
+                      )
+                    : node.object.type === "Identifier" &&
+                      node.object.name === "Math";
 
                 if (!isUnsafe) {
                     return;
@@ -81,7 +83,8 @@ const rule: TSESLint.RuleModule<string, unknown[]> = createRule({
                 const [sourceArgument] = node.arguments;
 
                 if (
-                    sourceArgument?.type !== "Literal" ||
+                    !isDefined(sourceArgument) ||
+                    sourceArgument.type !== "Literal" ||
                     typeof sourceArgument.value !== "string"
                 ) {
                     return;

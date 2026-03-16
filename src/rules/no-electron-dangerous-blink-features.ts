@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { arrayFirst } from "ts-extras";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
@@ -46,7 +48,7 @@ const getStaticStringValue = (node: TSESTree.Node): string | undefined => {
     }
 
     if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
-        return node.quasis[0]?.value.cooked ?? undefined;
+        return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
     return undefined;

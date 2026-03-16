@@ -1,5 +1,8 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { UnknownMap } from "type-fest";
 import type ts from "typescript";
+
+import { isDefined, safeCastTo } from "ts-extras";
 
 type RuleContext = Readonly<TSESLint.RuleContext<string, unknown[]>>;
 
@@ -9,15 +12,15 @@ type TypeScriptParserServices = Readonly<{
     tsNodeToESTreeNodeMap: ReadonlyMap<ts.Node, TSESTree.Node>;
 }>;
 
-const isMapLike = (value: unknown): value is ReadonlyMap<unknown, unknown> =>
+const isMapLike = (value: unknown): value is Readonly<UnknownMap> =>
     typeof value === "object" &&
     value !== null &&
-    typeof (value as { get?: unknown }).get === "function";
+    typeof safeCastTo<{ get?: unknown }>(value).get === "function";
 
 const isProgramLike = (value: unknown): value is ts.Program =>
     typeof value === "object" &&
     value !== null &&
-    typeof (value as { getTypeChecker?: unknown }).getTypeChecker ===
+    typeof safeCastTo<{ getTypeChecker?: unknown }>(value).getTypeChecker ===
         "function";
 
 const isTypeScriptParserServices = (
@@ -27,7 +30,8 @@ const isTypeScriptParserServices = (
         return false;
     }
 
-    const candidate = parserServices as Partial<TypeScriptParserServices>;
+    const candidate =
+        safeCastTo<Partial<TypeScriptParserServices>>(parserServices);
 
     return (
         isProgramLike(candidate.program) &&
@@ -48,7 +52,7 @@ const getParserServices = (
 
 /** Returns `true` when parser services expose complete TypeScript program data. */
 export const hasFullTypeInformation = (context: RuleContext): boolean =>
-    getParserServices(context) !== undefined;
+    isDefined(getParserServices(context));
 
 /** Returns the TypeScript type checker when parser services are available. */
 export const getFullTypeChecker = (
@@ -62,23 +66,26 @@ export const getNodeTypeAsString = (
     node: null | TSESTree.Node | undefined,
     context: RuleContext
 ): string => {
-    if (fullTypeChecker === undefined || node === null || node === undefined) {
+    if (!isDefined(fullTypeChecker) || !isDefined(node)) {
         return "any";
     }
 
     const parserServices = getParserServices(context);
 
-    if (parserServices === undefined) {
+    if (!isDefined(parserServices)) {
         return "any";
     }
 
-    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+    const normalizedNode = node!;
+    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(normalizedNode);
 
-    if (tsNode === undefined) {
+    if (!isDefined(tsNode)) {
         return "any";
     }
 
-    const tsType = fullTypeChecker.getTypeAtLocation(tsNode);
+    const tsType = fullTypeChecker.getTypeAtLocation(
+        safeCastTo<ts.Node>(tsNode)
+    );
 
     return fullTypeChecker.typeToString(tsType);
 };

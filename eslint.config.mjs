@@ -35,6 +35,7 @@ import * as pluginCssModules from "eslint-plugin-css-modules";
 import deMorgan from "eslint-plugin-de-morgan";
 import depend from "eslint-plugin-depend";
 import eslintPluginEslintPlugin from "eslint-plugin-eslint-plugin";
+import etcMisc from "eslint-plugin-etc-misc";
 import progress from "eslint-plugin-file-progress-2";
 import { importX } from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
@@ -72,7 +73,6 @@ import pluginTotalFunctions from "eslint-plugin-total-functions";
 import pluginTsdoc from "eslint-plugin-tsdoc";
 import tsdocRequire from "eslint-plugin-tsdoc-require-2";
 import typefest from "eslint-plugin-typefest";
-import etcMisc from "eslint-plugin-etc-misc";
 import pluginUndefinedCss from "eslint-plugin-undefined-css-classes";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
@@ -772,11 +772,14 @@ export default defineConfig([
             "etc-misc/typescript/no-multi-type-tuples": "off",
             "etc-misc/typescript/no-never": "off",
             "etc-misc/typescript/no-redundant-undefined-const": "off",
-            "etc-misc/typescript/no-redundant-undefined-default-parameter": "off",
+            "etc-misc/typescript/no-redundant-undefined-default-parameter":
+                "off",
             "etc-misc/typescript/no-redundant-undefined-let": "off",
             "etc-misc/typescript/no-redundant-undefined-optional": "off",
-            "etc-misc/typescript/no-redundant-undefined-promise-return-type": "off",
-            "etc-misc/typescript/no-redundant-undefined-readonly-property": "off",
+            "etc-misc/typescript/no-redundant-undefined-promise-return-type":
+                "off",
+            "etc-misc/typescript/no-redundant-undefined-readonly-property":
+                "off",
             "etc-misc/typescript/no-redundant-undefined-return-type": "off",
             "etc-misc/typescript/no-redundant-undefined-var": "off",
             "etc-misc/typescript/no-unsafe-object-assign": "off",
@@ -2027,49 +2030,6 @@ export default defineConfig([
             vitest: {
                 typecheck: true,
             },
-        },
-    },
-    // #endregion
-    // #region SDL migrated rule ports
-    {
-        files: ["src/rules/**/*.ts"],
-        name: "SDL migrated rules - relaxed authoring checks",
-        rules: {
-            "@typescript-eslint/prefer-readonly-parameter-types": "off",
-            "eslint-plugin/require-meta-default-options": "off",
-            "eslint-plugin/require-meta-docs-description": "off",
-            "eslint-plugin/require-meta-docs-recommended": "off",
-            "eslint-plugin/require-meta-docs-url": "off",
-            "eslint-plugin/require-meta-schema-description": "off",
-            "prefer-named-capture-group": "off",
-            "regexp/optimal-quantifier-concatenation": "off",
-            "regexp/prefer-named-capture-group": "off",
-            "security/detect-non-literal-regexp": "off",
-            "tsdoc-require-2/require": "off",
-            "unicorn/no-array-callback-reference": "off",
-        },
-    },
-    {
-        files: ["src/plugin.ts"],
-        name: "SDL plugin entrypoint - relaxed authoring checks",
-        rules: {
-            "@typescript-eslint/prefer-readonly-parameter-types": "off",
-            "tsdoc-require-2/require": "off",
-        },
-    },
-    {
-        files: ["src/_internal/rules-registry.ts"],
-        name: "SDL rules registry - allow intentional re-exports",
-        rules: {
-            "canonical/no-re-export": "off",
-        },
-    },
-    {
-        files: ["src/_internal/**/*.ts"],
-        name: "SDL internals - relaxed authoring checks",
-        rules: {
-            "@typescript-eslint/prefer-readonly-parameter-types": "off",
-            "tsdoc-require-2/require": "off",
         },
     },
     // #endregion

@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { arrayAt, arrayFirst } from "ts-extras";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
@@ -12,7 +14,7 @@ const getStaticStringValue = (
     }
 
     if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
-        return node.quasis[0]?.value.cooked ?? undefined;
+        return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
     return undefined;
@@ -33,7 +35,7 @@ const isOnMemberExpression = (
 const getCallbackParameterName = (
     node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression
 ): string | undefined => {
-    const callbackParameter = node.params.at(-1);
+    const callbackParameter = arrayAt(node.params, -1);
 
     return callbackParameter?.type === "Identifier"
         ? callbackParameter.name

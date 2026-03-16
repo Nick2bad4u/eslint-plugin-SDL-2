@@ -25,6 +25,316 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-angular-bypass-security-trust-html",
+    getPluginRule("no-angular-bypass-security-trust-html"),
+    {
+        invalid: [
+            {
+                code: "sanitizer.bypassSecurityTrustHtml(userHtml);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["sanitizer.sanitize(1, userHtml);"],
+    }
+);
+
+ruleTester.run(
+    "no-angular-innerhtml-binding",
+    getPluginRule("no-angular-innerhtml-binding"),
+    {
+        invalid: [
+            {
+                code: 'const template = `<div [innerHTML]="userHtml"></div>`;',
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["const template = '<div>{{ value }}</div>';"],
+    }
+);
+
+ruleTester.run(
+    "no-angularjs-ng-bind-html-without-sanitize",
+    getPluginRule("no-angularjs-ng-bind-html-without-sanitize"),
+    {
+        invalid: [
+            {
+                code: "const template = '<div ng-bind-html=\"unsafeHtml\"></div>';",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "const template = '<div ng-bind-html=\"trustedHtml\" ngSanitize></div>';",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-angularjs-sce-resource-url-wildcard",
+    getPluginRule("no-angularjs-sce-resource-url-wildcard"),
+    {
+        invalid: [
+            {
+                code: "$sceDelegateProvider.resourceUrlWhitelist(['self', '*']);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "$sceDelegateProvider.resourceUrlWhitelist(['self', 'https://cdn.example.com/app']);",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-child-process-shell-true",
+    getPluginRule("no-child-process-shell-true"),
+    {
+        invalid: [
+            {
+                code: "spawn('cmd', ['/c', command], { shell: true });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["spawn('node', ['script.js'], { shell: false });"],
+    }
+);
+
+ruleTester.run(
+    "no-domparser-html-without-sanitization",
+    getPluginRule("no-domparser-html-without-sanitization"),
+    {
+        invalid: [
+            {
+                code: "new DOMParser().parseFromString(userHtml, 'text/html');",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "new DOMParser().parseFromString(sanitize(userHtml), 'text/html');",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-insecure-certificate-verify-proc",
+    getPluginRule("no-electron-insecure-certificate-verify-proc"),
+    {
+        invalid: [
+            {
+                code: "session.defaultSession.setCertificateVerifyProc((request, callback) => { callback(0); });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "session.defaultSession.setCertificateVerifyProc((request, callback) => { callback(-3); });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-insecure-permission-request-handler",
+    getPluginRule("no-electron-insecure-permission-request-handler"),
+    {
+        invalid: [
+            {
+                code: "session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => { callback(true); });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => { callback(false); });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-unchecked-ipc-sender",
+    getPluginRule("no-electron-unchecked-ipc-sender"),
+    {
+        invalid: [
+            {
+                code: "ipcMain.handle('read-file', async (event) => readFile('secret.txt'));",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "ipcMain.handle('read-file', async (event) => { const url = event.senderFrame?.url; if (!url?.startsWith('https://example.com')) return null; return 'ok'; });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-unrestricted-navigation",
+    getPluginRule("no-electron-unrestricted-navigation"),
+    {
+        invalid: [
+            {
+                code: "contents.setWindowOpenHandler(() => ({ action: 'allow' }));",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "contents.on('will-navigate', (event, url) => { console.log(url); });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "contents.on('will-navigate', (event, url) => { event.preventDefault(); if (url === 'https://example.com') { /* allow */ } });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-webview-allowpopups",
+    getPluginRule("no-electron-webview-allowpopups"),
+    {
+        invalid: [
+            {
+                code: 'const view = <webview allowpopups src="https://example.com" />;',
+                errors: [{ messageId: "default" }],
+                languageOptions: {
+                    parserOptions: {
+                        ecmaFeatures: {
+                            jsx: true,
+                        },
+                    },
+                },
+            },
+        ],
+        valid: [
+            {
+                code: 'const view = <webview src="https://example.com" />;',
+                languageOptions: {
+                    parserOptions: {
+                        ecmaFeatures: {
+                            jsx: true,
+                        },
+                    },
+                },
+            },
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-webview-node-integration",
+    getPluginRule("no-electron-webview-node-integration"),
+    {
+        invalid: [
+            {
+                code: 'const view = <webview nodeintegration src="https://example.com" />;',
+                errors: [{ messageId: "default" }],
+                languageOptions: {
+                    parserOptions: {
+                        ecmaFeatures: {
+                            jsx: true,
+                        },
+                    },
+                },
+            },
+        ],
+        valid: [
+            {
+                code: 'const view = <webview src="https://example.com" webpreferences="sandbox=yes" />;',
+                languageOptions: {
+                    parserOptions: {
+                        ecmaFeatures: {
+                            jsx: true,
+                        },
+                    },
+                },
+            },
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-http-request-to-insecure-protocol",
+    getPluginRule("no-http-request-to-insecure-protocol"),
+    {
+        invalid: [
+            {
+                code: "http.get('http://api.example.com/status');",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["https.get('https://api.example.com/status');"],
+    }
+);
+
+ruleTester.run(
+    "no-insecure-tls-agent-options",
+    getPluginRule("no-insecure-tls-agent-options"),
+    {
+        invalid: [
+            {
+                code: "new https.Agent({ rejectUnauthorized: false });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["new https.Agent({ rejectUnauthorized: true });"],
+    }
+);
+
+ruleTester.run(
+    "no-location-javascript-url",
+    getPluginRule("no-location-javascript-url"),
+    {
+        invalid: [
+            {
+                code: "window.location.href = 'javascript:alert(1)';",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["window.location.href = 'https://example.com';"],
+    }
+);
+
+ruleTester.run(
+    "no-nonnull-assertion-on-security-input",
+    getPluginRule("no-nonnull-assertion-on-security-input"),
+    {
+        invalid: [
+            {
+                code: "const safe = userInput!;",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["const safe = verifiedInput;"],
+    }
+);
+
+ruleTester.run(
+    "no-postmessage-without-origin-allowlist",
+    getPluginRule("no-postmessage-without-origin-allowlist"),
+    {
+        invalid: [
+            {
+                code: "target.postMessage(data, '*');",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "target.postMessage(data, origin);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["target.postMessage(data, 'https://example.com');"],
+    }
+);
+
+ruleTester.run(
+    "no-unsafe-cast-to-trusted-types",
+    getPluginRule("no-unsafe-cast-to-trusted-types"),
+    {
+        invalid: [
+            {
+                code: "const trusted = userHtml as TrustedHTML;",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: ["const trusted = policy.createHTML(userHtml) as TrustedHTML;"],
+    }
+);
+
+ruleTester.run(
     "no-angular-sanitization-trusted-urls",
     getPluginRule("no-angular-sanitization-trusted-urls"),
     {

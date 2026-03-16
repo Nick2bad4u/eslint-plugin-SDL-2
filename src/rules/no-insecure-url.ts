@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { safeCastTo } from "ts-extras";
+
 import { createRule } from "../_internal/create-rule.js";
 
 const defaultBlocklist: readonly RegExp[] = [/^(ftp|http|telnet|ws):\/\//iu];
@@ -135,7 +137,7 @@ const rule: TSESLint.RuleModule<MessageIds, Options> = createRule<
             },
         };
     },
-    defaultOptions: [{}] as Options,
+    defaultOptions: safeCastTo<Options>([{}]),
     meta: {
         docs: {
             description:

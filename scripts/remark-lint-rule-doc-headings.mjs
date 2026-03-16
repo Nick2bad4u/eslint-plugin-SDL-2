@@ -106,10 +106,9 @@ const optionalDetailHeadingDefinitionsByTitle = new Map(
 
 const defaultHeadingToggles = Object.freeze(
     Object.fromEntries(
-        [
-            ...canonicalHeadingDefinitions,
-            ...optionalDetailHeadingDefinitions,
-        ].map((definition) => [definition.key, true])
+        [...canonicalHeadingDefinitions, ...optionalDetailHeadingDefinitions].map(
+            (definition) => [definition.key, true]
+        )
     )
 );
 
@@ -140,8 +139,9 @@ const getNearestPackageMetadata = (documentPath) => {
         traversedDirectories.push(currentDirectory);
 
         if (packageMetadataCache.has(currentDirectory)) {
-            const cachedPackageMetadata =
-                packageMetadataCache.get(currentDirectory);
+            const cachedPackageMetadata = packageMetadataCache.get(
+                currentDirectory
+            );
 
             for (const traversedDirectory of traversedDirectories) {
                 packageMetadataCache.set(
@@ -229,9 +229,7 @@ const getRuleNamespaceAliasesFromPackageName = (packageName) => {
         return [...aliases];
     }
 
-    const pluginName = scopedPackageName.slice(
-        eslintPluginPackagePrefix.length
-    );
+    const pluginName = scopedPackageName.slice(eslintPluginPackagePrefix.length);
 
     if (pluginName !== "") {
         aliases.add(pluginName);
@@ -375,7 +373,7 @@ const getHeadingsByDepth = (tree, depth) =>
  *
  * @returns {(tree: Node, file: VFile) => void}
  */
-export default function remarkLintRuleDocHeadings(options = {}) {
+export default function remarkLintRuleDocHeadings (options = {}) {
     const headingToggles = {
         ...defaultHeadingToggles,
         ...(options.headings ?? {}),
@@ -393,8 +391,7 @@ export default function remarkLintRuleDocHeadings(options = {}) {
     const ruleCatalogIdLinePattern =
         options.ruleCatalogIdLinePattern ?? defaultRuleCatalogIdLinePattern;
     /** @param {keyof typeof defaultHeadingToggles} headingKey */
-    const isHeadingEnabled = (headingKey) =>
-        headingToggles[headingKey] !== false;
+    const isHeadingEnabled = (headingKey) => headingToggles[headingKey] !== false;
     const enabledCanonicalHeadingOrder = canonicalHeadingDefinitions
         .filter((definition) => isHeadingEnabled(definition.key))
         .map((definition) => definition.heading);
@@ -474,8 +471,9 @@ export default function remarkLintRuleDocHeadings(options = {}) {
         const seenHeadings = new Set();
 
         for (const [index, headingName] of headingNames.entries()) {
-            const headingDefinition =
-                canonicalHeadingDefinitionsByTitle.get(headingName);
+            const headingDefinition = canonicalHeadingDefinitionsByTitle.get(
+                headingName
+            );
 
             if (
                 headingDefinition !== undefined &&
@@ -561,8 +559,9 @@ export default function remarkLintRuleDocHeadings(options = {}) {
         let lastOrder = -1;
 
         for (const [index, headingName] of headingNames.entries()) {
-            const headingDefinition =
-                canonicalHeadingDefinitionsByTitle.get(headingName);
+            const headingDefinition = canonicalHeadingDefinitionsByTitle.get(
+                headingName
+            );
 
             if (
                 headingDefinition !== undefined &&

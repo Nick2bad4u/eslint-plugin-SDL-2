@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { arrayFirst, isDefined, stringSplit } from "ts-extras";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
@@ -11,12 +13,17 @@ const getStaticStringValue = (
         return node.value;
     }
 
-    if (
-        node.type === "TemplateLiteral" &&
-        node.expressions.length === 0 &&
-        typeof node.quasis[0]?.value.cooked === "string"
-    ) {
-        return node.quasis[0].value.cooked;
+    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+        const firstQuasi = arrayFirst(node.quasis);
+
+        if (
+            !isDefined(firstQuasi) ||
+            typeof firstQuasi.value.cooked !== "string"
+        ) {
+            return undefined;
+        }
+
+        return firstQuasi.value.cooked;
     }
 
     return undefined;
@@ -38,9 +45,7 @@ const isWindowOpenCallee = (
 };
 
 const hasNoopenerToken = (features: string): boolean =>
-    features
-        .toLowerCase()
-        .split(",")
+    stringSplit(features.toLowerCase(), ",")
         .map((token) => token.trim())
         .some((token) => token === "noopener" || token.startsWith("noopener="));
 

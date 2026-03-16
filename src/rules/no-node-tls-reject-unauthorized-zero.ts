@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { arrayFirst } from "ts-extras";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
@@ -58,7 +60,7 @@ const isUnsafeOverrideValue = (node: TSESTree.Expression): boolean => {
     return (
         node.type === "TemplateLiteral" &&
         node.expressions.length === 0 &&
-        node.quasis[0]?.value.cooked === "0"
+        arrayFirst(node.quasis)?.value.cooked === "0"
     );
 };
 
