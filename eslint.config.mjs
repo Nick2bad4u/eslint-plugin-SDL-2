@@ -72,6 +72,7 @@ import pluginTotalFunctions from "eslint-plugin-total-functions";
 import pluginTsdoc from "eslint-plugin-tsdoc";
 import tsdocRequire from "eslint-plugin-tsdoc-require-2";
 import typefest from "eslint-plugin-typefest";
+import etcMisc from "eslint-plugin-etc-misc";
 import pluginUndefinedCss from "eslint-plugin-undefined-css-classes";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
