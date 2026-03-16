@@ -73,6 +73,7 @@ const createCommonConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
             "sdl/no-insecure-url": "error",
             "sdl/no-msapp-exec-unsafe": "error",
             "sdl/no-postmessage-star-origin": "error",
+            "sdl/no-window-open-without-noopener": "error",
             "sdl/no-winjs-html-unsafe": "error",
         },
     },
@@ -84,7 +85,15 @@ const createElectronConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
             sdl: plugin,
         },
         rules: {
+            "sdl/no-electron-allow-running-insecure-content": "error",
+            "sdl/no-electron-dangerous-blink-features": "error",
+            "sdl/no-electron-disable-context-isolation": "error",
+            "sdl/no-electron-disable-sandbox": "error",
+            "sdl/no-electron-disable-web-security": "error",
+            "sdl/no-electron-enable-remote-module": "error",
+            "sdl/no-electron-insecure-certificate-error-handler": "error",
             "sdl/no-electron-node-integration": "error",
+            "sdl/no-electron-untrusted-open-external": "error",
         },
     },
 ];
@@ -103,6 +112,7 @@ const createNodeConfig = (plugin: ESLint.Plugin): SdlConfigArray => [
             sdl: plugin,
         },
         rules: {
+            "sdl/no-node-tls-reject-unauthorized-zero": "error",
             "sdl/no-unsafe-alloc": "error",
         },
     },

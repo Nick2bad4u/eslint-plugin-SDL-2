@@ -51,14 +51,24 @@ Custom rules currently documented:
 - `no-cookies`
 - `no-document-domain`
 - `no-document-write`
+- `no-electron-allow-running-insecure-content`
+- `no-electron-dangerous-blink-features`
+- `no-electron-disable-context-isolation`
+- `no-electron-disable-sandbox`
+- `no-electron-disable-web-security`
+- `no-electron-enable-remote-module`
+- `no-electron-insecure-certificate-error-handler`
 - `no-electron-node-integration`
+- `no-electron-untrusted-open-external`
 - `no-html-method`
 - `no-inner-html`
 - `no-insecure-random`
 - `no-insecure-url`
 - `no-msapp-exec-unsafe`
+- `no-node-tls-reject-unauthorized-zero`
 - `no-postmessage-star-origin`
 - `no-unsafe-alloc`
+- `no-window-open-without-noopener`
 - `no-winjs-html-unsafe`
 
 ## Next steps
