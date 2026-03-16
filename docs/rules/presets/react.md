@@ -10,7 +10,7 @@ configures JSX parsing context.
 ## Config key
 
 ```ts
-sdl.configs.react
+sdl.configs.react;
 ```
 
 ## Flat Config example
@@ -29,5 +29,5 @@ export default [...sdl.configs.react];
   - `—` = report only
 
 | Rule | Fix |
-| --- | :-: |
-| — | — |
+| ---- | :-: |
+| —    |  —  |

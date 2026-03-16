@@ -37,12 +37,12 @@ const payload = Buffer.alloc(64);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-unsafe-alloc": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-unsafe-alloc": "error",
   },
+ },
 ];
 ```
 

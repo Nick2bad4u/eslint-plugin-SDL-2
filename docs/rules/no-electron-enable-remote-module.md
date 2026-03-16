@@ -21,9 +21,9 @@ capabilities and weakens isolation boundaries.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    enableRemoteModule: true,
-  },
+ webPreferences: {
+  enableRemoteModule: true,
+ },
 });
 ```
 
@@ -31,9 +31,9 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    enableRemoteModule: false,
-  },
+ webPreferences: {
+  enableRemoteModule: false,
+ },
 });
 ```
 
@@ -43,12 +43,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-enable-remote-module": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-enable-remote-module": "error",
   },
+ },
 ];
 ```
 

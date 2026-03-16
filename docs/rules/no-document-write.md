@@ -38,12 +38,12 @@ document.body.append(node);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-document-write": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-document-write": "error",
   },
+ },
 ];
 ```
 

@@ -1,6 +1,6 @@
 # no-location-javascript-url
 
-> **Rule catalog ID:** R042
+Disallow `javascript:` URLs in location-like navigation sinks.
 
 ## Targeted pattern scope
 
@@ -26,7 +26,34 @@ window.location.href = "javascript:alert(1)";
 window.location.href = "https://example.com";
 ```
 
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+ {
+  plugins: { sdl },
+
+  rules: {
+   "sdl/no-location-javascript-url": "error",
+  },
+ },
+];
+```
+
+## When not to use it
+
+Disable only for legacy code that cannot yet migrate away from `javascript:` URLs and has explicit security review sign-off.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-location-javascript-url.ts)
+
 ## Further reading
 
+> **Rule catalog ID:** R042
+
 - [OWASP Top 10: Injection](https://owasp.org/www-project-top-ten/)
+
 - [OWASP Top 10: Security Misconfiguration](https://owasp.org/www-project-top-ten/)

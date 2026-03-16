@@ -39,12 +39,12 @@ const browserBytes = crypto.getRandomValues(new Uint8Array(32));
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-insecure-random": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-insecure-random": "error",
   },
+ },
 ];
 ```
 

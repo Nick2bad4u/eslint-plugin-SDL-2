@@ -9,7 +9,7 @@ Use to enable TypeScript parser defaults and TypeScript-aware linting behavior.
 ## Config key
 
 ```ts
-sdl.configs.typescript
+sdl.configs.typescript;
 ```
 
 ## Flat Config example
@@ -28,5 +28,5 @@ export default [...sdl.configs.typescript];
   - `—` = report only
 
 | Rule | Fix |
-| --- | :-: |
-| — | — |
+| ---- | :-: |
+| —    |  —  |

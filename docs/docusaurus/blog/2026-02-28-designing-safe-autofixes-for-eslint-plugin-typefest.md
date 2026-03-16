@@ -2,13 +2,13 @@
 slug: designing-safe-autofixes-for-eslint-plugin-sdl-2
 title: Designing Safe Autofixes for eslint-plugin-sdl-2
 authors:
-  - nick
+ - nick
 tags:
-  - eslint
-  - autofix
-  - typescript
-  - static-analysis
-  - developer-experience
+ - eslint
+ - autofix
+ - typescript
+ - static-analysis
+ - developer-experience
 description: How eslint-plugin-sdl-2 decides between automatic fixes and suggestions to protect runtime behavior.
 ---
 

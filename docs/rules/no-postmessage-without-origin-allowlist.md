@@ -1,6 +1,6 @@
 # no-postmessage-without-origin-allowlist
 
-> **Rule catalog ID:** R044
+Require explicit allowlisted origins for `postMessage` targetOrigin values.
 
 ## Targeted pattern scope
 
@@ -26,7 +26,34 @@ target.postMessage(data, "*");
 target.postMessage(data, "https://example.com");
 ```
 
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+ {
+  plugins: { sdl },
+
+  rules: {
+   "sdl/no-postmessage-without-origin-allowlist": "error",
+  },
+ },
+];
+```
+
+## When not to use it
+
+Disable only if the target origin is validated by a reviewed helper abstraction or a controlled embedding environment.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-postmessage-without-origin-allowlist.ts)
+
 ## Further reading
 
+> **Rule catalog ID:** R044
+
 - [OWASP Top 10: Injection](https://owasp.org/www-project-top-ten/)
+
 - [OWASP Top 10: Security Misconfiguration](https://owasp.org/www-project-top-ten/)

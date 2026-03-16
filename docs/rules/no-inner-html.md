@@ -40,12 +40,12 @@ container.append(node);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-inner-html": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-inner-html": "error",
   },
+ },
 ];
 ```
 

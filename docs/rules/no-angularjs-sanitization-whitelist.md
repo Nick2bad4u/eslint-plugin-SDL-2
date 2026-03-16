@@ -38,12 +38,12 @@ $compileProvider.imgSrcSanitizationWhitelist(/.*/);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-angularjs-sanitization-whitelist": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-angularjs-sanitization-whitelist": "error",
   },
+ },
 ];
 ```
 

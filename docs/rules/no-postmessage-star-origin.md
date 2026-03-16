@@ -35,12 +35,12 @@ otherWindow.postMessage({ token }, "https://example.com");
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-postmessage-star-origin": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-postmessage-star-origin": "error",
   },
+ },
 ];
 ```
 

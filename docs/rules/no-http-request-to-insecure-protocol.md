@@ -1,6 +1,6 @@
 # no-http-request-to-insecure-protocol
 
-> **Rule catalog ID:** R040
+Disallow application HTTP client calls that use insecure `http://` endpoints.
 
 ## Targeted pattern scope
 
@@ -26,7 +26,34 @@ http.get("http://api.example.com/status");
 https.get("https://api.example.com/status");
 ```
 
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+ {
+  plugins: { sdl },
+
+  rules: {
+   "sdl/no-http-request-to-insecure-protocol": "error",
+  },
+ },
+];
+```
+
+## When not to use it
+
+Disable only for local development or legacy endpoints that are explicitly non-production and otherwise protected.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-http-request-to-insecure-protocol.ts)
+
 ## Further reading
 
+> **Rule catalog ID:** R040
+
 - [OWASP Top 10: Injection](https://owasp.org/www-project-top-ten/)
+
 - [OWASP Top 10: Security Misconfiguration](https://owasp.org/www-project-top-ten/)

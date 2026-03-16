@@ -26,9 +26,7 @@ Recommended checks:
 // eslint.config.mjs
 import sdl from "eslint-plugin-sdl-2";
 
-export default [
-  ...sdl.configs.recommended,
-];
+export default [...sdl.configs.recommended];
 ```
 
 ## Type-aware parser setup notes

@@ -39,12 +39,12 @@ const trusted = $sce.trustAsHtml(userSuppliedHtml);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-angularjs-bypass-sce": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-angularjs-bypass-sce": "error",
   },
+ },
 ];
 ```
 

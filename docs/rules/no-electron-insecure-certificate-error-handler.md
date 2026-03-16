@@ -22,10 +22,10 @@ man-in-the-middle interception.
 
 ```ts
 app.on(
-  "certificate-error",
-  (_event, _webContents, _url, _error, _certificate, callback) => {
-    callback(true);
-  },
+ "certificate-error",
+ (_event, _webContents, _url, _error, _certificate, callback) => {
+  callback(true);
+ }
 );
 ```
 
@@ -33,10 +33,10 @@ app.on(
 
 ```ts
 app.on(
-  "certificate-error",
-  (_event, _webContents, _url, _error, _certificate, callback) => {
-    callback(false);
-  },
+ "certificate-error",
+ (_event, _webContents, _url, _error, _certificate, callback) => {
+  callback(false);
+ }
 );
 ```
 
@@ -46,12 +46,12 @@ app.on(
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-insecure-certificate-error-handler": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-insecure-certificate-error-handler": "error",
   },
+ },
 ];
 ```
 

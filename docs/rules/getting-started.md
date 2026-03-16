@@ -16,9 +16,7 @@ Enable one preset in your Flat Config:
 ```ts
 import sdl from "eslint-plugin-sdl-2";
 
-export default [
-    ...sdl.configs.recommended,
-];
+export default [...sdl.configs.recommended];
 ```
 
 ## Layering presets
@@ -37,17 +35,17 @@ If you prefer to apply plugin rules inside your own file-scoped config object, s
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-    ...sdl.configs.typescript,
-    {
-        files: ["**/*.{ts,tsx,mts,cts}"],
-        plugins: {
-            sdl,
-        },
-        rules: {
-            "sdl/no-insecure-random": "error",
-            "sdl/no-insecure-url": "error",
-        },
-    },
+ ...sdl.configs.typescript,
+ {
+  files: ["**/*.{ts,tsx,mts,cts}"],
+  plugins: {
+   sdl,
+  },
+  rules: {
+   "sdl/no-insecure-random": "error",
+   "sdl/no-insecure-url": "error",
+  },
+ },
 ];
 ```
 

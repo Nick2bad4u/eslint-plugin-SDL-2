@@ -37,12 +37,12 @@ window.open("https://example.com", "_blank", "noopener,noreferrer");
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-window-open-without-noopener": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-window-open-without-noopener": "error",
   },
+ },
 ];
 ```
 

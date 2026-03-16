@@ -22,9 +22,9 @@ weaken predictable browser hardening.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    enableBlinkFeatures: "CSSVariables,LayoutNG",
-  },
+ webPreferences: {
+  enableBlinkFeatures: "CSSVariables,LayoutNG",
+ },
 });
 ```
 
@@ -32,16 +32,16 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    enableBlinkFeatures: "",
-  },
+ webPreferences: {
+  enableBlinkFeatures: "",
+ },
 });
 
 new BrowserWindow({
-  webPreferences: {
-    contextIsolation: true,
-    sandbox: true,
-  },
+ webPreferences: {
+  contextIsolation: true,
+  sandbox: true,
+ },
 });
 ```
 
@@ -51,12 +51,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-dangerous-blink-features": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-dangerous-blink-features": "error",
   },
+ },
 ];
 ```
 

@@ -21,9 +21,9 @@ risk in Electron apps.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    nodeIntegration: true,
-  },
+ webPreferences: {
+  nodeIntegration: true,
+ },
 });
 ```
 
@@ -31,10 +31,10 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    nodeIntegration: false,
-    contextIsolation: true,
-  },
+ webPreferences: {
+  nodeIntegration: false,
+  contextIsolation: true,
+ },
 });
 ```
 
@@ -44,12 +44,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-node-integration": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-node-integration": "error",
   },
+ },
 ];
 ```
 

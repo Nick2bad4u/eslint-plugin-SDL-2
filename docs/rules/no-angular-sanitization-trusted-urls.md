@@ -38,12 +38,12 @@ $compileProvider.imgSrcSanitizationTrustedUrlList(/.*/);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-    {
-        plugins: { sdl },
-        rules: {
-            "sdl/no-angular-sanitization-trusted-urls": "error",
-        },
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-angular-sanitization-trusted-urls": "error",
+  },
+ },
 ];
 ```
 

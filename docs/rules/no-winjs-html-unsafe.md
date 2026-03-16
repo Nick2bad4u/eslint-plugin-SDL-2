@@ -36,12 +36,12 @@ WinJS.Utilities.setInnerHTML(element, trustedTemplateHtml);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-winjs-html-unsafe": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-winjs-html-unsafe": "error",
   },
+ },
 ];
 ```
 

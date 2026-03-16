@@ -19,7 +19,7 @@ or script execution.
 
 ```ts
 MSApp.execUnsafeLocalFunction(() => {
-  element.innerHTML = userSuppliedHtml;
+ element.innerHTML = userSuppliedHtml;
 });
 ```
 
@@ -35,12 +35,12 @@ element.textContent = userSuppliedHtml;
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-msapp-exec-unsafe": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-msapp-exec-unsafe": "error",
   },
+ },
 ];
 ```
 

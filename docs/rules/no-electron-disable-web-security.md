@@ -21,9 +21,9 @@ attack surface for untrusted renderer content.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    webSecurity: false,
-  },
+ webPreferences: {
+  webSecurity: false,
+ },
 });
 ```
 
@@ -31,9 +31,9 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    webSecurity: true,
-  },
+ webPreferences: {
+  webSecurity: true,
+ },
 });
 ```
 
@@ -43,12 +43,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-disable-web-security": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-disable-web-security": "error",
   },
+ },
 ];
 ```
 

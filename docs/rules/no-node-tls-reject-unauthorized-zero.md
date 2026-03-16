@@ -35,12 +35,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-node-tls-reject-unauthorized-zero": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-node-tls-reject-unauthorized-zero": "error",
   },
+ },
 ];
 ```
 

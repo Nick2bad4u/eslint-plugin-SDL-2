@@ -1,6 +1,6 @@
 # no-electron-webview-node-integration
 
-> **Rule catalog ID:** R039
+Disallow Electron `<webview>` configurations that enable node integration.
 
 ## Targeted pattern scope
 
@@ -26,7 +26,34 @@ const view = <webview nodeintegration src="https://example.com" />;
 const view = <webview src="https://example.com" webpreferences="sandbox=yes" />;
 ```
 
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+ {
+  plugins: { sdl },
+
+  rules: {
+   "sdl/no-electron-webview-node-integration": "error",
+  },
+ },
+];
+```
+
+## When not to use it
+
+Disable only for legacy webview flows with documented trust guarantees and compensating isolation controls.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-electron-webview-node-integration.ts)
+
 ## Further reading
 
+> **Rule catalog ID:** R039
+
 - [OWASP Top 10: Injection](https://owasp.org/www-project-top-ten/)
+
 - [OWASP Top 10: Security Misconfiguration](https://owasp.org/www-project-top-ten/)

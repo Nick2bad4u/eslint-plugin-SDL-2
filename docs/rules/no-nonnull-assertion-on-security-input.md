@@ -1,6 +1,6 @@
 # no-nonnull-assertion-on-security-input
 
-> **Rule catalog ID:** R043
+Disallow TypeScript non-null assertions on likely security-sensitive input values.
 
 ## Targeted pattern scope
 
@@ -26,7 +26,34 @@ const safe = userInput!;
 const safe = validateInput(userInput);
 ```
 
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+ {
+  plugins: { sdl },
+
+  rules: {
+   "sdl/no-nonnull-assertion-on-security-input": "error",
+  },
+ },
+];
+```
+
+## When not to use it
+
+Disable only if the value has already been validated by a reviewed guard that this rule cannot statically recognize.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-nonnull-assertion-on-security-input.ts)
+
 ## Further reading
 
+> **Rule catalog ID:** R043
+
 - [OWASP Top 10: Injection](https://owasp.org/www-project-top-ten/)
+
 - [OWASP Top 10: Security Misconfiguration](https://owasp.org/www-project-top-ten/)

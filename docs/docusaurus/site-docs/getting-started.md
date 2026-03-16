@@ -15,9 +15,7 @@ Then enable it in your Flat Config:
 ```ts
 import sdl from "eslint-plugin-sdl-2";
 
-export default [
-    ...sdl.configs.recommended,
-];
+export default [...sdl.configs.recommended];
 ```
 
 ## Recommended approach

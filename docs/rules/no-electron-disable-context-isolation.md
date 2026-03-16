@@ -21,9 +21,9 @@ contexts, increasing exposure of privileged APIs.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    contextIsolation: false,
-  },
+ webPreferences: {
+  contextIsolation: false,
+ },
 });
 ```
 
@@ -31,9 +31,9 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    contextIsolation: true,
-  },
+ webPreferences: {
+  contextIsolation: true,
+ },
 });
 ```
 
@@ -43,12 +43,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-disable-context-isolation": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-disable-context-isolation": "error",
   },
+ },
 ];
 ```
 

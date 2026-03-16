@@ -34,12 +34,12 @@ $sanitizeProvider.enableSvg(false);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-angularjs-enable-svg": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-angularjs-enable-svg": "error",
   },
+ },
 ];
 ```
 

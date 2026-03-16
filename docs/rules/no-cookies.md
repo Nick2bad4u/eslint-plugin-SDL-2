@@ -35,12 +35,12 @@ localStorage.setItem("sessionToken", token);
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-cookies": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-cookies": "error",
   },
+ },
 ];
 ```
 

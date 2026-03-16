@@ -15,22 +15,22 @@ import { ESLint } from "eslint";
 import sdl from "eslint-plugin-sdl-2";
 
 const eslint = new ESLint({
-  overrideConfig: {
-    files: ["**/*.ts"],
-    plugins: {
-      sdl,
-    },
-    rules: {
-      "sdl/no-insecure-url": "error",
-    },
+ overrideConfig: {
+  files: ["**/*.ts"],
+  plugins: {
+   sdl,
   },
+  rules: {
+   "sdl/no-insecure-url": "error",
+  },
+ },
 });
 
 const fileResults = await eslint.lintFiles(["src/**/*.ts"]);
 
 const textResults = await eslint.lintText(
-  "const endpoint = 'http://example.com';",
-  { filePath: "virtual.ts" }
+ "const endpoint = 'http://example.com';",
+ { filePath: "virtual.ts" }
 );
 
 const allResults = [...fileResults, ...textResults];

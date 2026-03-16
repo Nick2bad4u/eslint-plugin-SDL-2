@@ -21,9 +21,9 @@ execution in renderer processes.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    allowRunningInsecureContent: true,
-  },
+ webPreferences: {
+  allowRunningInsecureContent: true,
+ },
 });
 ```
 
@@ -31,9 +31,9 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    allowRunningInsecureContent: false,
-  },
+ webPreferences: {
+  allowRunningInsecureContent: false,
+ },
 });
 ```
 
@@ -43,12 +43,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-allow-running-insecure-content": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-allow-running-insecure-content": "error",
   },
+ },
 ];
 ```
 

@@ -21,9 +21,9 @@ compromise impact.
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    sandbox: false,
-  },
+ webPreferences: {
+  sandbox: false,
+ },
 });
 ```
 
@@ -31,9 +31,9 @@ new BrowserWindow({
 
 ```ts
 new BrowserWindow({
-  webPreferences: {
-    sandbox: true,
-  },
+ webPreferences: {
+  sandbox: true,
+ },
 });
 ```
 
@@ -43,12 +43,12 @@ new BrowserWindow({
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-disable-sandbox": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-disable-sandbox": "error",
   },
+ },
 ];
 ```
 

@@ -30,7 +30,10 @@ elementRef.nativeElement.innerHTML = trusted;
 ## ✅ Correct
 
 ```ts
-const sanitizedHtml = sanitizer.sanitize(SecurityContext.HTML, userSuppliedHtml);
+const sanitizedHtml = sanitizer.sanitize(
+ SecurityContext.HTML,
+ userSuppliedHtml
+);
 elementRef.nativeElement.textContent = sanitizedHtml ?? "";
 ```
 
@@ -40,12 +43,12 @@ elementRef.nativeElement.textContent = sanitizedHtml ?? "";
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-angular-bypass-sanitizer": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-angular-bypass-sanitizer": "error",
   },
+ },
 ];
 ```
 

@@ -38,19 +38,19 @@ const endpoint = "https://api.example.com/v1/data";
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-insecure-url": [
-        "error",
-        {
-          blocklist: ["^(http|ftp):\\/\\/"],
-          exceptions: ["^http:\\/\\/schemas\\.microsoft\\.com\\/?.*"],
-          varExceptions: ["insecure?.*"],
-        },
-      ],
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-insecure-url": [
+    "error",
+    {
+     blocklist: ["^(http|ftp):\\/\\/"],
+     exceptions: ["^http:\\/\\/schemas\\.microsoft\\.com\\/?.*"],
+     varExceptions: ["insecure?.*"],
     },
+   ],
   },
+ },
 ];
 ```
 

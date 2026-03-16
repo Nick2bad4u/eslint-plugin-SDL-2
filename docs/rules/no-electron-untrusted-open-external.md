@@ -39,12 +39,12 @@ shell.openExternal("mailto:security@example.com");
 import sdl from "eslint-plugin-sdl-2";
 
 export default [
-  {
-    plugins: { sdl },
-    rules: {
-      "sdl/no-electron-untrusted-open-external": "error",
-    },
+ {
+  plugins: { sdl },
+  rules: {
+   "sdl/no-electron-untrusted-open-external": "error",
   },
+ },
 ];
 ```
 

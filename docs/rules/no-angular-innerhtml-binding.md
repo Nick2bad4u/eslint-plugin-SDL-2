@@ -1,6 +1,6 @@
 # no-angular-innerhtml-binding
 
-> **Rule catalog ID:** R029
+Disallow Angular `[innerHTML]` bindings for raw HTML without a reviewed sanitization strategy.
 
 ## Targeted pattern scope
 
@@ -26,7 +26,34 @@ const template = `<div [innerHTML]="userHtml"></div>`;
 const template = `<div>{{ safeText }}</div>`;
 ```
 
+## ESLint flat config example
+
+```ts
+import sdl from "eslint-plugin-sdl-2";
+
+export default [
+ {
+  plugins: { sdl },
+
+  rules: {
+   "sdl/no-angular-innerhtml-binding": "error",
+  },
+ },
+];
+```
+
+## When not to use it
+
+Disable only when your application has a documented, reviewed sanitization policy for the HTML source being bound.
+
+## Package documentation
+
+- [Rule source](../../src/rules/no-angular-innerhtml-binding.ts)
+
 ## Further reading
 
+> **Rule catalog ID:** R029
+
 - [OWASP Top 10: Injection](https://owasp.org/www-project-top-ten/)
+
 - [OWASP Top 10: Security Misconfiguration](https://owasp.org/www-project-top-ten/)
