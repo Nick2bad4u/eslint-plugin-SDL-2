@@ -16,9 +16,11 @@ const rule: ReturnType<typeof createRule> = createRule({
     },
     defaultOptions: [],
     meta: {
+        deprecated: false,
         docs: {
             description:
                 "disallow MSApp.execUnsafeLocalFunction which bypasses script-injection safeguards.",
+            frozen: false,
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-msapp-exec-unsafe",
         },

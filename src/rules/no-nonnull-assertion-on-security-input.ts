@@ -43,9 +43,11 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     },
     defaultOptions: [],
     meta: {
+        deprecated: false,
         docs: {
             description:
                 "disallow non-null assertions on likely security-sensitive input values.",
+            frozen: false,
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-nonnull-assertion-on-security-input",
         },

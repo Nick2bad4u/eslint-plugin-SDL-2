@@ -113,9 +113,11 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     },
     defaultOptions: [],
     meta: {
+        deprecated: false,
         docs: {
             description:
                 "disallow enabling risky Blink runtime features through Electron webPreferences.enableBlinkFeatures.",
+            frozen: false,
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-dangerous-blink-features",
         },

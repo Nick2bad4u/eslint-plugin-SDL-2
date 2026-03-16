@@ -131,9 +131,11 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     },
     defaultOptions: [],
     meta: {
+        deprecated: false,
         docs: {
             description:
                 "disallow DOMParser.parseFromString(..., 'text/html') calls on unsanitized input.",
+            frozen: false,
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-domparser-html-without-sanitization",
         },

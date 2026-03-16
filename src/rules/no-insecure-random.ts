@@ -123,9 +123,11 @@ const rule: ReturnType<typeof createRule> = createRule({
     },
     defaultOptions: [],
     meta: {
+        deprecated: false,
         docs: {
             description:
                 "disallow insecure pseudo-random APIs and known non-cryptographic random libraries for security-sensitive code.",
+            frozen: false,
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-random",
         },

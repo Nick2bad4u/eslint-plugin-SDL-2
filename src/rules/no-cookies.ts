@@ -29,9 +29,11 @@ const rule: ReturnType<typeof createRule> = createRule({
     },
     defaultOptions: [],
     meta: {
+        deprecated: false,
         docs: {
             description:
                 "disallow document.cookie usage to avoid insecure legacy client-side storage patterns.",
+            frozen: false,
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-cookies",
         },

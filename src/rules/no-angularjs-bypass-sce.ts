@@ -101,9 +101,11 @@ export const noAngularjsBypassSceRule: ReturnType<typeof createRule> =
         },
         defaultOptions: [] as const,
         meta: {
+            deprecated: false,
             docs: {
                 description:
                     "disallow AngularJS SCE bypass APIs that trust unvalidated values.",
+                frozen: false,
                 recommended: false,
                 url: "https://github.com/Nick2bad4u/eslint-plugin-SDL-2/blob/main/docs/rules/no-angularjs-bypass-sce.md",
             },

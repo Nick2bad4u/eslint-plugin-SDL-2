@@ -85,4 +85,17 @@ describe("sdl plugin entry", () => {
             "no-winjs-html-unsafe",
         ]);
     });
+
+    it("declares frozen and deprecated metadata for every rule", () => {
+        for (const [ruleName, rule] of Object.entries(sdlPlugin.rules ?? {})) {
+            expect(
+                rule.meta?.deprecated,
+                `${ruleName} should define meta.deprecated`
+            ).toBeFalsy();
+            expect(
+                rule.meta?.docs?.frozen,
+                `${ruleName} should define meta.docs.frozen`
+            ).toBeFalsy();
+        }
+    });
 });
