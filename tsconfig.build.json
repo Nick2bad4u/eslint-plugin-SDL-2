@@ -22,7 +22,9 @@
         ".cache/**",
         "dist/**",
         "node_modules/**",
-        "test/**"
+        "test/**",
+        "docs/docusaurus/.docusaurus/**",
+        "docs/docusaurus/build/**"
     ],
     "extends": "./tsconfig.json",
     "include": [

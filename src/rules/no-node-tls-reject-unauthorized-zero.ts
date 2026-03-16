@@ -5,7 +5,7 @@ import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
 
-type MessageIds = "default";
+type MessageIds = "default" | "replaceWithTlsRejectUnauthorizedOne";
 
 const getMemberPropertyName = (
     memberExpression: TSESTree.MemberExpression
@@ -85,6 +85,22 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 context.report({
                     messageId: "default",
                     node,
+                    suggest: [
+                        {
+                            fix(fixer) {
+                                const replacementValue =
+                                    node.right.type === "TemplateLiteral"
+                                        ? "`1`"
+                                        : "'1'";
+
+                                return fixer.replaceText(
+                                    node.right,
+                                    replacementValue
+                                );
+                            },
+                            messageId: "replaceWithTlsRejectUnauthorizedOne",
+                        },
+                    ],
                 });
             },
         };
@@ -99,9 +115,12 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-reject-unauthorized-zero",
         },
+        hasSuggestions: true,
         messages: {
             default:
                 "Do not disable TLS certificate validation with NODE_TLS_REJECT_UNAUTHORIZED=0.",
+            replaceWithTlsRejectUnauthorizedOne:
+                "Set NODE_TLS_REJECT_UNAUTHORIZED to '1' to keep TLS certificate validation enabled.",
         },
         schema: [],
         type: "problem",

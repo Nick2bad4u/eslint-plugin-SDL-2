@@ -107,7 +107,9 @@
         "coverage/**",
         "dist/**",
         "node_modules/**",
-        "test/fixtures/**"
+        "test/fixtures/**",
+        "docs/docusaurus/.docusaurus/**",
+        "docs/docusaurus/build/**"
     ],
     "include": [
         "src/**/*.ts",

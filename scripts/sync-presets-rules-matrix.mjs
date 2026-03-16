@@ -140,7 +140,13 @@ const getRuleFixIndicator = (ruleModule) => {
  * @returns {RuleModule}
  */
 const getRuleModuleByName = (ruleName) => {
-    const candidate = builtPlugin.rules[ruleName];
+    const rules = builtPlugin.rules;
+
+    if (!isRecord(rules)) {
+        throw new TypeError("Built plugin is missing a rules map.");
+    }
+
+    const candidate = rules[ruleName];
 
     if (!isRecord(candidate)) {
         throw new TypeError(`Rule '${ruleName}' is missing from built plugin.`);
@@ -305,7 +311,7 @@ const runCli = async () => {
 
 if (
     typeof process.argv[1] === "string" &&
-    import.meta.url === new URL(process.argv[1], "file:").href
+    fileURLToPath(import.meta.url) === resolve(process.argv[1])
 ) {
     await runCli();
 }

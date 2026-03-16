@@ -29,5 +29,5 @@ export default [...sdl.configs.react];
   - `—` = report only
 
 | Rule | Fix |
-| ---- | :-: |
-| —    |  —  |
+| --- | :-: |
+| — | — |

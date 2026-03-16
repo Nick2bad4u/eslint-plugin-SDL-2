@@ -22,14 +22,19 @@ import noElectronDisableContextIsolationRule from "../rules/no-electron-disable-
 import noElectronDisableSandboxRule from "../rules/no-electron-disable-sandbox.js";
 import noElectronDisableWebSecurityRule from "../rules/no-electron-disable-web-security.js";
 import noElectronEnableRemoteModuleRule from "../rules/no-electron-enable-remote-module.js";
+import noElectronEnableWebviewTagRule from "../rules/no-electron-enable-webview-tag.js";
+import noElectronExperimentalFeaturesRule from "../rules/no-electron-experimental-features.js";
+import noElectronExposeRawIpcRendererRule from "../rules/no-electron-expose-raw-ipc-renderer.js";
 import noElectronInsecureCertificateErrorHandlerRule from "../rules/no-electron-insecure-certificate-error-handler.js";
 import noElectronInsecureCertificateVerifyProcRule from "../rules/no-electron-insecure-certificate-verify-proc.js";
 import noElectronInsecurePermissionRequestHandlerRule from "../rules/no-electron-insecure-permission-request-handler.js";
 import noElectronNodeIntegrationRule from "../rules/no-electron-node-integration.js";
+import noElectronPermissionCheckHandlerAllowAllRule from "../rules/no-electron-permission-check-handler-allow-all.js";
 import noElectronUncheckedIpcSenderRule from "../rules/no-electron-unchecked-ipc-sender.js";
 import noElectronUnrestrictedNavigationRule from "../rules/no-electron-unrestricted-navigation.js";
 import noElectronUntrustedOpenExternalRule from "../rules/no-electron-untrusted-open-external.js";
 import noElectronWebviewAllowpopupsRule from "../rules/no-electron-webview-allowpopups.js";
+import noElectronWebviewInsecureWebpreferencesRule from "../rules/no-electron-webview-insecure-webpreferences.js";
 import noElectronWebviewNodeIntegrationRule from "../rules/no-electron-webview-node-integration.js";
 import noHtmlMethodRule from "../rules/no-html-method.js";
 import noHttpRequestToInsecureProtocolRule from "../rules/no-http-request-to-insecure-protocol.js";
@@ -38,11 +43,13 @@ import noInsecureRandomRule from "../rules/no-insecure-random.js";
 import noInsecureTlsAgentOptionsRule from "../rules/no-insecure-tls-agent-options.js";
 import noInsecureUrlRule from "../rules/no-insecure-url.js";
 import noLocationJavascriptUrlRule from "../rules/no-location-javascript-url.js";
+import noMessageEventWithoutOriginCheckRule from "../rules/no-message-event-without-origin-check.js";
 import noMsappExecUnsafeRule from "../rules/no-msapp-exec-unsafe.js";
 import noNodeTlsRejectUnauthorizedZeroRule from "../rules/no-node-tls-reject-unauthorized-zero.js";
 import noNonnullAssertionOnSecurityInputRule from "../rules/no-nonnull-assertion-on-security-input.js";
 import noPostmessageStarOriginRule from "../rules/no-postmessage-star-origin.js";
 import noPostmessageWithoutOriginAllowlistRule from "../rules/no-postmessage-without-origin-allowlist.js";
+import noTrustedTypesPolicyPassThroughRule from "../rules/no-trusted-types-policy-pass-through.js";
 import noUnsafeAllocRule from "../rules/no-unsafe-alloc.js";
 import noUnsafeCastToTrustedTypesRule from "../rules/no-unsafe-cast-to-trusted-types.js";
 import noWindowOpenWithoutNoopenerRule from "../rules/no-window-open-without-noopener.js";
@@ -84,6 +91,9 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-electron-disable-sandbox": noElectronDisableSandboxRule,
     "no-electron-disable-web-security": noElectronDisableWebSecurityRule,
     "no-electron-enable-remote-module": noElectronEnableRemoteModuleRule,
+    "no-electron-enable-webview-tag": noElectronEnableWebviewTagRule,
+    "no-electron-experimental-features": noElectronExperimentalFeaturesRule,
+    "no-electron-expose-raw-ipc-renderer": noElectronExposeRawIpcRendererRule,
     "no-electron-insecure-certificate-error-handler":
         noElectronInsecureCertificateErrorHandlerRule,
     "no-electron-insecure-certificate-verify-proc":
@@ -91,10 +101,14 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-electron-insecure-permission-request-handler":
         noElectronInsecurePermissionRequestHandlerRule,
     "no-electron-node-integration": noElectronNodeIntegrationRule,
+    "no-electron-permission-check-handler-allow-all":
+        noElectronPermissionCheckHandlerAllowAllRule,
     "no-electron-unchecked-ipc-sender": noElectronUncheckedIpcSenderRule,
     "no-electron-unrestricted-navigation": noElectronUnrestrictedNavigationRule,
     "no-electron-untrusted-open-external": noElectronUntrustedOpenExternalRule,
     "no-electron-webview-allowpopups": noElectronWebviewAllowpopupsRule,
+    "no-electron-webview-insecure-webpreferences":
+        noElectronWebviewInsecureWebpreferencesRule,
     "no-electron-webview-node-integration":
         noElectronWebviewNodeIntegrationRule,
     "no-html-method": noHtmlMethodRule,
@@ -104,6 +118,8 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-insecure-tls-agent-options": noInsecureTlsAgentOptionsRule,
     "no-insecure-url": noInsecureUrlRule,
     "no-location-javascript-url": noLocationJavascriptUrlRule,
+    "no-message-event-without-origin-check":
+        noMessageEventWithoutOriginCheckRule,
     "no-msapp-exec-unsafe": noMsappExecUnsafeRule,
     "no-node-tls-reject-unauthorized-zero": noNodeTlsRejectUnauthorizedZeroRule,
     "no-nonnull-assertion-on-security-input":
@@ -111,6 +127,7 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-postmessage-star-origin": noPostmessageStarOriginRule,
     "no-postmessage-without-origin-allowlist":
         noPostmessageWithoutOriginAllowlistRule,
+    "no-trusted-types-policy-pass-through": noTrustedTypesPolicyPassThroughRule,
     "no-unsafe-alloc": noUnsafeAllocRule,
     "no-unsafe-cast-to-trusted-types": noUnsafeCastToTrustedTypesRule,
     "no-window-open-without-noopener": noWindowOpenWithoutNoopenerRule,

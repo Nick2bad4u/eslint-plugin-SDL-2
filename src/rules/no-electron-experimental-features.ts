@@ -7,8 +7,8 @@ type MessageIds = "default";
 const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return createElectronWebPreferencesBooleanListener(context, {
-            disallowedValue: false,
-            preferenceName: "sandbox",
+            disallowedValue: true,
+            preferenceName: "experimentalFeatures",
         });
     },
     defaultOptions: [],
@@ -16,19 +16,19 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
         deprecated: false,
         docs: {
             description:
-                "disallow disabling Electron sandbox in webPreferences.",
+                "disallow enabling Electron webPreferences.experimentalFeatures.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-disable-sandbox",
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-experimental-features",
         },
         fixable: "code",
         messages: {
-            default: "Do not set webPreferences.sandbox to false.",
+            default: "Do not set webPreferences.experimentalFeatures to true.",
         },
         schema: [],
         type: "problem",
     },
-    name: "no-electron-disable-sandbox",
+    name: "no-electron-experimental-features",
 });
 
 export default rule;

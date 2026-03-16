@@ -249,6 +249,45 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-electron-webview-insecure-webpreferences",
+    getPluginRule("no-electron-webview-insecure-webpreferences"),
+    {
+        invalid: [
+            {
+                code: 'const view = <webview webpreferences="webSecurity=no, contextIsolation=no" src="https://example.com" />;',
+                errors: [
+                    {
+                        data: {
+                            flags: "contextIsolation, webSecurity",
+                        },
+                        messageId: "default",
+                    },
+                ],
+                languageOptions: {
+                    parserOptions: {
+                        ecmaFeatures: {
+                            jsx: true,
+                        },
+                    },
+                },
+            },
+        ],
+        valid: [
+            {
+                code: 'const view = <webview webpreferences="sandbox=yes, contextIsolation=yes, webSecurity=yes" src="https://example.com" />;',
+                languageOptions: {
+                    parserOptions: {
+                        ecmaFeatures: {
+                            jsx: true,
+                        },
+                    },
+                },
+            },
+        ],
+    }
+);
+
+ruleTester.run(
     "no-http-request-to-insecure-protocol",
     getPluginRule("no-http-request-to-insecure-protocol"),
     {
@@ -271,6 +310,7 @@ ruleTester.run(
             {
                 code: "new https.Agent({ rejectUnauthorized: false });",
                 errors: [{ messageId: "default" }],
+                output: "new https.Agent({ rejectUnauthorized: true });",
             },
         ],
         valid: ["new https.Agent({ rejectUnauthorized: true });"],
@@ -324,6 +364,28 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-message-event-without-origin-check",
+    getPluginRule("no-message-event-without-origin-check"),
+    {
+        invalid: [
+            {
+                code: "window.addEventListener('message', (event) => { consume(event.data); });",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "window.onmessage = ({ data }) => { consume(data); };",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "window.addEventListener('message', (event) => { if (event.origin !== 'https://example.com') { return; } consume(event.data); });",
+            "window.onmessage = ({ data, origin }) => { if (origin === 'https://example.com') { consume(data); } };",
+            "window.addEventListener('message', (event) => { consume(event.origin); });",
+        ],
+    }
+);
+
+ruleTester.run(
     "no-unsafe-cast-to-trusted-types",
     getPluginRule("no-unsafe-cast-to-trusted-types"),
     {
@@ -334,6 +396,37 @@ ruleTester.run(
             },
         ],
         valid: ["const trusted = policy.createHTML(userHtml) as TrustedHTML;"],
+    }
+);
+
+ruleTester.run(
+    "no-trusted-types-policy-pass-through",
+    getPluginRule("no-trusted-types-policy-pass-through"),
+    {
+        invalid: [
+            {
+                code: "trustedTypes.createPolicy('default', { createHTML: (value) => value });",
+                errors: [
+                    {
+                        data: { methodName: "createHTML" },
+                        messageId: "default",
+                    },
+                ],
+            },
+            {
+                code: "trustedTypes.createPolicy('default', { createScriptURL(value) { return value; } });",
+                errors: [
+                    {
+                        data: { methodName: "createScriptURL" },
+                        messageId: "default",
+                    },
+                ],
+            },
+        ],
+        valid: [
+            "trustedTypes.createPolicy('default', { createHTML: (value) => sanitize(value) });",
+            "trustedTypes.createPolicy('default', { createScriptURL(value) { return sanitizeUrl(value); } });",
+        ],
     }
 );
 
@@ -443,6 +536,7 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { allowRunningInsecureContent: true } });",
                 errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { allowRunningInsecureContent: false } });",
             },
         ],
         valid: [
@@ -482,6 +576,7 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { contextIsolation: false } });",
                 errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { contextIsolation: true } });",
             },
         ],
         valid: [
@@ -498,6 +593,7 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { sandbox: false } });",
                 errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { sandbox: true } });",
             },
         ],
         valid: [
@@ -515,6 +611,7 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { webSecurity: false } });",
                 errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { webSecurity: true } });",
             },
         ],
         valid: [
@@ -532,10 +629,67 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { enableRemoteModule: true } });",
                 errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { enableRemoteModule: false } });",
             },
         ],
         valid: [
             "new BrowserWindow({ webPreferences: { enableRemoteModule: false } });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-enable-webview-tag",
+    getPluginRule("no-electron-enable-webview-tag"),
+    {
+        invalid: [
+            {
+                code: "new BrowserWindow({ webPreferences: { webviewTag: true } });",
+                errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { webviewTag: false } });",
+            },
+        ],
+        valid: [
+            "new BrowserWindow({ webPreferences: { webviewTag: false } });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-experimental-features",
+    getPluginRule("no-electron-experimental-features"),
+    {
+        invalid: [
+            {
+                code: "new BrowserWindow({ webPreferences: { experimentalFeatures: true } });",
+                errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { experimentalFeatures: false } });",
+            },
+        ],
+        valid: [
+            "new BrowserWindow({ webPreferences: { experimentalFeatures: false } });",
+            'new BrowserView({ webPreferences: { "experimentalFeatures": false } });',
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-expose-raw-ipc-renderer",
+    getPluginRule("no-electron-expose-raw-ipc-renderer"),
+    {
+        invalid: [
+            {
+                code: "contextBridge.exposeInMainWorld('api', ipcRenderer);",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "contextBridge.exposeInMainWorld('api', { send: ipcRenderer.send, invoke: ipcRenderer.invoke });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "contextBridge.exposeInMainWorld('api', { send(channel, payload) { ipcRenderer.send(channel, payload); } });",
+            "contextBridge.exposeInMainWorld('api', { ping: () => ipcRenderer.invoke('ping') });",
         ],
     }
 );
@@ -570,10 +724,32 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { nodeIntegration: true } });",
                 errors: [{ messageId: "default" }],
+                output: "new BrowserWindow({ webPreferences: { nodeIntegration: false } });",
             },
         ],
         valid: [
             "new BrowserWindow({ webPreferences: { nodeIntegration: false } });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-electron-permission-check-handler-allow-all",
+    getPluginRule("no-electron-permission-check-handler-allow-all"),
+    {
+        invalid: [
+            {
+                code: "session.defaultSession.setPermissionCheckHandler(() => true);",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "session.defaultSession.setPermissionCheckHandler(function () { return true; });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "session.defaultSession.setPermissionCheckHandler((_webContents, permission) => permission === 'fullscreen');",
+            "session.defaultSession.setPermissionCheckHandler(() => isTrustedRequest());",
         ],
     }
 );
@@ -734,15 +910,48 @@ ruleTester.run(
         invalid: [
             {
                 code: "process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';",
-                errors: [{ messageId: "default" }],
+                errors: [
+                    {
+                        messageId: "default",
+                        suggestions: [
+                            {
+                                messageId:
+                                    "replaceWithTlsRejectUnauthorizedOne",
+                                output: "process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';",
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 code: "process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;",
-                errors: [{ messageId: "default" }],
+                errors: [
+                    {
+                        messageId: "default",
+                        suggestions: [
+                            {
+                                messageId:
+                                    "replaceWithTlsRejectUnauthorizedOne",
+                                output: "process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1';",
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 code: "process.env.NODE_TLS_REJECT_UNAUTHORIZED = `0`;",
-                errors: [{ messageId: "default" }],
+                errors: [
+                    {
+                        messageId: "default",
+                        suggestions: [
+                            {
+                                messageId:
+                                    "replaceWithTlsRejectUnauthorizedOne",
+                                output: "process.env.NODE_TLS_REJECT_UNAUTHORIZED = `1`;",
+                            },
+                        ],
+                    },
+                ],
             },
         ],
         valid: [

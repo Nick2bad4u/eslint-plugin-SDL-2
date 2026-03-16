@@ -36,20 +36,14 @@ const sidebars: SidebarsConfig = {
                 },
                 {
                     className: "sb-api-overview-item",
-                    id: "developer/api/plugin/type-aliases/SdlPlugin",
-                    label: "🧠 Type aliases · SdlPlugin",
+                    id: "developer/api/plugin/type-aliases/SdlPluginWithConfigs",
+                    label: "🧠 Type aliases · SdlPluginWithConfigs",
                     type: "doc",
                 },
                 {
                     className: "sb-api-overview-item",
                     id: "developer/api/plugin/variables/sdlPlugin",
                     label: "⚙️ Runtime exports · sdlPlugin",
-                    type: "doc",
-                },
-                {
-                    className: "sb-api-overview-item",
-                    id: "developer/api/plugin/variables/configs",
-                    label: "⚙️ Runtime exports · configs",
                     type: "doc",
                 },
             ],

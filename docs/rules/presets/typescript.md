@@ -28,5 +28,7 @@ export default [...sdl.configs.typescript];
   - `—` = report only
 
 | Rule | Fix |
-| ---- | :-: |
-| —    |  —  |
+| --- | :-: |
+| [`no-nonnull-assertion-on-security-input`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-nonnull-assertion-on-security-input) | — |
+| [`no-trusted-types-policy-pass-through`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-trusted-types-policy-pass-through) | — |
+| [`no-unsafe-cast-to-trusted-types`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-cast-to-trusted-types) | — |

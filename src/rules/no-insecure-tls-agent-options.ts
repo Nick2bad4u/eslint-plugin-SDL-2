@@ -62,6 +62,19 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 }
 
                 context.report({
+                    fix(fixer) {
+                        if (
+                            insecureOptionProperty.value.type !== "Literal" ||
+                            insecureOptionProperty.value.value !== false
+                        ) {
+                            return null;
+                        }
+
+                        return fixer.replaceText(
+                            insecureOptionProperty.value,
+                            "true"
+                        );
+                    },
                     messageId: "default",
                     node: insecureOptionProperty,
                 });
@@ -78,6 +91,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-tls-agent-options",
         },
+        fixable: "code",
         messages: {
             default:
                 "Do not disable TLS certificate verification with rejectUnauthorized: false.",

@@ -21,6 +21,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-allow-running-insecure-content",
         },
+        fixable: "code",
         messages: {
             default:
                 "Do not set webPreferences.allowRunningInsecureContent to true.",
