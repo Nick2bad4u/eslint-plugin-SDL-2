@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { UnknownRecord } from "type-fest";
+
+import { keyIn, objectEntries } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
 import {
@@ -16,17 +19,135 @@ type MessageIds = "default";
 type RuleContext = Readonly<TSESLint.RuleContext<MessageIds, unknown[]>>;
 
 const isFunctionExpression = (
-    expression: TSESTree.Expression
+    expression: Readonly<TSESTree.Node>
 ): expression is CallbackFunction =>
     expression.type === "ArrowFunctionExpression" ||
     expression.type === "FunctionExpression";
 
-const escapeRegex = (value: string): string =>
-    value.replaceAll(/[$()*+.?[\\\]^{|}]/gu, String.raw`\$&`);
-
 const hasMessageEventGuardKeywords = (callbackText: string): boolean =>
     /\b(?:allowlist|origin|trusted|validate|verify|whitelist)\b/iu.test(
         callbackText
+    );
+
+const toNode = (value: unknown): Readonly<TSESTree.Node> | undefined => {
+    if (typeof value !== "object" || value === null) {
+        return undefined;
+    }
+
+    const recordValue = value as UnknownRecord;
+
+    if (
+        !keyIn(recordValue, "type") ||
+        typeof recordValue["type"] !== "string"
+    ) {
+        return undefined;
+    }
+
+    return recordValue as unknown as Readonly<TSESTree.Node>;
+};
+
+const someDescendantNode = (
+    node: Readonly<TSESTree.Node>,
+    predicate: (node: Readonly<TSESTree.Node>) => boolean
+): boolean => {
+    if (predicate(node)) {
+        return true;
+    }
+
+    for (const [propertyName, propertyValue] of objectEntries(node)) {
+        if (propertyName === "parent") {
+            continue;
+        }
+
+        if (Array.isArray(propertyValue)) {
+            for (const element of propertyValue) {
+                const childNode = toNode(element);
+
+                if (
+                    childNode !== undefined &&
+                    someDescendantNode(childNode, predicate)
+                ) {
+                    return true;
+                }
+            }
+
+            continue;
+        }
+
+        const childNode = toNode(propertyValue);
+
+        if (
+            childNode !== undefined &&
+            someDescendantNode(childNode, predicate)
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+const isIdentifierNamed = (
+    node: Readonly<TSESTree.Node>,
+    identifierName: string
+): node is TSESTree.Identifier =>
+    node.type === "Identifier" && node.name === identifierName;
+
+const isStaticPropertyMatch = (
+    memberExpression: Readonly<TSESTree.MemberExpression>,
+    objectName: string,
+    propertyName: string
+): boolean =>
+    isIdentifierNamed(memberExpression.object, objectName) &&
+    getMemberPropertyName(memberExpression) === propertyName;
+
+const patternContainsProperty = (
+    pattern: Readonly<TSESTree.ObjectPattern>,
+    propertyName: string
+): boolean =>
+    pattern.properties.some((propertyNode) => {
+        if (propertyNode.type !== "Property") {
+            return false;
+        }
+
+        return getPropertyName(propertyNode) === propertyName;
+    });
+
+const containsObjectDestructureFromIdentifier = (
+    rootNode: Readonly<TSESTree.Node>,
+    sourceName: string,
+    propertyName: string
+): boolean =>
+    someDescendantNode(rootNode, (node) => {
+        if (node.type === "VariableDeclarator") {
+            return (
+                node.id.type === "ObjectPattern" &&
+                node.init !== null &&
+                isIdentifierNamed(node.init, sourceName) &&
+                patternContainsProperty(node.id, propertyName)
+            );
+        }
+
+        if (node.type !== "AssignmentExpression") {
+            return false;
+        }
+
+        return (
+            node.left.type === "ObjectPattern" &&
+            isIdentifierNamed(node.right, sourceName) &&
+            patternContainsProperty(node.left, propertyName)
+        );
+    });
+
+const containsMemberPropertyAccess = (
+    rootNode: Readonly<TSESTree.Node>,
+    objectName: string,
+    propertyName: string
+): boolean =>
+    someDescendantNode(rootNode, (node) =>
+        node.type === "MemberExpression"
+            ? isStaticPropertyMatch(node, objectName, propertyName)
+            : false
     );
 
 const hasObjectPatternProperty = (
@@ -43,25 +164,18 @@ const hasObjectPatternProperty = (
 
 const callbackUsesMessageData = (
     callbackNode: CallbackFunction,
-    context: RuleContext,
     eventParameterName: string
-): boolean => {
-    const callbackSourceText = context.sourceCode.getText(callbackNode);
-    const escapedEventName = escapeRegex(eventParameterName);
-    const eventDataPattern = new RegExp(
-        String.raw`\b${escapedEventName}\s*\.\s*data\b`,
-        "u"
+): boolean =>
+    containsMemberPropertyAccess(
+        callbackNode.body,
+        eventParameterName,
+        "data"
+    ) ||
+    containsObjectDestructureFromIdentifier(
+        callbackNode.body,
+        eventParameterName,
+        "data"
     );
-    const dataDestructurePattern = new RegExp(
-        String.raw`\{[^}]*\bdata\b[^}]*\}\s*=\s*${escapedEventName}\b`,
-        "u"
-    );
-
-    return (
-        eventDataPattern.test(callbackSourceText) ||
-        dataDestructurePattern.test(callbackSourceText)
-    );
-};
 
 const callbackHasOriginValidation = (
     callbackNode: CallbackFunction,
@@ -69,19 +183,18 @@ const callbackHasOriginValidation = (
     eventParameterName: string
 ): boolean => {
     const callbackSourceText = context.sourceCode.getText(callbackNode);
-    const escapedEventName = escapeRegex(eventParameterName);
-    const eventOriginPattern = new RegExp(
-        String.raw`\b${escapedEventName}\s*\.\s*origin\b`,
-        "u"
-    );
-    const originDestructurePattern = new RegExp(
-        String.raw`\{[^}]*\borigin\b[^}]*\}\s*=\s*${escapedEventName}\b`,
-        "u"
-    );
 
     return (
-        eventOriginPattern.test(callbackSourceText) ||
-        originDestructurePattern.test(callbackSourceText) ||
+        containsMemberPropertyAccess(
+            callbackNode.body,
+            eventParameterName,
+            "origin"
+        ) ||
+        containsObjectDestructureFromIdentifier(
+            callbackNode.body,
+            eventParameterName,
+            "origin"
+        ) ||
         hasMessageEventGuardKeywords(callbackSourceText)
     );
 };
@@ -91,7 +204,7 @@ const reportsIdentifierCallback = (
     context: RuleContext,
     eventParameter: TSESTree.Identifier
 ): boolean =>
-    callbackUsesMessageData(callbackNode, context, eventParameter.name) &&
+    callbackUsesMessageData(callbackNode, eventParameter.name) &&
     !callbackHasOriginValidation(callbackNode, context, eventParameter.name);
 
 const reportsObjectPatternCallback = (
@@ -165,11 +278,15 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         return {
             AssignmentExpression(node: TSESTree.AssignmentExpression) {
-                if (
-                    !isOnMessageAssignment(node) ||
-                    !isFunctionExpression(node.right) ||
-                    !shouldReportMessageEventCallback(node.right, context)
-                ) {
+                if (!isOnMessageAssignment(node)) {
+                    return;
+                }
+
+                if (!isFunctionExpression(node.right)) {
+                    return;
+                }
+
+                if (!shouldReportMessageEventCallback(node.right, context)) {
                     return;
                 }
 
@@ -187,8 +304,16 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement" ||
-                    !isFunctionExpression(secondArgument) ||
+                    secondArgument.type === "SpreadElement"
+                ) {
+                    return;
+                }
+
+                if (!isFunctionExpression(secondArgument)) {
+                    return;
+                }
+
+                if (
                     !shouldReportMessageEventCallback(secondArgument, context)
                 ) {
                     return;
