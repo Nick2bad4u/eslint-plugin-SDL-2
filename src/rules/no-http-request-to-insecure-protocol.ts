@@ -97,6 +97,23 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 }
 
                 context.report({
+                    fix(fixer) {
+                        const sourceText =
+                            context.sourceCode.getText(firstArgument);
+                        const fixedSourceText = sourceText.replace(
+                            /^(?<quote>["'`]?)http:\/\//iu,
+                            "$<quote>https://"
+                        );
+
+                        if (fixedSourceText === sourceText) {
+                            return null;
+                        }
+
+                        return fixer.replaceText(
+                            firstArgument,
+                            fixedSourceText
+                        );
+                    },
                     messageId: "default",
                     node: firstArgument,
                 });
@@ -113,6 +130,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-http-request-to-insecure-protocol",
         },
+        fixable: "code",
         messages: {
             default: "Use HTTPS endpoints instead of insecure http:// URLs.",
         },

@@ -197,6 +197,7 @@ ruleTester.run(
                         },
                     },
                 },
+                output: 'const view = <webview  src="https://example.com" />;',
             },
         ],
         valid: [
@@ -229,6 +230,7 @@ ruleTester.run(
                         },
                     },
                 },
+                output: 'const view = <webview  src="https://example.com" />;',
             },
         ],
         valid: [
@@ -254,6 +256,7 @@ ruleTester.run(
             {
                 code: "http.get('http://api.example.com/status');",
                 errors: [{ messageId: "default" }],
+                output: "http.get('https://api.example.com/status');",
             },
         ],
         valid: ["https.get('https://api.example.com/status');"],
@@ -690,7 +693,17 @@ ruleTester.run(
         invalid: [
             {
                 code: "window.postMessage(message, '*');",
-                errors: [{ messageId: "default" }],
+                errors: [
+                    {
+                        messageId: "default",
+                        suggestions: [
+                            {
+                                messageId: "replaceWithExplicitOrigin",
+                                output: "window.postMessage(message, location.origin);",
+                            },
+                        ],
+                    },
+                ],
             },
         ],
         valid: [
@@ -708,6 +721,7 @@ ruleTester.run("no-unsafe-alloc", getPluginRule("no-unsafe-alloc"), {
         {
             code: "Buffer.allocUnsafe(10);",
             errors: [{ messageId: "default" }],
+            output: "Buffer.alloc(10);",
         },
     ],
     valid: ["Buffer.allocUnsafe(0);", "Buffer.allocUnsafeSlow(0);"],

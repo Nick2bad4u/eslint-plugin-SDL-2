@@ -28,6 +28,16 @@ const rule: ReturnType<typeof createRule> = createRule({
                 }
 
                 context.report({
+                    fix(fixer) {
+                        if (
+                            node.computed ||
+                            node.property.type !== "Identifier"
+                        ) {
+                            return null;
+                        }
+
+                        return fixer.replaceText(node.property, "alloc");
+                    },
                     messageId: "default",
                     node,
                 });
@@ -44,6 +54,7 @@ const rule: ReturnType<typeof createRule> = createRule({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-alloc",
         },
+        fixable: "code",
         messages: {
             default: "Do not allocate uninitialized buffers in Node.js.",
         },

@@ -8,8 +8,10 @@ import {
 } from "../_internal/ast-utils.js";
 import { createRule } from "../_internal/create-rule.js";
 
+type MessageIds = "default" | "replaceWithExplicitOrigin";
+
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -44,7 +46,18 @@ const rule: ReturnType<typeof createRule> = createRule({
 
                 context.report({
                     messageId: "default",
-                    node,
+                    node: targetOrigin,
+                    suggest: [
+                        {
+                            fix(fixer) {
+                                return fixer.replaceText(
+                                    targetOrigin,
+                                    "location.origin"
+                                );
+                            },
+                            messageId: "replaceWithExplicitOrigin",
+                        },
+                    ],
                 });
             },
         };
@@ -59,9 +72,12 @@ const rule: ReturnType<typeof createRule> = createRule({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-star-origin",
         },
+        hasSuggestions: true,
         messages: {
             default:
                 "Do not use '*' as targetOrigin when sending data with postMessage.",
+            replaceWithExplicitOrigin:
+                "Replace '*' with a specific trusted origin, such as location.origin.",
         },
         schema: [],
         type: "problem",

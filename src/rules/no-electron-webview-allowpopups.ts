@@ -79,6 +79,9 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                     }
 
                     context.report({
+                        fix(fixer) {
+                            return fixer.remove(attributeNode);
+                        },
                         messageId: "default",
                         node: attributeNode,
                     });
@@ -96,6 +99,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             recommended: false,
             url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-webview-allowpopups",
         },
+        fixable: "code",
         messages: {
             default: "Do not enable allowpopups on Electron webview elements.",
         },
