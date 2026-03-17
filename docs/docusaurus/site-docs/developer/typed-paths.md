@@ -11,64 +11,40 @@ This page inventories the current typed callpaths that can reach parser services
 
 ## Guard model
 
-All type-aware rule execution enters through explicit gates:
+All current typed access is **opportunistic**, not mandatory:
 
-- `createTypedRule(...)` short-circuits typed rules (`meta.docs.requiresTypeChecking: true`) when full type services are unavailable.
-- Optional typed flows in non-type-checked rules call `hasTypeServices(context)` before calling `getTypedRuleServices(context)`.
-- Type-dependent helpers no longer discover typed services internally.
+- `getFullTypeChecker(context)` returns a `ts.TypeChecker` only when ESLint parser services expose a full `program`.
+- `hasFullTypeInformation(context)` reports whether that richer TypeScript surface is available.
+- Helper functions fall back to conservative syntax-only behavior when the checker or ESTree↔TypeScript node maps are unavailable.
 
 ## Core typed helpers
 
-| Path                                                                                              | Typed dependency                   | Guard entry                                                                  | Fallback behavior                                              | Max expected expensive calls/file               |
-| ------------------------------------------------------------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
-| `src/_internal/typed-rule.ts#getTypedRuleServices`                                                | `parserServices.program`, checker  | `hasTypeServices(context)` or typed-rule create short-circuit                | Throws if called without `program`                             | 1 (rule create path)                            |
-| `src/_internal/constrained-type-at-location.ts#getConstrainedTypeAtLocationWithFallback`          | `parserServices`, checker          | Caller must pass prevalidated checker/parser services                        | Attempts constrained API first, then checker/node-map fallback | O(number of callsites invoking type resolution) |
-| `src/_internal/array-like-expression.ts#createIsArrayLikeExpressionChecker`                       | checker + parser-services node map | Caller must pass typed services object                                       | Returns `false` on safe operation failure                      | O(array-like candidate expressions)             |
-| `src/_internal/typescript-eslint-node-autofix.ts#createTypeScriptEslintNodeExpressionSkipChecker` | optional typed services            | Caller passes `typedServices` explicitly (or omits for definition-only mode) | Definition-only path when no typed services are supplied       | O(guard candidate expressions)                  |
-| `src/_internal/type-checker-compat.ts` helpers                                                    | checker compatibility methods      | Only called from typed helper/rule paths                                     | Returns `undefined` when host checker API is unavailable       | O(type graph traversal within caller)           |
+| Path                                                | Typed dependency                          | Guard entry                                                                       | Fallback behavior                                                                          |
+| --------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `src/_internal/ast-utils.ts#hasFullTypeInformation` | `parserServices.program`                  | Called directly by rules/helpers that want to know whether full TS services exist | Returns `false` when no full parser services are available                                 |
+| `src/_internal/ast-utils.ts#getFullTypeChecker`     | `parserServices.program.getTypeChecker()` | Called directly from rules before optional typed checks                           | Returns `undefined`                                                                        |
+| `src/_internal/ast-utils.ts#getNodeTypeAsString`    | checker + ESTree/TS node maps             | Caller passes the optional checker returned by `getFullTypeChecker`               | Returns `"any"` when the checker or maps are unavailable                                   |
+| `src/_internal/ast-utils.ts#isDocumentObject`       | optional checker                          | Caller passes the optional checker returned by `getFullTypeChecker`               | Uses syntax-only checks for `document`, `window.document`, or `globalThis.window.document` |
 
-## Rule callpath inventory
+## Current rule callpath inventory
 
-### Rules that require type checking (`meta.docs.requiresTypeChecking: true`)
+No current SDL rule sets `meta.docs.requiresTypeChecking`. Instead, the following rules _optionally_ use type information when it exists and degrade gracefully when it does not.
 
-- `src/rules/prefer-ts-extras-array-at.ts`
-- `src/rules/prefer-ts-extras-array-concat.ts`
-- `src/rules/prefer-ts-extras-array-find.ts`
-- `src/rules/prefer-ts-extras-array-find-last.ts`
-- `src/rules/prefer-ts-extras-array-find-last-index.ts`
-- `src/rules/prefer-ts-extras-array-includes.ts`
-- `src/rules/prefer-ts-extras-array-join.ts`
-- `src/rules/prefer-ts-extras-array-first.ts`
-- `src/rules/prefer-ts-extras-array-last.ts`
-- `src/rules/prefer-ts-extras-is-empty.ts`
-- `src/rules/prefer-ts-extras-safe-cast-to.ts`
-- `src/rules/prefer-ts-extras-set-has.ts`
-- `src/rules/prefer-ts-extras-string-split.ts`
+### Rules with optional typed refinement
 
-### Rules with optional typed branch (`meta.docs.requiresTypeChecking: false`)
+- `src/rules/no-cookies.ts`
+- `src/rules/no-document-domain.ts`
+- `src/rules/no-document-write.ts`
+- `src/rules/no-inner-html.ts`
+- `src/rules/no-insecure-random.ts`
+- `src/rules/no-postmessage-star-origin.ts`
 
-These rules always run a definition-only check and only run checker-backed logic when services are explicitly prevalidated:
+## What the typed paths do today
 
-- `src/rules/prefer-ts-extras-is-defined.ts`
-- `src/rules/prefer-ts-extras-is-infinite.ts`
-- `src/rules/prefer-ts-extras-is-present.ts`
+- **Document-object refinement** helps distinguish the browser `Document` object from unrelated identifiers.
+- **Type-name checks** help confirm risky APIs such as `Window`, `Document`, `Math`, or `Crypto` before a report is emitted.
+- **Syntax fallback** keeps the rules useful in non-type-aware lint runs, especially for obvious `document`, `window.document`, `Math.random`, or `postMessage("*")` patterns.
 
-## Telemetry counters
+## Inventory note
 
-Typed hot-path counters are recorded in `src/_internal/typed-path-telemetry.ts`:
-
-- `prefilterChecks`
-- `prefilterHits`
-- `expensiveTypeCalls`
-- `fallbackInvocations`
-
-Snapshot API:
-
-- `getTypedPathTelemetrySnapshot()`
-- `resetTypedPathTelemetry()`
-
-Derived rates included in snapshot totals:
-
-- `prefilterHitRate = prefilterHits / prefilterChecks`
-- `fallbackInvocationRate = fallbackInvocations / expensiveTypeCalls`
-- `averageExpensiveCallsPerFile = expensiveTypeCalls / fileCount`
+This inventory intentionally reflects the current SDL plugin architecture rather than the older fork-era typed-rule framework.

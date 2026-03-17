@@ -17,11 +17,11 @@ After removing repeated content, readers still need a predictable way to discove
 
 ## Decision
 
-Add a consistent footer section to each rule page (`docs/rules/prefer-*.md`):
+Add a consistent footer section to each rule page (`docs/rules/*.md`):
 
 - `## Adoption resources`
-- link to `./guides/adoption-checklist.md`
-- link to `./guides/rollout-and-fix-safety.md`
+- link to `./getting-started.md`
+- link to `./presets/index.md`
 
 ## Rationale
 

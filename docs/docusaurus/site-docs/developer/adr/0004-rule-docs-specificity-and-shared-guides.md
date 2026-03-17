@@ -11,7 +11,7 @@ sidebar_position: 4
 
 ## Context
 
-Rule documentation had repeated prose across a large set of files (`docs/rules/prefer-*.md`), including:
+Rule documentation had repeated prose across a large set of files (`docs/rules/*.md`), including:
 
 - generic rollout/adoption checklists,
 - repeated FAQ-style explanations,
@@ -23,14 +23,15 @@ This made rule pages noisy and reduced the amount of space available for rule-sp
 
 Adopt a **split documentation model**:
 
-1. **Rule pages** (`docs/rules/prefer-*.md`) contain only rule-specific details:
+1. **Rule pages** (`docs/rules/*.md`) contain only rule-specific details:
    - exact match/report scope,
    - semantics and caveats,
    - focused examples,
    - precise “When not to use it”.
-2. **Shared guidance** (checklists, rollout strategy, fix safety) is centralized in dedicated guide pages under:
-   - `docs/rules/guides/adoption-checklist.md`
-   - `docs/rules/guides/rollout-and-fix-safety.md`
+2. **Shared guidance** (checklists, rollout strategy, fix safety) is centralized in higher-level docs pages such as:
+   - `docs/rules/getting-started.md`
+   - `docs/rules/presets/index.md`
+   - `docs/rules/overview.md`
 
 ## Rationale
 

@@ -6,32 +6,32 @@ const liveBadges = [
     {
         alt: "npm license",
         href: "https://www.npmjs.com/package/eslint-plugin-sdl-2",
-        src: "https://flat.badgen.net/npm/license/eslint-plugin-sdl-2?color=purple",
+        src: "https://flat.badgen.net/npm/license/eslint-plugin-sdl-2?color=8b5cf6",
     },
     {
         alt: "npm total downloads",
         href: "https://www.npmjs.com/package/eslint-plugin-sdl-2",
-        src: "https://flat.badgen.net/npm/dt/eslint-plugin-sdl-2?color=pink",
+        src: "https://flat.badgen.net/npm/dt/eslint-plugin-sdl-2?color=ec4899",
     },
     {
         alt: "latest GitHub release",
         href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/releases",
-        src: "https://flat.badgen.net/github/release/Nick2bad4u/eslint-plugin-sdl-2?color=cyan",
+        src: "https://flat.badgen.net/github/release/Nick2bad4u/eslint-plugin-sdl-2?color=f97316",
     },
     {
         alt: "GitHub stars",
         href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/stargazers",
-        src: "https://flat.badgen.net/github/stars/Nick2bad4u/eslint-plugin-sdl-2?color=yellow",
+        src: "https://flat.badgen.net/github/stars/Nick2bad4u/eslint-plugin-sdl-2?color=facc15",
     },
     {
         alt: "GitHub forks",
         href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/forks",
-        src: "https://flat.badgen.net/github/forks/Nick2bad4u/eslint-plugin-sdl-2?color=green",
+        src: "https://flat.badgen.net/github/forks/Nick2bad4u/eslint-plugin-sdl-2?color=22d3ee",
     },
     {
         alt: "GitHub open issues",
         href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues",
-        src: "https://flat.badgen.net/github/open-issues/Nick2bad4u/eslint-plugin-sdl-2?color=red",
+        src: "https://flat.badgen.net/github/open-issues/Nick2bad4u/eslint-plugin-sdl-2?color=38bdf8",
     },
 ];
 

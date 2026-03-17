@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-  <title id="title">eslint-plugin-sdl-2 favicon</title>
-  <desc id="desc">Simplified SDL lifecycle wheel icon.</desc>
+  <title id="title">eslint-plugin-sdl-2 mask icon</title>
+  <desc id="desc">Simplified SDL lifecycle wheel icon for pinned-tab and mask metadata.</desc>
 
   <circle cx="64" cy="64" r="45" fill="none" stroke="#090c16" stroke-width="30" />
   <circle cx="64" cy="64" r="45" fill="none" stroke="#8b5cf6" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" transform="rotate(-90 64 64)" />

@@ -21,11 +21,11 @@ const modernEnhancementsClientModule = fileURLToPath(
 );
 
 /** PWA theme-color meta value for Chromium-based browsers. */
-const pwaThemeColor = "#2E2A33";
+const pwaThemeColor = "#120f1f";
 /** Windows tile color for pinned-site metadata. */
-const pwaTileColor = "#2E2A33";
+const pwaTileColor = "#120f1f";
 /** Safari pinned-tab mask icon color. */
-const pwaMaskIconColor = "#71B041";
+const pwaMaskIconColor = "#8b5cf6";
 /** Footer copyright HTML used by the site theme config. */
 const footerCopyright =
     `© ${new Date().getFullYear()} ` +
@@ -63,10 +63,10 @@ const futureConfig = {
 
 /** Full Docusaurus site configuration exported to the build/runtime. */
 const config: Config = {
-    baseUrl: "/eslint-plugin-sdl-2/",
+    baseUrl,
     baseUrlIssueBanner: true,
     deploymentBranch: "gh-pages",
-    favicon: "img/logo.svg",
+    favicon: "img/favicon.svg",
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: futureConfig,
     clientModules: [modernEnhancementsClientModule],
@@ -124,7 +124,7 @@ const config: Config = {
                         tagName: "meta",
                     },
                     {
-                        href: `${baseUrl}img/icon-192.png`,
+                        href: `${baseUrl}img/apple-touch-icon.png`,
                         rel: "apple-touch-icon",
                         tagName: "link",
                     },
@@ -135,7 +135,7 @@ const config: Config = {
                         tagName: "link",
                     },
                     {
-                        content: `${baseUrl}img/icon-192.png`,
+                        content: `${baseUrl}img/web-app-manifest-192x192.png`,
                         name: "msapplication-TileImage",
                         tagName: "meta",
                     },
@@ -285,7 +285,7 @@ const config: Config = {
                         },
                         {
                             label: "📏 Rule Reference",
-                            to: "/docs/rules",
+                            to: "/docs/rules/overview",
                         },
                     ],
                     title: "📚 Explore",
@@ -295,10 +295,6 @@ const config: Config = {
                         {
                             href: `https://github.com/${organizationName}/${projectName}/releases`,
                             label: "\ueb09 Releases",
-                        },
-                        {
-                            href: `https://nick2bad4u.github.io/eslint-plugin-sdl-2/eslint-inspector/`,
-                            label: "\ue7d2 ESLint Inspector",
                         },
                         {
                             href: `https://www.npmjs.com/package/${projectName}`,
@@ -338,7 +334,7 @@ const config: Config = {
             },
             style: "dark",
         },
-        image: "img/logo.svg",
+        image: "img/logo.png",
         navbar: {
             style: "dark",
             hideOnScroll: true,
@@ -364,12 +360,12 @@ const config: Config = {
                     activeBaseRegex: "^/docs/rules(?:/(?!presets(?:/|$)).*)?$",
                     label: "📜 Rules",
                     position: "left",
-                    to: "/docs/rules",
+                    to: "/docs/rules/overview",
                     type: "dropdown",
                     items: [
                         {
                             label: "• Rule Reference",
-                            to: "/docs/rules",
+                            to: "/docs/rules/overview",
                         },
                         {
                             label: "🅰️ Angular",

@@ -29,9 +29,9 @@ This section is for contributors and advanced users.
 - **API Overview**: Entry point for generated TypeDoc, including internal and plugin exports.
 - **Architecture Decisions**: ADRs that explain major architectural choices and policy tradeoffs.
 - **Charts**: Visual diagrams for lifecycle, release, docs synchronization, and diagnostics workflows.
-- **Types**: Generated API pages for type aliases and type-level contracts.
+- **Types**: Generated API pages for public type aliases and related TypeScript surfaces.
 - **Runtime**: Generated API pages for runtime exports and internal helper modules.
-- **Links** (sidebar bottom): Upstream package references, blog pages, and open issue tracker.
+- **Links** (sidebar bottom): Project resources, releases, blog pages, and issue tracker.
 
 ## Architecture decisions (ADR)
 
@@ -85,9 +85,11 @@ That command loads rule docs directly from `docs/rules`, generates TypeDoc outpu
 ## Project and community links
 
 - [Project repository](https://github.com/Nick2bad4u/eslint-plugin-SDL-2)
+- [Releases](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/releases)
+- [Changelog](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/blob/main/CHANGELOG.md)
+- [npm package](https://www.npmjs.com/package/eslint-plugin-sdl-2)
+- [Contributing guide](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/blob/main/CONTRIBUTING.md)
 - [Open issues](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/issues?q=is%3Aissue%20is%3Aopen)
 - [Open bug issues](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Abug)
 - [Open documentation issues](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Adocumentation)
 - [Open rules issues](https://github.com/Nick2bad4u/eslint-plugin-SDL-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Arules)
-- [ts-extras on GitHub](https://github.com/sindresorhus/ts-extras) / [npm](https://www.npmjs.com/package/ts-extras)
-- [type-fest on GitHub](https://github.com/sindresorhus/type-fest) / [npm](https://www.npmjs.com/package/type-fest)

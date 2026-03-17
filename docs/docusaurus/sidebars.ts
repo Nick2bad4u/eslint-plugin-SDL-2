@@ -87,8 +87,8 @@ const sidebars: SidebarsConfig = {
                     type: "doc",
                 },
                 {
-                    id: "developer/adr/runtime-vs-type-level-rule-families",
-                    label: "ADR 0005 · Rule Families",
+                    id: "developer/adr/core-sdl-rules-vs-framework-overlays",
+                    label: "ADR 0005 · Core vs Framework Rules",
                     type: "doc",
                 },
                 {
@@ -326,26 +326,31 @@ const sidebars: SidebarsConfig = {
                 badge: "links",
             },
             description:
-                "External package docs, project blog resources, and issue tracker links.",
+                "Project resources, release notes, blog posts, and issue tracker links.",
             items: [
                 {
-                    href: "https://github.com/sindresorhus/ts-extras",
-                    label: "💠 \ue709 ts-extras",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2",
+                    label: "\ue709 GitHub repository",
                     type: "link",
                 },
                 {
-                    href: "https://www.npmjs.com/package/ts-extras",
-                    label: "💠 \ue616 ts-extras",
+                    href: "https://www.npmjs.com/package/eslint-plugin-sdl-2",
+                    label: "\ue616 npm package",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/sindresorhus/type-fest",
-                    label: "✴️ \ue709 type-fest",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/releases",
+                    label: "\ueb09 Releases",
                     type: "link",
                 },
                 {
-                    href: "https://www.npmjs.com/package/type-fest",
-                    label: "✴️ \ue616 type-fest",
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/blob/main/CHANGELOG.md",
+                    label: "📝 Changelog",
+                    type: "link",
+                },
+                {
+                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/blob/main/CONTRIBUTING.md",
+                    label: "\uf0c0 Contributing guide",
                     type: "link",
                 },
                 {

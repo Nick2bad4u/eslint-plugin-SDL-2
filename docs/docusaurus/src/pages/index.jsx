@@ -6,119 +6,103 @@ import GitHubStats from "../components/GitHubStats";
 
 import styles from "./index.module.css";
 
-/**
- * Hero badges Note: These icons are from the "Nerd Font Symbols" font.
- *
- * @type {{ label: string; description: string; icon: string }[]}
- *
- * @see https://www.nerdfonts.com/cheat-sheet for available icons in the "Nerd Font Symbols" font
- */
 const heroBadges = [
     {
-        description: "Drop-in config for ESLint v9+ and modern repos.",
-        icon: "\uf013",
-        label: "Flat Config native",
-    },
-    {
-        description: "Type-aware guidance without sacrificing readability.",
-        icon: "\ue628",
-        label: "TypeScript-first",
-    },
-    {
-        description: "Clear diagnostics with safe autofixes and suggestions.",
+        description:
+            "The docs theme mirrors the six-stage wheel in the project logo, from analysis through maintenance.",
         icon: "\uf0ad",
-        label: "Actionable rule docs",
-    },
-];
-
-/**
- * Hero stats Note: These icons are from the "Nerd Font Symbols" font.
- *
- * @type {{ headline: string; description: string }[]}
- *
- * @see https://www.nerdfonts.com/cheat-sheet for available icons in the "Nerd Font Symbols" font
- */
-const heroStats = [
-    {
-        description: "SDL-focused protections for web and runtime APIs.",
-        headline: "\uf0ca 17 Security Rules",
+        label: "SDL lifecycle aligned",
     },
     {
         description:
-            "Start with common checks and layer framework/runtime presets.",
-        headline: "\ue690 9 Presets",
+            "Coverage spans browser, Node, Electron, Angular, AngularJS, and Trusted Types surfaces.",
+        icon: "\uf135",
+        label: "Cross-stack security coverage",
     },
     {
-        description: "Autofix support where safe transformations are possible.",
-        headline: "\udb80\udc68 DX-first Autofix & Suggestions",
+        description:
+            "Presets, remediation docs, and safe suggestions help teams roll rules out incrementally.",
+        icon: "\ue73d",
+        label: "Practical adoption path",
     },
 ];
 
-/**
- * Button icons Note: These icons are from the "Nerd Font Symbols" font.
- *
- * @type {string}
- *
- * @see https://www.nerdfonts.com/cheat-sheet for available icons in the "Nerd Font Symbols" font
- */
+const heroStats = [
+    {
+        description:
+            "Current checked-in SDL and platform-hardening rules in the plugin source.",
+        headline: "🛡 52 SDL rules",
+        toneClassName: "heroStatAnalysis",
+    },
+    {
+        description:
+            "Layer common, framework, runtime, and policy presets to match your codebase.",
+        headline: "🧩 9 presets",
+        toneClassName: "heroStatDesign",
+    },
+    {
+        description:
+            "A focused set of rules opportunistically uses parser services when full TypeScript data is available.",
+        headline: "🧠 6 type-assisted rules",
+        toneClassName: "heroStatMaintenance",
+    },
+];
+
+const lifecycleSteps = [
+    { className: "phaseAnalysis", label: "1 · Analysis" },
+    { className: "phasePlanning", label: "2 · Planning" },
+    { className: "phaseDesign", label: "3 · Design" },
+    { className: "phaseDevelopment", label: "4 · Development" },
+    { className: "phaseTesting", label: "5 · Testing" },
+    { className: "phaseMaintenance", label: "6 · Maintenance" },
+];
+
 const overviewButtonIcon = "\udb81\udf1d";
 const comparePresetsButtonIcon = "\udb85\udc92";
 const heroKickerIcon = "\uf0ad";
 const heroKickerIcon2 = "\uf135";
 
-/**
- * Home card icons Note: These icons are from the "Nerd Font Symbols" font,
- * which is included in the site styles. If you change these icons, make sure to
- * choose ones that exist in that font or adjust the font-family in the CSS
- * accordingly.
- *
- * @type {{
- *     icon: string;
- *     title: string;
- *     description: string;
- *     to: string;
- * }[]}
- *
- * @see https://www.nerdfonts.com/cheat-sheet for available icons in the "Nerd Font Symbols" font
- */
 const homeCards = [
     {
+        description:
+            "Install the plugin, enable a preset, and start with the SDL overview and first security checks.",
         icon: "\uf135",
         title: "Get Started",
-        description:
-            "Install the plugin, enable a preset, and start enforcing SDL-focused security rules.",
         to: "/docs/rules/getting-started",
+        toneClassName: "cardTonePlanning",
     },
     {
+        description:
+            "Adopt common rules first, then layer framework and runtime-specific protections where they apply.",
         icon: "\ue690",
         title: "Presets",
-        description:
-            "Choose the right preset for your team, from minimal baseline to full strict coverage.",
         to: "/docs/rules/presets",
+        toneClassName: "cardToneDevelopment",
     },
     {
+        description:
+            "Browse every SDL rule with focused examples, rationale, and remediation guidance.",
         icon: "\uf02d",
         title: "Rule Reference",
-        description:
-            "Browse every rule with concrete incorrect/correct examples and migration guidance.",
-        to: "/docs/rules",
+        to: "/docs/rules/overview",
+        toneClassName: "cardToneMaintenance",
     },
 ];
 
 export default function Home() {
-    const logoSrc = useBaseUrl("/img/logo.svg");
+    const logoSrc = useBaseUrl("/img/logo.png");
 
     return (
         <Layout
             title="eslint-plugin-sdl-2 docs"
-            description="Documentation for eslint-plugin-sdl-2"
+            description="Security-focused documentation for eslint-plugin-sdl-2"
         >
             <header className={styles.heroBanner}>
                 <div className={`container ${styles.heroContent}`}>
                     <div className={styles.heroGrid}>
                         <div>
                             <p className={styles.heroKicker}>
-                                {`${heroKickerIcon} ESLint plugin for modern TypeScript teams ${heroKickerIcon2}`}
+                                {`${heroKickerIcon} SDL lifecycle-aware security linting ${heroKickerIcon2}`}
                             </p>
                             <Heading as="h1" className={styles.heroTitle}>
                                 eslint-plugin-sdl-2
@@ -126,7 +110,8 @@ export default function Home() {
                             <p className={styles.heroSubtitle}>
                                 SDL-oriented ESLint rules that flag insecure
                                 APIs and unsafe patterns across browser, Node,
-                                Electron, Angular, and AngularJS codebases.
+                                Electron, Angular, AngularJS, and related
+                                application surfaces.
                             </p>
 
                             <div className={styles.heroBadgeRow}>
@@ -173,14 +158,37 @@ export default function Home() {
 
                         <aside className={styles.heroPanel}>
                             <img
-                                alt="eslint-plugin-sdl-2 logo"
+                                alt="SDL lifecycle wheel logo for eslint-plugin-sdl-2"
                                 className={styles.heroPanelLogo}
                                 decoding="async"
-                                height="240"
+                                height="1024"
                                 loading="eager"
                                 src={logoSrc}
-                                width="240"
+                                width="1024"
                             />
+
+                            <div className={styles.heroPanelCopy}>
+                                <p className={styles.heroPanelEyebrow}>
+                                    Six-phase secure development lifecycle
+                                </p>
+                                <p className={styles.heroPanelText}>
+                                    The branding, sidebars, and homepage accents
+                                    now follow the same analysis → planning →
+                                    design → development → testing → maintenance
+                                    flow shown in the project logo.
+                                </p>
+
+                                <ul className={styles.phaseList}>
+                                    {lifecycleSteps.map((step) => (
+                                        <li
+                                            key={step.label}
+                                            className={`${styles.phaseChip} ${styles[step.className]}`}
+                                        >
+                                            {step.label}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </aside>
                     </div>
 
@@ -190,7 +198,7 @@ export default function Home() {
                         {heroStats.map((stat) => (
                             <article
                                 key={stat.headline}
-                                className={styles.heroStatCard}
+                                className={`${styles.heroStatCard} ${styles[stat.toneClassName]}`}
                             >
                                 <p className={styles.heroStatHeading}>
                                     {stat.headline}
@@ -208,7 +216,10 @@ export default function Home() {
                 <section className="container">
                     <div className={styles.cardGrid}>
                         {homeCards.map((card) => (
-                            <article key={card.title} className={styles.card}>
+                            <article
+                                key={card.title}
+                                className={`${styles.card} ${styles[card.toneClassName]}`}
+                            >
                                 <div className={styles.cardHeader}>
                                     <p className={styles.cardIcon}>
                                         {card.icon}

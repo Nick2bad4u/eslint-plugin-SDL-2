@@ -16,7 +16,7 @@ flowchart TB
     classDef tests fill:#7f1d1d,stroke:#fca5a5,color:#fef2f2,stroke-width:1px
     classDef output fill:#0f766e,stroke:#5eead4,color:#ecfeff,stroke-width:1px
 
-    RuleSource[src/rules/prefer-*.ts]
+    RuleSource[src/rules/*.ts]
     TypedRule[src/_internal/typed-rule.ts]
     RuleCatalog[src/_internal/rule-catalog.ts]
     RuleDocsMetadata[src/_internal/rule-docs-metadata.ts]

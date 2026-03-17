@@ -1,22 +1,22 @@
 {
-    "background_color": "#2E2A33",
+    "background_color": "#120f1f",
     "description": "eslint-plugin-sdl-2 documentation, architecture notes, and API references.",
     "display": "standalone",
     "icons": [
         {
             "sizes": "192x192",
-            "src": "img/logo_192x192.png",
+            "src": "img/web-app-manifest-192x192.png",
             "type": "image/png"
         },
         {
             "sizes": "512x512",
-            "src": "img/logo.png",
+            "src": "img/web-app-manifest-512x512.png",
             "type": "image/png"
         }
     ],
     "name": "eslint-plugin-sdl-2 Documentation",
     "scope": ".",
-    "short_name": "Sdl Docs",
+    "short_name": "SDL Docs",
     "start_url": ".",
-    "theme_color": "#2E2A33"
+    "theme_color": "#120f1f"
 }

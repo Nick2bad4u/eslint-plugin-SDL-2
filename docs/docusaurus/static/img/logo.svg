@@ -1,13 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
   <title id="title">eslint-plugin-sdl-2 logo</title>
-  <desc id="desc">Stylized hexagon containing TF initials.</desc>
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4f46e5" />
-      <stop offset="100%" stop-color="#0ea5e9" />
-    </linearGradient>
-  </defs>
-  <rect width="128" height="128" rx="20" fill="url(#g)" />
-  <path d="M23 30h82v14H70v54H56V44H23V30Z" fill="#fff" />
-  <path d="M70 52h35v12H82v34H70V52Z" fill="#fff" opacity="0.92" />
+  <desc id="desc">Six-stage SDL lifecycle ring surrounding a secure hexagonal core.</desc>
+
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#090c16" stroke-width="30" />
+
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#8b5cf6" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" transform="rotate(-90 64 64)" />
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#ec4899" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" stroke-dashoffset="-48" transform="rotate(-90 64 64)" />
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#f97316" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" stroke-dashoffset="-96" transform="rotate(-90 64 64)" />
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#facc15" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" stroke-dashoffset="-144" transform="rotate(-90 64 64)" />
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#22d3ee" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" stroke-dashoffset="-192" transform="rotate(-90 64 64)" />
+  <circle cx="64" cy="64" r="45" fill="none" stroke="#38bdf8" stroke-width="22" stroke-linecap="round" stroke-dasharray="38 251" stroke-dashoffset="-240" transform="rotate(-90 64 64)" />
+
+  <polygon points="64,29 94,47 94,81 64,99 34,81 34,47" fill="#5b43d6" />
+  <polygon points="64,44 82,54 82,74 64,84 46,74 46,54" fill="#8b8df6" />
 </svg>
