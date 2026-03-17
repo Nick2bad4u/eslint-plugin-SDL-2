@@ -68,6 +68,41 @@ const isUnknownRecord = (value) =>
     typeof value === "object" && value !== null && !Array.isArray(value);
 
 /**
+ * @param {unknown} value
+ *
+ * @returns {import("eslint").Linter.Config[]}
+ */
+const collectConfigEntries = (value) => {
+    if (Array.isArray(value)) {
+        return value.filter(isUnknownRecord);
+    }
+
+    if (isUnknownRecord(value)) {
+        return [value];
+    }
+
+    return [];
+};
+
+/**
+ * @param {import("eslint").Linter.Config[]} configEntries
+ * @param {string} propertyName
+ *
+ * @returns {UnknownRecord}
+ */
+const readLastRecordProperty = (configEntries, propertyName) => {
+    const matchingEntry = configEntries.findLast((configEntry) =>
+        isUnknownRecord(configEntry[propertyName])
+    );
+
+    if (matchingEntry === undefined) {
+        return {};
+    }
+
+    return /** @type {UnknownRecord} */ (matchingEntry[propertyName]);
+};
+
+/**
  * @param {readonly string[]} argv
  *
  * @returns {number | undefined}
@@ -159,28 +194,31 @@ const assertFixtureExists = (fixturePath) => {
  * @returns {import("eslint").Linter.Config[]}
  */
 const createCompatibilityConfig = (ruleId, typed, fixturePath) => {
-    const recommendedConfig = plugin.configs?.["recommended"];
-    if (!isUnknownRecord(recommendedConfig)) {
+    const recommendedConfigEntries = collectConfigEntries(
+        plugin.configs?.["recommended"]
+    );
+
+    if (recommendedConfigEntries.length === 0) {
         throw new Error(
             "Plugin recommended config is unavailable. Compatibility smoke test cannot continue."
         );
     }
 
-    const baseLanguageOptions = isUnknownRecord(
-        recommendedConfig["languageOptions"]
-    )
-        ? recommendedConfig["languageOptions"]
-        : {};
+    const baseLanguageOptions = readLastRecordProperty(
+        recommendedConfigEntries,
+        "languageOptions"
+    );
 
     const baseParserOptions = isUnknownRecord(
         baseLanguageOptions["parserOptions"]
     )
-        ? baseLanguageOptions["parserOptions"]
+        ? /** @type {UnknownRecord} */ (baseLanguageOptions["parserOptions"])
         : {};
+
     const baseProjectServiceOptions = isUnknownRecord(
         baseParserOptions["projectService"]
     )
-        ? baseParserOptions["projectService"]
+        ? /** @type {UnknownRecord} */ (baseParserOptions["projectService"])
         : {};
     const relativeFixturePath = toPosixPath(
         path.relative(repositoryRootPath, fixturePath)
@@ -191,7 +229,6 @@ const createCompatibilityConfig = (ruleId, typed, fixturePath) => {
 
     return [
         {
-            ...recommendedConfig,
             files: ["**/*.{ts,tsx,mts,cts}"],
             languageOptions: {
                 ...baseLanguageOptions,
