@@ -6,7 +6,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import { fileURLToPath } from "node:url";
 
 /** Route base path where docs site is deployed (GitHub Pages project path). */
-const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-sdl-2/";
+const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-SDL-2";
 /** Opt-in flag for experimental Docusaurus performance features. */
 const enableExperimentalFaster =
     process.env["DOCUSAURUS_ENABLE_EXPERIMENTAL"] === "true";
@@ -14,7 +14,7 @@ const enableExperimentalFaster =
 /** GitHub organization used for edit links and project metadata. */
 const organizationName = "Nick2bad4u";
 /** Repository name used for edit links and project metadata. */
-const projectName = "eslint-plugin-sdl-2";
+const projectName = "eslint-plugin-SDL-2";
 /** Client module path for runtime DOM enhancement bootstrap script. */
 const modernEnhancementsClientModule = fileURLToPath(
     new URL("src/js/modernEnhancements.ts", import.meta.url)
@@ -558,7 +558,7 @@ const config: Config = {
             },
         ],
     ],
-    title: "eslint-plugin-sdl-2",
+    title: "eslint-plugin-SDL-2",
     trailingSlash: false,
     url: "https://nick2bad4u.github.io",
 };
