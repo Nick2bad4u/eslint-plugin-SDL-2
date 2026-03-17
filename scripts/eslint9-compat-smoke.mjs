@@ -85,21 +85,42 @@ const collectConfigEntries = (value) => {
 };
 
 /**
+ * @param {import("eslint").Linter.Config} configEntry
+ * @param {string} propertyName
+ *
+ * @returns {UnknownRecord | undefined}
+ */
+const readRecordPropertyFromConfigEntry = (configEntry, propertyName) => {
+    const propertyValue = /** @type {UnknownRecord} */ (configEntry)[
+        propertyName
+    ];
+
+    return isUnknownRecord(propertyValue) ? propertyValue : undefined;
+};
+
+/**
  * @param {import("eslint").Linter.Config[]} configEntries
  * @param {string} propertyName
  *
  * @returns {UnknownRecord}
  */
 const readLastRecordProperty = (configEntries, propertyName) => {
-    const matchingEntry = configEntries.findLast((configEntry) =>
-        isUnknownRecord(configEntry[propertyName])
+    const matchingEntryProperty = configEntries.findLast(
+        (configEntry) =>
+            readRecordPropertyFromConfigEntry(configEntry, propertyName) !==
+            undefined
     );
 
-    if (matchingEntry === undefined) {
+    if (matchingEntryProperty === undefined) {
         return {};
     }
 
-    return /** @type {UnknownRecord} */ (matchingEntry[propertyName]);
+    return (
+        readRecordPropertyFromConfigEntry(
+            matchingEntryProperty,
+            propertyName
+        ) ?? {}
+    );
 };
 
 /**
