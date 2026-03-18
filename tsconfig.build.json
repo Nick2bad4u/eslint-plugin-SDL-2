@@ -21,13 +21,15 @@
     "exclude": [
         ".cache/**",
         "dist/**",
-        "node_modules/**",
-        "test/**",
         "docs/docusaurus/.docusaurus/**",
-        "docs/docusaurus/build/**"
+        "docs/docusaurus/build/**",
+        "eslint.config.bundled_*.mjs",
+        "node_modules/**",
+        "test/**"
     ],
     "extends": "./tsconfig.json",
     "include": [
+        "src/**/*.d.ts",
         "src/**/*.ts"
     ]
 }

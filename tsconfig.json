@@ -106,12 +106,14 @@
         ".cache/**",
         "coverage/**",
         "dist/**",
-        "node_modules/**",
-        "test/fixtures/**",
         "docs/docusaurus/.docusaurus/**",
-        "docs/docusaurus/build/**"
+        "docs/docusaurus/build/**",
+        "eslint.config.bundled_*.mjs",
+        "node_modules/**",
+        "test/fixtures/**"
     ],
     "include": [
+        "src/**/*.d.ts",
         "src/**/*.ts",
         "test/**/*.d.ts",
         "test/**/*.ts",
@@ -125,16 +127,16 @@
     "watchOptions": {
         "excludeDirectories": [
             "**/node_modules",
-            "_build",
-            "temp/*",
-            "dist/*",
-            "out/*",
-            "release/*",
             ".cache",
             ".coverage",
             ".git",
             ".husky",
-            ".vscode"
+            ".vscode",
+            "_build",
+            "dist/*",
+            "out/*",
+            "release/*",
+            "temp/*"
         ],
         "excludeFiles": [],
         "fallbackPolling": "dynamicPriority",

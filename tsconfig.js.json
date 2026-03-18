@@ -15,14 +15,17 @@
         ".cache/**",
         "coverage/**",
         "dist/**",
-        "eslint.config.bundled_*.mjs",
         "docs/docusaurus/.docusaurus/**",
         "docs/docusaurus/build/**",
-        "node_modules/**"
+        "eslint.config.bundled_*.mjs",
+        "node_modules/**",
+        "test/fixtures/**"
     ],
     "extends": "./tsconfig.json",
     "include": [
+        "*.cjs",
         "*.d.ts",
+        "*.d.cts",
         "*.mjs",
         "test/_internal/**/*.d.ts"
     ]
