@@ -100,7 +100,7 @@ export default function Home() {
             <header className={styles.heroBanner}>
                 <div className={`container ${styles.heroContent}`}>
                     <div className={styles.heroGrid}>
-                        <div>
+                        <div className={styles.heroMain}>
                             <p className={styles.heroKicker}>
                                 {`${heroKickerIcon} SDL lifecycle-aware security linting ${heroKickerIcon2}`}
                             </p>
@@ -154,6 +154,28 @@ export default function Home() {
                                     {comparePresetsButtonIcon} Compare Presets
                                 </Link>
                             </div>
+
+                            <GitHubStats className={styles.heroLiveBadges} />
+
+                            <div className={styles.heroStats}>
+                                {heroStats.map((stat) => (
+                                    <article
+                                        key={stat.headline}
+                                        className={`${styles.heroStatCard} ${styles[stat.toneClassName]}`}
+                                    >
+                                        <p className={styles.heroStatHeading}>
+                                            {stat.headline}
+                                        </p>
+                                        <p
+                                            className={
+                                                styles.heroStatDescription
+                                            }
+                                        >
+                                            {stat.description}
+                                        </p>
+                                    </article>
+                                ))}
+                            </div>
                         </div>
 
                         <aside className={styles.heroPanel}>
@@ -191,54 +213,41 @@ export default function Home() {
                             </div>
                         </aside>
                     </div>
-
-                    <GitHubStats className={styles.heroLiveBadges} />
-
-                    <div className={styles.heroStats}>
-                        {heroStats.map((stat) => (
-                            <article
-                                key={stat.headline}
-                                className={`${styles.heroStatCard} ${styles[stat.toneClassName]}`}
-                            >
-                                <p className={styles.heroStatHeading}>
-                                    {stat.headline}
-                                </p>
-                                <p className={styles.heroStatDescription}>
-                                    {stat.description}
-                                </p>
-                            </article>
-                        ))}
-                    </div>
                 </div>
             </header>
 
             <main className={styles.mainContent}>
                 <section className="container">
-                    <div className={styles.cardGrid}>
-                        {homeCards.map((card) => (
-                            <article
-                                key={card.title}
-                                className={`${styles.card} ${styles[card.toneClassName]}`}
-                            >
-                                <div className={styles.cardHeader}>
-                                    <p className={styles.cardIcon}>
-                                        {card.icon}
+                    <div className={styles.cardDeck}>
+                        <div className={styles.cardGrid}>
+                            {homeCards.map((card) => (
+                                <article
+                                    key={card.title}
+                                    className={`${styles.card} ${styles[card.toneClassName]}`}
+                                >
+                                    <div className={styles.cardHeader}>
+                                        <p className={styles.cardIcon}>
+                                            {card.icon}
+                                        </p>
+                                        <Heading
+                                            as="h2"
+                                            className={styles.cardTitle}
+                                        >
+                                            {card.title}
+                                        </Heading>
+                                    </div>
+                                    <p className={styles.cardDescription}>
+                                        {card.description}
                                     </p>
-                                    <Heading
-                                        as="h2"
-                                        className={styles.cardTitle}
+                                    <Link
+                                        className={styles.cardLink}
+                                        to={card.to}
                                     >
-                                        {card.title}
-                                    </Heading>
-                                </div>
-                                <p className={styles.cardDescription}>
-                                    {card.description}
-                                </p>
-                                <Link className={styles.cardLink} to={card.to}>
-                                    Open section →
-                                </Link>
-                            </article>
-                        ))}
+                                        Open section →
+                                    </Link>
+                                </article>
+                            ))}
+                        </div>
                     </div>
                 </section>
             </main>

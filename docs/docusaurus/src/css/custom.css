@@ -70,6 +70,47 @@
     --sb-accent-dev-charts: var(--sdl-maintenance);
     --sb-accent-dev-links: var(--sdl-testing);
     --sb-accent-adr: var(--sdl-planning);
+    --home-hero-background:
+        radial-gradient(circle at 12% 18%, rgb(139 92 246 / 18%), transparent 24%),
+        radial-gradient(circle at 88% 16%, rgb(236 72 153 / 16%), transparent 22%),
+        radial-gradient(circle at 86% 76%, rgb(249 115 22 / 15%), transparent 22%),
+        radial-gradient(circle at 54% 100%, rgb(250 204 21 / 14%), transparent 18%),
+        radial-gradient(circle at 14% 84%, rgb(34 211 238 / 16%), transparent 20%),
+        linear-gradient(145deg, #fbf9ff 0%, #f4f3ff 44%, #eef6ff 100%);
+    --home-hero-border-color: rgb(91 67 214 / 14%);
+    --home-hero-title-color: #111426;
+    --home-hero-subtitle-color: rgb(37 46 75 / 84%);
+    --home-hero-muted-color: rgb(49 58 89 / 80%);
+    --home-hero-kicker-background: rgb(255 255 255 / 72%);
+    --home-hero-kicker-border-color: rgb(91 67 214 / 18%);
+    --home-hero-kicker-color: #2a2450;
+    --home-hero-badge-background: rgb(255 255 255 / 70%);
+    --home-hero-badge-border-color: rgb(91 67 214 / 16%);
+    --home-hero-badge-icon-background: rgb(124 92 255 / 12%);
+    --home-hero-badge-glow: rgb(124 92 255 / 16%);
+    --home-hero-panel-background:
+        linear-gradient(160deg, rgb(255 255 255 / 88%), rgb(255 255 255 / 66%)),
+        rgb(255 255 255 / 74%);
+    --home-hero-panel-border-color: rgb(91 67 214 / 16%);
+    --home-hero-panel-eyebrow-color: rgb(52 60 90 / 76%);
+    --home-hero-secondary-button-background: rgb(255 255 255 / 76%);
+    --home-hero-secondary-button-border-color: rgb(91 67 214 / 18%);
+    --home-hero-secondary-button-color: #1d2340;
+    --home-hero-stat-background:
+        linear-gradient(180deg, rgb(255 255 255 / 82%), rgb(255 255 255 / 66%)),
+        rgb(255 255 255 / 74%);
+    --home-hero-shadow-color: rgb(15 23 42 / 26%);
+    --home-hero-highlight-color: rgb(255 255 255 / 56%);
+    --home-hero-orb-primary: rgb(124 92 255 / 10%);
+    --home-hero-orb-secondary: rgb(91 67 214 / 8%);
+    --home-card-background:
+        linear-gradient(180deg, rgb(255 255 255 / 90%), rgb(255 255 255 / 76%)),
+        var(--ifm-card-background-color);
+    --home-card-border-color: rgb(124 92 255 / 14%);
+    --home-card-shadow: 0 20px 32px -30px rgb(15 23 42 / 18%);
+    --home-card-hover-shadow: 0 24px 36px -28px rgb(15 23 42 / 24%);
+    --home-card-icon-background: rgb(124 92 255 / 12%);
+    --home-card-description-color: var(--ifm-color-emphasis-800);
 }
 
 [data-theme="dark"] {
@@ -91,6 +132,46 @@
     --ifm-link-color: #b7a5ff;
     --ifm-link-hover-color: #ded6ff;
     --ifm-selection-background-color: rgb(158 135 255 / 24%);
+    --home-hero-background:
+        radial-gradient(circle at 12% 18%, rgb(139 92 246 / 34%), transparent 22%),
+        radial-gradient(circle at 88% 16%, rgb(236 72 153 / 28%), transparent 20%),
+        radial-gradient(circle at 88% 72%, rgb(249 115 22 / 25%), transparent 22%),
+        radial-gradient(circle at 52% 100%, rgb(250 204 21 / 22%), transparent 18%),
+        radial-gradient(circle at 18% 84%, rgb(34 211 238 / 24%), transparent 20%),
+        radial-gradient(circle at 4% 48%, rgb(56 189 248 / 18%), transparent 18%),
+        linear-gradient(145deg, #0d1020 0%, #171329 42%, #0f1630 100%);
+    --home-hero-border-color: rgb(255 255 255 / 10%);
+    --home-hero-title-color: #ffffff;
+    --home-hero-subtitle-color: rgb(231 238 255 / 92%);
+    --home-hero-muted-color: rgb(222 233 255 / 84%);
+    --home-hero-kicker-background: rgb(9 12 22 / 34%);
+    --home-hero-kicker-border-color: rgb(255 255 255 / 24%);
+    --home-hero-kicker-color: rgb(233 240 255);
+    --home-hero-badge-background: rgb(7 10 19 / 28%);
+    --home-hero-badge-border-color: rgb(255 255 255 / 16%);
+    --home-hero-badge-icon-background: rgb(255 255 255 / 10%);
+    --home-hero-badge-glow: rgb(255 255 255 / 10%);
+    --home-hero-panel-background:
+        linear-gradient(160deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 0%)),
+        rgb(7 10 19 / 34%);
+    --home-hero-panel-border-color: rgb(255 255 255 / 16%);
+    --home-hero-panel-eyebrow-color: rgb(241 245 255 / 82%);
+    --home-hero-secondary-button-background: rgb(9 12 22 / 28%);
+    --home-hero-secondary-button-border-color: rgb(255 255 255 / 16%);
+    --home-hero-secondary-button-color: rgb(233 240 255);
+    --home-hero-stat-background: rgb(7 10 19 / 28%);
+    --home-hero-shadow-color: rgb(0 0 0 / 60%);
+    --home-hero-highlight-color: rgb(255 255 255 / 12%);
+    --home-hero-orb-primary: rgb(255 255 255 / 6%);
+    --home-hero-orb-secondary: rgb(255 255 255 / 5%);
+    --home-card-background:
+        linear-gradient(180deg, rgb(255 255 255 / 8%), rgb(255 255 255 / 2%)),
+        var(--ifm-card-background-color);
+    --home-card-border-color: rgb(158 135 255 / 18%);
+    --home-card-shadow: 0 22px 34px -30px rgb(0 0 0 / 46%);
+    --home-card-hover-shadow: 0 26px 40px -28px rgb(0 0 0 / 58%);
+    --home-card-icon-background: rgb(158 135 255 / 14%);
+    --home-card-description-color: rgb(220 228 244 / 84%);
 }
 
 html[data-theme="dark"] body {

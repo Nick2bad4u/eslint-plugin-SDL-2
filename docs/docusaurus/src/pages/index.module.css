@@ -5,40 +5,9 @@
     position: relative;
     overflow: clip;
     padding: 4.5rem 0 3.5rem;
-    border-block-end: 1px solid rgb(255 255 255 / 10%);
-    background:
-        radial-gradient(
-            circle at 12% 18%,
-            rgb(139 92 246 / 34%),
-            transparent 22%
-        ),
-        radial-gradient(
-            circle at 88% 16%,
-            rgb(236 72 153 / 28%),
-            transparent 20%
-        ),
-        radial-gradient(
-            circle at 88% 72%,
-            rgb(249 115 22 / 25%),
-            transparent 22%
-        ),
-        radial-gradient(
-            circle at 52% 100%,
-            rgb(250 204 21 / 22%),
-            transparent 18%
-        ),
-        radial-gradient(
-            circle at 18% 84%,
-            rgb(34 211 238 / 24%),
-            transparent 20%
-        ),
-        radial-gradient(
-            circle at 4% 48%,
-            rgb(56 189 248 / 18%),
-            transparent 18%
-        ),
-        linear-gradient(145deg, #0d1020 0%, #171329 42%, #0f1630 100%);
-    color: #ffffff;
+    border-block-end: 1px solid var(--home-hero-border-color);
+    background: var(--home-hero-background);
+    color: var(--home-hero-title-color);
     isolation: isolate;
 }
 
@@ -56,7 +25,7 @@
     inline-size: 22rem;
     block-size: 22rem;
     border-radius: 999px;
-    background: rgb(255 255 255 / 6%);
+    background: var(--home-hero-orb-primary);
     filter: blur(10px);
 }
 
@@ -66,7 +35,7 @@
     inline-size: 28rem;
     block-size: 28rem;
     border-radius: 999px;
-    background: rgb(255 255 255 / 5%);
+    background: var(--home-hero-orb-secondary);
     filter: blur(2px);
 }
 
@@ -76,20 +45,26 @@
 
 .heroGrid {
     display: grid;
-    align-items: start;
-    gap: 1.5rem;
-    grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.92fr);
+    align-items: stretch;
+    gap: 1.35rem;
+    grid-template-columns: minmax(0, 1.14fr) minmax(22rem, 0.86fr);
+}
+
+.heroMain {
+    display: grid;
+    align-content: start;
+    gap: 0;
 }
 
 .heroKicker {
     display: inline-flex;
     align-items: center;
     padding: 0.38rem 0.72rem;
-    border: 1px solid rgb(255 255 255 / 24%);
+    border: 1px solid var(--home-hero-kicker-border-color);
     border-radius: 999px;
     margin: 0 0 0.85rem;
-    background: rgb(9 12 22 / 34%);
-    color: rgb(233 240 255);
+    background: var(--home-hero-kicker-background);
+    color: var(--home-hero-kicker-color);
     font-size: 0.79rem;
     font-weight: 760;
     letter-spacing: 0.08em;
@@ -104,7 +79,7 @@
 
 .heroSubtitle {
     margin: 0;
-    color: rgb(231 238 255 / 92%);
+    color: var(--home-hero-subtitle-color);
     font-size: 1.08rem;
     line-height: 1.625;
     max-inline-size: 40rem;
@@ -119,13 +94,29 @@
 }
 
 .heroBadge {
+    position: relative;
     padding: 0.88rem 0.95rem;
-    border: 1px solid rgb(255 255 255 / 16%);
+    border: 1px solid var(--home-hero-badge-border-color);
     border-radius: 1rem;
     margin: 0;
-    background: rgb(7 10 19 / 28%);
+    background: var(--home-hero-badge-background);
     backdrop-filter: blur(12px);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%);
+    box-shadow:
+        0 18px 30px -28px var(--home-hero-shadow-color),
+        inset 0 1px 0 var(--home-hero-highlight-color);
+}
+
+.heroBadge::after {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-end: 0.8rem;
+    inline-size: 2.4rem;
+    block-size: 2.4rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, var(--home-hero-badge-glow) 0%, transparent 72%);
+    content: "";
+    opacity: 0.8;
+    pointer-events: none;
 }
 
 .heroBadge:nth-child(1) {
@@ -144,6 +135,7 @@
     display: inline-flex;
     align-items: center;
     margin: 0;
+    color: var(--home-hero-title-color);
     font-size: 0.82rem;
     font-weight: 760;
     gap: 0.46rem;
@@ -156,13 +148,13 @@
     inline-size: 1.45rem;
     block-size: 1.45rem;
     border-radius: 0.5rem;
-    background: rgb(255 255 255 / 10%);
+    background: var(--home-hero-badge-icon-background);
     font-size: 0.92rem;
 }
 
 .heroBadgeDescription {
     margin: 0.42rem 0 0;
-    color: rgb(222 233 255 / 84%);
+    color: var(--home-hero-muted-color);
     font-size: 0.79rem;
     line-height: 1.5;
 }
@@ -184,8 +176,8 @@
     border-style: solid;
     border-radius: 0.95rem;
     box-shadow:
-        0 14px 28px -20px rgb(0 0 0 / 60%),
-        inset 0 1px 0 rgb(255 255 255 / 12%);
+        0 14px 28px -20px var(--home-hero-shadow-color),
+        inset 0 1px 0 var(--home-hero-highlight-color);
     font-weight: 780;
     letter-spacing: 0.01em;
     transition:
@@ -241,25 +233,24 @@
 }
 
 .heroActionSecondary {
-    border-color: rgb(255 255 255 / 16%);
-    background: rgb(9 12 22 / 28%);
-    color: rgb(233 240 255);
+    border-color: var(--home-hero-secondary-button-border-color);
+    background: var(--home-hero-secondary-button-background);
+    color: var(--home-hero-secondary-button-color);
 }
 
 .heroPanel {
     display: grid;
+    align-content: space-between;
     gap: 1rem;
     padding: 1.15rem;
-    border: 1px solid rgb(255 255 255 / 16%);
+    border: 1px solid var(--home-hero-panel-border-color);
     border-radius: 1.25rem;
     margin: 0;
-    background:
-        linear-gradient(160deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 0%)),
-        rgb(7 10 19 / 34%);
+    background: var(--home-hero-panel-background);
     backdrop-filter: blur(14px);
     box-shadow:
-        0 24px 40px -28px rgb(0 0 0 / 65%),
-        inset 0 1px 0 rgb(255 255 255 / 8%);
+        0 24px 40px -28px var(--home-hero-shadow-color),
+        inset 0 1px 0 var(--home-hero-highlight-color);
 }
 
 .heroPanelLogo {
@@ -277,7 +268,7 @@
 
 .heroPanelEyebrow {
     margin: 0;
-    color: rgb(241 245 255 / 82%);
+    color: var(--home-hero-panel-eyebrow-color);
     font-size: 0.76rem;
     font-weight: 760;
     letter-spacing: 0.09em;
@@ -286,7 +277,7 @@
 
 .heroPanelText {
     margin: 0;
-    color: rgb(228 235 255 / 84%);
+    color: var(--home-hero-muted-color);
     font-size: 0.88rem;
     line-height: 1.625;
 }
@@ -305,9 +296,9 @@
     align-items: center;
     justify-content: center;
     padding: 0.58rem 0.7rem;
-    border: 1px solid rgb(255 255 255 / 12%);
+    border: 1px solid var(--home-hero-badge-border-color);
     border-radius: 999px;
-    background: rgb(255 255 255 / 6%);
+    background: var(--home-hero-badge-background);
     font-size: 0.8rem;
     font-weight: 760;
     text-align: center;
@@ -344,23 +335,27 @@
 }
 
 .heroLiveBadges {
-    margin-block-start: 0.9rem;
+    margin-block-start: 1rem;
+    align-items: center;
 }
 
 .heroStats {
     display: grid;
     gap: 0.85rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-block-start: 1rem;
+    margin-block-start: 0.95rem;
 }
 
 .heroStatCard {
     padding: 0.9rem 1rem;
-    border: 1px solid rgb(255 255 255 / 14%);
-    border-radius: 1rem;
-    background: rgb(7 10 19 / 28%);
+    border: 1px solid var(--home-hero-badge-border-color);
+    border-radius: 1.15rem;
+    background: var(--home-hero-stat-background);
     backdrop-filter: blur(10px);
-    min-block-size: 6rem;
+    box-shadow:
+        0 18px 28px -28px var(--home-hero-shadow-color),
+        inset 0 1px 0 var(--home-hero-highlight-color);
+    min-block-size: 6.3rem;
 }
 
 .heroStatAnalysis {
@@ -377,6 +372,7 @@
 
 .heroStatHeading {
     margin: 0;
+    color: var(--home-hero-title-color);
     font-size: 1rem;
     font-weight: 800;
     line-height: 1.25;
@@ -384,13 +380,17 @@
 
 .heroStatDescription {
     margin: 0.35rem 0 0;
-    color: rgb(223 235 255 / 84%);
+    color: var(--home-hero-muted-color);
     font-size: 0.81rem;
     line-height: 1.5;
 }
 
 .mainContent {
-    padding: 2rem 0 3rem;
+    padding: 1.25rem 0 3rem;
+}
+
+.cardDeck {
+    margin-block-start: -0.75rem;
 }
 
 .liveBadgeList {
@@ -436,12 +436,10 @@
 .card {
     position: relative;
     padding: 1.15rem;
-    border: 1px solid var(--ifm-toc-border-color);
+    border: 1px solid var(--home-card-border-color);
     border-radius: 1rem;
-    background:
-        linear-gradient(180deg, rgb(255 255 255 / 58%), rgb(255 255 255 / 34%)),
-        var(--ifm-card-background-color);
-    box-shadow: 0 20px 32px -30px rgb(15 23 42 / 18%);
+    background: var(--home-card-background);
+    box-shadow: var(--home-card-shadow);
     transition:
         border-color 150ms ease,
         box-shadow 150ms ease,
@@ -450,7 +448,7 @@
 
 .card:hover,
 .card:focus {
-    box-shadow: 0 24px 36px -28px rgb(15 23 42 / 24%);
+    box-shadow: var(--home-card-hover-shadow);
     transform: translateY(-2px);
 }
 
@@ -496,7 +494,7 @@
     block-size: 2rem;
     border-radius: 0.7rem;
     margin: 0;
-    background: rgb(124 92 255 / 12%);
+    background: var(--home-card-icon-background);
     font-family:
         "NerdFontSymbols Nerd Font Symbols", "Symbols Nerd Font Mono",
         "Segoe UI Emoji", sans-serif;
@@ -512,7 +510,7 @@
 
 .cardDescription {
     margin-block-end: 0.8rem;
-    color: var(--ifm-color-emphasis-800);
+    color: var(--home-card-description-color);
 }
 
 .cardLink {
@@ -531,6 +529,10 @@
 
     .heroStats {
         grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    }
+
+    .cardDeck {
+        margin-block-start: 0;
     }
 }
 
