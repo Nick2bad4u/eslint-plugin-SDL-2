@@ -41,6 +41,7 @@ export default [...sdl.configs.required];
 | [`no-child-process-shell-true`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-child-process-shell-true) | — |
 | [`no-cookies`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-cookies) | — |
 | [`no-document-domain`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-document-domain) | — |
+| [`no-document-parse-html-unsafe`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-document-parse-html-unsafe) | — |
 | [`no-document-write`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-document-write) | — |
 | [`no-domparser-html-without-sanitization`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-domparser-html-without-sanitization) | — |
 | [`no-electron-allow-running-insecure-content`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-allow-running-insecure-content) | 🔧 |
@@ -65,6 +66,7 @@ export default [...sdl.configs.required];
 | [`no-electron-webview-node-integration`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-webview-node-integration) | 🔧 |
 | [`no-html-method`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-html-method) | — |
 | [`no-http-request-to-insecure-protocol`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-http-request-to-insecure-protocol) | 🔧 |
+| [`no-iframe-srcdoc`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-iframe-srcdoc) | — |
 | [`no-inner-html`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-inner-html) | — |
 | [`no-insecure-random`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-random) | — |
 | [`no-insecure-tls-agent-options`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-tls-agent-options) | 🔧 |
@@ -72,9 +74,14 @@ export default [...sdl.configs.required];
 | [`no-location-javascript-url`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-location-javascript-url) | — |
 | [`no-message-event-without-origin-check`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-message-event-without-origin-check) | — |
 | [`no-msapp-exec-unsafe`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-msapp-exec-unsafe) | — |
+| [`no-node-tls-legacy-protocol`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-legacy-protocol) | — |
 | [`no-node-tls-reject-unauthorized-zero`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-reject-unauthorized-zero) | 💡 |
+| [`no-node-tls-security-level-zero`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-security-level-zero) | — |
 | [`no-postmessage-star-origin`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-star-origin) | 💡 |
 | [`no-postmessage-without-origin-allowlist`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-without-origin-allowlist) | — |
+| [`no-range-create-contextual-fragment`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-range-create-contextual-fragment) | — |
+| [`no-script-text`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-script-text) | — |
+| [`no-set-html-unsafe`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-set-html-unsafe) | — |
 | [`no-unsafe-alloc`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-alloc) | 🔧 |
 | [`no-window-open-without-noopener`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-window-open-without-noopener) | — |
 | [`no-winjs-html-unsafe`](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-winjs-html-unsafe) | — |

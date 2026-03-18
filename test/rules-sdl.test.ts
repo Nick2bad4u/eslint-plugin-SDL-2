@@ -115,6 +115,54 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-document-parse-html-unsafe",
+    getPluginRule("no-document-parse-html-unsafe"),
+    {
+        invalid: [
+            {
+                code: "Document.parseHTMLUnsafe(userHtml);",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "window.Document.parseHTMLUnsafe(markup);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "Document.parseHTML(userHtml);",
+            "Document.parseHTMLUnsafe('');",
+            "parser.parseHTMLUnsafe(userHtml);",
+        ],
+    }
+);
+
+ruleTester.run("no-iframe-srcdoc", getPluginRule("no-iframe-srcdoc"), {
+    invalid: [
+        {
+            code: "iframe.srcdoc = userHtml;",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "document.createElement('iframe').setAttribute('srcdoc', userHtml);",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "const frame = <iframe srcDoc={userHtml} />;",
+            errors: [{ messageId: "default" }],
+            languageOptions: tsReactLanguageOptions,
+        },
+    ],
+    valid: [
+        "iframe.srcdoc = '';",
+        "document.createElement('iframe').setAttribute('src', 'https://example.com/embed');",
+        {
+            code: 'const frame = <iframe srcDoc="" />;',
+            languageOptions: tsReactLanguageOptions,
+        },
+    ],
+});
+
+ruleTester.run(
     "no-electron-insecure-certificate-verify-proc",
     getPluginRule("no-electron-insecure-certificate-verify-proc"),
     {
@@ -314,6 +362,109 @@ ruleTester.run(
             },
         ],
         valid: ["new https.Agent({ rejectUnauthorized: true });"],
+    }
+);
+
+ruleTester.run(
+    "no-node-tls-legacy-protocol",
+    getPluginRule("no-node-tls-legacy-protocol"),
+    {
+        invalid: [
+            {
+                code: "tls.createSecureContext({ minVersion: 'TLSv1.1' });",
+                errors: [
+                    {
+                        data: {
+                            configuredValue: "TLSv1.1",
+                            propertyName: "minVersion",
+                        },
+                        messageId: "default",
+                    },
+                ],
+            },
+            {
+                code: "new https.Agent({ secureProtocol: 'TLSv1_method' });",
+                errors: [
+                    {
+                        data: {
+                            configuredValue: "TLSv1_method",
+                            propertyName: "secureProtocol",
+                        },
+                        messageId: "default",
+                    },
+                ],
+            },
+            {
+                code: "tls.DEFAULT_MIN_VERSION = 'TLSv1';",
+                errors: [
+                    {
+                        data: {
+                            configuredValue: "TLSv1",
+                            propertyName: "DEFAULT_MIN_VERSION",
+                        },
+                        messageId: "default",
+                    },
+                ],
+            },
+        ],
+        valid: [
+            "tls.createSecureContext({ minVersion: 'TLSv1.2' });",
+            "new https.Agent({ secureProtocol: 'TLSv1_2_method' });",
+            "http2.createSecureServer({ minVersion: 'TLSv1.2' });",
+            "tls.DEFAULT_MIN_VERSION = 'TLSv1.2';",
+            "request({ minVersion: 'TLSv1.1' });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-node-tls-security-level-zero",
+    getPluginRule("no-node-tls-security-level-zero"),
+    {
+        invalid: [
+            {
+                code: "tls.createSecureContext({ ciphers: 'DEFAULT@SECLEVEL=0' });",
+                errors: [
+                    {
+                        data: {
+                            configuredValue: "DEFAULT@SECLEVEL=0",
+                            propertyName: "ciphers",
+                        },
+                        messageId: "default",
+                    },
+                ],
+            },
+            {
+                code: "new https.Agent({ ciphers: 'DEFAULT:@SECLEVEL=0' });",
+                errors: [
+                    {
+                        data: {
+                            configuredValue: "DEFAULT:@SECLEVEL=0",
+                            propertyName: "ciphers",
+                        },
+                        messageId: "default",
+                    },
+                ],
+            },
+            {
+                code: "tls.DEFAULT_CIPHERS = 'DEFAULT@SECLEVEL=0';",
+                errors: [
+                    {
+                        data: {
+                            configuredValue: "DEFAULT@SECLEVEL=0",
+                            propertyName: "DEFAULT_CIPHERS",
+                        },
+                        messageId: "default",
+                    },
+                ],
+            },
+        ],
+        valid: [
+            "tls.createSecureContext({ ciphers: 'DEFAULT' });",
+            "http2.createSecureServer({ ciphers: 'DEFAULT:@SECLEVEL=1' });",
+            "tls.DEFAULT_CIPHERS = 'DEFAULT';",
+            "request({ ciphers: 'DEFAULT@SECLEVEL=0' });",
+        ],
     }
 );
 
@@ -891,6 +1042,63 @@ ruleTester.run(
         ],
     }
 );
+
+ruleTester.run(
+    "no-range-create-contextual-fragment",
+    getPluginRule("no-range-create-contextual-fragment"),
+    {
+        invalid: [
+            {
+                code: "range.createContextualFragment(userHtml);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "range.createContextualFragment('');",
+            "range.createContextualFragment(sanitize(userHtml));",
+        ],
+    }
+);
+
+ruleTester.run("no-set-html-unsafe", getPluginRule("no-set-html-unsafe"), {
+    invalid: [
+        {
+            code: "element.setHTMLUnsafe(userHtml);",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "shadowRoot['setHTMLUnsafe'](markup);",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: ["element.setHTMLUnsafe('');", "element.setHTML(userHtml);"],
+});
+
+ruleTester.run("no-script-text", getPluginRule("no-script-text"), {
+    invalid: [
+        {
+            code: "document.createElement('script').text = userCode;",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "const scriptElement: HTMLScriptElement = document.createElement('script'); scriptElement.textContent = userCode;",
+            errors: [{ messageId: "default" }],
+            languageOptions: tsLanguageOptions,
+        },
+        {
+            code: "document.currentScript.innerText = bootstrapCode;",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "document.createElement('script').text = '';",
+        {
+            code: "const node: HTMLElement = document.createElement('div'); node.textContent = userText;",
+            languageOptions: tsLanguageOptions,
+        },
+        "element.textContent = userText;",
+    ],
+});
 
 ruleTester.run("no-unsafe-alloc", getPluginRule("no-unsafe-alloc"), {
     invalid: [

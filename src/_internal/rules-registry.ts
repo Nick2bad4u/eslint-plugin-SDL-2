@@ -14,6 +14,7 @@ import noAngularjsSceResourceUrlWildcardRule from "../rules/no-angularjs-sce-res
 import noChildProcessShellTrueRule from "../rules/no-child-process-shell-true.js";
 import noCookiesRule from "../rules/no-cookies.js";
 import noDocumentDomainRule from "../rules/no-document-domain.js";
+import noDocumentParseHtmlUnsafeRule from "../rules/no-document-parse-html-unsafe.js";
 import noDocumentWriteRule from "../rules/no-document-write.js";
 import noDomparserHtmlWithoutSanitizationRule from "../rules/no-domparser-html-without-sanitization.js";
 import noElectronAllowRunningInsecureContentRule from "../rules/no-electron-allow-running-insecure-content.js";
@@ -38,6 +39,7 @@ import noElectronWebviewInsecureWebpreferencesRule from "../rules/no-electron-we
 import noElectronWebviewNodeIntegrationRule from "../rules/no-electron-webview-node-integration.js";
 import noHtmlMethodRule from "../rules/no-html-method.js";
 import noHttpRequestToInsecureProtocolRule from "../rules/no-http-request-to-insecure-protocol.js";
+import noIframeSrcdocRule from "../rules/no-iframe-srcdoc.js";
 import noInnerHtmlRule from "../rules/no-inner-html.js";
 import noInsecureRandomRule from "../rules/no-insecure-random.js";
 import noInsecureTlsAgentOptionsRule from "../rules/no-insecure-tls-agent-options.js";
@@ -45,10 +47,15 @@ import noInsecureUrlRule from "../rules/no-insecure-url.js";
 import noLocationJavascriptUrlRule from "../rules/no-location-javascript-url.js";
 import noMessageEventWithoutOriginCheckRule from "../rules/no-message-event-without-origin-check.js";
 import noMsappExecUnsafeRule from "../rules/no-msapp-exec-unsafe.js";
+import noNodeTlsLegacyProtocolRule from "../rules/no-node-tls-legacy-protocol.js";
 import noNodeTlsRejectUnauthorizedZeroRule from "../rules/no-node-tls-reject-unauthorized-zero.js";
+import noNodeTlsSecurityLevelZeroRule from "../rules/no-node-tls-security-level-zero.js";
 import noNonnullAssertionOnSecurityInputRule from "../rules/no-nonnull-assertion-on-security-input.js";
 import noPostmessageStarOriginRule from "../rules/no-postmessage-star-origin.js";
 import noPostmessageWithoutOriginAllowlistRule from "../rules/no-postmessage-without-origin-allowlist.js";
+import noRangeCreateContextualFragmentRule from "../rules/no-range-create-contextual-fragment.js";
+import noScriptTextRule from "../rules/no-script-text.js";
+import noSetHtmlUnsafeRule from "../rules/no-set-html-unsafe.js";
 import noTrustedTypesPolicyPassThroughRule from "../rules/no-trusted-types-policy-pass-through.js";
 import noUnsafeAllocRule from "../rules/no-unsafe-alloc.js";
 import noUnsafeCastToTrustedTypesRule from "../rules/no-unsafe-cast-to-trusted-types.js";
@@ -79,6 +86,7 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-child-process-shell-true": noChildProcessShellTrueRule,
     "no-cookies": noCookiesRule,
     "no-document-domain": noDocumentDomainRule,
+    "no-document-parse-html-unsafe": noDocumentParseHtmlUnsafeRule,
     "no-document-write": noDocumentWriteRule,
     "no-domparser-html-without-sanitization":
         noDomparserHtmlWithoutSanitizationRule,
@@ -113,6 +121,7 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
         noElectronWebviewNodeIntegrationRule,
     "no-html-method": noHtmlMethodRule,
     "no-http-request-to-insecure-protocol": noHttpRequestToInsecureProtocolRule,
+    "no-iframe-srcdoc": noIframeSrcdocRule,
     "no-inner-html": noInnerHtmlRule,
     "no-insecure-random": noInsecureRandomRule,
     "no-insecure-tls-agent-options": noInsecureTlsAgentOptionsRule,
@@ -121,12 +130,17 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-message-event-without-origin-check":
         noMessageEventWithoutOriginCheckRule,
     "no-msapp-exec-unsafe": noMsappExecUnsafeRule,
+    "no-node-tls-legacy-protocol": noNodeTlsLegacyProtocolRule,
     "no-node-tls-reject-unauthorized-zero": noNodeTlsRejectUnauthorizedZeroRule,
+    "no-node-tls-security-level-zero": noNodeTlsSecurityLevelZeroRule,
     "no-nonnull-assertion-on-security-input":
         noNonnullAssertionOnSecurityInputRule,
     "no-postmessage-star-origin": noPostmessageStarOriginRule,
     "no-postmessage-without-origin-allowlist":
         noPostmessageWithoutOriginAllowlistRule,
+    "no-range-create-contextual-fragment": noRangeCreateContextualFragmentRule,
+    "no-script-text": noScriptTextRule,
+    "no-set-html-unsafe": noSetHtmlUnsafeRule,
     "no-trusted-types-policy-pass-through": noTrustedTypesPolicyPassThroughRule,
     "no-unsafe-alloc": noUnsafeAllocRule,
     "no-unsafe-cast-to-trusted-types": noUnsafeCastToTrustedTypesRule,
