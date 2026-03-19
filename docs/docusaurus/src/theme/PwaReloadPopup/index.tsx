@@ -22,15 +22,15 @@ export default function PwaReloadPopup({ onReload }: Props): ReactNode {
     }
 
     return (
-        <div className={styles["popup"]} role="status">
-            <p className={styles["message"]}>
+        <div className={styles["popup"]}>
+            <output aria-live="polite" className={styles["message"]}>
                 <Translate
                     id="theme.PwaReloadPopup.info"
                     description="The text for the PWA reload popup"
                 >
                     New version available
                 </Translate>
-            </p>
+            </output>
 
             <div className={styles["actions"]}>
                 <button

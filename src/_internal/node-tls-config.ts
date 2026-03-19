@@ -18,8 +18,15 @@ const NODE_TLS_CALL_METHOD_NAMES = new Set([
     "request",
 ]);
 
+/**
+ * Check whether an expression targets a Node TLS-capable module object.
+ *
+ * @param expression - Expression to inspect.
+ *
+ * @returns Whether the expression resolves to `tls`, `https`, or `http2`.
+ */
 export const isNodeTlsObjectExpression = (
-    expression: TSESTree.Expression
+    expression: Readonly<TSESTree.Expression>
 ): boolean => {
     if (expression.type === "Identifier") {
         return setHas(NODE_TLS_OBJECT_NAMES, expression.name);
@@ -36,8 +43,15 @@ export const isNodeTlsObjectExpression = (
     );
 };
 
+/**
+ * Check whether a call expression targets a relevant Node TLS API sink.
+ *
+ * @param callee - Call-expression callee to inspect.
+ *
+ * @returns Whether the callee matches a TLS-relevant call site.
+ */
 export const isRelevantNodeTlsCall = (
-    callee: TSESTree.CallExpression["callee"]
+    callee: Readonly<TSESTree.CallExpression["callee"]>
 ): boolean => {
     if (callee.type === "Identifier") {
         return callee.name === "createSecureContext";
@@ -56,8 +70,15 @@ export const isRelevantNodeTlsCall = (
     );
 };
 
+/**
+ * Check whether a constructor call targets a relevant Node TLS constructor.
+ *
+ * @param callee - New-expression callee to inspect.
+ *
+ * @returns Whether the callee matches a TLS-relevant constructor site.
+ */
 export const isRelevantNodeTlsConstructor = (
-    callee: TSESTree.NewExpression["callee"]
+    callee: Readonly<TSESTree.NewExpression["callee"]>
 ): boolean => {
     if (callee.type !== "MemberExpression") {
         return false;
@@ -69,8 +90,16 @@ export const isRelevantNodeTlsConstructor = (
     );
 };
 
+/**
+ * Check whether an object literal is being used as options for a relevant Node
+ * TLS API.
+ *
+ * @param node - Object expression to inspect.
+ *
+ * @returns Whether the object expression belongs to a TLS-relevant call site.
+ */
 export const isRelevantNodeTlsOptionsObject = (
-    node: TSESTree.ObjectExpression
+    node: Readonly<TSESTree.ObjectExpression>
 ): boolean => {
     const parentNode = node.parent;
 
@@ -85,8 +114,16 @@ export const isRelevantNodeTlsOptionsObject = (
     return false;
 };
 
+/**
+ * Check whether an assignment left-hand side targets a static TLS member.
+ *
+ * @param node - Assignment left-hand side expression to inspect.
+ * @param propertyNames - Allowed member names for matching.
+ *
+ * @returns Whether the node matches one of the targeted TLS static members.
+ */
 export const isNodeTlsStaticMember = (
-    node: TSESTree.AssignmentExpression["left"],
+    node: Readonly<TSESTree.AssignmentExpression["left"]>,
     propertyNames: ReadonlySet<string>
 ): node is TSESTree.MemberExpression => {
     if (node.type !== "MemberExpression") {
