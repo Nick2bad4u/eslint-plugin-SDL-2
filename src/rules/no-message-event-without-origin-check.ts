@@ -334,7 +334,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow MessageEvent handlers that consume event data without validating event.origin.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-message-event-without-origin-check",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-message-event-without-origin-check",
         },
         messages: {
             default:

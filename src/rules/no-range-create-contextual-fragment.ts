@@ -77,7 +77,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow Range.createContextualFragment(...) calls on unsanitized HTML input.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-range-create-contextual-fragment",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-range-create-contextual-fragment",
         },
         messages: {
             default:

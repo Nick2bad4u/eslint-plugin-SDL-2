@@ -168,7 +168,7 @@ const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
                 "disallow insecure URL protocols such as http:// and ftp:// with configurable exceptions.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-insecure-url",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-insecure-url",
         },
         fixable: "code",
         messages: {

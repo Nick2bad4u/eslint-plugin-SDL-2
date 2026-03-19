@@ -136,7 +136,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow exposing raw Electron ipcRenderer objects or methods through contextBridge APIs.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-expose-raw-ipc-renderer",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-expose-raw-ipc-renderer",
         },
         messages: {
             default:

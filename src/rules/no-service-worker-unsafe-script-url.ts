@@ -62,7 +62,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow unsafe service worker script URLs such as data:, blob:, javascript:, and direct URL.createObjectURL(...) registrations.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-service-worker-unsafe-script-url",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-service-worker-unsafe-script-url",
         },
         messages: {
             default:

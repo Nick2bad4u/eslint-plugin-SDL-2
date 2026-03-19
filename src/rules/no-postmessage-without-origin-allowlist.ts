@@ -102,7 +102,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "require explicit, allowlisted postMessage target origins instead of wildcard/dynamic values.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-without-origin-allowlist",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-postmessage-without-origin-allowlist",
         },
         messages: {
             default:

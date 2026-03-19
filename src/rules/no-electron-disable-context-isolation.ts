@@ -19,7 +19,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow disabling contextIsolation in Electron webPreferences.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-disable-context-isolation",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-disable-context-isolation",
         },
         fixable: "code",
         messages: {

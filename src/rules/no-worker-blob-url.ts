@@ -76,7 +76,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow worker code-loading APIs that use blob: URLs or URL.createObjectURL(...) for executable scripts.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-worker-blob-url",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-blob-url",
         },
         messages: {
             default:

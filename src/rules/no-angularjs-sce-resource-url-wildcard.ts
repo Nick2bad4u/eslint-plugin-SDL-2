@@ -83,7 +83,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow wildcard entries in AngularJS SCE resource URL whitelists.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angularjs-sce-resource-url-wildcard",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-sce-resource-url-wildcard",
         },
         messages: {
             default:

@@ -19,7 +19,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow disabling Electron sandbox in webPreferences.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-disable-sandbox",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-disable-sandbox",
         },
         fixable: "code",
         messages: {

@@ -6,7 +6,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import { fileURLToPath } from "node:url";
 
 /** Route base path where docs site is deployed (GitHub Pages project path). */
-const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-SDL-2";
+const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-SDL-2/";
 /** Opt-in flag for experimental Docusaurus performance features. */
 const enableExperimentalFaster =
     process.env["DOCUSAURUS_ENABLE_EXPERIMENTAL"] === "true";
@@ -166,10 +166,10 @@ const config: Config = {
             {
                 blog: {
                     blogDescription:
-                        "Updates, architecture notes, and practical guidance for eslint-plugin-sdl-2 users.",
+                        "Updates, architecture notes, and practical guidance for eslint-plugin-SDL-2 users.",
                     blogSidebarCount: "ALL",
                     blogSidebarTitle: "All posts",
-                    blogTitle: "eslint-plugin-sdl-2 Blog",
+                    blogTitle: "eslint-plugin-SDL-2 Blog",
                     editUrl: `https://github.com/${organizationName}/${projectName}/blob/main/docs/docusaurus/`,
                     feedOptions: {
                         type: ["rss", "atom"],
@@ -334,7 +334,7 @@ const config: Config = {
                 },
             ],
             logo: {
-                alt: "eslint-plugin-sdl-2 logo",
+                alt: "eslint-plugin-SDL-2 logo",
                 href: `https://github.com/${organizationName}/${projectName}`,
                 src: "img/logo.svg",
                 width: 60,
@@ -405,27 +405,39 @@ const config: Config = {
                             to: "/docs/rules/presets",
                         },
                         {
-                            label: "🟢 common",
+                            label: "🟢 Common",
                             to: "/docs/rules/presets/common",
                         },
                         {
-                            label: "🔷 typescript",
+                            label: "🔷 TypeScript",
                             to: "/docs/rules/presets/typescript",
                         },
                         {
-                            label: "🅰️ angular",
+                            label: "🅰️ Angular",
                             to: "/docs/rules/presets/angular",
                         },
                         {
-                            label: "🧭 angularjs",
+                            label: "🧭 AngularJS",
                             to: "/docs/rules/presets/angularjs",
                         },
                         {
-                            label: "✅ required",
+                            label: "🟩 Node",
+                            to: "/docs/rules/presets/node",
+                        },
+                        {
+                            label: "⚛️ React",
+                            to: "/docs/rules/presets/react",
+                        },
+                        {
+                            label: "⚡ Electron",
+                            to: "/docs/rules/presets/electron",
+                        },
+                        {
+                            label: "✅ Required",
                             to: "/docs/rules/presets/required",
                         },
                         {
-                            label: "⭐ recommended",
+                            label: "⭐ Recommended",
                             to: "/docs/rules/presets/recommended",
                         },
                     ],
@@ -501,13 +513,13 @@ const config: Config = {
                 },
             ],
             logo: {
-                alt: "eslint-plugin-sdl-2 logo",
+                alt: "eslint-plugin-SDL-2 logo",
                 height: 48,
                 href: baseUrl,
                 src: "img/logo.svg",
                 width: 48,
             },
-            title: "eslint-plugin-sdl-2",
+            title: "eslint-plugin-SDL-2",
         },
         prism: {
             additionalLanguages: [

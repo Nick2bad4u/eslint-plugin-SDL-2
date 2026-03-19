@@ -164,7 +164,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow pass-through Trusted Types policies that return unvalidated input unchanged.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-trusted-types-policy-pass-through",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-trusted-types-policy-pass-through",
         },
         messages: {
             default:

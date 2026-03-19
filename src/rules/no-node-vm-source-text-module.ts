@@ -180,7 +180,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow node:vm SourceTextModule constructors that compile JavaScript source strings into executable modules.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-vm-source-text-module",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-vm-source-text-module",
         },
         messages: {
             default:

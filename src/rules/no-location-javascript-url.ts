@@ -131,7 +131,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow assigning javascript: URLs to location-like navigation sinks.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-location-javascript-url",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-location-javascript-url",
         },
         messages: {
             default:

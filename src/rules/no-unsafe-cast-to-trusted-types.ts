@@ -108,7 +108,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow unsafe casts to Trusted Types without validated/trusted factory paths.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-cast-to-trusted-types",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-unsafe-cast-to-trusted-types",
         },
         messages: {
             default: "Do not cast unvalidated values to Trusted Types.",

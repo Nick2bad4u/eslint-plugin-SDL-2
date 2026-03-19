@@ -148,7 +148,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow HTMLScriptElement src values that load executable code from data: URLs.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-script-src-data-url",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-script-src-data-url",
         },
         messages: {
             default:

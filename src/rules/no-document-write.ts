@@ -44,7 +44,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow document.write/document.writeln because they bypass safe DOM construction patterns.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-document-write",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-document-write",
         },
         messages: {
             default:

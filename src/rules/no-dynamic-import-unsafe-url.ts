@@ -52,7 +52,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow dynamic import() calls that load code from data:, blob:, javascript:, or direct URL.createObjectURL(...) URLs.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-dynamic-import-unsafe-url",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-dynamic-import-unsafe-url",
         },
         messages: {
             default:

@@ -19,7 +19,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow disabling webSecurity in Electron webPreferences.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-disable-web-security",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-disable-web-security",
         },
         fixable: "code",
         messages: {

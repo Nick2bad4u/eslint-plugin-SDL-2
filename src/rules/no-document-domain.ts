@@ -45,7 +45,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow writes to document.domain that can weaken same-origin policy guarantees.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-document-domain",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-document-domain",
         },
         messages: {
             default: "Do not write to document.domain.",

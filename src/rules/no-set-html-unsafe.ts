@@ -50,7 +50,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow setHTMLUnsafe() calls that bypass the safer HTML Sanitizer API path.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-set-html-unsafe",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-set-html-unsafe",
         },
         messages: {
             default:

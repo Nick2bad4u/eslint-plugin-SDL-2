@@ -131,7 +131,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow Node.js checkServerIdentity overrides that always accept the peer hostname.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-check-server-identity-bypass",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-tls-check-server-identity-bypass",
         },
         messages: {
             default:

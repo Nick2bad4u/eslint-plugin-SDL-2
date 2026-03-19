@@ -138,7 +138,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow privileged ipcMain handlers that do not validate sender/frame trust.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-unchecked-ipc-sender",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-unchecked-ipc-sender",
         },
         messages: {
             default:

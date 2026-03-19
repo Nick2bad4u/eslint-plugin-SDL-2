@@ -78,7 +78,7 @@ const presetConfigReferenceByName = {
 
 const rulesSectionHeading = "## Rules";
 const presetDocsBaseUrl =
-    "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/presets";
+    "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets";
 
 /**
  * @param {unknown} value
@@ -253,6 +253,7 @@ export const generateReadmeRulesSectionFromRules = (rules) => {
         "  - `—` = report only",
         "- `Preset key` legend:",
         ...createPresetLegendLines(),
+        "- `⚛️ React` provides JSX parser context and intentionally has no SDL rule rows in this matrix.",
         "",
         "| Rule | Fix | Preset key |",
         "| --- | :-: | :-- |",

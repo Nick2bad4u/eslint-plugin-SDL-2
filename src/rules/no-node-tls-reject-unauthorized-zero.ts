@@ -113,7 +113,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0' overrides in Node.js runtime code.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-reject-unauthorized-zero",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-tls-reject-unauthorized-zero",
         },
         hasSuggestions: true,
         messages: {

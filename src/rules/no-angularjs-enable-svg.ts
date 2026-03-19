@@ -51,7 +51,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow enabling AngularJS sanitizer SVG support via $sanitizeProvider.enableSvg(true).",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angularjs-enable-svg",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-enable-svg",
         },
         messages: {
             doNotEnableSVG: "Do not enable SVG support in AngularJS sanitizer.",

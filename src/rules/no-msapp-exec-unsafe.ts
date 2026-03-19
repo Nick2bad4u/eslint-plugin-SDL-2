@@ -22,7 +22,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow MSApp.execUnsafeLocalFunction which bypasses script-injection safeguards.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-msapp-exec-unsafe",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-msapp-exec-unsafe",
         },
         messages: {
             default: "Do not bypass script injection validation.",

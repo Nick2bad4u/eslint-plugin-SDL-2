@@ -22,7 +22,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow WinJS.Utilities unsafe HTML write APIs (setInnerHTMLUnsafe, setOuterHTMLUnsafe, insertAdjacentHTMLUnsafe).",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-winjs-html-unsafe",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-winjs-html-unsafe",
         },
         messages: {
             default:

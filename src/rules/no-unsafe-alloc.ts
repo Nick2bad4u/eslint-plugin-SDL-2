@@ -52,7 +52,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow Buffer.allocUnsafe/allocUnsafeSlow allocations that may expose uninitialized memory.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-unsafe-alloc",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-unsafe-alloc",
         },
         fixable: "code",
         messages: {

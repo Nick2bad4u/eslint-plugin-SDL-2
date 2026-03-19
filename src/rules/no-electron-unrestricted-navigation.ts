@@ -152,7 +152,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow Electron navigation handlers that allow unrestricted navigation or window opening.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-unrestricted-navigation",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-unrestricted-navigation",
         },
         messages: {
             default:

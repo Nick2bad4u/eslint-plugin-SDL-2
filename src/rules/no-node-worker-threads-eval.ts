@@ -216,7 +216,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow node:worker_threads Worker options that enable eval: true string execution.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-worker-threads-eval",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-worker-threads-eval",
         },
         messages: {
             default:

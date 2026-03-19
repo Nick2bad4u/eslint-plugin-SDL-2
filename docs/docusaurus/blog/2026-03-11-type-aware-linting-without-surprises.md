@@ -57,6 +57,6 @@ If those stay stable, typed linting remains a quality upgrade instead of a workf
 
 ## Related docs
 
-- [Typed service path inventory](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/developer/typed-paths)
-- [Typed rule semantic analysis flow](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/developer/charts/typed-rule-semantic-analysis-flow)
-- [Type-aware linting readiness guide](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/guides/type-aware-linting-readiness)
+- [Typed service path inventory](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/developer/typed-paths)
+- [Typed rule semantic analysis flow](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/developer/charts/typed-rule-semantic-analysis-flow)
+- [Type-aware linting readiness guide](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/guides/type-aware-linting-readiness)

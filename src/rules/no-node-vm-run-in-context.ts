@@ -260,7 +260,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow node:vm dynamic code execution APIs that are commonly mistaken for a security sandbox.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-vm-run-in-context",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-vm-run-in-context",
         },
         messages: {
             default:

@@ -70,7 +70,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow '*' targetOrigin in postMessage calls to prevent cross-origin data leakage.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-postmessage-star-origin",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-postmessage-star-origin",
         },
         hasSuggestions: true,
         messages: {

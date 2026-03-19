@@ -50,7 +50,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow enabling Electron Node.js integration in BrowserWindow/BrowserView webPreferences.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-electron-node-integration",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-node-integration",
         },
         fixable: "code",
         messages: {

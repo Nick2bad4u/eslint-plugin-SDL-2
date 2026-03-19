@@ -128,7 +128,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow Node HTTP client calls that use insecure http:// URLs.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-http-request-to-insecure-protocol",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-http-request-to-insecure-protocol",
         },
         fixable: "code",
         messages: {

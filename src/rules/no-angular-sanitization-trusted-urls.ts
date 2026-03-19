@@ -22,7 +22,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow AngularJS trusted URL list mutations via $compileProvider.*SanitizationTrustedUrlList.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angular-sanitization-trusted-urls",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angular-sanitization-trusted-urls",
         },
         messages: {
             noSanitizationTrustedUrls:

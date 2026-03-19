@@ -112,7 +112,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "require noopener when using window.open with a _blank target.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-window-open-without-noopener",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-window-open-without-noopener",
         },
         messages: {
             default:

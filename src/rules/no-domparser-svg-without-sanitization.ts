@@ -62,7 +62,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow DOMParser.parseFromString(..., 'image/svg+xml') calls on unsanitized input.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-domparser-svg-without-sanitization",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-domparser-svg-without-sanitization",
         },
         messages: {
             default:

@@ -40,7 +40,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow direct html(...) DOM writes (for example jQuery html()) that bypass sanitization.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-html-method",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-html-method",
         },
         messages: {
             default: "Do not write to the DOM directly using html(...).",

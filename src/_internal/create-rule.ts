@@ -7,7 +7,7 @@ type SdlRuleDocs = TSESLint.RuleMetaDataDocs & {
 };
 
 const docsBaseUrl =
-    "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules";
+    "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules";
 
 /** Shared SDL rule helper that injects canonical docs URLs. */
 export const createRule: ReturnType<

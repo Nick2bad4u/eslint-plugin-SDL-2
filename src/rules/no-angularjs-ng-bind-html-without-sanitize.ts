@@ -69,7 +69,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow AngularJS ng-bind-html usage without explicit sanitization context.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-angularjs-ng-bind-html-without-sanitize",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-ng-bind-html-without-sanitize",
         },
         messages: {
             default:

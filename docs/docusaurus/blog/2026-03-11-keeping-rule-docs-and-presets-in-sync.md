@@ -63,6 +63,6 @@ This ordering keeps intent and generated truth aligned.
 
 ## Related docs
 
-- [Rule catalog and docs synchronization chart](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/developer/charts/rule-catalog-and-doc-sync)
-- [Preset composition and rule matrix chart](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/developer/charts/preset-composition-and-rule-matrix)
-- [Presets page](https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/presets)
+- [Rule catalog and docs synchronization chart](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/developer/charts/rule-catalog-and-doc-sync)
+- [Preset composition and rule matrix chart](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/developer/charts/preset-composition-and-rule-matrix)
+- [Presets page](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets)

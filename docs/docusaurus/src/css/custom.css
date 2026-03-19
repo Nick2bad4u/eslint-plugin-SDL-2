@@ -431,7 +431,7 @@ body {
 
 .sb-cat-presets > .menu__list-item-collapsible > .menu__link::before {
     color: var(--sb-accent-presets);
-    content: "presets";
+    content: "Presets";
 }
 
 .sb-cat-guides > .menu__list-item-collapsible > .menu__link::before {

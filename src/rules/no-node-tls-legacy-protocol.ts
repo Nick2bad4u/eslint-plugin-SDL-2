@@ -152,7 +152,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
                 "disallow legacy TLS protocol selection such as TLSv1/TLSv1.1 in Node.js TLS and HTTPS configuration.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-node-tls-legacy-protocol",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-tls-legacy-protocol",
         },
         messages: {
             default:

@@ -35,7 +35,7 @@ const rule: ReturnType<typeof createRule> = createRule({
                 "disallow document.cookie usage to avoid insecure legacy client-side storage patterns.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-cookies",
+            url: "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-cookies",
         },
         messages: {
             doNotUseCookies: "Do not use HTTP cookies in modern applications.",
