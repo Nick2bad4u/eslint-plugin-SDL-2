@@ -1,87 +1,20 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
-import {
-    getFullTypeChecker,
-    getNodeTypeAsString,
-} from "../_internal/ast-utils.js";
+import { getFullTypeChecker } from "../_internal/ast-utils.js";
 import { createRule } from "../_internal/create-rule.js";
 import {
     getMemberPropertyName,
     getStaticStringValue,
 } from "../_internal/estree-utils.js";
+import { isLikelyScriptElement } from "../_internal/script-element.js";
 
-type AstUtilsRuleContext = Parameters<typeof getFullTypeChecker>[0];
 type MessageIds = "default";
 
 const isScriptTextPropertyName = (propertyName: string | undefined): boolean =>
     propertyName === "innerText" ||
     propertyName === "text" ||
     propertyName === "textContent";
-
-const isLikelyScriptIdentifierName = (identifierName: string): boolean =>
-    identifierName === "currentScript" ||
-    identifierName === "script" ||
-    identifierName === "scriptElement" ||
-    identifierName.endsWith("Script") ||
-    identifierName.endsWith("ScriptElement") ||
-    identifierName.endsWith("_script") ||
-    identifierName.endsWith("_script_element");
-
-const isCreateElementScriptCall = (node: TSESTree.Node): boolean => {
-    if (
-        node.type !== "CallExpression" ||
-        node.callee.type !== "MemberExpression"
-    ) {
-        return false;
-    }
-
-    if (getMemberPropertyName(node.callee) !== "createElement") {
-        return false;
-    }
-
-    const [firstArgument] = node.arguments;
-
-    return (
-        firstArgument !== undefined &&
-        firstArgument.type !== "SpreadElement" &&
-        getStaticStringValue(firstArgument) === "script"
-    );
-};
-
-const isLikelyScriptElement = (
-    node: TSESTree.Node,
-    context: AstUtilsRuleContext,
-    fullTypeChecker: ReturnType<typeof getFullTypeChecker>
-): boolean => {
-    if (fullTypeChecker !== undefined) {
-        const nodeType = getNodeTypeAsString(fullTypeChecker, node, context);
-
-        if (nodeType.includes("HTMLScriptElement")) {
-            return true;
-        }
-    }
-
-    if (isCreateElementScriptCall(node)) {
-        return true;
-    }
-
-    if (node.type === "Identifier") {
-        return isLikelyScriptIdentifierName(node.name);
-    }
-
-    if (node.type !== "MemberExpression") {
-        return false;
-    }
-
-    const propertyName = getMemberPropertyName(node);
-
-    return (
-        typeof propertyName === "string" &&
-        (propertyName === "currentScript" ||
-            isLikelyScriptIdentifierName(propertyName))
-    );
-};
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({

@@ -39,7 +39,7 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
 
                 const mimeTypeValue = getStaticStringValue(secondArgument);
 
-                if (mimeTypeValue !== "text/html") {
+                if (mimeTypeValue !== "image/svg+xml") {
                     return;
                 }
 
@@ -59,19 +59,19 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
         deprecated: false,
         docs: {
             description:
-                "disallow DOMParser.parseFromString(..., 'text/html') calls on unsanitized input.",
+                "disallow DOMParser.parseFromString(..., 'image/svg+xml') calls on unsanitized input.",
             frozen: false,
             recommended: false,
-            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-domparser-html-without-sanitization",
+            url: "https://nick2bad4u.github.io/eslint-plugin-sdl-2/docs/rules/no-domparser-svg-without-sanitization",
         },
         messages: {
             default:
-                "Sanitize HTML input before parsing with DOMParser.parseFromString(..., 'text/html').",
+                "Sanitize SVG input before parsing with DOMParser.parseFromString(..., 'image/svg+xml').",
         },
         schema: [],
         type: "problem",
     },
-    name: "no-domparser-html-without-sanitization",
+    name: "no-domparser-svg-without-sanitization",
 });
 
 export default rule;

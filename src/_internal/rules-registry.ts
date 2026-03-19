@@ -11,12 +11,16 @@ import noAngularjsEnableSvgRule from "../rules/no-angularjs-enable-svg.js";
 import noAngularjsNgBindHtmlWithoutSanitizeRule from "../rules/no-angularjs-ng-bind-html-without-sanitize.js";
 import noAngularjsSanitizationWhitelistRule from "../rules/no-angularjs-sanitization-whitelist.js";
 import noAngularjsSceResourceUrlWildcardRule from "../rules/no-angularjs-sce-resource-url-wildcard.js";
+import noChildProcessExecRule from "../rules/no-child-process-exec.js";
 import noChildProcessShellTrueRule from "../rules/no-child-process-shell-true.js";
 import noCookiesRule from "../rules/no-cookies.js";
 import noDocumentDomainRule from "../rules/no-document-domain.js";
+import noDocumentExeccommandInsertHtmlRule from "../rules/no-document-execcommand-insert-html.js";
 import noDocumentParseHtmlUnsafeRule from "../rules/no-document-parse-html-unsafe.js";
 import noDocumentWriteRule from "../rules/no-document-write.js";
 import noDomparserHtmlWithoutSanitizationRule from "../rules/no-domparser-html-without-sanitization.js";
+import noDomparserSvgWithoutSanitizationRule from "../rules/no-domparser-svg-without-sanitization.js";
+import noDynamicImportUnsafeUrlRule from "../rules/no-dynamic-import-unsafe-url.js";
 import noElectronAllowRunningInsecureContentRule from "../rules/no-electron-allow-running-insecure-content.js";
 import noElectronDangerousBlinkFeaturesRule from "../rules/no-electron-dangerous-blink-features.js";
 import noElectronDisableContextIsolationRule from "../rules/no-electron-disable-context-isolation.js";
@@ -47,20 +51,28 @@ import noInsecureUrlRule from "../rules/no-insecure-url.js";
 import noLocationJavascriptUrlRule from "../rules/no-location-javascript-url.js";
 import noMessageEventWithoutOriginCheckRule from "../rules/no-message-event-without-origin-check.js";
 import noMsappExecUnsafeRule from "../rules/no-msapp-exec-unsafe.js";
+import noNodeTlsCheckServerIdentityBypassRule from "../rules/no-node-tls-check-server-identity-bypass.js";
 import noNodeTlsLegacyProtocolRule from "../rules/no-node-tls-legacy-protocol.js";
 import noNodeTlsRejectUnauthorizedZeroRule from "../rules/no-node-tls-reject-unauthorized-zero.js";
 import noNodeTlsSecurityLevelZeroRule from "../rules/no-node-tls-security-level-zero.js";
+import noNodeVmRunInContextRule from "../rules/no-node-vm-run-in-context.js";
+import noNodeVmSourceTextModuleRule from "../rules/no-node-vm-source-text-module.js";
+import noNodeWorkerThreadsEvalRule from "../rules/no-node-worker-threads-eval.js";
 import noNonnullAssertionOnSecurityInputRule from "../rules/no-nonnull-assertion-on-security-input.js";
 import noPostmessageStarOriginRule from "../rules/no-postmessage-star-origin.js";
 import noPostmessageWithoutOriginAllowlistRule from "../rules/no-postmessage-without-origin-allowlist.js";
 import noRangeCreateContextualFragmentRule from "../rules/no-range-create-contextual-fragment.js";
+import noScriptSrcDataUrlRule from "../rules/no-script-src-data-url.js";
 import noScriptTextRule from "../rules/no-script-text.js";
+import noServiceWorkerUnsafeScriptUrlRule from "../rules/no-service-worker-unsafe-script-url.js";
 import noSetHtmlUnsafeRule from "../rules/no-set-html-unsafe.js";
 import noTrustedTypesPolicyPassThroughRule from "../rules/no-trusted-types-policy-pass-through.js";
 import noUnsafeAllocRule from "../rules/no-unsafe-alloc.js";
 import noUnsafeCastToTrustedTypesRule from "../rules/no-unsafe-cast-to-trusted-types.js";
 import noWindowOpenWithoutNoopenerRule from "../rules/no-window-open-without-noopener.js";
 import noWinjsHtmlUnsafeRule from "../rules/no-winjs-html-unsafe.js";
+import noWorkerBlobUrlRule from "../rules/no-worker-blob-url.js";
+import noWorkerDataUrlRule from "../rules/no-worker-data-url.js";
 
 /** Canonical SDL rule module type used in the exported registry map. */
 export type SdlRuleModule = TSESLint.RuleModule<string, Readonly<UnknownArray>>;
@@ -83,13 +95,18 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-angularjs-sanitization-whitelist": noAngularjsSanitizationWhitelistRule,
     "no-angularjs-sce-resource-url-wildcard":
         noAngularjsSceResourceUrlWildcardRule,
+    "no-child-process-exec": noChildProcessExecRule,
     "no-child-process-shell-true": noChildProcessShellTrueRule,
     "no-cookies": noCookiesRule,
     "no-document-domain": noDocumentDomainRule,
+    "no-document-execcommand-insert-html": noDocumentExeccommandInsertHtmlRule,
     "no-document-parse-html-unsafe": noDocumentParseHtmlUnsafeRule,
     "no-document-write": noDocumentWriteRule,
     "no-domparser-html-without-sanitization":
         noDomparserHtmlWithoutSanitizationRule,
+    "no-domparser-svg-without-sanitization":
+        noDomparserSvgWithoutSanitizationRule,
+    "no-dynamic-import-unsafe-url": noDynamicImportUnsafeUrlRule,
     "no-electron-allow-running-insecure-content":
         noElectronAllowRunningInsecureContentRule,
     "no-electron-dangerous-blink-features":
@@ -130,22 +147,31 @@ export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-message-event-without-origin-check":
         noMessageEventWithoutOriginCheckRule,
     "no-msapp-exec-unsafe": noMsappExecUnsafeRule,
+    "no-node-tls-check-server-identity-bypass":
+        noNodeTlsCheckServerIdentityBypassRule,
     "no-node-tls-legacy-protocol": noNodeTlsLegacyProtocolRule,
     "no-node-tls-reject-unauthorized-zero": noNodeTlsRejectUnauthorizedZeroRule,
     "no-node-tls-security-level-zero": noNodeTlsSecurityLevelZeroRule,
+    "no-node-vm-run-in-context": noNodeVmRunInContextRule,
+    "no-node-vm-source-text-module": noNodeVmSourceTextModuleRule,
+    "no-node-worker-threads-eval": noNodeWorkerThreadsEvalRule,
     "no-nonnull-assertion-on-security-input":
         noNonnullAssertionOnSecurityInputRule,
     "no-postmessage-star-origin": noPostmessageStarOriginRule,
     "no-postmessage-without-origin-allowlist":
         noPostmessageWithoutOriginAllowlistRule,
     "no-range-create-contextual-fragment": noRangeCreateContextualFragmentRule,
+    "no-script-src-data-url": noScriptSrcDataUrlRule,
     "no-script-text": noScriptTextRule,
+    "no-service-worker-unsafe-script-url": noServiceWorkerUnsafeScriptUrlRule,
     "no-set-html-unsafe": noSetHtmlUnsafeRule,
     "no-trusted-types-policy-pass-through": noTrustedTypesPolicyPassThroughRule,
     "no-unsafe-alloc": noUnsafeAllocRule,
     "no-unsafe-cast-to-trusted-types": noUnsafeCastToTrustedTypesRule,
     "no-window-open-without-noopener": noWindowOpenWithoutNoopenerRule,
     "no-winjs-html-unsafe": noWinjsHtmlUnsafeRule,
+    "no-worker-blob-url": noWorkerBlobUrlRule,
+    "no-worker-data-url": noWorkerDataUrlRule,
 };
 
 export default sdlRules;

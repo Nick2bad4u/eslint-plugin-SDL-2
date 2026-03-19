@@ -85,6 +85,45 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-child-process-exec",
+    getPluginRule("no-child-process-exec"),
+    {
+        invalid: [
+            {
+                code: "import { exec } from 'node:child_process'; exec('git status');",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "const { execSync } = require('child_process'); execSync('git status');",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "import * as childProcess from 'node:child_process'; childProcess.exec('git status');",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "require('node:child_process').execSync('dir');",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            {
+                code: "import { execFile } from 'node:child_process'; execFile('node', ['script.js']);",
+                languageOptions: tsLanguageOptions,
+            },
+            "const { execFileSync } = require('child_process'); execFileSync('node', ['script.js']);",
+            {
+                code: "import { exec } from './runner'; exec('build');",
+                languageOptions: tsLanguageOptions,
+            },
+            "tool.exec('SELECT 1');",
+        ],
+    }
+);
+
+ruleTester.run(
     "no-child-process-shell-true",
     getPluginRule("no-child-process-shell-true"),
     {
@@ -115,6 +154,71 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-domparser-svg-without-sanitization",
+    getPluginRule("no-domparser-svg-without-sanitization"),
+    {
+        invalid: [
+            {
+                code: "new DOMParser().parseFromString(userSvg, 'image/svg+xml');",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "new DOMParser().parseFromString(svgMarkup, `image/svg+xml`);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "new DOMParser().parseFromString(sanitize(userSvg), 'image/svg+xml');",
+            "new DOMParser().parseFromString(userSvg, 'text/html');",
+            "new DOMParser().parseFromString(userSvg, mimeType);",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-dynamic-import-unsafe-url",
+    getPluginRule("no-dynamic-import-unsafe-url"),
+    {
+        invalid: [
+            {
+                code: "const modulePromise = import('data:text/javascript,export default 1');",
+                errors: [{ messageId: "default" }],
+                languageOptions: esModuleLanguageOptions,
+            },
+            {
+                code: "const modulePromise = import('blob:https://example.com/module');",
+                errors: [{ messageId: "default" }],
+                languageOptions: esModuleLanguageOptions,
+            },
+            {
+                code: "const modulePromise = import(URL.createObjectURL(moduleBlob));",
+                errors: [{ messageId: "default" }],
+                languageOptions: esModuleLanguageOptions,
+            },
+            {
+                code: "const modulePromise = import('javascript:export default 1');",
+                errors: [{ messageId: "default" }],
+                languageOptions: esModuleLanguageOptions,
+            },
+        ],
+        valid: [
+            {
+                code: "const modulePromise = import('./feature-module.js');",
+                languageOptions: esModuleLanguageOptions,
+            },
+            {
+                code: "const modulePromise = import(moduleSpecifier);",
+                languageOptions: esModuleLanguageOptions,
+            },
+            {
+                code: "URL.createObjectURL(moduleBlob);",
+                languageOptions: esModuleLanguageOptions,
+            },
+        ],
+    }
+);
+
+ruleTester.run(
     "no-document-parse-html-unsafe",
     getPluginRule("no-document-parse-html-unsafe"),
     {
@@ -132,6 +236,35 @@ ruleTester.run(
             "Document.parseHTML(userHtml);",
             "Document.parseHTMLUnsafe('');",
             "parser.parseHTMLUnsafe(userHtml);",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-document-execcommand-insert-html",
+    getPluginRule("no-document-execcommand-insert-html"),
+    {
+        invalid: [
+            {
+                code: "document.execCommand('insertHTML', false, userHtml);",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "window.document.execCommand(`insertHTML`, false, html);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "document.execCommand('copy');",
+            "document.execCommand('insertHTML', false, '');",
+            {
+                code: "const doc = document; doc.execCommand('insertHTML', false, html);",
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "const documentLike = { execCommand() {} }; documentLike.execCommand('insertHTML', false, html);",
+                languageOptions: tsLanguageOptions,
+            },
         ],
     }
 );
@@ -161,6 +294,128 @@ ruleTester.run("no-iframe-srcdoc", getPluginRule("no-iframe-srcdoc"), {
         },
     ],
 });
+
+ruleTester.run(
+    "no-script-src-data-url",
+    getPluginRule("no-script-src-data-url"),
+    {
+        invalid: [
+            {
+                code: "document.createElement('script').src = 'data:text/javascript,alert(1)';",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "scriptElement.setAttribute('src', 'data:text/javascript;base64,ZXZpbA==');",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: 'const loader = <script src="data:text/javascript,bootstrap()" />;',
+                errors: [{ messageId: "default" }],
+                languageOptions: tsReactLanguageOptions,
+            },
+        ],
+        valid: [
+            "document.createElement('script').src = 'https://cdn.example.com/app.js';",
+            {
+                code: "scriptElement.setAttribute('src', 'https://cdn.example.com/app.js');",
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: 'const loader = <script src="https://cdn.example.com/app.js" />;',
+                languageOptions: tsReactLanguageOptions,
+            },
+            {
+                code: "const image = new Image(); image.src = 'data:image/png;base64,AAAA';",
+                languageOptions: tsLanguageOptions,
+            },
+        ],
+    }
+);
+
+ruleTester.run("no-worker-data-url", getPluginRule("no-worker-data-url"), {
+    invalid: [
+        {
+            code: "new Worker('data:text/javascript,postMessage(1)');",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "new globalThis.SharedWorker('data:text/javascript,bootstrap()');",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "self.importScripts('https://cdn.example.com/a.js', 'data:text/javascript,bootstrap()');",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "new Worker('https://cdn.example.com/worker.js');",
+        "importScripts('https://cdn.example.com/worker-helpers.js');",
+        {
+            code: "const workerUrl = 'data:text/javascript,postMessage(1)'; new Worker(workerUrl);",
+            languageOptions: tsLanguageOptions,
+        },
+    ],
+});
+
+ruleTester.run("no-worker-blob-url", getPluginRule("no-worker-blob-url"), {
+    invalid: [
+        {
+            code: "new Worker('blob:https://example.com/bootstrap');",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "new self.SharedWorker(URL.createObjectURL(workerBlob));",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "importScripts(URL.createObjectURL(new Blob(['bootstrap()'], { type: 'application/javascript' })));",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "new Worker('https://cdn.example.com/worker.js');",
+        "importScripts('https://cdn.example.com/worker-helpers.js');",
+        {
+            code: "const workerUrl = 'blob:https://example.com/bootstrap'; new Worker(workerUrl);",
+            languageOptions: tsLanguageOptions,
+        },
+        {
+            code: "URL.createObjectURL(workerBlob);",
+            languageOptions: tsLanguageOptions,
+        },
+    ],
+});
+
+ruleTester.run(
+    "no-service-worker-unsafe-script-url",
+    getPluginRule("no-service-worker-unsafe-script-url"),
+    {
+        invalid: [
+            {
+                code: "navigator.serviceWorker.register('data:text/javascript,bootstrap()');",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "window.navigator.serviceWorker.register('blob:https://example.com/sw');",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "globalThis.navigator.serviceWorker.register(URL.createObjectURL(workerBlob));",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "self.navigator.serviceWorker.register('javascript:bootstrap()');",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "navigator.serviceWorker.register('/sw.js');",
+            "navigator.serviceWorker.register(scriptUrl);",
+            "serviceWorker.register('data:text/javascript,bootstrap()');",
+        ],
+    }
+);
 
 ruleTester.run(
     "no-electron-insecure-certificate-verify-proc",
@@ -366,6 +621,123 @@ ruleTester.run(
 );
 
 ruleTester.run(
+    "no-node-worker-threads-eval",
+    getPluginRule("no-node-worker-threads-eval"),
+    {
+        invalid: [
+            {
+                code: "import { Worker } from 'node:worker_threads'; new Worker(userCode, { eval: true });",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "const { Worker } = require('worker_threads'); new Worker(sourceText, { eval: true });",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "import * as workerThreads from 'node:worker_threads'; new workerThreads.Worker(sourceText, { eval: true });",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "new (require('node:worker_threads').Worker)(sourceText, { eval: true });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            {
+                code: "import { Worker } from 'node:worker_threads'; new Worker(new URL('./worker.js', import.meta.url));",
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "import { Worker } from './worker-factory'; new Worker(sourceText, { eval: true });",
+                languageOptions: tsLanguageOptions,
+            },
+            "const { Worker } = require('worker_threads'); new Worker(new URL('./worker.js', import.meta.url), { eval: false });",
+            "new Worker(sourceText, { eval: true });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-node-vm-source-text-module",
+    getPluginRule("no-node-vm-source-text-module"),
+    {
+        invalid: [
+            {
+                code: "import { SourceTextModule } from 'node:vm'; new SourceTextModule(sourceText);",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "const { SourceTextModule } = require('vm'); new SourceTextModule(sourceText);",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "import vm from 'node:vm'; new vm.SourceTextModule(sourceText);",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "new (require('node:vm').SourceTextModule)(sourceText);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            {
+                code: "import vm from 'node:vm'; vm.measureMemory();",
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "import { SourceTextModule } from './module-tools'; new SourceTextModule(sourceText);",
+                languageOptions: tsLanguageOptions,
+            },
+            "tool.SourceTextModule(sourceText);",
+            "new SourceTextModule(sourceText);",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-node-vm-run-in-context",
+    getPluginRule("no-node-vm-run-in-context"),
+    {
+        invalid: [
+            {
+                code: "import vm from 'node:vm'; vm.runInNewContext(userCode, sandbox);",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "const { runInThisContext } = require('vm'); runInThisContext(sourceText);",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "import { Script } from 'node:vm'; new Script(sourceText);",
+                errors: [{ messageId: "default" }],
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "require('node:vm').compileFunction(sourceText, []);",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            {
+                code: "import vm from 'node:vm'; vm.measureMemory();",
+                languageOptions: tsLanguageOptions,
+            },
+            {
+                code: "import { runInNewContext } from './sandbox'; runInNewContext(sourceText, sandbox);",
+                languageOptions: tsLanguageOptions,
+            },
+            "tool.runInContext(sourceText);",
+            "const { Script } = require('vm2'); new Script(sourceText);",
+        ],
+    }
+);
+
+ruleTester.run(
     "no-node-tls-legacy-protocol",
     getPluginRule("no-node-tls-legacy-protocol"),
     {
@@ -413,6 +785,37 @@ ruleTester.run(
             "http2.createSecureServer({ minVersion: 'TLSv1.2' });",
             "tls.DEFAULT_MIN_VERSION = 'TLSv1.2';",
             "request({ minVersion: 'TLSv1.1' });",
+        ],
+    }
+);
+
+ruleTester.run(
+    "no-node-tls-check-server-identity-bypass",
+    getPluginRule("no-node-tls-check-server-identity-bypass"),
+    {
+        invalid: [
+            {
+                code: "tls.connect({ checkServerIdentity: () => undefined });",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "https.request({ checkServerIdentity() {} });",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "tls.checkServerIdentity = () => null;",
+                errors: [{ messageId: "default" }],
+            },
+            {
+                code: "http2.connect(authority, { checkServerIdentity(hostname, cert) { return; } });",
+                errors: [{ messageId: "default" }],
+            },
+        ],
+        valid: [
+            "tls.connect({ checkServerIdentity: tls.checkServerIdentity });",
+            "https.request({ checkServerIdentity(hostname, cert) { return tls.checkServerIdentity(hostname, cert); } });",
+            "request({ checkServerIdentity: () => undefined });",
+            "tls.checkServerIdentity = (hostname, cert) => tls.checkServerIdentity(hostname, cert);",
         ],
     }
 );
