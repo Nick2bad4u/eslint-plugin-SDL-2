@@ -297,6 +297,14 @@ const config: Config = {
                             label: "\ueb09 Releases",
                         },
                         {
+                            href: `https://nick2bad4u.github.io/eslint-plugin-typefest/eslint-inspector/`,
+                            label: "🧪 ESLint Inspector",
+                        },
+                        {
+                            href: `https://nick2bad4u.github.io/eslint-plugin-typefest/stylelint-inspector/`,
+                            label: "\ue7d2 Stylelint Inspector",
+                        },
+                        {
                             href: `https://www.npmjs.com/package/${projectName}`,
                             label: "\uf113 NPM package",
                         },

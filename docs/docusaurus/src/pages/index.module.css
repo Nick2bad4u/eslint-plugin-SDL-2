@@ -69,6 +69,7 @@
     font-weight: 760;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    justify-content: space-around;
 }
 
 .heroTitle {
@@ -113,7 +114,11 @@
     inline-size: 2.4rem;
     block-size: 2.4rem;
     border-radius: 999px;
-    background: radial-gradient(circle, var(--home-hero-badge-glow) 0%, transparent 72%);
+    background: radial-gradient(
+        circle,
+        var(--home-hero-badge-glow) 0%,
+        transparent 72%
+    );
     content: "";
     opacity: 0.8;
     pointer-events: none;
@@ -207,6 +212,7 @@
 
 .heroActionButton:hover,
 .heroActionButton:focus {
+    color: var(--ifm-color-primary);
     filter: saturate(1.08) brightness(1.03);
     transform: translateY(-1px);
 }
@@ -240,7 +246,7 @@
 
 .heroPanel {
     display: grid;
-    align-content: space-between;
+    align-content: space-around;
     gap: 1rem;
     padding: 1.15rem;
     border: 1px solid var(--home-hero-panel-border-color);
@@ -256,7 +262,7 @@
 .heroPanelLogo {
     display: block;
     justify-self: center;
-    inline-size: clamp(15rem, 28vi, 25rem);
+    inline-size: clamp(15rem, 28vi, 18rem);
     block-size: auto;
     filter: drop-shadow(0 18px 28px rgb(0 0 0 / 34%));
 }
@@ -335,7 +341,8 @@
 }
 
 .heroLiveBadges {
-    margin-block-start: 1rem;
+    margin-block-start: 1.35rem;
+    padding-block-start: 0.2rem;
     align-items: center;
 }
 
@@ -397,8 +404,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.58rem;
-    padding: 0;
     margin: 0;
+    padding-block-start: 1rem;
     list-style-type: "";
 }
 
@@ -552,7 +559,7 @@
     }
 
     .heroPanelLogo {
-        inline-size: min(18rem, 80vi);
+        inline-size: clamp(13.75rem, 24vi, 22.5rem);
     }
 
     .heroActions {

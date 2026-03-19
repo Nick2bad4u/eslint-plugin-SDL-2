@@ -1,0 +1,76 @@
+/* stylelint-disable order/properties-order -- Small swizzled Docusaurus popup uses a compact component-local layout. */
+
+.popup {
+    position: fixed;
+    z-index: 40;
+    inset-block-end: 1rem;
+    inset-inline-end: 1rem;
+    display: grid;
+    gap: 0.75rem;
+    inline-size: min(24rem, calc(100vi - 2rem));
+    padding: 0.95rem 1rem;
+    border: 1px solid
+        var(--home-hero-panel-border-color, var(--ifm-toc-border-color));
+    border-radius: 1rem;
+    background: var(
+        --home-hero-panel-background,
+        var(--ifm-card-background-color)
+    );
+    backdrop-filter: blur(16px);
+    box-shadow:
+        0 24px 40px -28px var(--home-hero-shadow-color, rgb(15 23 42 / 28%)),
+        inset 0 1px 0 var(--home-hero-highlight-color, rgb(255 255 255 / 24%));
+}
+
+.message {
+    margin: 0;
+    color: var(--ifm-font-color-base);
+    font-size: 0.875rem;
+    font-weight: 650;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.reloadButton {
+    border-color: rgb(168 85 247 / 42%);
+    background: linear-gradient(
+        140deg,
+        rgb(124 92 255 / 94%),
+        rgb(91 67 214 / 94%)
+    );
+    color: #f6f2ff;
+    font-weight: 760;
+}
+
+.closeButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 2rem;
+    inline-size: 2rem;
+    border: 1px solid
+        var(
+            --home-hero-secondary-button-border-color,
+            var(--ifm-toc-border-color)
+        );
+    border-radius: 999px;
+    background: var(
+        --home-hero-secondary-button-background,
+        rgb(255 255 255 / 76%)
+    );
+    color: var(--home-hero-secondary-button-color, var(--ifm-font-color-base));
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+
+    &:hover,
+    &:focus-visible {
+        filter: brightness(1.04);
+    }
+}

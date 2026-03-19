@@ -6,7 +6,44 @@ import GitHubStats from "../components/GitHubStats";
 
 import styles from "./index.module.css";
 
-const heroBadges = [
+type HeroBadge = {
+    readonly description: string;
+    readonly icon: string;
+    readonly label: string;
+};
+
+type HeroStat = {
+    readonly description: string;
+    readonly headline: string;
+    readonly toneClassName:
+        | "heroStatAnalysis"
+        | "heroStatDesign"
+        | "heroStatMaintenance";
+};
+
+type LifecycleStep = {
+    readonly className:
+        | "phaseAnalysis"
+        | "phasePlanning"
+        | "phaseDesign"
+        | "phaseDevelopment"
+        | "phaseTesting"
+        | "phaseMaintenance";
+    readonly label: string;
+};
+
+type HomeCard = {
+    readonly description: string;
+    readonly icon: string;
+    readonly title: string;
+    readonly to: string;
+    readonly toneClassName:
+        | "cardTonePlanning"
+        | "cardToneDevelopment"
+        | "cardToneMaintenance";
+};
+
+const heroBadges: readonly HeroBadge[] = [
     {
         description:
             "The docs theme mirrors the six-stage wheel in the project logo, from analysis through maintenance.",
@@ -27,7 +64,7 @@ const heroBadges = [
     },
 ];
 
-const heroStats = [
+const heroStats: readonly HeroStat[] = [
     {
         description:
             "Current checked-in SDL and platform-hardening rules in the plugin source.",
@@ -48,7 +85,7 @@ const heroStats = [
     },
 ];
 
-const lifecycleSteps = [
+const lifecycleSteps: readonly LifecycleStep[] = [
     { className: "phaseAnalysis", label: "1 · Analysis" },
     { className: "phasePlanning", label: "2 · Planning" },
     { className: "phaseDesign", label: "3 · Design" },
@@ -62,7 +99,7 @@ const comparePresetsButtonIcon = "\udb85\udc92";
 const heroKickerIcon = "\uf0ad";
 const heroKickerIcon2 = "\uf135";
 
-const homeCards = [
+const homeCards: readonly HomeCard[] = [
     {
         description:
             "Install the plugin, enable a preset, and start with the SDL overview and first security checks.",

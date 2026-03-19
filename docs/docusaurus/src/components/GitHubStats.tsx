@@ -2,7 +2,17 @@ import Link from "@docusaurus/Link";
 
 import styles from "../pages/index.module.css";
 
-const liveBadges = [
+type GitHubBadge = {
+    readonly alt: string;
+    readonly href: string;
+    readonly src: string;
+};
+
+type GitHubStatsProps = {
+    readonly className?: string;
+};
+
+const liveBadges: readonly GitHubBadge[] = [
     {
         alt: "npm license",
         href: "https://www.npmjs.com/package/eslint-plugin-sdl-2",
@@ -38,11 +48,11 @@ const liveBadges = [
 /**
  * Renders live repository and package badges powered by flat.badgen.net.
  *
- * @param {{ className?: string }} [props] - Optional list class override.
+ * @param props - Optional list class override.
  *
- * @returns {JSX.Element} Badge strip with links to package/repository metadata.
+ * @returns Badge strip with links to package/repository metadata.
  */
-export default function GitHubStats({ className = "" } = {}) {
+export default function GitHubStats({ className = "" }: GitHubStatsProps) {
     const badgeListClassName = [styles.liveBadgeList, className]
         .filter(Boolean)
         .join(" ");
