@@ -306,7 +306,7 @@ const config: Config = {
                         },
                         {
                             href: `${deployedDocsRootUrl}eslint-inspector/`,
-                            label: "🧪 ESLint Inspector",
+                            label: "\ue7d2 ESLint Inspector",
                         },
                         {
                             href: `${deployedDocsRootUrl}stylelint-inspector/`,
