@@ -2,14 +2,183 @@
  * @packageDocumentation
  * Sidebar structure for the primary documentation section under `docs/`.
  */
+import { readFileSync, readdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+
+const repositoryOwner = "Nick2bad4u";
+const repositoryName = "eslint-plugin-SDL-2";
+const repositoryBaseUrl = `https://github.com/${repositoryOwner}/${repositoryName}`;
+const developerDocsDirectoryPath = fileURLToPath(
+    new URL("./site-docs/developer", import.meta.url)
+);
+
+type DeveloperGuideDocEntry = Readonly<{
+    className: string;
+    docId: string;
+    label: string;
+    sidebarPosition: number;
+}>;
+
+type DeveloperGuideSidebarItem = Readonly<{
+    className: string;
+    id: string;
+    label: string;
+    type: "doc";
+}>;
+
+const developerGuideClassNameByDocId: Readonly<Record<string, string>> = {
+    "developer/cli-debugging-and-print-config": "sb-doc-dev-guide-cli",
+    "developer/ide-integration-vscode": "sb-doc-dev-guide-ide",
+    "developer/maintainer-stats-and-performance":
+        "sb-doc-dev-guide-performance",
+    "developer/node-api-usage": "sb-doc-dev-guide-node-api",
+};
+
+const developerGuideIconByDocId: Readonly<Record<string, string>> = {
+    "developer/cli-debugging-and-print-config": "🧪",
+    "developer/ide-integration-vscode": "🧰",
+    "developer/maintainer-stats-and-performance": "📈",
+    "developer/node-api-usage": "🟩",
+};
+
+const developerGuidesExcludedDocIds = new Set(["developer/typed-paths"]);
+
+/**
+ * Read a frontmatter scalar value with optional surrounding quotes.
+ *
+ * @param markdownContent - Raw markdown file content.
+ * @param fieldName - Frontmatter field to read.
+ *
+ * @returns Parsed frontmatter value when present.
+ */
+function readFrontmatterStringField(
+    markdownContent: string,
+    fieldName: string
+): null | string {
+    const pattern = new RegExp(`^${fieldName}:\\s*(.+)$`, "mu");
+    const match = pattern.exec(markdownContent);
+
+    if (match === null) {
+        return null;
+    }
+
+    const [, rawValue] = match;
+
+    if (rawValue === undefined) {
+        return null;
+    }
+
+    return rawValue.trim().replace(/^(["'])(.*)\1$/u, "$2");
+}
+
+/**
+ * Build dynamic maintainer-guide entries from top-level developer docs.
+ *
+ * @returns Sorted maintainer guide docs for sidebar rendering.
+ */
+function getDeveloperGuideDocEntries(): DeveloperGuideDocEntry[] {
+    return readdirSync(developerDocsDirectoryPath, { withFileTypes: true })
+        .filter(
+            (entry) =>
+                entry.isFile() &&
+                entry.name.endsWith(".md") &&
+                entry.name !== "index.md"
+        )
+        .map((entry) => {
+            const docFileStem = entry.name.replace(/\.md$/u, "");
+            const docId = `developer/${docFileStem}`;
+
+            return {
+                docFileStem,
+                docId,
+            };
+        })
+        .filter((entry) => !developerGuidesExcludedDocIds.has(entry.docId))
+        .map((entry) => {
+            const markdownPath = fileURLToPath(
+                new URL(`./site-docs/${entry.docId}.md`, import.meta.url)
+            );
+            const markdownContent = readFileSync(markdownPath, "utf8");
+            const title =
+                readFrontmatterStringField(markdownContent, "title") ??
+                entry.docFileStem;
+            const sidebarPositionRaw = readFrontmatterStringField(
+                markdownContent,
+                "sidebar_position"
+            );
+            const sidebarPosition =
+                sidebarPositionRaw === null
+                    ? Number.POSITIVE_INFINITY
+                    : Number.parseInt(sidebarPositionRaw, 10);
+            const icon = developerGuideIconByDocId[entry.docId] ?? "📄";
+
+            return {
+                className:
+                    developerGuideClassNameByDocId[entry.docId] ??
+                    "sb-doc-dev-guide-generic",
+                docId: entry.docId,
+                label: `${icon} ${title}`,
+                sidebarPosition: Number.isNaN(sidebarPosition)
+                    ? Number.POSITIVE_INFINITY
+                    : sidebarPosition,
+            } satisfies DeveloperGuideDocEntry;
+        })
+        .sort((leftEntry, rightEntry) => {
+            if (leftEntry.sidebarPosition !== rightEntry.sidebarPosition) {
+                return leftEntry.sidebarPosition - rightEntry.sidebarPosition;
+            }
+
+            return leftEntry.label.localeCompare(rightEntry.label);
+        });
+}
+
+/**
+ * Read doc ids for a `site-docs/developer/<folderName>` folder.
+ *
+ * @param folderName - Developer subfolder name.
+ *
+ * @returns Sorted doc ids excluding `index.md`.
+ */
+function getDeveloperSubfolderDocIds(folderName: "adr" | "charts"): string[] {
+    const folderPath = fileURLToPath(
+        new URL(`./site-docs/developer/${folderName}`, import.meta.url)
+    );
+
+    return readdirSync(folderPath, { withFileTypes: true })
+        .filter(
+            (entry) =>
+                entry.isFile() &&
+                entry.name.endsWith(".md") &&
+                entry.name !== "index.md"
+        )
+        .map((entry) => {
+            const docFileStem = entry.name.replace(/\.md$/u, "");
+            const normalizedDocStem = docFileStem.replace(/^\d{4}-/u, "");
+
+            return `developer/${folderName}/${normalizedDocStem}`;
+        })
+        .sort((leftId, rightId) => leftId.localeCompare(rightId));
+}
+
+const developerAdrDocIds = getDeveloperSubfolderDocIds("adr");
+const developerChartDocIds = getDeveloperSubfolderDocIds("charts");
+const developerGuideDocEntries = getDeveloperGuideDocEntries();
+const developerGuideSidebarItems: DeveloperGuideSidebarItem[] =
+    developerGuideDocEntries.map((entry) => ({
+        className: entry.className,
+        id: entry.docId,
+        label: entry.label,
+        type: "doc",
+    }));
 
 const sidebars: SidebarsConfig = {
     docs: [
         {
             className: "sb-cat-developer",
             id: "developer/index",
-            label: "Dev",
+            label: "🧑‍💻 Dev",
             type: "doc",
         },
         {
@@ -55,94 +224,32 @@ const sidebars: SidebarsConfig = {
             type: "category",
         },
         {
+            className: "sb-cat-dev-guides",
+            collapsed: true,
+            collapsible: true,
+            customProps: {
+                badge: "guides",
+            },
+            description:
+                "Operational and maintainer workflows for debugging, profiling, IDE support, and Node API integration.",
+            items: developerGuideSidebarItems,
+            label: `🛠️ Maintainer Guides (${developerGuideDocEntries.length})`,
+            link: {
+                description:
+                    "Operational guides for maintainers and advanced contributors.",
+                title: "Maintainer Guides",
+                type: "generated-index",
+            },
+            type: "category",
+        },
+        {
             className: "sb-cat-developer-adr",
             collapsed: true,
             customProps: {
                 badge: "adr",
             },
-            items: [
-                {
-                    id: "developer/adr/index",
-                    label: "📚 ADR Index",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/eslint-plugin-kit-adoption",
-                    label: "ADR 0001 · Plugin Kit",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/eslint-config-helpers-scope",
-                    label: "ADR 0002 · Config Helpers",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/eslint-object-schema-adoption",
-                    label: "ADR 0003 · Object Schema",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/rule-docs-specificity-and-shared-guides",
-                    label: "ADR 0004 · Rule Doc Specificity",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/core-sdl-rules-vs-framework-overlays",
-                    label: "ADR 0005 · Core vs Framework Rules",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/canonical-rule-doc-urls-use-docusaurus-routes",
-                    label: "ADR 0006 · Docs URL Canonicalization",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/rule-doc-footer-links-to-shared-guides",
-                    label: "ADR 0007 · Rule Footer Guide Links",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/typedoc-generation-ci-local-strategy",
-                    label: "ADR 0008 · TypeDoc CI/Local Strategy",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/plugin-blog-as-docs-channel",
-                    label: "ADR 0009 · Blog Docs Channel",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/autofix-governance-and-global-kill-switch",
-                    label: "ADR 0010 · Autofix Governance",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/type-aware-rule-contract-and-fail-fast-behavior",
-                    label: "ADR 0011 · Typed Rule Contract",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/internal-api-surface-and-stability-contract",
-                    label: "ADR 0012 · Internal API Boundary",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/docs-link-integrity-and-anchor-stability-policy",
-                    label: "ADR 0013 · Link Integrity Policy",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/typed-rule-performance-budget-and-instrumentation",
-                    label: "ADR 0014 · Performance Budget",
-                    type: "doc",
-                },
-                {
-                    id: "developer/adr/preset-semver-and-deprecation-policy",
-                    label: "ADR 0015 · Preset Semver Policy",
-                    type: "doc",
-                },
-            ],
-            label: "🧭 Architecture Decisions",
+            items: developerAdrDocIds,
+            label: `🧭 Architecture Decisions (${developerAdrDocIds.length})`,
             collapsible: true,
             description:
                 "Architectural decisions and design rationale for eslint-plugin-sdl-2.",
@@ -158,89 +265,8 @@ const sidebars: SidebarsConfig = {
             customProps: {
                 badge: "charts",
             },
-            items: [
-                {
-                    id: "developer/charts/index",
-                    label: "📊 Charts Index",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/system-architecture-overview",
-                    label: "System Architecture",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/rule-lifecycle-and-autofix-flow",
-                    label: "Rule Lifecycle & Autofix",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/docs-and-api-pipeline",
-                    label: "Docs & API Pipeline",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/rule-catalog-and-doc-sync",
-                    label: "Rule Catalog & Doc Sync",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/change-impact-and-validation-matrix",
-                    label: "Change Impact Matrix",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/quality-gates-and-release-flow",
-                    label: "Quality Gates & Release",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/typed-rule-semantic-analysis-flow",
-                    label: "Typed Rule Semantic Flow",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/import-safe-autofix-decision-tree",
-                    label: "Import-Safe Autofix Tree",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/preset-composition-and-rule-matrix",
-                    label: "Preset Composition Matrix",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/docs-link-integrity-and-anchor-stability",
-                    label: "Docs Link Integrity",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/typed-rule-performance-budget-and-hotspots",
-                    label: "Typed Rule Performance Budget",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/diagnostics-and-regression-triage-loop",
-                    label: "Diagnostics Triage Loop",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/preset-semver-and-deprecation-lifecycle",
-                    label: "Preset Semver Lifecycle",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/rule-authoring-to-release-lifecycle",
-                    label: "Rule Authoring Lifecycle",
-                    type: "doc",
-                },
-                {
-                    id: "developer/charts/typed-services-guard-and-fallback-paths",
-                    label: "Typed Services Guard Paths",
-                    type: "doc",
-                },
-            ],
-            label: "Charts",
+            items: developerChartDocIds,
+            label: `📊 Charts (${developerChartDocIds.length})`,
             collapsible: true,
             description:
                 "Visual aids for understanding plugin architecture, processes, and policies.",
@@ -329,7 +355,22 @@ const sidebars: SidebarsConfig = {
                 "Project resources, release notes, blog posts, and issue tracker links.",
             items: [
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2",
+                    href: "/docs/rules/overview",
+                    label: "📜 Rules overview",
+                    type: "link",
+                },
+                {
+                    href: "/docs/rules/presets",
+                    label: "🛠️ Preset reference",
+                    type: "link",
+                },
+                {
+                    href: "/docs/rules/getting-started",
+                    label: "🚀 Rules getting started",
+                    type: "link",
+                },
+                {
+                    href: repositoryBaseUrl,
                     label: "\ue709 GitHub repository",
                     type: "link",
                 },
@@ -339,18 +380,23 @@ const sidebars: SidebarsConfig = {
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/releases",
+                    href: `${repositoryBaseUrl}/releases`,
                     label: "\ueb09 Releases",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/blob/main/CHANGELOG.md",
+                    href: `${repositoryBaseUrl}/blob/main/CHANGELOG.md`,
                     label: "📝 Changelog",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/blob/main/CONTRIBUTING.md",
+                    href: `${repositoryBaseUrl}/blob/main/CONTRIBUTING.md`,
                     label: "\uf0c0 Contributing guide",
+                    type: "link",
+                },
+                {
+                    href: `${repositoryBaseUrl}/blob/main/SECURITY.md`,
+                    label: "🔐 Security policy",
                     type: "link",
                 },
                 {
@@ -359,48 +405,13 @@ const sidebars: SidebarsConfig = {
                     type: "link",
                 },
                 {
-                    href: "/blog/thinking-behind-eslint-plugin-sdl-2",
-                    label: "🧠 Blog · Thinking behind plugin",
-                    type: "link",
-                },
-                {
-                    href: "/blog/designing-safe-autofixes-for-eslint-plugin-sdl-2",
-                    label: "🛡️ Blog · Designing safe autofixes",
-                    type: "link",
-                },
-                {
-                    href: "/blog/type-aware-linting-without-surprises",
-                    label: "🧪 Blog · Type-aware linting without surprises",
-                    type: "link",
-                },
-                {
-                    href: "/blog/keeping-rule-docs-and-presets-in-sync",
-                    label: "🧭 Blog · Keeping docs and presets in sync",
-                    type: "link",
-                },
-                {
                     href: "/blog/archive",
                     label: "🗂 Blog archive",
                     type: "link",
                 },
                 {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen",
+                    href: `${repositoryBaseUrl}/issues?q=is%3Aissue%20is%3Aopen`,
                     label: "🐛 Open issues",
-                    type: "link",
-                },
-                {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Abug",
-                    label: "🐞 Issues · bug",
-                    type: "link",
-                },
-                {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Adocumentation",
-                    label: "📚 Issues · documentation",
-                    type: "link",
-                },
-                {
-                    href: "https://github.com/Nick2bad4u/eslint-plugin-sdl-2/issues?q=is%3Aissue%20is%3Aopen%20label%3Arules",
-                    label: "🧩 Issues · rules",
                     type: "link",
                 },
             ],

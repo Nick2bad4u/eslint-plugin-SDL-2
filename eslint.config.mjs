@@ -376,6 +376,7 @@ export default defineConfig([
             "docs/docusaurus/.docusaurus/**",
             "docs/docusaurus/build/**",
             "docs/docusaurus/docs/**",
+            "docs/docusaurus/site-docs/developer/api/**",
             "docs/docusaurus/static/eslint-inspector/**",
             "docs/docusaurus/static/stylelint-inspector/**",
             "docs/docusaurus/static/*-inspector/**",
@@ -617,7 +618,9 @@ export default defineConfig([
         ignores: [
             "docs/docusaurus/.docusaurus/**",
             "docs/docusaurus/build/**",
+            "docs/docusaurus/site-docs/developer/api/**",
             "docs/docusaurus/static/eslint-inspector/**",
+            "docs/docusaurus/static/stylelint-inspector/**",
         ],
         languageOptions: {
             parser: tseslintParser,
@@ -2216,6 +2219,7 @@ export default defineConfig([
         ignores: [
             "**/docs/packages/**",
             "**/docs/TSDoc/**",
+            "**/docs/docusaurus/site-docs/developer/api/**",
             "**/.github/agents/**",
         ],
         language: "markdown/gfm",

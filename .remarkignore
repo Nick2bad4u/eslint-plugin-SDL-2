@@ -818,6 +818,7 @@ LICENSE
 docs/docusaurus/node_modules/
 docs/docusaurus/build/
 docs/docusaurus/docs/
+docs/docusaurus/site-docs/developer/api/
 docs/Packages/
 docs/TSDoc/
 

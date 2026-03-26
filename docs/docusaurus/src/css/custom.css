@@ -60,7 +60,9 @@
     --sdl-core-light: #8b8df6;
     --sb-accent-overview: var(--sdl-maintenance);
     --sb-accent-started: var(--sdl-testing);
+    --sb-accent-rule-navigation: var(--sdl-core-light);
     --sb-accent-developer: var(--sdl-analysis);
+    --sb-accent-dev-guides: var(--sdl-development);
     --sb-accent-rules: var(--sdl-design);
     --sb-accent-presets: var(--sdl-development);
     --sb-accent-guides: var(--sdl-testing);
@@ -70,6 +72,21 @@
     --sb-accent-dev-charts: var(--sdl-maintenance);
     --sb-accent-dev-links: var(--sdl-testing);
     --sb-accent-adr: var(--sdl-planning);
+    --sb-accent-rule-family-angular: #ec4899;
+    --sb-accent-rule-family-angularjs: #8b5cf6;
+    --sb-accent-rule-family-electron: #f97316;
+    --sb-accent-rule-family-node: #22d3ee;
+    --sb-accent-rule-family-web: #38bdf8;
+    --sb-accent-rule-family-misc: #a998ff;
+    --sb-accent-preset-common: #38bdf8;
+    --sb-accent-preset-typescript: #5b43d6;
+    --sb-accent-preset-angular: #ec4899;
+    --sb-accent-preset-angularjs: #8b5cf6;
+    --sb-accent-preset-node: #22d3ee;
+    --sb-accent-preset-react: #7c5cff;
+    --sb-accent-preset-electron: #f97316;
+    --sb-accent-preset-required: #facc15;
+    --sb-accent-preset-recommended: #38bdf8;
     --home-hero-background:
         radial-gradient(
             circle at 12% 18%,
@@ -311,8 +328,16 @@ body {
     border-inline-start-color: var(--sb-accent-started);
 }
 
+.sb-cat-rule-navigation > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-navigation);
+}
+
 .sb-cat-developer > .menu__link {
     border-inline-start-color: var(--sb-accent-developer);
+}
+
+.sb-cat-dev-guides > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-dev-guides);
 }
 
 .sb-cat-rules > .menu__list-item-collapsible > .menu__link {
@@ -321,6 +346,30 @@ body {
 
 .sb-cat-presets > .menu__list-item-collapsible > .menu__link {
     border-inline-start-color: var(--sb-accent-presets);
+}
+
+.sb-cat-rules-angular > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-family-angular);
+}
+
+.sb-cat-rules-angularjs > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-family-angularjs);
+}
+
+.sb-cat-rules-electron > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-family-electron);
+}
+
+.sb-cat-rules-node > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-family-node);
+}
+
+.sb-cat-rules-web > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-family-web);
+}
+
+.sb-cat-rules-misc > .menu__list-item-collapsible > .menu__link {
+    border-inline-start-color: var(--sb-accent-rule-family-misc);
 }
 
 .sb-cat-guides > .menu__list-item-collapsible > .menu__link {
@@ -351,41 +400,99 @@ body {
     border-inline-start-color: var(--sb-accent-dev-links);
 }
 
-.sb-cat-rules .menu__list .menu__link {
-    border-inline-start-color: rgb(249 115 22 / 36%);
-}
-
-.sb-cat-presets .menu__list .menu__link {
+.sb-cat-presets .menu__list .menu__link,
+.sb-cat-dev-guides .menu__list .menu__link {
     border-inline-start-color: rgb(250 204 21 / 34%);
 }
 
+.sb-cat-rule-navigation .menu__list .menu__link {
+    border-inline-start-color: rgb(124 92 255 / 34%);
+}
+
+.sb-cat-rules-angular .menu__list .menu__link,
+.sb-cat-api-overview .menu__list .menu__link {
+    border-inline-start-color: rgb(236 72 153 / 34%);
+}
+
+.sb-cat-rules-angularjs .menu__list .menu__link,
+.sb-doc-dev-guide-ide > .menu__link,
 .sb-cat-developer .menu__list .menu__link {
     border-inline-start-color: rgb(139 92 246 / 34%);
 }
 
-.sb-cat-api-overview .menu__list .menu__link {
-    border-inline-start-color: rgb(236 72 153 / 34%);
+.sb-cat-rules-electron .menu__list .menu__link,
+.sb-doc-dev-guide-performance > .menu__link,
+.sb-cat-api-runtime .menu__list .menu__link {
+    border-inline-start-color: rgb(249 115 22 / 34%);
+}
+
+.sb-cat-rules-node .menu__list .menu__link,
+.sb-doc-dev-guide-node-api > .menu__link,
+.sb-cat-dev-links .menu__list .menu__link {
+    border-inline-start-color: rgb(34 211 238 / 34%);
+}
+
+.sb-cat-rules-web .menu__list .menu__link,
+.sb-doc-dev-guide-cli > .menu__link,
+.sb-cat-dev-charts .menu__list .menu__link {
+    border-inline-start-color: rgb(56 189 248 / 34%);
+}
+
+.sb-cat-rules-misc .menu__list .menu__link {
+    border-inline-start-color: rgb(169 152 255 / 34%);
+}
+
+.sb-doc-preset-common > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-common);
+}
+
+.sb-doc-preset-typescript > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-typescript);
+}
+
+.sb-doc-preset-angular > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-angular);
+}
+
+.sb-doc-preset-angularjs > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-angularjs);
+}
+
+.sb-doc-preset-node > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-node);
+}
+
+.sb-doc-preset-react > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-react);
+}
+
+.sb-doc-preset-electron > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-electron);
+}
+
+.sb-doc-preset-required > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-required);
+}
+
+.sb-doc-preset-recommended > .menu__link {
+    border-inline-start-color: var(--sb-accent-preset-recommended);
 }
 
 .sb-cat-api-types .menu__list .menu__link {
     border-inline-start-color: rgb(91 67 214 / 34%);
 }
 
-.sb-cat-api-runtime .menu__list .menu__link {
-    border-inline-start-color: rgb(249 115 22 / 34%);
-}
-
-.sb-cat-dev-charts .menu__list .menu__link {
-    border-inline-start-color: rgb(56 189 248 / 34%);
-}
-
-.sb-cat-dev-links .menu__list .menu__link {
-    border-inline-start-color: rgb(34 211 238 / 34%);
-}
-
 .sb-cat-developer > .menu__link,
+.sb-cat-rule-navigation > .menu__list-item-collapsible > .menu__link,
 .sb-cat-rules > .menu__list-item-collapsible > .menu__link,
 .sb-cat-presets > .menu__list-item-collapsible > .menu__link,
+.sb-cat-dev-guides > .menu__list-item-collapsible > .menu__link,
+.sb-cat-rules-angular > .menu__list-item-collapsible > .menu__link,
+.sb-cat-rules-angularjs > .menu__list-item-collapsible > .menu__link,
+.sb-cat-rules-electron > .menu__list-item-collapsible > .menu__link,
+.sb-cat-rules-node > .menu__list-item-collapsible > .menu__link,
+.sb-cat-rules-web > .menu__list-item-collapsible > .menu__link,
+.sb-cat-rules-misc > .menu__list-item-collapsible > .menu__link,
 .sb-cat-guides > .menu__list-item-collapsible > .menu__link,
 .sb-cat-api-overview > .menu__list-item-collapsible > .menu__link,
 .sb-cat-developer-adr > .menu__list-item-collapsible > .menu__link,
@@ -399,8 +506,16 @@ body {
 }
 
 .sb-cat-developer > .menu__link::before,
+.sb-cat-rule-navigation > .menu__list-item-collapsible > .menu__link::before,
 .sb-cat-rules > .menu__list-item-collapsible > .menu__link::before,
 .sb-cat-presets > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-dev-guides > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-rules-angular > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-rules-angularjs > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-rules-electron > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-rules-node > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-rules-web > .menu__list-item-collapsible > .menu__link::before,
+.sb-cat-rules-misc > .menu__list-item-collapsible > .menu__link::before,
 .sb-cat-guides > .menu__list-item-collapsible > .menu__link::before,
 .sb-cat-api-overview > .menu__list-item-collapsible > .menu__link::before,
 .sb-cat-developer-adr > .menu__list-item-collapsible > .menu__link::before,
@@ -424,6 +539,11 @@ body {
     content: "dev";
 }
 
+.sb-cat-rule-navigation > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-navigation);
+    content: "nav";
+}
+
 .sb-cat-rules > .menu__list-item-collapsible > .menu__link::before {
     color: var(--sb-accent-rules);
     content: "rules";
@@ -432,6 +552,41 @@ body {
 .sb-cat-presets > .menu__list-item-collapsible > .menu__link::before {
     color: var(--sb-accent-presets);
     content: "Presets";
+}
+
+.sb-cat-dev-guides > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-dev-guides);
+    content: "guides";
+}
+
+.sb-cat-rules-angular > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-family-angular);
+    content: "angular";
+}
+
+.sb-cat-rules-angularjs > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-family-angularjs);
+    content: "angularjs";
+}
+
+.sb-cat-rules-electron > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-family-electron);
+    content: "electron";
+}
+
+.sb-cat-rules-node > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-family-node);
+    content: "node";
+}
+
+.sb-cat-rules-web > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-family-web);
+    content: "web";
+}
+
+.sb-cat-rules-misc > .menu__list-item-collapsible > .menu__link::before {
+    color: var(--sb-accent-rule-family-misc);
+    content: "extra";
 }
 
 .sb-cat-guides > .menu__list-item-collapsible > .menu__link::before {
@@ -467,6 +622,183 @@ body {
 .sb-cat-dev-links > .menu__list-item-collapsible > .menu__link::before {
     color: var(--sb-accent-dev-links);
     content: "links";
+}
+
+.sb-doc-overview,
+.sb-doc-rule-nav-overview {
+    --sb-item-accent: var(--sb-accent-overview);
+}
+
+.sb-doc-getting-started,
+.sb-doc-rule-nav-start {
+    --sb-item-accent: var(--sb-accent-started);
+}
+
+.sb-cat-rule-navigation {
+    --sb-item-accent: var(--sb-accent-rule-navigation);
+}
+
+.sb-cat-developer {
+    --sb-item-accent: var(--sb-accent-developer);
+}
+
+.sb-cat-dev-guides {
+    --sb-item-accent: var(--sb-accent-dev-guides);
+}
+
+.sb-cat-rules {
+    --sb-item-accent: var(--sb-accent-rules);
+}
+
+.sb-cat-presets,
+.sb-doc-rule-nav-presets {
+    --sb-item-accent: var(--sb-accent-presets);
+}
+
+.sb-cat-rules-angular,
+.sb-rule-item-angular {
+    --sb-item-accent: var(--sb-accent-rule-family-angular);
+}
+
+.sb-cat-rules-angularjs,
+.sb-rule-item-angularjs {
+    --sb-item-accent: var(--sb-accent-rule-family-angularjs);
+}
+
+.sb-cat-rules-electron,
+.sb-rule-item-electron {
+    --sb-item-accent: var(--sb-accent-rule-family-electron);
+}
+
+.sb-cat-rules-node,
+.sb-rule-item-node {
+    --sb-item-accent: var(--sb-accent-rule-family-node);
+}
+
+.sb-cat-rules-web,
+.sb-rule-item-web {
+    --sb-item-accent: var(--sb-accent-rule-family-web);
+}
+
+.sb-cat-rules-misc,
+.sb-rule-item-misc {
+    --sb-item-accent: var(--sb-accent-rule-family-misc);
+}
+
+.sb-doc-preset-common {
+    --sb-item-accent: var(--sb-accent-preset-common);
+}
+
+.sb-doc-preset-typescript {
+    --sb-item-accent: var(--sb-accent-preset-typescript);
+}
+
+.sb-doc-preset-angular {
+    --sb-item-accent: var(--sb-accent-preset-angular);
+}
+
+.sb-doc-preset-angularjs {
+    --sb-item-accent: var(--sb-accent-preset-angularjs);
+}
+
+.sb-doc-preset-node {
+    --sb-item-accent: var(--sb-accent-preset-node);
+}
+
+.sb-doc-preset-react {
+    --sb-item-accent: var(--sb-accent-preset-react);
+}
+
+.sb-doc-preset-electron {
+    --sb-item-accent: var(--sb-accent-preset-electron);
+}
+
+.sb-doc-preset-required {
+    --sb-item-accent: var(--sb-accent-preset-required);
+}
+
+.sb-doc-preset-recommended {
+    --sb-item-accent: var(--sb-accent-preset-recommended);
+}
+
+.sb-doc-dev-guide-cli {
+    --sb-item-accent: rgb(56 189 248);
+}
+
+.sb-doc-dev-guide-ide {
+    --sb-item-accent: rgb(139 92 246);
+}
+
+.sb-doc-dev-guide-performance {
+    --sb-item-accent: rgb(249 115 22);
+}
+
+.sb-doc-dev-guide-node-api {
+    --sb-item-accent: rgb(34 211 238);
+}
+
+.theme-doc-sidebar-menu .menu__link.menu__link--active {
+    border-inline-start-color: var(--sb-item-accent, var(--ifm-color-primary));
+    box-shadow: inset 0 0 0 1px rgb(124 92 255 / 14%);
+}
+
+.sb-rule-item > .menu__link {
+    display: flex;
+    gap: 0.45rem;
+    align-items: center;
+}
+
+.sb-rule-item > .menu__link::before {
+    display: inline-flex;
+    inline-size: 0.42rem;
+    block-size: 0.42rem;
+    border-radius: 999px;
+    background: var(--sb-item-accent, var(--ifm-color-primary));
+    box-shadow: 0 0 0 2px rgb(124 92 255 / 14%);
+    content: "";
+    flex: none;
+}
+
+.sb-inline-rule-number {
+    display: inline-flex;
+    min-inline-size: 2.5rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0.04rem 0.45rem;
+    border: 1px solid rgb(124 92 255 / 24%);
+    border-radius: 999px;
+    background: rgb(124 92 255 / 12%);
+    color: var(--ifm-color-primary-darker);
+    font-family: var(--ifm-font-family-monospace);
+    font-size: 0.69rem;
+    font-weight: 760;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+.sb-inline-runtime-kind {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.04rem 0.45rem;
+    border: 1px solid rgb(34 211 238 / 28%);
+    border-radius: 999px;
+    background: rgb(34 211 238 / 12%);
+    color: rgb(22 163 186);
+    font-size: 0.69rem;
+    font-weight: 760;
+    letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .sb-inline-rule-number {
+    border-color: rgb(199 187 255 / 32%);
+    background: rgb(180 163 255 / 16%);
+    color: rgb(225 220 255);
+}
+
+[data-theme="dark"] .sb-inline-runtime-kind {
+    border-color: rgb(103 232 249 / 32%);
+    background: rgb(34 211 238 / 18%);
+    color: rgb(165 243 252);
 }
 
 .theme-doc-sidebar-item-category-level-2

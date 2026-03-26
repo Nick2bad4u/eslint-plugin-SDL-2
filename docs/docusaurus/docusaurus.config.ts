@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 
 /** Route base path where docs site is deployed (GitHub Pages project path). */
 const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-SDL-2/";
+/** Canonical deployed docs root URL used for absolute project tool links. */
+const deployedDocsRootUrl = `https://nick2bad4u.github.io${baseUrl}`;
 /** Opt-in flag for experimental Docusaurus performance features. */
 const enableExperimentalFaster =
     process.env["DOCUSAURUS_ENABLE_EXPERIMENTAL"] === "true";
@@ -303,11 +305,11 @@ const config: Config = {
                             label: "\ueb09 Releases",
                         },
                         {
-                            href: `https://nick2bad4u.github.io/eslint-plugin-typefest/eslint-inspector/`,
+                            href: `${deployedDocsRootUrl}eslint-inspector/`,
                             label: "🧪 ESLint Inspector",
                         },
                         {
-                            href: `https://nick2bad4u.github.io/eslint-plugin-typefest/stylelint-inspector/`,
+                            href: `${deployedDocsRootUrl}stylelint-inspector/`,
                             label: "\ue7d2 Stylelint Inspector",
                         },
                         {
@@ -449,22 +451,6 @@ const config: Config = {
                     ],
                 },
                 {
-                    label: "\ueaa4 Blog",
-                    position: "right",
-                    to: "/blog",
-                    type: "dropdown",
-                    items: [
-                        {
-                            label: "• Latest Posts",
-                            to: "/blog",
-                        },
-                        {
-                            label: "• All Posts",
-                            to: "/blog/archive",
-                        },
-                    ],
-                },
-                {
                     label: "\udb80\ude19 Dev",
                     position: "right",
                     to: "/docs/developer",
@@ -493,6 +479,22 @@ const config: Config = {
                         {
                             label: "• Internals",
                             to: "/docs/category/runtime",
+                        },
+                    ],
+                },
+                {
+                    label: "\ueaa4 Blog",
+                    position: "right",
+                    to: "/blog",
+                    type: "dropdown",
+                    items: [
+                        {
+                            label: "• Latest Posts",
+                            to: "/blog",
+                        },
+                        {
+                            label: "• All Posts",
+                            to: "/blog/archive",
                         },
                     ],
                 },

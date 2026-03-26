@@ -71,12 +71,16 @@ function isRuntimeSidebarLink(link: HTMLAnchorElement): boolean {
  *
  * @param link - Candidate sidebar link.
  *
- * @returns `true` when link is in `ts-extras` or `type-fest` rule lists.
+ * @returns `true` when link is under one of the grouped rules families.
  */
 function isNumberedRuleSidebarLink(link: HTMLAnchorElement): boolean {
     return (
-        link.closest(".sb-cat-rules-ts-extras") !== null ||
-        link.closest(".sb-cat-rules-type-fest") !== null
+        link.closest(".sb-cat-rules-angular") !== null ||
+        link.closest(".sb-cat-rules-angularjs") !== null ||
+        link.closest(".sb-cat-rules-electron") !== null ||
+        link.closest(".sb-cat-rules-node") !== null ||
+        link.closest(".sb-cat-rules-web") !== null ||
+        link.closest(".sb-cat-rules-misc") !== null
     );
 }
 
@@ -104,12 +108,12 @@ function getRuntimeSidebarKindPrefix(
  *
  * @param label - Trimmed sidebar label.
  *
- * @returns Number token and remainder when label begins with digits.
+ * @returns Number token and remainder when label begins with a catalog token.
  */
 function getRuleNumberPrefix(
     label: string
 ): null | Readonly<{ numberToken: string; remainder: string }> {
-    const match = /^(\d{2,3})\s+(.+)$/.exec(label);
+    const match = /^(R?\d{2,3})(?:\s*[·•|-]\s*|\s+)(.+)$/u.exec(label);
 
     if (match === null) {
         return null;
