@@ -1,8 +1,11 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
-import type { UnknownMap } from "type-fest";
+import type {
+    UnknownRecord as TypeFestUnknownRecord,
+    UnknownMap,
+} from "type-fest";
 import type ts from "typescript";
 
-import { isDefined, safeCastTo } from "ts-extras";
+import { isDefined } from "ts-extras";
 
 type RuleContext = Readonly<TSESLint.RuleContext<string, unknown[]>>;
 
@@ -12,31 +15,30 @@ type TypeScriptParserServices = Readonly<{
     tsNodeToESTreeNodeMap: ReadonlyMap<ts.Node, TSESTree.Node>;
 }>;
 
+type UnknownObjectRecord = Readonly<TypeFestUnknownRecord>;
+
+const isUnknownRecord = (value: unknown): value is UnknownObjectRecord =>
+    typeof value === "object" && value !== null;
+
 const isMapLike = (value: unknown): value is Readonly<UnknownMap> =>
-    typeof value === "object" &&
-    value !== null &&
-    typeof safeCastTo<{ get?: unknown }>(value).get === "function";
+    isUnknownRecord(value) && typeof value["get"] === "function";
 
 const isProgramLike = (value: unknown): value is ts.Program =>
-    typeof value === "object" &&
-    value !== null &&
-    typeof safeCastTo<{ getTypeChecker?: unknown }>(value).getTypeChecker ===
-        "function";
+    isUnknownRecord(value) && typeof value["getTypeChecker"] === "function";
 
 const isTypeScriptParserServices = (
     parserServices: unknown
 ): parserServices is TypeScriptParserServices => {
-    if (typeof parserServices !== "object" || parserServices === null) {
+    if (!isUnknownRecord(parserServices)) {
         return false;
     }
 
-    const candidate =
-        safeCastTo<Partial<TypeScriptParserServices>>(parserServices);
+    const candidate = parserServices;
 
     return (
-        isProgramLike(candidate.program) &&
-        isMapLike(candidate.esTreeNodeToTSNodeMap) &&
-        isMapLike(candidate.tsNodeToESTreeNodeMap)
+        isProgramLike(candidate["program"]) &&
+        isMapLike(candidate["esTreeNodeToTSNodeMap"]) &&
+        isMapLike(candidate["tsNodeToESTreeNodeMap"])
     );
 };
 
@@ -76,17 +78,13 @@ export const getNodeTypeAsString = (
         return "any";
     }
 
-    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(
-        safeCastTo<TSESTree.Node>(node)
-    );
+    const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
 
     if (!isDefined(tsNode)) {
         return "any";
     }
 
-    const tsType = fullTypeChecker.getTypeAtLocation(
-        safeCastTo<ts.Node>(tsNode)
-    );
+    const tsType = fullTypeChecker.getTypeAtLocation(tsNode);
 
     return fullTypeChecker.typeToString(tsType);
 };

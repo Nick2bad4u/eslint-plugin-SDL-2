@@ -3,6 +3,8 @@ import tsParser from "@typescript-eslint/parser";
 import plugin from "../plugin.mjs";
 
 /** @typedef {import("eslint").Linter.RulesRecord} BenchmarkRules */
+/** @typedef {"common" | "recommended" | "required"} BenchmarkPresetName */
+/** @typedef {Readonly<Record<BenchmarkPresetName, Readonly<BenchmarkRules>>>} BenchmarkRuleSets */
 
 export const repositoryRoot = process.cwd();
 
@@ -70,6 +72,7 @@ const resolveRuleSet = (presetName) => {
     );
 };
 
+/** @type {BenchmarkRuleSets} */
 export const sdlRuleSets = Object.freeze({
     common: resolveRuleSet("common"),
     recommended: resolveRuleSet("recommended"),

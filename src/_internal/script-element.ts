@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
+ 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { type getFullTypeChecker, getNodeTypeAsString } from "./ast-utils.js";
@@ -72,4 +72,4 @@ export const isLikelyScriptElement = (
     );
 };
 
-/* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after script element helper declarations. */
+ 

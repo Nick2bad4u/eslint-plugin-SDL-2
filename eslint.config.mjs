@@ -3131,6 +3131,15 @@ export default defineConfig([
             "no-debugger": "error",
         },
     },
+    {
+        files: ["plugin.mjs"],
+        name: "Plugin entrypoint stub exceptions",
+        rules: {
+            // Plugin.mjs intentionally re-exports generated dist output.
+            "canonical/no-re-export": "off",
+            "no-barrel-files/no-barrel-files": "off",
+        },
+    },
     // #endregion
     // #region 🧹 Prettier Disable Config
     eslintConfigPrettier,
