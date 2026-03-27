@@ -1,7 +1,7 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
     "name": "eslint-plugin-sdl-2",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "private": false,
     "description": "ESLint plugin providing SDL-focused security and platform hardening rules.",
     "keywords": [
