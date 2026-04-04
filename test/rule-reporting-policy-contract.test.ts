@@ -48,10 +48,21 @@ describe("rule reporting policy contract", () => {
                 `Rule '${fileName}' must declare a stable rule name`
             ).toContain(`name: "${expectedRuleName}"`);
 
-            expect(
-                sourceText,
-                `Rule '${fileName}' must declare defaultOptions for option schema stability`
-            ).toContain("defaultOptions:");
+            const metaIndex = sourceText.indexOf("meta:");
+            const defaultOptionsIndex = sourceText.indexOf("defaultOptions:");
+            const hasDefaultOptions = sourceText.includes("defaultOptions:");
+
+            if (hasDefaultOptions) {
+                expect(
+                    metaIndex,
+                    `Rule '${fileName}' must declare meta before defaultOptions`
+                ).toBeGreaterThanOrEqual(0);
+
+                expect(
+                    defaultOptionsIndex,
+                    `Rule '${fileName}' must declare defaultOptions only inside meta.defaultOptions`
+                ).toBeGreaterThan(metaIndex);
+            }
         }
     });
 });

@@ -1,4 +1,3 @@
- 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -128,7 +127,6 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {
@@ -149,4 +147,3 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
 });
 
 export default rule;
- 

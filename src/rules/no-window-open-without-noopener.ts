@@ -1,4 +1,3 @@
- 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { arrayFirst, isDefined, stringSplit } from "ts-extras";
@@ -104,7 +103,6 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {
@@ -125,4 +123,3 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
 });
 
 export default rule;
- 

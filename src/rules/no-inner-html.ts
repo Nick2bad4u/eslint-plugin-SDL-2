@@ -11,7 +11,10 @@ const isEmptyStringLiteral = (node: TSESTree.Node): boolean =>
     node.type === "Literal" && node.value === "";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<
+    [],
+    "noInnerHtml" | "noInsertAdjacentHTML"
+>({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -73,7 +76,6 @@ const rule: ReturnType<typeof createRule> = createRule({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {

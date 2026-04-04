@@ -1,4 +1,3 @@
- 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { basename, parse } from "node:path";
@@ -26,7 +25,7 @@ const isBannedRandomLibrary = (value: string): boolean =>
     );
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "default">({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -121,7 +120,6 @@ const rule: ReturnType<typeof createRule> = createRule({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {
@@ -142,4 +140,3 @@ const rule: ReturnType<typeof createRule> = createRule({
 });
 
 export default rule;
- 

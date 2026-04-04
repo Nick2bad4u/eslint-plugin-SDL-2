@@ -1,4 +1,3 @@
- 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -44,7 +43,6 @@ const rule: ReturnType<typeof createRule> = createRule({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {
@@ -65,4 +63,3 @@ const rule: ReturnType<typeof createRule> = createRule({
 });
 
 export default rule;
- 

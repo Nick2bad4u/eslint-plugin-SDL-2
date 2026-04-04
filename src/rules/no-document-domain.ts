@@ -8,7 +8,7 @@ import {
 import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "default">({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -37,7 +37,6 @@ const rule: ReturnType<typeof createRule> = createRule({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {

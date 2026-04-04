@@ -11,7 +11,6 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             preferenceName: "experimentalFeatures",
         });
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {

@@ -11,7 +11,6 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             preferenceName: "webSecurity",
         });
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {

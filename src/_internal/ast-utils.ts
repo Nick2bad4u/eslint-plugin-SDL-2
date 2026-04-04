@@ -1,4 +1,4 @@
-import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import type {
     UnknownRecord as TypeFestUnknownRecord,
     UnknownMap,
@@ -7,7 +7,9 @@ import type ts from "typescript";
 
 import { isDefined } from "ts-extras";
 
-type RuleContext = Readonly<TSESLint.RuleContext<string, unknown[]>>;
+type RuleSourceCodeLike = Readonly<{
+    parserServices?: unknown;
+}>;
 
 type TypeScriptParserServices = Readonly<{
     esTreeNodeToTSNodeMap: ReadonlyMap<TSESTree.Node, ts.Node>;
@@ -42,10 +44,23 @@ const isTypeScriptParserServices = (
     );
 };
 
+const isRuleSourceCodeLike = (value: unknown): value is RuleSourceCodeLike =>
+    isUnknownRecord(value);
+
 const getParserServices = (
-    context: RuleContext
+    context: unknown
 ): TypeScriptParserServices | undefined => {
-    const parserServices = context.sourceCode.parserServices;
+    if (!isUnknownRecord(context)) {
+        return undefined;
+    }
+
+    const sourceCode = context["sourceCode"];
+
+    if (!isRuleSourceCodeLike(sourceCode)) {
+        return undefined;
+    }
+
+    const parserServices = sourceCode.parserServices;
 
     return isTypeScriptParserServices(parserServices)
         ? parserServices
@@ -53,12 +68,12 @@ const getParserServices = (
 };
 
 /** Returns `true` when parser services expose complete TypeScript program data. */
-export const hasFullTypeInformation = (context: RuleContext): boolean =>
+export const hasFullTypeInformation = (context: unknown): boolean =>
     isDefined(getParserServices(context));
 
 /** Returns the TypeScript type checker when parser services are available. */
 export const getFullTypeChecker = (
-    context: RuleContext
+    context: unknown
 ): ts.TypeChecker | undefined =>
     getParserServices(context)?.program.getTypeChecker();
 
@@ -66,7 +81,7 @@ export const getFullTypeChecker = (
 export const getNodeTypeAsString = (
     fullTypeChecker: Readonly<ts.TypeChecker> | undefined,
     node: null | Readonly<TSESTree.Node> | undefined,
-    context: RuleContext
+    context: unknown
 ): string => {
     if (!isDefined(fullTypeChecker) || node === null || node === undefined) {
         return "any";
@@ -149,7 +164,7 @@ const isDocumentMemberReference = (
  */
 export const isDocumentObject = (
     node: Readonly<TSESTree.Node>,
-    context: RuleContext,
+    context: unknown,
     fullTypeChecker: Readonly<ts.TypeChecker> | undefined
 ): boolean => {
     if (fullTypeChecker !== undefined) {

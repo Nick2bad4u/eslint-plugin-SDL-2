@@ -1,4 +1,3 @@
- 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import {
@@ -8,7 +7,7 @@ import {
 import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "doNotUseCookies">({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
@@ -27,7 +26,6 @@ const rule: ReturnType<typeof createRule> = createRule({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {
@@ -47,4 +45,3 @@ const rule: ReturnType<typeof createRule> = createRule({
 });
 
 export default rule;
- 

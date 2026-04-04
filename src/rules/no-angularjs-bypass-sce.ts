@@ -99,7 +99,6 @@ export const noAngularjsBypassSceRule: ReturnType<typeof createRule> =
                 },
             };
         },
-        defaultOptions: [] as const,
         meta: {
             deprecated: false,
             docs: {

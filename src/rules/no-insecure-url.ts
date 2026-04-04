@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
-import { safeCastTo } from "ts-extras";
-
 import { createRule } from "../_internal/create-rule.js";
 
 /** Default insecure-protocol blocklist patterns. */
@@ -147,13 +145,6 @@ const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
             },
         };
     },
-    defaultOptions: safeCastTo<Options>([
-        {
-            blocklist: toRegexSources(defaultBlocklist),
-            exceptions: toRegexSources(defaultExceptions),
-            varExceptions: toRegexSources(defaultVariableExceptions),
-        },
-    ]),
     meta: {
         defaultOptions: [
             {

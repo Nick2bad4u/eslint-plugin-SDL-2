@@ -11,7 +11,6 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             preferenceName: "allowRunningInsecureContent",
         });
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {

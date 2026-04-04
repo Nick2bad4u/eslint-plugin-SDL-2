@@ -130,7 +130,6 @@ const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
             },
         };
     },
-    defaultOptions: [],
     meta: {
         deprecated: false,
         docs: {
