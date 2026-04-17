@@ -29,7 +29,7 @@ const getJsxAttributeName = (
 };
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 

@@ -11,7 +11,7 @@ import { createRule } from "../_internal/create-rule.js";
 type MessageIds = "default" | "replaceWithExplicitOrigin";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 

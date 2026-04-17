@@ -4,7 +4,7 @@ import { createElectronWebPreferencesBooleanListener } from "../_internal/electr
 type MessageIds = "default";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return createElectronWebPreferencesBooleanListener(context, {
             disallowedValue: true,

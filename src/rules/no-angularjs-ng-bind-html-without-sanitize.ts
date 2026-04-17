@@ -14,7 +14,7 @@ const hasKnownSanitizePattern = (text: string): boolean =>
     /\b(?:ngsanitize|\$sanitize|sanitize)\b/iu.test(text);
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             Literal(node: TSESTree.Literal) {

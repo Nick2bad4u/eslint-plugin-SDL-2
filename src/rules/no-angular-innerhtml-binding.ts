@@ -11,7 +11,7 @@ const hasInnerHtmlBindingPattern = (text: string): boolean =>
     /\[\s*innerhtml\s*\]\s*=/iu.test(text);
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             Literal(node: TSESTree.Literal) {

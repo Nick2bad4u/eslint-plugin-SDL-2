@@ -51,7 +51,7 @@ const getUnsafeWebPreferencesFlags = (
     );
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             JSXOpeningElement(node: TSESTree.JSXOpeningElement) {

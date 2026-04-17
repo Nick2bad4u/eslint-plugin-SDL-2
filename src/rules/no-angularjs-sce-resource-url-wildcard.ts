@@ -27,7 +27,7 @@ const getMemberPropertyName = (
 const isWildcardValue = (value: string): boolean => value.includes("*");
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {

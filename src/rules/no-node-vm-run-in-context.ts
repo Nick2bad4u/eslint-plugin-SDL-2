@@ -81,7 +81,7 @@ const getPatternIdentifier = (
 };
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         const vmCallBindingNames = new Set<string>();
         const vmConstructorBindingNames = new Set<string>();

@@ -1,7 +1,7 @@
 import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "noSanitizationWhitelist">({
     create(context) {
         return {
             "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationWhitelist$/]"(

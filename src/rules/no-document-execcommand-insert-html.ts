@@ -16,7 +16,7 @@ const isInsertHtmlCommand = (expression: TSESTree.Expression): boolean =>
     getStaticStringValue(expression)?.toLowerCase() === "inserthtml";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 

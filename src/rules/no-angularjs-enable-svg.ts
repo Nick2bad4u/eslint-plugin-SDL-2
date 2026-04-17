@@ -20,7 +20,7 @@ const isExplicitlyDisabledSvgLiteral = (
     );
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "doNotEnableSVG">({
     create(context) {
         return {
             "CallExpression[callee.object.name='$sanitizeProvider'][callee.property.name='enableSvg']"(

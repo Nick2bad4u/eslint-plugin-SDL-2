@@ -25,7 +25,7 @@ const isSecurityLevelZeroCipherString = (value: string): boolean =>
     TLS_SECURITY_LEVEL_ZERO_PATTERN.test(value);
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             AssignmentExpression(node: TSESTree.AssignmentExpression) {

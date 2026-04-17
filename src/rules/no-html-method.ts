@@ -3,7 +3,7 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "default">({
     create(context) {
         return {
             "CallExpression[arguments.length=1] > MemberExpression.callee[property.name='html']"(

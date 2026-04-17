@@ -111,7 +111,7 @@ const isWorkerThreadsWorkerConstructor = (
 };
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         const workerBindingNames = new Set<string>();
         const workerThreadsNamespaceBindingNames = new Set<string>();

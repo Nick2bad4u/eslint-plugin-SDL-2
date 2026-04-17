@@ -74,7 +74,7 @@ const isAlwaysSuccessfulCheckServerIdentity = (
 };
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             AssignmentExpression(node: TSESTree.AssignmentExpression) {

@@ -82,7 +82,7 @@ const isSourceTextModuleConstructor = (
 };
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule<unknown[], MessageIds>({
+const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         const sourceTextModuleBindingNames = new Set<string>();
         const vmNamespaceBindingNames = new Set<string>();

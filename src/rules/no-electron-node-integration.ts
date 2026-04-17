@@ -1,7 +1,7 @@
 import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
-const rule: ReturnType<typeof createRule> = createRule({
+const rule: ReturnType<typeof createRule> = createRule<[], "default">({
     create(context) {
         return {
             "NewExpression[callee.name=/^(?:BrowserWindow|BrowserView)$/] > ObjectExpression.arguments > Property.properties[key.name='webPreferences'] > ObjectExpression.value > Property.properties[key.name=/^(?:nodeIntegration|nodeIntegrationInWorker|nodeIntegrationInSubFrames)$/][value.value=true]"(

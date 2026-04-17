@@ -37,7 +37,7 @@ const isBypassSceMethod = (methodName: string): boolean =>
 
 /** Rule implementation for no-angularjs-bypass-sce. */
 export const noAngularjsBypassSceRule: ReturnType<typeof createRule> =
-    createRule({
+    createRule<[], "doNotBypass">({
         create(context): TSESLint.RuleListener {
             const report = (node: TSESTree.CallExpression): void => {
                 context.report({
