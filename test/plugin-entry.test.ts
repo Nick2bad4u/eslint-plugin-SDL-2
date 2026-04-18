@@ -6,6 +6,15 @@ const sortAlphabetically = (values: readonly string[]): readonly string[] =>
     values.toSorted((left, right) => left.localeCompare(right));
 
 describe("sdl plugin entry", () => {
+    it("exports a frozen package entry plugin", async () => {
+        expect.hasAssertions();
+
+        const packageEntryPlugin = (await import("../plugin.mjs")).default;
+
+        expect(Object.isFrozen(packageEntryPlugin)).toBeTruthy();
+        expect(packageEntryPlugin.meta).toStrictEqual(sdlPlugin.meta);
+    });
+
     it("exposes meta with namespace/version", () => {
         expect.hasAssertions();
         expect(sdlPlugin.meta).toStrictEqual(

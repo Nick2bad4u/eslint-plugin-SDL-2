@@ -1,5 +1,3 @@
-/* stylelint-disable order/properties-order -- Compact swizzled popup styles prioritize visual grouping over strict declaration ordering. */
-
 .popup {
     --pwa-popup-border-color: var(
         --home-hero-panel-border-color,
@@ -16,19 +14,19 @@
 
     position: fixed;
     z-index: 40;
-    inset-block-end: 1rem;
-    inset-inline-end: 1rem;
     display: grid;
-    gap: 0.75rem;
-    inline-size: min(24rem, calc(100vi - 2rem));
     padding: 0.95rem 1rem;
     border: 1px solid var(--pwa-popup-border-color);
     border-radius: 1rem;
-    background: var(--pwa-popup-background-color);
     backdrop-filter: blur(16px);
+    background: var(--pwa-popup-background-color);
     box-shadow:
         0 24px 40px -28px var(--home-hero-shadow-color, rgb(15 23 42 / 28%)),
         inset 0 1px 0 var(--home-hero-highlight-color, rgb(255 255 255 / 24%));
+    gap: 0.75rem;
+    inline-size: min(24rem, calc(100vi - 2rem));
+    inset-block-end: 1rem;
+    inset-inline-end: 1rem;
 }
 
 .message {
@@ -61,8 +59,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    block-size: 2rem;
-    inline-size: 2rem;
     border: 1px solid
         var(
             --home-hero-secondary-button-border-color,
@@ -73,9 +69,11 @@
         --home-hero-secondary-button-background,
         rgb(255 255 255 / 76%)
     );
+    block-size: 2rem;
     color: var(--pwa-popup-text-color);
     cursor: pointer;
     font-size: 1rem;
+    inline-size: 2rem;
     line-height: 1;
 
     &:hover,
