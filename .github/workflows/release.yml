@@ -72,10 +72,14 @@ jobs:
 
             - name: Resolve target ref
               id: target_ref
+              env:
+                  # Bind user-controlled inputs to env vars to prevent script injection (githubactions:S7630).
+                  INPUT_REF: ${{ inputs.ref }}
+                  INPUT_EVENT_NAME: ${{ github.event_name }}
               run: |
                   set -euo pipefail
-                  if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-                    branch="${{ inputs.ref }}"
+                  if [ "${INPUT_EVENT_NAME}" = "workflow_dispatch" ]; then
+                    branch="${INPUT_REF}"
                     if [ -z "$branch" ]; then
                       branch="${DEFAULT_RELEASE_BRANCH}"
                     fi
