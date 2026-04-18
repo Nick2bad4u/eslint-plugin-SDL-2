@@ -232,10 +232,11 @@ export default function Home() {
                                     Six-phase secure development lifecycle
                                 </p>
                                 <p className={styles.heroPanelText}>
-                                    The branding, sidebars, and homepage accents
-                                    now follow the same analysis → planning →
-                                    design → development → testing → maintenance
-                                    flow shown in the project logo.
+                                    Every rule maps to one of six lifecycle
+                                    phases: analysis, planning, design,
+                                    development, testing, and maintenance — so
+                                    you always know exactly where in your
+                                    workflow a finding applies.
                                 </p>
 
                                 <ul className={styles.phaseList}>
