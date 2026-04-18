@@ -64,7 +64,7 @@ const futureConfig = {
 } satisfies Config["future"];
 
 /** Full Docusaurus site configuration exported to the build/runtime. */
-const config: Config = {
+const config = {
     baseUrl,
     baseUrlIssueBanner: true,
     deploymentBranch: "gh-pages",
@@ -589,6 +589,6 @@ const config: Config = {
     title: "eslint-plugin-SDL-2",
     trailingSlash: false,
     url: "https://nick2bad4u.github.io",
-};
+} satisfies Config;
 
 export default config;

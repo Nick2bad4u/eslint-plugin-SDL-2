@@ -173,7 +173,7 @@ const developerGuideSidebarItems: DeveloperGuideSidebarItem[] =
         type: "doc",
     }));
 
-const sidebars: SidebarsConfig = {
+const sidebars = {
     docs: [
         {
             className: "sb-cat-developer",
@@ -419,6 +419,6 @@ const sidebars: SidebarsConfig = {
             type: "category",
         },
     ],
-};
+} satisfies SidebarsConfig;
 
 export default sidebars;

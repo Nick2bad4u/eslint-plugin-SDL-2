@@ -350,7 +350,7 @@
         "eslint-plugin-tsdoc": "^0.5.2",
         "eslint-plugin-tsdoc-require-2": "^1.0.7",
         "eslint-plugin-typedoc": "^1.1.4",
-        "eslint-plugin-typefest": "^1.0.10",
+        "eslint-plugin-typefest": "^1.2.1",
         "eslint-plugin-undefined-css-classes": "^0.1.5",
         "eslint-plugin-unicorn": "^64.0.0",
         "eslint-plugin-unused-imports": "^4.4.1",

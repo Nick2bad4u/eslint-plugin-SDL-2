@@ -381,7 +381,7 @@ function buildRuleGroupItems(ruleDocEntries: readonly RuleDocCatalogEntry[]) {
 const ruleDocEntries = getAllRuleDocEntries();
 const groupedRuleItems = buildRuleGroupItems(ruleDocEntries);
 
-const sidebars: SidebarsConfig = {
+const sidebars = {
     rules: [
         {
             className: "sb-doc-overview",
@@ -457,6 +457,6 @@ const sidebars: SidebarsConfig = {
             type: "category",
         },
     ],
-};
+} satisfies SidebarsConfig;
 
 export default sidebars;
