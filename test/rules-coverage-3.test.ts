@@ -1,13 +1,13 @@
 /**
- * rules-coverage-3.test.ts
+ * Rules-coverage-3.test.ts
  *
  * Targeted coverage tests for ESLint SDL rules — Phase 3.
  * Covers early-return guards, fixer edge cases, bracket-notation method names,
  * SpreadElement in options objects, and other uncovered code paths.
  */
 
-import { tsReactLanguageOptions } from "./_internal/test-utils.js";
 import { createRuleTester, getPluginRule } from "./_internal/ruleTester.js";
+import { tsReactLanguageOptions } from "./_internal/test-utils.js";
 
 const ruleTester = createRuleTester();
 
@@ -425,7 +425,7 @@ ruleTester.run(
             {
                 code: "new BrowserWindow({ webPreferences: { nodeIntegration: /* enabled */ true } });",
                 errors: [{ messageId: "default" }],
-                // fixer returns null (can't safely fix when there's a comment before the value)
+                // Fixer returns null (can't safely fix when there's a comment before the value)
                 output: null,
             },
         ],
@@ -559,8 +559,8 @@ ruleTester.run(
             // JSX: iframe with srcdoc attribute
             {
                 code: "<iframe srcdoc='<html>content</html>' />;",
-                languageOptions: tsReactLanguageOptions,
                 errors: [{ messageId: "default" }],
+                languageOptions: tsReactLanguageOptions,
             },
         ],
         valid: [
@@ -604,12 +604,12 @@ ruleTester.run(
                 code: "element.innerHTML = '<b>Bold text</b>';",
                 errors: [{ messageId: "noInnerHtml" }],
             },
-            // outerHTML
+            // OuterHTML
             {
                 code: "element.outerHTML = '<div>content</div>';",
                 errors: [{ messageId: "noInnerHtml" }],
             },
-            // insertAdjacentHTML
+            // InsertAdjacentHTML
             {
                 code: "element.insertAdjacentHTML('beforeend', '<p>text</p>');",
                 errors: [{ messageId: "noInsertAdjacentHTML" }],
@@ -763,7 +763,7 @@ ruleTester.run(
                 code: "window.postMessage(data, '*');",
                 errors: [{ messageId: "default", suggestions: [{ messageId: "replaceWithExplicitOrigin", output: "window.postMessage(data, location.origin);" }] }],
             },
-            // iframe.contentWindow.postMessage
+            // Iframe.contentWindow.postMessage
             {
                 code: "iframe.contentWindow.postMessage(data, '*');",
                 errors: [{ messageId: "default", suggestions: [{ messageId: "replaceWithExplicitOrigin", output: "iframe.contentWindow.postMessage(data, location.origin);" }] }],
@@ -1021,7 +1021,7 @@ ruleTester.run(
             },
         ],
         valid: [
-            // lowercase document.parseHTMLUnsafe is NOT flagged (by rule design)
+            // Lowercase document.parseHTMLUnsafe is NOT flagged (by rule design)
             "document.parseHTMLUnsafe(html);",
             "DOMParser.parseFromString(html, 'text/html');",
         ],
@@ -1171,7 +1171,7 @@ ruleTester.run(
                 code: "sanitizer.bypassSecurityTrustHtml(userHtml);",
                 errors: [{ messageId: "noBypass" }],
             },
-            // dot-notation: bypassSecurityTrustScript (matches rule selector)
+            // Dot-notation: bypassSecurityTrustScript (matches rule selector)
             {
                 code: "sanitizer.bypassSecurityTrustScript(userScript);",
                 errors: [{ messageId: "noBypass" }],

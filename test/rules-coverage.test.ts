@@ -68,7 +68,7 @@ ruleTester.run(
             "location.href = `javascript:${userInput}`;",
             // Safe template literal
             "location.assign(`https://example.com`);",
-            // window.open with safe URL
+            // Window.open with safe URL
             "window.open('https://example.com');",
         ],
     }
@@ -135,10 +135,10 @@ ruleTester.run(
                 code: 'const v = <webview allowpopups="FALSE" src="https://x.com" />;',
                 languageOptions: tsReactLanguageOptions,
             },
-            // Numeric literal in JSXExpressionContainer - the rule still flags it (isTruthyJsxAttributeValue only treats `false` boolean and "false" string as falsy)
-            // so 0 is treated as a non-false non-boolean expression → truthy path → invalid
-            // This case is intentionally left out (tested in invalid block below)
-            // Non-webview element - isJsxWebviewElement returns false
+            // Numeric literal in JSXExpressionContainer - the rule still flags it (isTruthyJsxAttributeValue only
+            // treats `false` boolean and "false" string as falsy) so 0 is treated as a non-false non-boolean expression
+            // → truthy path → invalid This case is intentionally left out (tested in invalid block below) Non-webview
+            // element - isJsxWebviewElement returns false
             {
                 code: "<div allowpopups />;",
                 languageOptions: tsReactLanguageOptions,
@@ -187,7 +187,7 @@ ruleTester.run(
                 languageOptions: tsReactLanguageOptions,
                 output: 'const v = <webview  src="https://x.com" />;',
             },
-            // webpreferences with nodeintegration in string value
+            // Webpreferences with nodeintegration in string value
             {
                 code: 'const v = <webview webpreferences="nodeintegration=yes" />;',
                 errors: [{ messageId: "default" }],
@@ -205,7 +205,7 @@ ruleTester.run(
                 code: 'const v = <webview nodeintegration="false" src="https://x.com" />;',
                 languageOptions: tsReactLanguageOptions,
             },
-            // webpreferences without nodeintegration
+            // Webpreferences without nodeintegration
             {
                 code: 'const v = <webview webpreferences="sandbox=yes" />;',
                 languageOptions: tsReactLanguageOptions,
@@ -259,12 +259,12 @@ ruleTester.run("no-insecure-random", getPluginRule("no-insecure-random"), {
             errors: [{ messageId: "default" }],
             languageOptions: esModuleLanguageOptions,
         },
-        // require('random-number') (already tested, but ensures require path covered)
+        // Require('random-number') (already tested, but ensures require path covered)
         {
             code: "const rn = require('random-number');",
             errors: [{ messageId: "default" }],
         },
-        // pseudoRandomBytes without type info (identifier-based check)
+        // PseudoRandomBytes without type info (identifier-based check)
         {
             code: "crypto.pseudoRandomBytes(16);",
             errors: [{ messageId: "default" }],
@@ -280,9 +280,9 @@ ruleTester.run("no-insecure-random", getPluginRule("no-insecure-random"), {
             code: "import crypto from 'node:crypto';",
             languageOptions: esModuleLanguageOptions,
         },
-        // require with non-string argument
+        // Require with non-string argument
         "require(moduleName);",
-        // require with non-banned library
+        // Require with non-banned library
         "require('safe-random-lib');",
     ],
 });
@@ -377,7 +377,7 @@ ruleTester.run(
     getPluginRule("no-http-request-to-insecure-protocol"),
     {
         invalid: [
-            // http.request method
+            // Http.request method
             {
                 code: "http.request('http://api.example.com/data');",
                 errors: [{ messageId: "default" }],
@@ -389,7 +389,7 @@ ruleTester.run(
                 errors: [{ messageId: "default" }],
                 output: "http.get(`https://api.example.com/status`);",
             },
-            // https.get with http URL (callee object name "https" is valid)
+            // Https.get with http URL (callee object name "https" is valid)
             {
                 code: "https.get('http://api.example.com/status');",
                 errors: [{ messageId: "default" }],
@@ -405,7 +405,7 @@ ruleTester.run(
             "http.post('http://example.com');",
             // Non-"http"/"https" callee object name
             "myHttp.get('http://example.com');",
-            // https.request with https URL - not insecure
+            // Https.request with https URL - not insecure
             "https.request('https://api.example.com/data');",
             // Nested callee (no direct Identifier object) - e.g. require('http').get
             "require('http').get('http://example.com');",
@@ -447,7 +447,7 @@ ruleTester.run("no-iframe-srcdoc", getPluginRule("no-iframe-srcdoc"), {
         },
     ],
     valid: [
-        // setAttributeNS (null, 'srcdoc', ...) is NOT flagged: the rule checks
+        // SetAttributeNS (null, 'srcdoc', ...) is NOT flagged: the rule checks
         // getStaticStringValue(firstArgument) === 'srcdoc' but here firstArgument is
         // a null literal, so it returns early. Only setAttribute is handled properly.
         "element.setAttributeNS(null, 'srcdoc', '');",
@@ -464,9 +464,9 @@ ruleTester.run("no-iframe-srcdoc", getPluginRule("no-iframe-srcdoc"), {
             code: 'const f = <iframe src="https://example.com" />;',
             languageOptions: tsReactLanguageOptions,
         },
-        // setAttributeNS with non-"srcdoc" attribute
+        // SetAttributeNS with non-"srcdoc" attribute
         "element.setAttributeNS(null, 'src', userHtml);",
-        // setAttributeNS with SpreadElement as first arg
+        // SetAttributeNS with SpreadElement as first arg
         "element.setAttributeNS(...args);",
     ],
 });
@@ -631,7 +631,7 @@ ruleTester.run("no-insecure-url", getPluginRule("no-insecure-url"), {
         },
     ],
     valid: [
-        // varExceptions option - should not apply fix (shouldAttemptFix returns false)
+        // VarExceptions option - should not apply fix (shouldAttemptFix returns false)
         {
             code: "const apiUrl = 'http://www.example.com';",
             options: [{ varExceptions: ["apiUrl"] }],
@@ -639,7 +639,7 @@ ruleTester.run("no-insecure-url", getPluginRule("no-insecure-url"), {
         // Exceptions option - URL in exceptions list is allowed
         {
             code: "const x = 'http://www.w3.org/2000/svg';",
-            options: [{ exceptions: ["http://www.w3.org/"] }],
+            options: [{ exceptions: ["https://www.w3.org/"] }],
         },
         // Secure template literal
         "const url = `https://www.example.com/path`;",
@@ -659,7 +659,7 @@ ruleTester.run(
     getPluginRule("no-trusted-types-policy-pass-through"),
     {
         invalid: [
-            // window.trustedTypes (MemberExpression callee object)
+            // Window.trustedTypes (MemberExpression callee object)
             {
                 code: "window.trustedTypes.createPolicy('name', { createHTML: (html) => html });",
                 errors: [
@@ -679,7 +679,7 @@ ruleTester.run(
                     },
                 ],
             },
-            // createScript factory pass-through
+            // CreateScript factory pass-through
             {
                 code: "trustedTypes.createPolicy('name', { createScript: (script) => script });",
                 errors: [
@@ -689,7 +689,7 @@ ruleTester.run(
                     },
                 ],
             },
-            // createScriptURL factory pass-through
+            // CreateScriptURL factory pass-through
             {
                 code: "trustedTypes.createPolicy('name', { createScriptURL: (url) => url });",
                 errors: [
@@ -746,7 +746,7 @@ ruleTester.run(
 // Missing: without type checker - isDocumentObject identifier-based path.
 ruleTester.run("no-document-domain", getPluginRule("no-document-domain"), {
     invalid: [
-        // window.document.domain - isWindowIdentifierName("window") → true
+        // Window.document.domain - isWindowIdentifierName("window") → true
         {
             code: "window.document.domain = 'example.com';",
             errors: [{ messageId: "default" }],
@@ -769,12 +769,12 @@ ruleTester.run("no-document-domain", getPluginRule("no-document-domain"), {
 // Extends coverage of isDocumentObject paths (ast-utils.ts).
 ruleTester.run("no-document-write", getPluginRule("no-document-write"), {
     invalid: [
-        // window.document.write
+        // Window.document.write
         {
             code: "window.document.write('<p>hello</p>');",
             errors: [{ messageId: "default" }],
         },
-        // document.writeln
+        // Document.writeln
         {
             code: "document.writeln('<p>hello</p>');",
             errors: [{ messageId: "default" }],
@@ -817,7 +817,7 @@ ruleTester.run(
             "new DOMParser().parseFromString(sanitize(html), 'text/html');",
             // MemberExpression callee sanitize: obj.sanitize(html) - isSanitizedExpression with MemberExpression
             "new DOMParser().parseFromString(DOMPurify.sanitize(userHtml), 'text/html');",
-            // obj.purify.sanitize
+            // Obj.purify.sanitize
             "new DOMParser().parseFromString(purify.sanitize(unsafeHtml), 'text/html');",
             // Nested member sanitize call (sanitize property)
             "new DOMParser().parseFromString(xss.sanitize(html), 'text/html');",
@@ -865,7 +865,7 @@ ruleTester.run(
                 code: "frame.contentWindow.postMessage(data, origin);",
                 errors: [{ messageId: "default" }],
             },
-            // window.postMessage
+            // Window.postMessage
             {
                 code: "window.postMessage(data, dynamicOrigin);",
                 errors: [{ messageId: "default" }],
@@ -886,12 +886,12 @@ ruleTester.run(
 // Additional paths: window.document.cookie, bare document check.
 ruleTester.run("no-cookies", getPluginRule("no-cookies"), {
     invalid: [
-        // document.cookie assignment (already in baseline)
+        // Document.cookie assignment (already in baseline)
         {
             code: "document.cookie = 'session=abc';",
             errors: [{ messageId: "doNotUseCookies" }],
         },
-        // window.document.cookie
+        // Window.document.cookie
         {
             code: "window.document.cookie = 'session=abc';",
             errors: [{ messageId: "doNotUseCookies" }],
@@ -947,12 +947,12 @@ ruleTester.run("no-html-method", getPluginRule("no-html-method"), {
 // Additional coverage for adjacent HTML insertion variants.
 ruleTester.run("no-inner-html", getPluginRule("no-inner-html"), {
     invalid: [
-        // outerHTML assignment
+        // OuterHTML assignment
         {
             code: "element.outerHTML = userContent;",
             errors: [{ messageId: "noInnerHtml" }],
         },
-        // insertAdjacentHTML with different positions
+        // InsertAdjacentHTML with different positions
         {
             code: "element.insertAdjacentHTML('afterend', markup);",
             errors: [{ messageId: "noInsertAdjacentHTML" }],
@@ -963,9 +963,9 @@ ruleTester.run("no-inner-html", getPluginRule("no-inner-html"), {
         },
     ],
     valid: [
-        // textContent assignment (not innerHTML)
+        // TextContent assignment (not innerHTML)
         "element.textContent = userContent;",
-        // insertAdjacentHTML with empty string
+        // InsertAdjacentHTML with empty string
         "element.insertAdjacentHTML('beforebegin', '');",
     ],
 });

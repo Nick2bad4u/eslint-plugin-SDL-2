@@ -1,4 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/utils";
+
 import { describe, expect, it } from "vitest";
 
 import {
@@ -50,16 +51,16 @@ describe("ast-utils", () => {
             },
         };
 
-        expect(hasFullTypeInformation(validContext)).toBe(true);
+        expect(hasFullTypeInformation(validContext)).toBeTruthy();
         expect(getFullTypeChecker(validContext)).toBe(fakeTypeChecker);
-        expect(hasFullTypeInformation({ sourceCode: {} })).toBe(false);
+        expect(hasFullTypeInformation({ sourceCode: {} })).toBeFalsy();
         expect(getFullTypeChecker({ sourceCode: {} })).toBeUndefined();
     });
 
     it("falls back to 'any' when type data is missing", () => {
         const node = asType<TSESTree.Identifier>({
-            type: "Identifier",
             name: "value",
+            type: "Identifier",
         });
 
         expect(getNodeTypeAsString(undefined, node, {})).toBe("any");
@@ -69,68 +70,68 @@ describe("ast-utils", () => {
 
     it("detects document object syntactically without type checker", () => {
         const documentIdentifier = asType<TSESTree.Identifier>({
-            type: "Identifier",
             name: "document",
+            type: "Identifier",
         });
 
         const windowDocument = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
-            object: { type: "Identifier", name: "window" },
-            property: { type: "Identifier", name: "document" },
+            object: { name: "window", type: "Identifier" },
             optional: false,
+            property: { name: "document", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const thisWindowDocument = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
             object: {
-                type: "MemberExpression",
                 computed: false,
                 object: { type: "ThisExpression" },
-                property: { type: "Identifier", name: "window" },
                 optional: false,
+                property: { name: "window", type: "Identifier" },
+                type: "MemberExpression",
             },
-            property: { type: "Identifier", name: "document" },
             optional: false,
+            property: { name: "document", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const notDocument = asType<TSESTree.Identifier>({
-            type: "Identifier",
             name: "notDocument",
+            type: "Identifier",
         });
 
-        expect(isDocumentObject(documentIdentifier, {}, undefined)).toBe(true);
-        expect(isDocumentObject(windowDocument, {}, undefined)).toBe(true);
-        expect(isDocumentObject(thisWindowDocument, {}, undefined)).toBe(true);
-        expect(isDocumentObject(notDocument, {}, undefined)).toBe(false);
+        expect(isDocumentObject(documentIdentifier, {}, undefined)).toBeTruthy();
+        expect(isDocumentObject(windowDocument, {}, undefined)).toBeTruthy();
+        expect(isDocumentObject(thisWindowDocument, {}, undefined)).toBeTruthy();
+        expect(isDocumentObject(notDocument, {}, undefined)).toBeFalsy();
     });
 });
 
 describe("estree-utils", () => {
     it("extracts member and property names", () => {
         const dotMember = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
-            object: { type: "Identifier", name: "obj" },
-            property: { type: "Identifier", name: "prop" },
+            object: { name: "obj", type: "Identifier" },
             optional: false,
+            property: { name: "prop", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const bracketMember = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: true,
-            object: { type: "Identifier", name: "obj" },
-            property: { type: "Literal", value: "prop", raw: "'prop'" },
+            object: { name: "obj", type: "Identifier" },
             optional: false,
+            property: { raw: "'prop'", type: "Literal", value: "prop" },
+            type: "MemberExpression",
         });
 
         const unsupportedMember = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: true,
-            object: { type: "Identifier", name: "obj" },
-            property: { type: "Identifier", name: "dynamic" },
+            object: { name: "obj", type: "Identifier" },
             optional: false,
+            property: { name: "dynamic", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         expect(getMemberPropertyName(dotMember)).toBe("prop");
@@ -140,22 +141,22 @@ describe("estree-utils", () => {
 
     it("extracts object property names and values", () => {
         const initProperty = asType<TSESTree.Property>({
-            type: "Property",
+            computed: false,
+            key: { name: "secureProtocol", type: "Identifier" },
             kind: "init",
             method: false,
             shorthand: false,
-            computed: false,
-            key: { type: "Identifier", name: "secureProtocol" },
+            type: "Property",
             value: {
+                raw: "'TLSv1_method'",
                 type: "Literal",
                 value: "TLSv1_method",
-                raw: "'TLSv1_method'",
             },
         });
 
         const objectExpression = asType<TSESTree.ObjectExpression>({
-            type: "ObjectExpression",
             properties: [initProperty],
+            type: "ObjectExpression",
         });
 
         expect(getPropertyName(initProperty)).toBe("secureProtocol");
@@ -167,27 +168,27 @@ describe("estree-utils", () => {
 
     it("resolves static string values from expressions and JSX attributes", () => {
         const literal = asType<TSESTree.Literal>({
+            raw: "'https://example.com'",
             type: "Literal",
             value: "https://example.com",
-            raw: "'https://example.com'",
         });
 
         const template = asType<TSESTree.TemplateLiteral>({
-            type: "TemplateLiteral",
             expressions: [],
             quasis: [
                 {
-                    type: "TemplateElement",
                     tail: true,
-                    value: { raw: "safe", cooked: "safe" },
+                    type: "TemplateElement",
+                    value: { cooked: "safe", raw: "safe" },
                 },
             ],
+            type: "TemplateLiteral",
         });
 
         const jsxLiteral = asType<TSESTree.JSXAttribute["value"]>({
+            raw: "'safe'",
             type: "Literal",
             value: "safe",
-            raw: "'safe'",
         });
 
         expect(getStaticStringValue(literal)).toBe("https://example.com");
@@ -200,107 +201,107 @@ describe("estree-utils", () => {
 describe("node-tls-config", () => {
     it("recognizes relevant TLS object/call/constructor patterns", () => {
         const tlsIdentifier = asType<TSESTree.Identifier>({
-            type: "Identifier",
             name: "tls",
+            type: "Identifier",
         });
 
         const createServerCallee = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
             object: tlsIdentifier,
-            property: { type: "Identifier", name: "createServer" },
             optional: false,
+            property: { name: "createServer", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const newAgentCallee = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
-            object: { type: "Identifier", name: "https" },
-            property: { type: "Identifier", name: "Agent" },
+            object: { name: "https", type: "Identifier" },
             optional: false,
+            property: { name: "Agent", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const optionsNode = asType<TSESTree.ObjectExpression>({
-            type: "ObjectExpression",
-            properties: [],
             parent: {
-                type: "CallExpression",
-                callee: createServerCallee,
                 arguments: [],
+                callee: createServerCallee,
                 optional: false,
+                type: "CallExpression",
             },
+            properties: [],
+            type: "ObjectExpression",
         });
 
         const assignLeft = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
-            object: { type: "Identifier", name: "tls" },
-            property: { type: "Identifier", name: "DEFAULT_MIN_VERSION" },
+            object: { name: "tls", type: "Identifier" },
             optional: false,
+            property: { name: "DEFAULT_MIN_VERSION", type: "Identifier" },
+            type: "MemberExpression",
         });
 
-        expect(isNodeTlsObjectExpression(tlsIdentifier)).toBe(true);
-        expect(isRelevantNodeTlsCall(createServerCallee)).toBe(true);
-        expect(isRelevantNodeTlsConstructor(newAgentCallee)).toBe(true);
-        expect(isRelevantNodeTlsOptionsObject(optionsNode)).toBe(true);
+        expect(isNodeTlsObjectExpression(tlsIdentifier)).toBeTruthy();
+        expect(isRelevantNodeTlsCall(createServerCallee)).toBeTruthy();
+        expect(isRelevantNodeTlsConstructor(newAgentCallee)).toBeTruthy();
+        expect(isRelevantNodeTlsOptionsObject(optionsNode)).toBeTruthy();
         expect(
             isNodeTlsStaticMember(assignLeft, new Set(["DEFAULT_MIN_VERSION"]))
-        ).toBe(true);
+        ).toBeTruthy();
     });
 });
 
 describe("worker-code-loading", () => {
     it("recognizes worker-related URL and API patterns", () => {
-        expect(isBlobUrl("blob:https://example.com")).toBe(true);
-        expect(isDataUrl("data:text/javascript,alert(1)")).toBe(true);
-        expect(isBlobUrl("https://example.com")).toBe(false);
+        expect(isBlobUrl("blob:https://example.com")).toBeTruthy();
+        expect(isDataUrl("data:text/javascript,alert(1)")).toBeTruthy();
+        expect(isBlobUrl("https://example.com")).toBeFalsy();
 
         const workerCtor = asType<TSESTree.Identifier>({
-            type: "Identifier",
             name: "Worker",
+            type: "Identifier",
         });
 
         const importScriptsCallee = asType<TSESTree.Identifier>({
-            type: "Identifier",
             name: "importScripts",
+            type: "Identifier",
         });
 
         const serviceWorkerAccess = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
-            object: { type: "Identifier", name: "navigator" },
-            property: { type: "Identifier", name: "serviceWorker" },
+            object: { name: "navigator", type: "Identifier" },
             optional: false,
+            property: { name: "serviceWorker", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const registerCallee = asType<TSESTree.MemberExpression>({
-            type: "MemberExpression",
             computed: false,
             object: serviceWorkerAccess,
-            property: { type: "Identifier", name: "register" },
             optional: false,
+            property: { name: "register", type: "Identifier" },
+            type: "MemberExpression",
         });
 
         const createObjectUrl = asType<TSESTree.CallExpression>({
-            type: "CallExpression",
-            callee: {
-                type: "MemberExpression",
-                computed: false,
-                object: { type: "Identifier", name: "URL" },
-                property: { type: "Identifier", name: "createObjectURL" },
-                optional: false,
-            },
             arguments: [],
+            callee: {
+                computed: false,
+                object: { name: "URL", type: "Identifier" },
+                optional: false,
+                property: { name: "createObjectURL", type: "Identifier" },
+                type: "MemberExpression",
+            },
             optional: false,
+            type: "CallExpression",
         });
 
         expect(
-            isWorkerGlobalObject(asType({ type: "Identifier", name: "self" }))
-        ).toBe(true);
-        expect(isWorkerConstructor(workerCtor)).toBe(true);
-        expect(isImportScriptsCall(importScriptsCallee)).toBe(true);
-        expect(isServiceWorkerContainerAccess(serviceWorkerAccess)).toBe(true);
-        expect(isServiceWorkerRegisterCall(registerCallee)).toBe(true);
-        expect(isUrlCreateObjectUrlCall(createObjectUrl)).toBe(true);
+            isWorkerGlobalObject(asType({ name: "self", type: "Identifier" }))
+        ).toBeTruthy();
+        expect(isWorkerConstructor(workerCtor)).toBeTruthy();
+        expect(isImportScriptsCall(importScriptsCallee)).toBeTruthy();
+        expect(isServiceWorkerContainerAccess(serviceWorkerAccess)).toBeTruthy();
+        expect(isServiceWorkerRegisterCall(registerCallee)).toBeTruthy();
+        expect(isUrlCreateObjectUrlCall(createObjectUrl)).toBeTruthy();
     });
 });
