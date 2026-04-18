@@ -33,10 +33,18 @@ import {
     isWorkerGlobalObject,
 } from "../../src/_internal/worker-code-loading";
 
-const asType = <T>(value: unknown): T => value as T;
+const asType = <T>(value: unknown, _marker?: (typedValue: T) => void): T => {
+    if (_marker !== undefined) {
+        return value as T;
+    }
+
+    return value as T;
+};
 
 describe("ast-utils", () => {
     it("handles parser services and type checker access", () => {
+        expect.hasAssertions();
+
         const fakeTypeChecker = { typeToString: () => "Document" };
         const fakeProgram = { getTypeChecker: () => fakeTypeChecker };
         const fakeMap = new Map();
@@ -58,6 +66,8 @@ describe("ast-utils", () => {
     });
 
     it("falls back to 'any' when type data is missing", () => {
+        expect.hasAssertions();
+
         const node = asType<TSESTree.Identifier>({
             name: "value",
             type: "Identifier",
@@ -69,6 +79,8 @@ describe("ast-utils", () => {
     });
 
     it("detects document object syntactically without type checker", () => {
+        expect.hasAssertions();
+
         const documentIdentifier = asType<TSESTree.Identifier>({
             name: "document",
             type: "Identifier",
@@ -101,15 +113,21 @@ describe("ast-utils", () => {
             type: "Identifier",
         });
 
-        expect(isDocumentObject(documentIdentifier, {}, undefined)).toBeTruthy();
+        expect(
+            isDocumentObject(documentIdentifier, {}, undefined)
+        ).toBeTruthy();
         expect(isDocumentObject(windowDocument, {}, undefined)).toBeTruthy();
-        expect(isDocumentObject(thisWindowDocument, {}, undefined)).toBeTruthy();
+        expect(
+            isDocumentObject(thisWindowDocument, {}, undefined)
+        ).toBeTruthy();
         expect(isDocumentObject(notDocument, {}, undefined)).toBeFalsy();
     });
 });
 
 describe("estree-utils", () => {
     it("extracts member and property names", () => {
+        expect.hasAssertions();
+
         const dotMember = asType<TSESTree.MemberExpression>({
             computed: false,
             object: { name: "obj", type: "Identifier" },
@@ -140,6 +158,8 @@ describe("estree-utils", () => {
     });
 
     it("extracts object property names and values", () => {
+        expect.hasAssertions();
+
         const initProperty = asType<TSESTree.Property>({
             computed: false,
             key: { name: "secureProtocol", type: "Identifier" },
@@ -167,6 +187,8 @@ describe("estree-utils", () => {
     });
 
     it("resolves static string values from expressions and JSX attributes", () => {
+        expect.hasAssertions();
+
         const literal = asType<TSESTree.Literal>({
             raw: "'https://example.com'",
             type: "Literal",
@@ -200,6 +222,8 @@ describe("estree-utils", () => {
 
 describe("node-tls-config", () => {
     it("recognizes relevant TLS object/call/constructor patterns", () => {
+        expect.hasAssertions();
+
         const tlsIdentifier = asType<TSESTree.Identifier>({
             name: "tls",
             type: "Identifier",
@@ -252,6 +276,7 @@ describe("node-tls-config", () => {
 
 describe("worker-code-loading", () => {
     it("recognizes worker-related URL and API patterns", () => {
+        expect.hasAssertions();
         expect(isBlobUrl("blob:https://example.com")).toBeTruthy();
         expect(isDataUrl("data:text/javascript,alert(1)")).toBeTruthy();
         expect(isBlobUrl("https://example.com")).toBeFalsy();
@@ -300,7 +325,9 @@ describe("worker-code-loading", () => {
         ).toBeTruthy();
         expect(isWorkerConstructor(workerCtor)).toBeTruthy();
         expect(isImportScriptsCall(importScriptsCallee)).toBeTruthy();
-        expect(isServiceWorkerContainerAccess(serviceWorkerAccess)).toBeTruthy();
+        expect(
+            isServiceWorkerContainerAccess(serviceWorkerAccess)
+        ).toBeTruthy();
         expect(isServiceWorkerRegisterCall(registerCallee)).toBeTruthy();
         expect(isUrlCreateObjectUrlCall(createObjectUrl)).toBeTruthy();
     });

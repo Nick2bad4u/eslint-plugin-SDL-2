@@ -12,6 +12,4 @@ const docsBaseUrl =
 /** Shared SDL rule helper that injects canonical docs URLs. */
 export const createRule: ReturnType<
     typeof ESLintUtils.RuleCreator<SdlRuleDocs>
-> = ESLintUtils.RuleCreator<SdlRuleDocs>( // eslint-disable-line total-functions/no-hidden-type-assertions -- RuleCreator must be specialized with plugin docs metadata so `meta.docs.recommended` is strongly typed.
-    (name) => `${docsBaseUrl}/${name}`
-);
+> = ESLintUtils.RuleCreator<SdlRuleDocs>((name) => `${docsBaseUrl}/${name}`);

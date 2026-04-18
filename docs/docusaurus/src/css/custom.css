@@ -1,5 +1,4 @@
 /** eslint-disable css/use-baseline */
-/* stylelint-disable no-descending-specificity, csstools/use-nesting, order/properties-order, plugin/no-low-performance-animation-properties, scales/font-sizes, scales/line-heights -- Docusaurus global theming intentionally layers broad site overrides and uses project-specific design tokens. */
 
 @font-face {
     font-family: "NerdFontSymbols Nerd Font Symbols";
@@ -43,6 +42,8 @@
     --ifm-heading-font-weight: 760;
     --ifm-global-radius: 1rem;
     --ifm-navbar-background-color: rgb(255 255 255 / 84%);
+    --ifm-navbar-shadow: 0 14px 32px -28px rgb(15 23 42 / 35%);
+    --ifm-pagination-nav-border-radius: 1rem;
     --ifm-footer-background-color: #111426;
     --ifm-toc-border-color: rgb(124 92 255 / 16%);
     --ifm-menu-color-background-active: rgb(124 92 255 / 10%);
@@ -251,9 +252,11 @@ body {
 }
 
 .navbar {
-    backdrop-filter: blur(16px);
     border-block-end: 1px solid rgb(124 92 255 / 14%);
-    box-shadow: 0 14px 32px -28px rgb(15 23 42 / 35%);
+}
+
+.navbar .navbar__inner {
+    backdrop-filter: blur(16px);
 }
 
 .navbar .dropdown__menu {
@@ -289,8 +292,7 @@ body {
     letter-spacing: -0.02em;
 }
 
-.theme-doc-markdown
-    :is(blockquote, table, .theme-admonition, .pagination-nav__link) {
+.theme-doc-markdown :is(blockquote, table, .theme-admonition) {
     border-radius: 1rem;
 }
 
@@ -801,19 +803,24 @@ body {
     color: rgb(165 243 252);
 }
 
-.theme-doc-sidebar-item-category-level-2
+.theme-doc-sidebar-menu
+    .theme-doc-sidebar-item-category-level-2
     > .menu__list-item-collapsible
     > .menu__link,
-.theme-doc-sidebar-item-category-level-3
+.theme-doc-sidebar-menu
+    .theme-doc-sidebar-item-category-level-3
     > .menu__list-item-collapsible
     > .menu__link,
-.theme-doc-sidebar-item-category-level-4
+.theme-doc-sidebar-menu
+    .theme-doc-sidebar-item-category-level-4
     > .menu__list-item-collapsible
     > .menu__link,
-.theme-doc-sidebar-item-category-level-5
+.theme-doc-sidebar-menu
+    .theme-doc-sidebar-item-category-level-5
     > .menu__list-item-collapsible
     > .menu__link,
-.theme-doc-sidebar-item-category-level-6
+.theme-doc-sidebar-menu
+    .theme-doc-sidebar-item-category-level-6
     > .menu__list-item-collapsible
     > .menu__link {
     line-height: 1.4;

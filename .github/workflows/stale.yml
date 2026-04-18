@@ -25,10 +25,14 @@
 # yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
 name: Mark Stale Issues And Pull Requests
 
+run-name: Stale triage (${{ github.event_name }}) · ${{ github.ref_name }}
+
 on:
     schedule:
         - cron: "38 7 * * *"
     pull_request_target:
+        branches:
+            - main
         types:
             - opened
             - reopened
@@ -43,15 +47,18 @@ on:
 permissions:
     contents: read
 
+concurrency:
+    group: stale-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
     stale:
+        name: Mark stale issues and pull requests
         runs-on: ubuntu-latest
+        timeout-minutes: 15
         permissions:
             issues: write
             pull-requests: write
-        concurrency:
-            group: stale-${{ github.ref }}
-            cancel-in-progress: false
 
         steps:
             - name: Harden Runner
@@ -59,7 +66,8 @@ jobs:
               with:
                   egress-policy: audit
 
-            - uses: actions/stale@b5d41d4e1d5dceea10e7104786b73624c18a190f # v10.2.0
+            - name: Mark stale items
+              uses: actions/stale@b5d41d4e1d5dceea10e7104786b73624c18a190f # v10.2.0
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
                   stale-issue-message: "Stale issue"

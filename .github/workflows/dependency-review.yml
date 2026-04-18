@@ -26,18 +26,27 @@
 
 # yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
 name: "Dependency Review"
-on: [pull_request]
+
+run-name: Dependency Review (${{ github.event_name }}) · ${{ github.ref_name }}
+
+on:
+    pull_request:
+    merge_group:
+        types:
+            - checks_requested
 
 permissions:
     contents: read
 
 concurrency:
     group: dependency-review-${{ github.ref }}
-    cancel-in-progress: false
+    cancel-in-progress: true
 
 jobs:
     dependency-review:
+        name: Dependency review
         runs-on: ubuntu-latest
+        timeout-minutes: 10
         steps:
             - name: Harden Runner
               uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
@@ -48,3 +57,5 @@ jobs:
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
             - name: "Dependency Review"
               uses: actions/dependency-review-action@05fe4576374b728f0c523d6a13d64c25081e0803 # v4.8.3
+              with:
+                  fail-on-severity: high

@@ -1,9 +1,9 @@
 /**
  * Rules-coverage-3.test.ts
  *
- * Targeted coverage tests for ESLint SDL rules — Phase 3.
- * Covers early-return guards, fixer edge cases, bracket-notation method names,
- * SpreadElement in options objects, and other uncovered code paths.
+ * Targeted coverage tests for ESLint SDL rules — Phase 3. Covers early-return
+ * guards, fixer edge cases, bracket-notation method names, SpreadElement in
+ * options objects, and other uncovered code paths.
  */
 
 import { createRuleTester, getPluginRule } from "./_internal/ruleTester.js";
@@ -46,7 +46,7 @@ ruleTester.run(
             // Empty string is safe (non-dangerous blink features value)
             "new BrowserWindow({ webPreferences: { enableBlinkFeatures: '' } });",
             // Template literal with expressions (not static)
-            "new BrowserWindow({ webPreferences: { enableBlinkFeatures: `${featureVar}` } });",
+            `new BrowserWindow({ webPreferences: { enableBlinkFeatures: \`\${featureVar}\` } });`,
         ],
     }
 );
@@ -454,7 +454,8 @@ ruleTester.run(
                         messageId: "default",
                         suggestions: [
                             {
-                                messageId: "replaceWithTlsRejectUnauthorizedOne",
+                                messageId:
+                                    "replaceWithTlsRejectUnauthorizedOne",
                                 output: "process.env.NODE_TLS_REJECT_UNAUTHORIZED = `1`;",
                             },
                         ],
@@ -469,7 +470,8 @@ ruleTester.run(
                         messageId: "default",
                         suggestions: [
                             {
-                                messageId: "replaceWithTlsRejectUnauthorizedOne",
+                                messageId:
+                                    "replaceWithTlsRejectUnauthorizedOne",
                                 output: "process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1';",
                             },
                         ],
@@ -484,7 +486,8 @@ ruleTester.run(
                         messageId: "default",
                         suggestions: [
                             {
-                                messageId: "replaceWithTlsRejectUnauthorizedOne",
+                                messageId:
+                                    "replaceWithTlsRejectUnauthorizedOne",
                                 output: "process.env.NODE_TLS_REJECT_UNAUTHORIZED = '1';",
                             },
                         ],
@@ -506,33 +509,29 @@ ruleTester.run(
 // ─────────────────────────────────────────────────────────────────────────────
 // no-unsafe-alloc — allocUnsafeSlow fixer path
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-unsafe-alloc",
-    getPluginRule("no-unsafe-alloc"),
-    {
-        invalid: [
-            // Fixer replaces allocUnsafe with alloc
-            {
-                code: "Buffer.allocUnsafe(1024);",
-                errors: [{ messageId: "default" }],
-                output: "Buffer.alloc(1024);",
-            },
-            // Covers allocUnsafeSlow (fixer replaces with alloc)
-            {
-                code: "Buffer.allocUnsafeSlow(512);",
-                errors: [{ messageId: "default" }],
-                output: "Buffer.alloc(512);",
-            },
-        ],
-        valid: [
-            // Size 0 is exempt
-            "Buffer.allocUnsafe(0);",
-            "Buffer.allocUnsafeSlow(0);",
-            // Regular alloc is fine
-            "Buffer.alloc(1024);",
-        ],
-    }
-);
+ruleTester.run("no-unsafe-alloc", getPluginRule("no-unsafe-alloc"), {
+    invalid: [
+        // Fixer replaces allocUnsafe with alloc
+        {
+            code: "Buffer.allocUnsafe(1024);",
+            errors: [{ messageId: "default" }],
+            output: "Buffer.alloc(1024);",
+        },
+        // Covers allocUnsafeSlow (fixer replaces with alloc)
+        {
+            code: "Buffer.allocUnsafeSlow(512);",
+            errors: [{ messageId: "default" }],
+            output: "Buffer.alloc(512);",
+        },
+    ],
+    valid: [
+        // Size 0 is exempt
+        "Buffer.allocUnsafe(0);",
+        "Buffer.allocUnsafeSlow(0);",
+        // Regular alloc is fine
+        "Buffer.alloc(1024);",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-iframe-srcdoc — additional paths
@@ -541,90 +540,82 @@ ruleTester.run(
 //            line 166 (JSXOpeningElement with non-iframe element),
 //            line 176 (JSX attribute not srcdoc)
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-iframe-srcdoc",
-    getPluginRule("no-iframe-srcdoc"),
-    {
-        invalid: [
-            // Standard invalid: AssignmentExpression with iframe-like variable ('myiframe' ends with 'iframe')
-            {
-                code: "myIframe.srcdoc = '<html><body>test</body></html>';",
-                errors: [{ messageId: "default" }],
-            },
-            // Standard invalid: setAttribute with srcdoc
-            {
-                code: "iframe.setAttribute('srcdoc', '<html>content</html>');",
-                errors: [{ messageId: "default" }],
-            },
-            // JSX: iframe with srcdoc attribute
-            {
-                code: "<iframe srcdoc='<html>content</html>' />;",
-                errors: [{ messageId: "default" }],
-                languageOptions: tsReactLanguageOptions,
-            },
-        ],
-        valid: [
-            // Covers line 129: bare setAttribute call (callee not MemberExpression)
-            "setAttribute('srcdoc', 'content');",
-            // Covers line ~156: non-iframe object with setAttribute('srcdoc', ...)
-            "div.setAttribute('srcdoc', '<html>content</html>');",
-            // Covers AssignmentExpression non-iframe valid case
-            "div.srcdoc = 'content';",
-            // Covers AssignmentExpression with empty string (early return)
-            "iframeEl.srcdoc = '';",
-            // Covers setAttribute with empty second arg
-            "iframe.setAttribute('srcdoc', '');",
-            // Covers setAttribute with non-srcdoc attribute
-            "iframe.setAttribute('class', 'frame');",
-            // Covers JSX non-iframe element with srcdoc
-            {
-                code: "<div srcdoc='content' />;",
-                languageOptions: tsReactLanguageOptions,
-            },
-            // Covers JSX iframe without srcdoc attribute
-            {
-                code: "<iframe className='frame' />;",
-                languageOptions: tsReactLanguageOptions,
-            },
-        ],
-    }
-);
+ruleTester.run("no-iframe-srcdoc", getPluginRule("no-iframe-srcdoc"), {
+    invalid: [
+        // Standard invalid: AssignmentExpression with iframe-like variable ('myiframe' ends with 'iframe')
+        {
+            code: "myIframe.srcdoc = '<html><body>test</body></html>';",
+            errors: [{ messageId: "default" }],
+        },
+        // Standard invalid: setAttribute with srcdoc
+        {
+            code: "iframe.setAttribute('srcdoc', '<html>content</html>');",
+            errors: [{ messageId: "default" }],
+        },
+        // JSX: iframe with srcdoc attribute
+        {
+            code: "<iframe srcdoc='<html>content</html>' />;",
+            errors: [{ messageId: "default" }],
+            languageOptions: tsReactLanguageOptions,
+        },
+    ],
+    valid: [
+        // Covers line 129: bare setAttribute call (callee not MemberExpression)
+        "setAttribute('srcdoc', 'content');",
+        // Covers line ~156: non-iframe object with setAttribute('srcdoc', ...)
+        "div.setAttribute('srcdoc', '<html>content</html>');",
+        // Covers AssignmentExpression non-iframe valid case
+        "div.srcdoc = 'content';",
+        // Covers AssignmentExpression with empty string (early return)
+        "iframeEl.srcdoc = '';",
+        // Covers setAttribute with empty second arg
+        "iframe.setAttribute('srcdoc', '');",
+        // Covers setAttribute with non-srcdoc attribute
+        "iframe.setAttribute('class', 'frame');",
+        // Covers JSX non-iframe element with srcdoc
+        {
+            code: String.raw`<div srcdoc='content' />;`,
+            languageOptions: tsReactLanguageOptions,
+        },
+        // Covers JSX iframe without srcdoc attribute
+        {
+            code: String.raw`<iframe className="frame" />;`,
+            languageOptions: tsReactLanguageOptions,
+        },
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-inner-html — additional paths
 // Uncovered: line 40 (empty string early return), line 56 (mightBeHTMLElement = false with type checker)
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-inner-html",
-    getPluginRule("no-inner-html"),
-    {
-        invalid: [
-            // Standard invalid: innerHTML assignment
-            {
-                code: "element.innerHTML = '<b>Bold text</b>';",
-                errors: [{ messageId: "noInnerHtml" }],
-            },
-            // OuterHTML
-            {
-                code: "element.outerHTML = '<div>content</div>';",
-                errors: [{ messageId: "noInnerHtml" }],
-            },
-            // InsertAdjacentHTML
-            {
-                code: "element.insertAdjacentHTML('beforeend', '<p>text</p>');",
-                errors: [{ messageId: "noInsertAdjacentHTML" }],
-            },
-        ],
-        valid: [
-            // Covers line 40: empty string → isEmptyStringLiteral → early return
-            "element.innerHTML = '';",
-            // Covers outerHTML with empty string
-            "element.outerHTML = '';",
-            // Non-innerHTML assignment
-            "element.textContent = 'safe text';",
-        ],
-    }
-);
+ruleTester.run("no-inner-html", getPluginRule("no-inner-html"), {
+    invalid: [
+        // Standard invalid: innerHTML assignment
+        {
+            code: "element.innerHTML = '<b>Bold text</b>';",
+            errors: [{ messageId: "noInnerHtml" }],
+        },
+        // OuterHTML
+        {
+            code: "element.outerHTML = '<div>content</div>';",
+            errors: [{ messageId: "noInnerHtml" }],
+        },
+        // InsertAdjacentHTML
+        {
+            code: "element.insertAdjacentHTML('beforeend', '<p>text</p>');",
+            errors: [{ messageId: "noInsertAdjacentHTML" }],
+        },
+    ],
+    valid: [
+        // Covers line 40: empty string → isEmptyStringLiteral → early return
+        "element.innerHTML = '';",
+        // Covers outerHTML with empty string
+        "element.outerHTML = '';",
+        // Non-innerHTML assignment
+        "element.textContent = 'safe text';",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-node-vm-run-in-context — additional patterns
@@ -761,12 +752,32 @@ ruleTester.run(
             // Direct postMessage call with '*' origin
             {
                 code: "window.postMessage(data, '*');",
-                errors: [{ messageId: "default", suggestions: [{ messageId: "replaceWithExplicitOrigin", output: "window.postMessage(data, location.origin);" }] }],
+                errors: [
+                    {
+                        messageId: "default",
+                        suggestions: [
+                            {
+                                messageId: "replaceWithExplicitOrigin",
+                                output: "window.postMessage(data, location.origin);",
+                            },
+                        ],
+                    },
+                ],
             },
             // Iframe.contentWindow.postMessage
             {
                 code: "iframe.contentWindow.postMessage(data, '*');",
-                errors: [{ messageId: "default", suggestions: [{ messageId: "replaceWithExplicitOrigin", output: "iframe.contentWindow.postMessage(data, location.origin);" }] }],
+                errors: [
+                    {
+                        messageId: "default",
+                        suggestions: [
+                            {
+                                messageId: "replaceWithExplicitOrigin",
+                                output: "iframe.contentWindow.postMessage(data, location.origin);",
+                            },
+                        ],
+                    },
+                ],
             },
         ],
         valid: [
@@ -811,64 +822,56 @@ ruleTester.run(
 // ─────────────────────────────────────────────────────────────────────────────
 // no-worker-blob-url
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-worker-blob-url",
-    getPluginRule("no-worker-blob-url"),
-    {
-        invalid: [
-            {
-                code: "const w = new Worker(URL.createObjectURL(blob));",
-                errors: [{ messageId: "default" }],
-            },
-            {
-                code: "const w = new SharedWorker(URL.createObjectURL(scriptBlob));",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            "const w = new Worker('worker.js');",
-            "const w = new Worker(workerUrl);",
-        ],
-    }
-);
+ruleTester.run("no-worker-blob-url", getPluginRule("no-worker-blob-url"), {
+    invalid: [
+        {
+            code: "const w = new Worker(URL.createObjectURL(blob));",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "const w = new SharedWorker(URL.createObjectURL(scriptBlob));",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "const w = new Worker('worker.js');",
+        "const w = new Worker(workerUrl);",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-worker-data-url — additional paths
 // Uncovered: lines 20, 25, 45, 54
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-worker-data-url",
-    getPluginRule("no-worker-data-url"),
-    {
-        invalid: [
-            // Literal data: URL
-            {
-                code: "const w = new Worker('data:text/javascript,console.log(1)');",
-                errors: [{ messageId: "default" }],
-            },
-            // TemplateLiteral data: URL (no expressions, so it's statically detectable)
-            {
-                code: "const w = new Worker(`data:text/javascript,alert(1)`);",
-                errors: [{ messageId: "default" }],
-            },
-            // SharedWorker with data: URL
-            {
-                code: "const w = new SharedWorker('data:text/javascript,code');",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            // Regular file URL
-            "const w = new Worker('worker.js');",
-            // Template WITH expression (not static, can't determine URL) → not flagged
-            "const w = new Worker(`data:text/javascript,${code}`);",
-            // Template without data: prefix
-            "const w = new Worker(`${baseUrl}/worker.js`);",
-            // Blob URL (different rule handles this)
-            "const w = new Worker(blobUrl);",
-        ],
-    }
-);
+ruleTester.run("no-worker-data-url", getPluginRule("no-worker-data-url"), {
+    invalid: [
+        // Literal data: URL
+        {
+            code: "const w = new Worker('data:text/javascript,console.log(1)');",
+            errors: [{ messageId: "default" }],
+        },
+        // TemplateLiteral data: URL (no expressions, so it's statically detectable)
+        {
+            code: "const w = new Worker(`data:text/javascript,alert(1)`);",
+            errors: [{ messageId: "default" }],
+        },
+        // SharedWorker with data: URL
+        {
+            code: "const w = new SharedWorker('data:text/javascript,code');",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        // Regular file URL
+        "const w = new Worker('worker.js');",
+        // Template WITH expression (not static, can't determine URL) → not flagged
+        `const w = new Worker(\`data:text/javascript,\${code}\`);`,
+        // Template without data: prefix
+        `const w = new Worker(\`\${baseUrl}/worker.js\`);`,
+        // Blob URL (different rule handles this)
+        "const w = new Worker(blobUrl);",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-service-worker-unsafe-script-url
@@ -897,26 +900,22 @@ ruleTester.run(
 // ─────────────────────────────────────────────────────────────────────────────
 // no-winjs-html-unsafe
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-winjs-html-unsafe",
-    getPluginRule("no-winjs-html-unsafe"),
-    {
-        invalid: [
-            {
-                code: "WinJS.Utilities.setInnerHTMLUnsafe(element, userHtml);",
-                errors: [{ messageId: "default" }],
-            },
-            {
-                code: "WinJS.Utilities.setOuterHTMLUnsafe(element, userHtml);",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            "WinJS.Utilities.setInnerHTML(element, safeHtml);",
-            "element.innerHTML = safeHtml;",
-        ],
-    }
-);
+ruleTester.run("no-winjs-html-unsafe", getPluginRule("no-winjs-html-unsafe"), {
+    invalid: [
+        {
+            code: "WinJS.Utilities.setInnerHTMLUnsafe(element, userHtml);",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "WinJS.Utilities.setOuterHTMLUnsafe(element, userHtml);",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "WinJS.Utilities.setInnerHTML(element, safeHtml);",
+        "element.innerHTML = safeHtml;",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-angularjs-sanitization-whitelist — basic tests
@@ -989,22 +988,18 @@ ruleTester.run(
 // ─────────────────────────────────────────────────────────────────────────────
 // no-set-html-unsafe
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-set-html-unsafe",
-    getPluginRule("no-set-html-unsafe"),
-    {
-        invalid: [
-            {
-                code: "element.setHTMLUnsafe(userHtml);",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            "element.setHTML(sanitizedHtml);",
-            "element.innerHTML = sanitizedHtml;",
-        ],
-    }
-);
+ruleTester.run("no-set-html-unsafe", getPluginRule("no-set-html-unsafe"), {
+    invalid: [
+        {
+            code: "element.setHTMLUnsafe(userHtml);",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "element.setHTML(sanitizedHtml);",
+        "element.innerHTML = sanitizedHtml;",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-document-parse-html-unsafe
@@ -1047,7 +1042,7 @@ ruleTester.run(
         ],
         valid: [
             "import('./module.js');",
-            "import(`./modules/${name}.js`);",
+            `import(\`./modules/\${name}.js\`);`,
             "import('./safe-module.js')",
         ],
     }
@@ -1089,46 +1084,35 @@ ruleTester.run(
 // ─────────────────────────────────────────────────────────────────────────────
 // no-document-write — basic tests
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-document-write",
-    getPluginRule("no-document-write"),
-    {
-        invalid: [
-            {
-                code: "document.write('<p>content</p>');",
-                errors: [{ messageId: "default" }],
-            },
-            {
-                code: "document.writeln('<p>content</p>');",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            "document.createElement('p');",
-            "element.textContent = 'content';",
-        ],
-    }
-);
+ruleTester.run("no-document-write", getPluginRule("no-document-write"), {
+    invalid: [
+        {
+            code: "document.write('<p>content</p>');",
+            errors: [{ messageId: "default" }],
+        },
+        {
+            code: "document.writeln('<p>content</p>');",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: ["document.createElement('p');", "element.textContent = 'content';"],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-insecure-random — basic tests
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-insecure-random",
-    getPluginRule("no-insecure-random"),
-    {
-        invalid: [
-            {
-                code: "const r = Math.random();",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            "const r = crypto.getRandomValues(new Uint32Array(1));",
-            "const buf = crypto.randomBytes(16);",
-        ],
-    }
-);
+ruleTester.run("no-insecure-random", getPluginRule("no-insecure-random"), {
+    invalid: [
+        {
+            code: "const r = Math.random();",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: [
+        "const r = crypto.getRandomValues(new Uint32Array(1));",
+        "const buf = crypto.randomBytes(16);",
+    ],
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-angular-bypass-security-trust-html — additional paths
@@ -1177,28 +1161,19 @@ ruleTester.run(
                 errors: [{ messageId: "noBypass" }],
             },
         ],
-        valid: [
-            "sanitizer.sanitize(SecurityContext.HTML, html);",
-        ],
+        valid: ["sanitizer.sanitize(SecurityContext.HTML, html);"],
     }
 );
 
 // ─────────────────────────────────────────────────────────────────────────────
 // no-document-domain — basic tests
 // ─────────────────────────────────────────────────────────────────────────────
-ruleTester.run(
-    "no-document-domain",
-    getPluginRule("no-document-domain"),
-    {
-        invalid: [
-            {
-                code: "document.domain = 'example.com';",
-                errors: [{ messageId: "default" }],
-            },
-        ],
-        valid: [
-            "document.title = 'My Page';",
-            "element.domain = 'example.com';",
-        ],
-    }
-);
+ruleTester.run("no-document-domain", getPluginRule("no-document-domain"), {
+    invalid: [
+        {
+            code: "document.domain = 'example.com';",
+            errors: [{ messageId: "default" }],
+        },
+    ],
+    valid: ["document.title = 'My Page';", "element.domain = 'example.com';"],
+});

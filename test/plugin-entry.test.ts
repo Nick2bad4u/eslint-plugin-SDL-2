@@ -7,7 +7,8 @@ const sortAlphabetically = (values: readonly string[]): readonly string[] =>
 
 describe("sdl plugin entry", () => {
     it("exposes meta with namespace/version", () => {
-        expect(sdlPlugin.meta).toEqual(
+        expect.hasAssertions();
+        expect(sdlPlugin.meta).toStrictEqual(
             expect.objectContaining({
                 name: "eslint-plugin-sdl-2",
                 namespace: "sdl",
@@ -17,9 +18,10 @@ describe("sdl plugin entry", () => {
     });
 
     it("registers all SDL configs", () => {
+        expect.hasAssertions();
         expect(
             sortAlphabetically(Object.keys(sdlPlugin.configs ?? {}))
-        ).toEqual([
+        ).toStrictEqual([
             "angular",
             "angularjs",
             "common",
@@ -33,11 +35,13 @@ describe("sdl plugin entry", () => {
     });
 
     it("registers all migrated SDL rules", () => {
+        expect.hasAssertions();
+
         const ruleNames = sortAlphabetically(
             Object.keys(sdlPlugin.rules ?? {})
         );
 
-        expect(ruleNames).toEqual([
+        expect(ruleNames).toStrictEqual([
             "no-angular-bypass-sanitizer",
             "no-angular-bypass-security-trust-html",
             "no-angular-innerhtml-binding",
@@ -113,6 +117,8 @@ describe("sdl plugin entry", () => {
     });
 
     it("declares frozen and deprecated metadata for every rule", () => {
+        expect.hasAssertions();
+
         for (const [ruleName, rule] of Object.entries(sdlPlugin.rules ?? {})) {
             expect(
                 rule.meta?.deprecated,

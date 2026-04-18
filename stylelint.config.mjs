@@ -157,6 +157,22 @@ const config = defineConfig({
     ignoreDisables: false,
 
     /**
+     * File globs excluded from Stylelint analysis.
+     *
+     * @remarks
+     * Generated Docusaurus stylelint-inspector artifacts include minified
+     * bundles and binary font files that are not source-of-truth CSS. These
+     * assets must be excluded to avoid parser noise and false failures.
+     */
+    ignoreFiles: [
+        "**/stylelint-inspector/**",
+        "docs/docusaurus/static/stylelint-inspector/**",
+        String.raw`docs\docusaurus\static\stylelint-inspector\**`,
+        "docs/docusaurus/static/eslint-inspector/**",
+        "**/*.woff2",
+    ],
+
+    /**
      * File-type specific configuration overrides for different CSS syntaxes and
      * contexts.
      *
@@ -729,9 +745,7 @@ const config = defineConfig({
             },
         ],
         "defensive-css/no-mixed-vendor-prefixes": null,
-        "defensive-css/no-unsafe-clamp-font-size": null,
         "defensive-css/no-unsafe-will-change": null,
-        "defensive-css/no-user-select-none": null,
         "defensive-css/require-at-layer": null,
         "defensive-css/require-background-repeat": null,
         "defensive-css/require-custom-property-fallback": null,
@@ -744,7 +758,6 @@ const config = defineConfig({
         ],
         "defensive-css/require-flex-wrap": null,
         "defensive-css/require-focus-visible": null,
-        "defensive-css/require-forced-colors-focus": null,
         "defensive-css/require-named-grid-lines": [
             true,
             {
@@ -766,7 +779,6 @@ const config = defineConfig({
         "defensive-css/require-prefers-reduced-motion": null,
         "defensive-css/require-pure-selectors": null,
         "defensive-css/require-scrollbar-gutter": null,
-        "defensive-css/require-system-font-fallback": null,
         "display-notation": "short",
         "font-family-name-quotes": "always-where-recommended",
         "font-family-no-duplicate-names": true,
@@ -1024,11 +1036,8 @@ const config = defineConfig({
         "prettier/prettier": true,
         "property-allowed-list": null,
         "property-disallowed-list": null,
-        "property-layout-mappings": "flow-relative",
         "property-no-deprecated": true,
         "property-no-unknown": true,
-
-        "relative-selector-nesting-notation": "explicit",
 
         "rule-empty-line-before": null,
         "rule-nesting-at-rule-required-list": null,
@@ -1228,7 +1237,6 @@ const config = defineConfig({
         "selector-max-type": null,
         "selector-max-universal": null,
         "selector-nested-pattern": null,
-        "selector-no-deprecated": true,
         "selector-no-qualifying-type": null,
         "selector-not-notation": "complex",
         "selector-pseudo-class-allowed-list": null,

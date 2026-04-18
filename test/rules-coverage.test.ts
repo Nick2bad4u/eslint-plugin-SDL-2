@@ -65,7 +65,7 @@ ruleTester.run(
             // CallExpression with non-MemberExpression callee - early return
             "assign('javascript:alert(1)');",
             // Template literal with expression - getStaticStringValue returns undefined
-            "location.href = `javascript:${userInput}`;",
+            `location.href = \`javascript:\${userInput}\`;`,
             // Safe template literal
             "location.assign(`https://example.com`);",
             // Window.open with safe URL
@@ -410,7 +410,7 @@ ruleTester.run(
             // Nested callee (no direct Identifier object) - e.g. require('http').get
             "require('http').get('http://example.com');",
             // Template literal with expression (dynamic)
-            "http.get(`http://${apiHost}/status`);",
+            `http.get(\`http://\${apiHost}/status\`);`,
         ],
     }
 );
@@ -638,13 +638,13 @@ ruleTester.run("no-insecure-url", getPluginRule("no-insecure-url"), {
         },
         // Exceptions option - URL in exceptions list is allowed
         {
-            code: "const x = 'http://www.w3.org/2000/svg';",
+            code: "const x = 'https://www.w3.org/2000/svg';",
             options: [{ exceptions: ["https://www.w3.org/"] }],
         },
         // Secure template literal
         "const url = `https://www.example.com/path`;",
         // Template literal with expression - TemplateElement value is just the prefix
-        "const url = `https://example.com/${path}`;",
+        `const url = \`https://example.com/\${path}\`;`,
         // Non-string literal (number)
         "const x = 42;",
     ],

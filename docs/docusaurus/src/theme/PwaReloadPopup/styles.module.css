@@ -1,6 +1,19 @@
-/* stylelint-disable order/properties-order -- Small swizzled Docusaurus popup uses a compact component-local layout. */
+/* stylelint-disable order/properties-order -- Compact swizzled popup styles prioritize visual grouping over strict declaration ordering. */
 
 .popup {
+    --pwa-popup-border-color: var(
+        --home-hero-panel-border-color,
+        var(--ifm-toc-border-color)
+    );
+    --pwa-popup-background-color: var(
+        --home-hero-panel-background,
+        var(--ifm-card-background-color)
+    );
+    --pwa-popup-text-color: var(
+        --home-hero-secondary-button-color,
+        var(--ifm-font-color-base)
+    );
+
     position: fixed;
     z-index: 40;
     inset-block-end: 1rem;
@@ -9,13 +22,9 @@
     gap: 0.75rem;
     inline-size: min(24rem, calc(100vi - 2rem));
     padding: 0.95rem 1rem;
-    border: 1px solid
-        var(--home-hero-panel-border-color, var(--ifm-toc-border-color));
+    border: 1px solid var(--pwa-popup-border-color);
     border-radius: 1rem;
-    background: var(
-        --home-hero-panel-background,
-        var(--ifm-card-background-color)
-    );
+    background: var(--pwa-popup-background-color);
     backdrop-filter: blur(16px);
     box-shadow:
         0 24px 40px -28px var(--home-hero-shadow-color, rgb(15 23 42 / 28%)),
@@ -24,7 +33,7 @@
 
 .message {
     margin: 0;
-    color: var(--ifm-font-color-base);
+    color: var(--pwa-popup-text-color);
     font-size: 0.875rem;
     font-weight: 650;
     line-height: 1.5;
@@ -57,14 +66,14 @@
     border: 1px solid
         var(
             --home-hero-secondary-button-border-color,
-            var(--ifm-toc-border-color)
+            var(--pwa-popup-border-color)
         );
     border-radius: 999px;
     background: var(
         --home-hero-secondary-button-background,
         rgb(255 255 255 / 76%)
     );
-    color: var(--home-hero-secondary-button-color, var(--ifm-font-color-base));
+    color: var(--pwa-popup-text-color);
     cursor: pointer;
     font-size: 1rem;
     line-height: 1;

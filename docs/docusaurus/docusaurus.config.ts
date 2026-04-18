@@ -293,7 +293,7 @@ const config = {
                         },
                         {
                             label: "📏 Rule Reference",
-                            to: "/docs/rules/overview",
+                            to: "/docs/rules/no-insecure-url",
                         },
                     ],
                     title: "📚 Explore",
@@ -376,7 +376,7 @@ const config = {
                     activeBaseRegex: "^/docs/rules(?:/(?!presets(?:/|$)).*)?$",
                     label: "📜 Rules",
                     position: "left",
-                    to: "/docs/rules/overview",
+                    to: "/docs/rules/no-insecure-url",
                     type: "dropdown",
                     items: [
                         {

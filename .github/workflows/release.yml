@@ -6,7 +6,7 @@ run-name: ${{ github.event_name == 'workflow_dispatch' && format('Manual release
 
 concurrency:
     group: "${{ github.workflow }}-${{ github.repository }}"
-    cancel-in-progress: false
+    cancel-in-progress: true
 
 on:
     push:
@@ -36,12 +36,6 @@ on:
 permissions:
     contents: read
 
-env:
-    CI: "true"
-    DEFAULT_RELEASE_BRANCH: "main"
-    NPM_REGISTRY_URL: "https://registry.npmjs.org"
-    RELEASE_NOTES_PATH: temp/release-notes.md
-
 defaults:
     run:
         shell: bash
@@ -52,6 +46,11 @@ jobs:
         if: ${{ github.event_name != 'push' || github.actor != 'github-actions[bot]' }}
         runs-on: ubuntu-latest
         timeout-minutes: 60
+        env:
+            CI: "true"
+            DEFAULT_RELEASE_BRANCH: "main"
+            NPM_REGISTRY_URL: "https://registry.npmjs.org"
+            RELEASE_NOTES_PATH: temp/release-notes.md
         outputs:
             package_name: ${{ steps.version.outputs.package_name }}
             version: ${{ steps.version.outputs.version }}
@@ -63,7 +62,7 @@ jobs:
             id-token: write
         concurrency:
             group: release-pipeline
-            cancel-in-progress: false
+            cancel-in-progress: true
 
         steps:
             - name: Harden the runner (Audit all outbound calls)

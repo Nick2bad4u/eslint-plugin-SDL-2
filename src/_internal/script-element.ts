@@ -1,4 +1,3 @@
- 
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { type getFullTypeChecker, getNodeTypeAsString } from "./ast-utils.js";
@@ -71,5 +70,3 @@ export const isLikelyScriptElement = (
             isLikelyScriptIdentifierName(propertyName))
     );
 };
-
- 

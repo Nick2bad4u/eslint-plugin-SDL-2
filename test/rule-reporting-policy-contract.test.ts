@@ -27,6 +27,8 @@ const getRuleSourceFiles = (): readonly (readonly [string, string])[] => {
 
 describe("rule reporting policy contract", () => {
     it("enforces createRule usage for every rule module", () => {
+        expect.hasAssertions();
+
         for (const [fileName, sourceText] of getRuleSourceFiles()) {
             const expectedRuleName = fileName.replace(/\.ts$/v, "");
 
@@ -52,17 +54,15 @@ describe("rule reporting policy contract", () => {
             const defaultOptionsIndex = sourceText.indexOf("defaultOptions:");
             const hasDefaultOptions = sourceText.includes("defaultOptions:");
 
-            if (hasDefaultOptions) {
-                expect(
-                    metaIndex,
-                    `Rule '${fileName}' must declare meta before defaultOptions`
-                ).toBeGreaterThanOrEqual(0);
+            expect(
+                !hasDefaultOptions || metaIndex !== -1,
+                `Rule '${fileName}' must declare meta before defaultOptions`
+            ).toBeTruthy();
 
-                expect(
-                    defaultOptionsIndex,
-                    `Rule '${fileName}' must declare defaultOptions only inside meta.defaultOptions`
-                ).toBeGreaterThan(metaIndex);
-            }
+            expect(
+                !hasDefaultOptions || defaultOptionsIndex > metaIndex,
+                `Rule '${fileName}' must declare defaultOptions only inside meta.defaultOptions`
+            ).toBeTruthy();
         }
     });
 });

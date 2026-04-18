@@ -131,8 +131,8 @@
         "lint:compat:eslint9": "node scripts/eslint9-compat-smoke.mjs",
         "lint:config:build": "npm run build:eslint-inspector",
         "lint:config:inspect": "npx eslint --inspect-config",
-        "lint:css": "stylelint --cache --config stylelint.config.mjs --cache-strategy content --cache-location .cache/stylelintcache src/ docs/ --custom-formatter stylelint-formatter-pretty && echo \"Stylelint done!\"",
-        "lint:css:fix": "stylelint --cache --config stylelint.config.mjs --cache-strategy content --cache-location .cache/stylelintcache src/ docs/ --custom-formatter stylelint-formatter-pretty --fix && echo \"Stylelint done!\"",
+        "lint:css": "stylelint --cache --config stylelint.config.mjs --cache-strategy content --cache-location .cache/stylelintcache --ignore-pattern \"docs/docusaurus/static/stylelint-inspector/**\" --ignore-pattern \"docs/docusaurus/static/eslint-inspector/**\" src/ docs/ --custom-formatter stylelint-formatter-pretty && echo \"Stylelint done!\"",
+        "lint:css:fix": "stylelint --cache --config stylelint.config.mjs --cache-strategy content --cache-location .cache/stylelintcache --ignore-pattern \"docs/docusaurus/static/stylelint-inspector/**\" --ignore-pattern \"docs/docusaurus/static/eslint-inspector/**\" src/ docs/ --custom-formatter stylelint-formatter-pretty --fix && echo \"Stylelint done!\"",
         "lint:depcheck": "depcheck",
         "lint:deps": "depcheck && npm run knip",
         "lint:dupes": "jscpd src/ --config jscpd.json",
@@ -221,7 +221,7 @@
         "@typescript-eslint/type-utils": "^8.58.0",
         "@typescript-eslint/utils": "^8.58.0",
         "ts-extras": "^0.19.0",
-        "type-fest": "^5.5.0"
+        "type-fest": "^5.6.0"
     },
     "devDependencies": {
         "@arethetypeswrong/cli": "^0.18.2",

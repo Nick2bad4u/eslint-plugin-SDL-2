@@ -1,0 +1,48 @@
+.liveBadgeList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    gap: 0.58rem;
+    list-style-type: "";
+    padding-block-start: 1rem;
+}
+
+.liveBadgeListItem {
+    margin: 0;
+}
+
+.liveBadgeAnchor {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        filter 150ms ease,
+        transform 150ms ease;
+
+    &:hover,
+    &:focus {
+        filter: brightness(1.06);
+        transform: translateY(-1px);
+    }
+}
+
+.liveBadgeImage {
+    display: block;
+    block-size: 20px;
+    inline-size: auto;
+
+    @media (width <= 640px) {
+        block-size: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .liveBadgeAnchor {
+        transition: none;
+
+        &:hover,
+        &:focus {
+            transform: none;
+        }
+    }
+}

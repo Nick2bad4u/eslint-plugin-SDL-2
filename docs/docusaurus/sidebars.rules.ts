@@ -404,15 +404,15 @@ const sidebars = {
             items: [
                 {
                     className: "sb-doc-rule-nav-overview",
-                    id: "overview",
+                    href: "/docs/rules/overview",
                     label: "🏁 Rules overview",
-                    type: "doc",
+                    type: "link",
                 },
                 {
                     className: "sb-doc-rule-nav-start",
-                    id: "getting-started",
+                    href: "/docs/rules/getting-started",
                     label: "🚀 Setup and adoption",
-                    type: "doc",
+                    type: "link",
                 },
                 {
                     className: "sb-doc-rule-nav-presets",

@@ -29,7 +29,7 @@ ruleTester.run(
         ],
         valid: [
             "const x = 42;",
-            "const tpl = `[innerHTML]=${dynamicValue}`;",
+            `const tpl = \`[innerHTML]=\${dynamicValue}\`;`,
             "const x = 'just a plain string';",
         ],
     }

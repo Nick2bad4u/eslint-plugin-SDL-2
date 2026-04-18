@@ -1,5 +1,5 @@
 import { ESLint } from "eslint";
-import { bench, describe } from "vitest";
+import { bench, describe, expect } from "vitest";
 
 import {
     benchmarkFileGlobs,
@@ -49,6 +49,8 @@ const assertHasResults = (scenarioName, lintResults) => {
 
 describe("eslint-plugin-sdl-2 benchmarks", () => {
     bench("recommended preset on invalid SDL fixtures", async () => {
+        expect.assertions(1);
+
         const results = await lintScenario({
             filePatterns: benchmarkFileGlobs.typedInvalidFixtures,
             fix: false,
@@ -56,9 +58,13 @@ describe("eslint-plugin-sdl-2 benchmarks", () => {
         });
 
         assertHasResults("recommended preset on invalid SDL fixtures", results);
+
+        expect(results.length).toBeGreaterThan(0);
     });
 
     bench("recommended preset on valid baseline fixture", async () => {
+        expect.assertions(1);
+
         const results = await lintScenario({
             filePatterns: benchmarkFileGlobs.typedValidFixtures,
             fix: false,
@@ -69,9 +75,13 @@ describe("eslint-plugin-sdl-2 benchmarks", () => {
             "recommended preset on valid baseline fixture",
             results
         );
+
+        expect(results.length).toBeGreaterThan(0);
     });
 
     bench("common preset on zero-message corpus", async () => {
+        expect.assertions(1);
+
         const results = await lintScenario({
             filePatterns: benchmarkFileGlobs.recommendedZeroMessageFixture,
             fix: false,
@@ -79,9 +89,13 @@ describe("eslint-plugin-sdl-2 benchmarks", () => {
         });
 
         assertHasResults("common preset on zero-message corpus", results);
+
+        expect(results.length).toBeGreaterThan(0);
     });
 
     bench("single rule no-insecure-url stress", async () => {
+        expect.assertions(1);
+
         const results = await lintScenario({
             filePatterns: benchmarkFileGlobs.insecureUrlStressFixture,
             fix: false,
@@ -91,9 +105,13 @@ describe("eslint-plugin-sdl-2 benchmarks", () => {
         });
 
         assertHasResults("single rule no-insecure-url stress", results);
+
+        expect(results.length).toBeGreaterThan(0);
     });
 
     bench("single rule no-insecure-url stress (fix=true)", async () => {
+        expect.assertions(1);
+
         const results = await lintScenario({
             filePatterns: benchmarkFileGlobs.insecureUrlStressFixture,
             fix: true,
@@ -106,9 +124,13 @@ describe("eslint-plugin-sdl-2 benchmarks", () => {
             "single rule no-insecure-url stress (fix=true)",
             results
         );
+
+        expect(results.length).toBeGreaterThan(0);
     });
 
     bench("single rule no-insecure-random stress", async () => {
+        expect.assertions(1);
+
         const results = await lintScenario({
             filePatterns: benchmarkFileGlobs.insecureRandomStressFixture,
             fix: false,
@@ -118,5 +140,7 @@ describe("eslint-plugin-sdl-2 benchmarks", () => {
         });
 
         assertHasResults("single rule no-insecure-random stress", results);
+
+        expect(results.length).toBeGreaterThan(0);
     });
 });
