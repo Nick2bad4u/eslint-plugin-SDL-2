@@ -1,14 +1,26 @@
 import { themes as prismThemes } from "prism-react-renderer";
 
-import type { Config } from "@docusaurus/types";
+import type { Config, PluginModule } from "@docusaurus/types";
 import type { Options as DocsPluginOptions } from "@docusaurus/plugin-content-docs";
 import type * as Preset from "@docusaurus/preset-classic";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 /** Route base path where docs site is deployed (GitHub Pages project path). */
 const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-SDL-2/";
 /** Canonical deployed docs root URL used for absolute project tool links. */
 const deployedDocsRootUrl = `https://nick2bad4u.github.io${baseUrl}`;
+/** Public origin for the published documentation site. */
+const siteOrigin = "https://nick2bad4u.github.io";
+/** Canonical public site URL including the GitHub Pages project path. */
+const siteUrl = `${siteOrigin}${baseUrl}`;
+/** Global site description used for SEO and social cards. */
+const siteDescription =
+    "Security-focused ESLint rules and flat-config presets for SDL-first codebases.";
+/** Social preview image path relative to the static directory. */
+const socialCardImagePath = "img/logo.png";
+/** Absolute social preview image URL. */
+const socialCardImageUrl = new URL(socialCardImagePath, siteUrl).toString();
 /** Opt-in flag for experimental Docusaurus performance features. */
 const enableExperimentalFaster =
     process.env["DOCUSAURUS_ENABLE_EXPERIMENTAL"] === "true";
@@ -28,6 +40,95 @@ const pwaThemeColor = "#120f1f";
 const pwaTileColor = "#120f1f";
 /** Safari pinned-tab mask icon color. */
 const pwaMaskIconColor = "#8b5cf6";
+/** Local require helper rooted at the docs workspace config file location. */
+const requireFromDocsWorkspace = createRequire(import.meta.url);
+
+/** Resolve an optional module specifier without throwing when absent. */
+const resolveOptionalModule = (moduleSpecifier: string): string | undefined => {
+    try {
+        return requireFromDocsWorkspace.resolve(moduleSpecifier);
+    } catch {
+        return undefined;
+    }
+};
+
+/**
+ * Optional ESM entry used to avoid webpack warnings from VS Code CSS language
+ * service packages.
+ */
+const vscodeCssLanguageServiceEsmEntry = resolveOptionalModule(
+    "vscode-css-languageservice/lib/esm/cssLanguageService.js"
+);
+/**
+ * Optional ESM entry used to avoid webpack warnings from VS Code language
+ * server type packages.
+ */
+const vscodeLanguageServerTypesEsmEntry = resolveOptionalModule(
+    "vscode-languageserver-types/lib/esm/main.js"
+);
+
+/**
+ * Alias VS Code language-service packages to their ESM entries when they are
+ * present.
+ *
+ * @remarks
+ * Some transitive editor-style dependencies resolve the UMD build of
+ * `vscode-languageserver-types`, which causes noisy webpack critical-dependency
+ * warnings inside Docusaurus. This plugin only activates when those optional
+ * packages are actually installed in the current workspace.
+ */
+const suppressKnownWebpackWarningsPlugin: PluginModule = () => {
+    return {
+        configureWebpack() {
+            return {
+                ignoreWarnings: [
+                    /**
+                     * Suppress the known webpack critical-dependency warning
+                     * emitted by the UMD build of vscode-languageserver-types.
+                     *
+                     * We already alias to the ESM entry when available, but
+                     * some transitive resolution paths still surface the UMD
+                     * warning during docs builds. This is third-party noise,
+                     * not a site-level problem.
+                     */
+                    (warning: unknown) => {
+                        const warningRecord = warning as
+                            | Readonly<Record<string, unknown>>
+                            | undefined;
+                        const warningMessage = warningRecord?.["message"];
+
+                        return (
+                            typeof warningMessage === "string" &&
+                            warningMessage.includes(
+                                "Critical dependency: require function is used in a way in which dependencies cannot be statically extracted"
+                            )
+                        );
+                    },
+                ],
+                resolve: {
+                    alias: {
+                        ...(vscodeCssLanguageServiceEsmEntry === undefined
+                            ? {}
+                            : {
+                                  "vscode-css-languageservice$":
+                                      vscodeCssLanguageServiceEsmEntry,
+                              }),
+                        ...(vscodeLanguageServerTypesEsmEntry === undefined
+                            ? {}
+                            : {
+                                  "vscode-languageserver-types$":
+                                      vscodeLanguageServerTypesEsmEntry,
+                                  "vscode-languageserver-types/lib/umd/main.js$":
+                                      vscodeLanguageServerTypesEsmEntry,
+                              }),
+                    },
+                },
+            };
+        },
+        name: "suppress-known-webpack-warnings",
+    };
+};
+
 /** Footer copyright HTML used by the site theme config. */
 const footerCopyright =
     `© ${new Date().getFullYear()} ` +
@@ -45,7 +146,7 @@ const removeHeadAttrFlagKey = [
 const futureConfig = {
     ...(enableExperimentalFaster
         ? {
-              experimental_faster: {
+              faster: {
                   mdxCrossCompilerCache: true,
                   rspackBundler: true,
                   rspackPersistentCache: true,
@@ -60,6 +161,10 @@ const futureConfig = {
         // makes many Infima (--ifm-*) variables undefined across the site.
         // Re-enable only after verifying the build output CSS is valid.
         useCssCascadeLayers: false,
+        siteStorageNamespacing: true,
+        fasterByDefault: true,
+        removeLegacyPostBuildHeadAttribute: true,
+        mdx1CompatDisabledByDefault: true,
     },
 } satisfies Config["future"];
 
@@ -72,6 +177,42 @@ const config = {
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: futureConfig,
     clientModules: [modernEnhancementsClientModule],
+    headTags: [
+        // Preconnect to GitHub for faster resource loading
+        {
+            attributes: { href: siteOrigin, rel: "preconnect" },
+            tagName: "link",
+        },
+        {
+            attributes: { href: "https://github.com", rel: "preconnect" },
+            tagName: "link",
+        },
+        // JSON-LD structured data for rich search results
+        {
+            attributes: { type: "application/ld+json" },
+            innerHTML: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                applicationCategory: "DeveloperApplication",
+                author: {
+                    "@type": "Person",
+                    name: organizationName,
+                    url: `https://github.com/${organizationName}`,
+                },
+                description: siteDescription,
+                image: socialCardImageUrl,
+                license: "https://opensource.org/licenses/MIT",
+                name: projectName,
+                operatingSystem: "Any",
+                url: siteUrl,
+            }),
+            tagName: "script",
+        },
+    ],
+    storage: {
+        namespace: true,
+        type: "localStorage",
+    },
     i18n: {
         defaultLocale: "en",
         locales: ["en"],
@@ -94,6 +235,7 @@ const config = {
     onDuplicateRoutes: "warn",
     organizationName,
     plugins: [
+        suppressKnownWebpackWarningsPlugin,
         "docusaurus-plugin-image-zoom",
         [
             "@docusaurus/plugin-pwa",
@@ -174,6 +316,11 @@ const config = {
                     blogTitle: "eslint-plugin-SDL-2 Blog",
                     editUrl: `https://github.com/${organizationName}/${projectName}/blob/main/docs/docusaurus/`,
                     feedOptions: {
+                        copyright: footerCopyright,
+                        description:
+                            "Updates, architecture notes, and practical guidance for eslint-plugin-SDL-2 users.",
+                        language: "en",
+                        title: "eslint-plugin-SDL-2 Blog",
                         type: ["rss", "atom"],
                         xslt: true,
                     },
@@ -223,11 +370,9 @@ const config = {
                     showLastUpdateTime: true,
                 },
                 sitemap: {
-                    changefreq: "weekly",
                     filename: "sitemap.xml",
                     ignorePatterns: ["/tests/**"],
                     lastmod: "datetime",
-                    priority: 0.5,
                 },
                 svgr: {
                     svgrConfig: {
@@ -270,8 +415,13 @@ const config = {
         },
         metadata: [
             {
-                content: "eslint-plugin-sdl-2",
+                content:
+                    "eslint, eslint-plugin, security, sdl, typescript, linting, static analysis, code quality",
                 name: "keywords",
+            },
+            {
+                content: siteDescription,
+                name: "description",
             },
         ],
         footer: {

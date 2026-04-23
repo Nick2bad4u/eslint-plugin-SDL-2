@@ -17,12 +17,12 @@ const number3 = 3;
 const number4 = 4;
 const number5 = 5;
 
-const payload0 = { id: 0, label: "alpha" };
-const payload1 = { id: 1, label: "bravo" };
-const payload2 = { id: 2, label: "charlie" };
-const payload3 = { id: 3, label: "delta" };
-const payload4 = { id: 4, label: "echo" };
-const payload5 = { id: 5, label: "foxtrot" };
+const payload0: Payload = { id: 0, label: "alpha" };
+const payload1: Payload = { id: 1, label: "bravo" };
+const payload2: Payload = { id: 2, label: "charlie" };
+const payload3: Payload = { id: 3, label: "delta" };
+const payload4: Payload = { id: 4, label: "echo" };
+const payload5: Payload = { id: 5, label: "foxtrot" };
 
 const castString0 = string0 as string;
 const castString1 = string1 as string;
@@ -38,12 +38,12 @@ const castNumber3 = number3 as number;
 const castNumber4 = number4 as number;
 const castNumber5 = number5 as number;
 
-const castPayload0 = payload0 as Payload;
-const castPayload1 = payload1 as Payload;
-const castPayload2 = payload2 as Payload;
-const castPayload3 = payload3 as Payload;
-const castPayload4 = payload4 as Payload;
-const castPayload5 = payload5 as Payload;
+const castPayload0 = payload0;
+const castPayload1 = payload1;
+const castPayload2 = payload2;
+const castPayload3 = payload3;
+const castPayload4 = payload4;
+const castPayload5 = payload5;
 
 const castTuple0 = [number0, string0] as readonly [number, string];
 const castTuple1 = [number1, string1] as readonly [number, string];
@@ -52,12 +52,12 @@ const castTuple3 = [number3, string3] as readonly [number, string];
 const castTuple4 = [number4, string4] as readonly [number, string];
 const castTuple5 = [number5, string5] as readonly [number, string];
 
-const castRecord0 = ({ value: string0 } as { value: string }).value;
-const castRecord1 = ({ value: string1 } as { value: string }).value;
-const castRecord2 = ({ value: string2 } as { value: string }).value;
-const castRecord3 = ({ value: string3 } as { value: string }).value;
-const castRecord4 = ({ value: string4 } as { value: string }).value;
-const castRecord5 = ({ value: string5 } as { value: string }).value;
+const castRecord0 = { value: string0 }.value;
+const castRecord1 = { value: string1 }.value;
+const castRecord2 = { value: string2 }.value;
+const castRecord3 = { value: string3 }.value;
+const castRecord4 = { value: string4 }.value;
+const castRecord5 = { value: string5 }.value;
 
 export const safeCastToStressFixture: string = [
     castString0,
