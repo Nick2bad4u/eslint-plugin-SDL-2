@@ -32,7 +32,6 @@ Adopt an environment-aware docs generation strategy:
 The docs workspace script `docs:api` becomes the environment-aware entrypoint. Explicit scripts remain available for deterministic runs:
 
 - `docs:api:default` for direct TypeDoc behavior,
-- `docs:api:local` for wrapper-based local behavior.
 
 ## Rationale
 

@@ -864,3 +864,6 @@ eslint.config.bundled_**
 # Docusaurus API reference files (if auto-generated)
 **/site-docs/developer/api/
 eslint-plugin-sdl-main/
+# Ignore generated doc coverage badges
+docs/docusaurus/static/img/coverage.json
+docs/docusaurus/static/img/coverage.svg
