@@ -1,9 +1,19 @@
 import { describe, expect, it } from "vitest";
 
+import { sdlConfigNames } from "../src/_internal/config-references";
 import sdlPlugin from "../src/plugin";
 
 const sortAlphabetically = (values: readonly string[]): readonly string[] =>
     values.toSorted((left, right) => left.localeCompare(right));
+
+const getConfigNames = (
+    configEntries: readonly Readonly<{ readonly name?: string }>[]
+): readonly string[] =>
+    configEntries.flatMap((configEntry) =>
+        typeof configEntry.name === "string" && configEntry.name.length > 0
+            ? [configEntry.name]
+            : []
+    );
 
 describe("sdl plugin entry", () => {
     it("exports a frozen package entry plugin", async () => {
@@ -41,6 +51,32 @@ describe("sdl plugin entry", () => {
             "required",
             "typescript",
         ]);
+    });
+
+    it("assigns human-readable flat config names to every preset entry", () => {
+        expect.hasAssertions();
+
+        for (const configName of sdlConfigNames) {
+            const configEntries = sdlPlugin.configs[configName] as readonly {
+                readonly name?: string;
+            }[];
+            const flatConfigNames = getConfigNames(configEntries);
+
+            expect(
+                flatConfigNames,
+                `${configName} should expose a name for every flat config entry`
+            ).toHaveLength(configEntries.length);
+        }
+
+        expect(getConfigNames(sdlPlugin.configs.required)).toContain(
+            "SDL Required Security Baseline"
+        );
+        expect(getConfigNames(sdlPlugin.configs.recommended)).toContain(
+            "SDL Recommended Security Baseline"
+        );
+        expect(getConfigNames(sdlPlugin.configs.electron)).toContain(
+            "SDL Electron Security"
+        );
     });
 
     it("registers all migrated SDL rules", () => {

@@ -24,8 +24,16 @@ const securityEslintPlugin = securityPlugin as unknown as ESLint.Plugin;
 
 const typeScriptFiles = ["**/*.{ts,tsx,mts,cts}"];
 
+const createNamedConfig = (
+    name: string,
+    config: Linter.Config = {}
+): SdlConfig => ({
+    ...config,
+    name,
+});
+
 const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL Angular Security", {
         plugins: {
             sdl: plugin,
         },
@@ -35,11 +43,11 @@ const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "sdl/no-angular-innerhtml-binding": "error",
             "sdl/no-angular-sanitization-trusted-urls": "error",
         },
-    },
+    }),
 ];
 
 const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL AngularJS Security", {
         plugins: {
             sdl: plugin,
         },
@@ -50,11 +58,11 @@ const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "sdl/no-angularjs-sanitization-whitelist": "error",
             "sdl/no-angularjs-sce-resource-url-wildcard": "error",
         },
-    },
+    }),
 ];
 
 const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL Common Web Security", {
         plugins: {
             sdl: plugin,
         },
@@ -92,11 +100,11 @@ const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "sdl/no-worker-blob-url": "error",
             "sdl/no-worker-data-url": "error",
         },
-    },
+    }),
 ];
 
 const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL Electron Security", {
         plugins: {
             sdl: plugin,
         },
@@ -122,19 +130,19 @@ const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "sdl/no-electron-webview-insecure-webpreferences": "error",
             "sdl/no-electron-webview-node-integration": "error",
         },
-    },
+    }),
 ];
 
 const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL Node.js Runtime Safety", {
         plugins: {
             n: nodeEslintPlugin,
         },
         rules: {
             "n/no-deprecated-api": "error",
         },
-    },
-    {
+    }),
+    createNamedConfig("SDL Node.js Security", {
         plugins: {
             sdl: plugin,
         },
@@ -152,11 +160,11 @@ const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "sdl/no-node-worker-threads-eval": "error",
             "sdl/no-unsafe-alloc": "error",
         },
-    },
+    }),
 ];
 
 const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL React JSX Support", {
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {
@@ -164,24 +172,24 @@ const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
                 },
             },
         },
-    },
-    {
+    }),
+    createNamedConfig("SDL React Security", {
         plugins: {
             sdl: plugin,
         },
-    },
+    }),
 ];
 
 const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    {
+    createNamedConfig("SDL TypeScript Parser Support", {
         languageOptions: {
             parserOptions: {
                 ecmaVersion: "latest",
                 sourceType: "module",
             },
         },
-    },
-    {
+    }),
+    createNamedConfig("SDL TypeScript Security", {
         files: [...typeScriptFiles],
         languageOptions: {
             parser: typeScriptParser,
@@ -204,12 +212,13 @@ const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "sdl/no-trusted-types-policy-pass-through": "error",
             "sdl/no-unsafe-cast-to-trusted-types": "error",
         },
-    },
+    }),
 ];
 
 const createRequiredConfig = (
     configs: Readonly<SdlConfigMap>
 ): SdlConfigArray => [
+    createNamedConfig("SDL Required Security Baseline"),
     ...configs.angular,
     ...configs.angularjs,
     ...configs.common,
@@ -221,13 +230,14 @@ const createRequiredConfig = (
 const createRecommendedConfig = (
     configs: Readonly<SdlConfigMap>
 ): SdlConfigArray => [
+    createNamedConfig("SDL Recommended Security Baseline"),
     ...configs.required,
     ...configs.typescript,
-    {
+    createNamedConfig("SDL Recommended Security Plugins", {
         plugins: {
             security: securityEslintPlugin,
         },
-    },
+    }),
 ];
 
 const packageJsonVersion =

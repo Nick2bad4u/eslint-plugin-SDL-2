@@ -1,29 +1,5 @@
 /** eslint-disable css/use-baseline */
 
-@font-face {
-    font-family: "NerdFontSymbols Nerd Font Symbols";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-        local("NerdFontSymbols Nerd Font Symbols"),
-        local("Symbols Nerd Font"),
-        url("https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@3.4.0/patched-fonts/NerdFontsSymbolsOnly/SymbolsNerdFont-Regular.ttf")
-            format("truetype");
-}
-
-@font-face {
-    font-family: "Symbols Nerd Font Mono";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src:
-        local("Symbols Nerd Font Mono"),
-        local("Symbols Nerd Font"),
-        url("https://cdn.jsdelivr.net/gh/ryanoasis/nerd-fonts@3.4.0/patched-fonts/NerdFontsSymbolsOnly/SymbolsNerdFont-Regular.ttf")
-            format("truetype");
-}
-
 :root {
     --ifm-color-primary: #7c5cff;
     --ifm-color-primary-dark: #6d48ff;
@@ -37,8 +13,7 @@
     --ifm-card-background-color: #ffffff;
     --ifm-code-font-size: 95%;
     --ifm-font-family-base:
-        "Inter var", "Inter", "Segoe UI", "NerdFontSymbols Nerd Font Symbols",
-        system-ui, -apple-system, sans-serif;
+        "Inter var", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
     --ifm-heading-font-weight: 760;
     --ifm-global-radius: 1rem;
     --ifm-navbar-background-color: rgb(255 255 255 / 84%);
@@ -771,7 +746,9 @@ body {
     border-radius: 999px;
     background: rgb(124 92 255 / 12%);
     color: var(--ifm-color-primary-darker);
-    font-family: var(--ifm-font-family-monospace);
+    font-family:
+        var(--ifm-font-family-monospace), SFMono-Regular, Consolas,
+        "Liberation Mono", Menlo, monospace;
     font-size: 0.69rem;
     font-weight: 760;
     font-variant-numeric: tabular-nums;
