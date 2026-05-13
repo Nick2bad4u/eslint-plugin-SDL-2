@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined, setHas } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -24,12 +25,12 @@ const LEGACY_TLS_VERSION_VALUES = new Set([
 ]);
 
 const isLegacySecureProtocolValue = (value: string): boolean =>
-    /^(?:SSLv2|SSLv3|TLSv1(?:_1)?)(?:_(?:client|server))?_method$/u.test(value);
+    /^(?:SSLv2|SSLv3|TLSv1(?:_1)?)(?:_(?:client|server))?_method$/v.test(value);
 
 const isExpressionNode = (node: TSESTree.Node): node is TSESTree.Expression =>
-    node.type !== "ArrayPattern" &&
-    node.type !== "AssignmentPattern" &&
-    node.type !== "ObjectPattern";
+    node.type !== AST_NODE_TYPES.ArrayPattern &&
+    node.type !== AST_NODE_TYPES.AssignmentPattern &&
+    node.type !== AST_NODE_TYPES.ObjectPattern;
 
 const isLegacyTlsPropertyValue = (
     propertyName: LegacyTlsPropertyName,
@@ -105,7 +106,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 for (const propertyNode of node.properties) {
                     if (
-                        propertyNode.type !== "Property" ||
+                        propertyNode.type !== AST_NODE_TYPES.Property ||
                         propertyNode.kind !== "init"
                     ) {
                         continue;

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -12,18 +13,13 @@ const getPropertyName = (property: TSESTree.Property): string | undefined => {
         return undefined;
     }
 
-    if (property.key.type === "Identifier") {
+    if (property.key.type === AST_NODE_TYPES.Identifier) {
         return property.key.name;
     }
 
-    if (
-        property.key.type === "Literal" &&
-        typeof property.key.value === "string"
-    ) {
-        return property.key.value;
-    }
-
-    return undefined;
+    return typeof property.key.value === "string"
+        ? property.key.value
+        : undefined;
 };
 
 const getPropertyByName = (
@@ -31,7 +27,10 @@ const getPropertyByName = (
     propertyName: string
 ): TSESTree.Property | undefined => {
     for (const propertyNode of objectExpression.properties) {
-        if (propertyNode.type !== "Property" || propertyNode.kind !== "init") {
+        if (
+            propertyNode.type !== AST_NODE_TYPES.Property ||
+            propertyNode.kind !== "init"
+        ) {
             continue;
         }
 
@@ -44,11 +43,17 @@ const getPropertyByName = (
 };
 
 const getStaticStringValue = (node: TSESTree.Node): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    if (
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
+        node.expressions.length === 0
+    ) {
         return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
@@ -74,7 +79,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
             ) {
                 const [firstArgument] = node.arguments;
 
-                if (firstArgument?.type !== "ObjectExpression") {
+                if (firstArgument?.type !== AST_NODE_TYPES.ObjectExpression) {
                     return;
                 }
 
@@ -83,7 +88,10 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     "webPreferences"
                 );
 
-                if (webPreferencesProperty?.value.type !== "ObjectExpression") {
+                if (
+                    webPreferencesProperty?.value.type !==
+                    AST_NODE_TYPES.ObjectExpression
+                ) {
                     return;
                 }
 

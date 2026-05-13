@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
@@ -10,13 +12,13 @@ const getMemberPropertyName = (
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -26,22 +28,25 @@ const getMemberPropertyName = (
 };
 
 const isTruthyLiteral = (node: TSESTree.Property["value"]): boolean =>
-    node.type === "Literal" && node.value === true;
+    node.type === AST_NODE_TYPES.Literal && node.value === true;
 
 const hasShellTrueOption = (optionsNode: TSESTree.Expression): boolean => {
-    if (optionsNode.type !== "ObjectExpression") {
+    if (optionsNode.type !== AST_NODE_TYPES.ObjectExpression) {
         return false;
     }
 
     for (const propertyNode of optionsNode.properties) {
-        if (propertyNode.type !== "Property" || propertyNode.kind !== "init") {
+        if (
+            propertyNode.type !== AST_NODE_TYPES.Property ||
+            propertyNode.kind !== "init"
+        ) {
             continue;
         }
 
         const keyName =
-            propertyNode.key.type === "Identifier"
+            propertyNode.key.type === AST_NODE_TYPES.Identifier
                 ? propertyNode.key.name
-                : propertyNode.key.type === "Literal" &&
+                : propertyNode.key.type === AST_NODE_TYPES.Literal &&
                     typeof propertyNode.key.value === "string"
                   ? propertyNode.key.value
                   : undefined;
@@ -59,11 +64,11 @@ const hasShellTrueOption = (optionsNode: TSESTree.Expression): boolean => {
 };
 
 const isTargetChildProcessMethod = (node: TSESTree.CallExpression): boolean => {
-    if (node.callee.type === "Identifier") {
+    if (node.callee.type === AST_NODE_TYPES.Identifier) {
         return node.callee.name === "spawn" || node.callee.name === "execFile";
     }
 
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -82,7 +87,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 for (const argumentNode of node.arguments) {
-                    if (argumentNode.type === "SpreadElement") {
+                    if (argumentNode.type === AST_NODE_TYPES.SpreadElement) {
                         continue;
                     }
 

@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayIncludes, isDefined } from "ts-extras";
 
 import {
@@ -23,7 +24,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     !isDefined(targetOrigin) ||
-                    targetOrigin.type !== "Literal" ||
+                    targetOrigin.type !== AST_NODE_TYPES.Literal ||
                     targetOrigin.value !== "*"
                 ) {
                     return;
@@ -31,7 +32,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     isDefined(fullTypeChecker) &&
-                    node.callee.type === "MemberExpression"
+                    node.callee.type === AST_NODE_TYPES.MemberExpression
                 ) {
                     const calleeObjectType = getNodeTypeAsString(
                         fullTypeChecker,

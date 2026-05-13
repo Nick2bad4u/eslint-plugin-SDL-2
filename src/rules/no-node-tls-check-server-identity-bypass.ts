@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -21,34 +22,35 @@ const CHECK_SERVER_IDENTITY_PROPERTY_NAMES = new Set(["checkServerIdentity"]);
 const isFunctionExpression = (
     expression: TSESTree.Expression
 ): expression is CheckServerIdentityFunction =>
-    expression.type === "ArrowFunctionExpression" ||
-    expression.type === "FunctionExpression";
+    expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+    expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const isExpressionNode = (node: TSESTree.Node): node is TSESTree.Expression =>
-    node.type !== "ArrayPattern" &&
-    node.type !== "AssignmentPattern" &&
-    node.type !== "ObjectPattern";
+    node.type !== AST_NODE_TYPES.ArrayPattern &&
+    node.type !== AST_NODE_TYPES.AssignmentPattern &&
+    node.type !== AST_NODE_TYPES.ObjectPattern;
 
 const isAlwaysSuccessfulReturnExpression = (
     expression: TSESTree.Expression
 ): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return expression.name === "undefined";
     }
 
-    if (expression.type === "Literal") {
+    if (expression.type === AST_NODE_TYPES.Literal) {
         return expression.value === null;
     }
 
     return (
-        expression.type === "UnaryExpression" && expression.operator === "void"
+        expression.type === AST_NODE_TYPES.UnaryExpression &&
+        expression.operator === "void"
     );
 };
 
 const isAlwaysSuccessfulCheckServerIdentity = (
     callbackNode: CheckServerIdentityFunction
 ): boolean => {
-    if (callbackNode.body.type !== "BlockStatement") {
+    if (callbackNode.body.type !== AST_NODE_TYPES.BlockStatement) {
         return isAlwaysSuccessfulReturnExpression(callbackNode.body);
     }
 
@@ -62,14 +64,13 @@ const isAlwaysSuccessfulCheckServerIdentity = (
 
     const onlyStatement = arrayFirst(callbackNode.body.body);
 
-    if (onlyStatement?.type !== "ReturnStatement") {
+    if (onlyStatement?.type !== AST_NODE_TYPES.ReturnStatement) {
         return false;
     }
 
     return (
         onlyStatement.argument === null ||
-        (onlyStatement.argument !== null &&
-            isAlwaysSuccessfulReturnExpression(onlyStatement.argument))
+        isAlwaysSuccessfulReturnExpression(onlyStatement.argument)
     );
 };
 
@@ -102,7 +103,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 for (const propertyNode of node.properties) {
                     if (
-                        propertyNode.type !== "Property" ||
+                        propertyNode.type !== AST_NODE_TYPES.Property ||
                         propertyNode.kind !== "init" ||
                         getPropertyName(propertyNode) !==
                             "checkServerIdentity" ||

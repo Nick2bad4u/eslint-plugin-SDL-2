@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined, setHas } from "ts-extras";
 
 import { getMemberPropertyName } from "./estree-utils.js";
@@ -14,17 +15,17 @@ const GLOBAL_OBJECT_NAMES = new Set([
 ]);
 
 const isNavigatorObject = (value: Readonly<TSESTree.Expression>): boolean => {
-    if (value.type === "Identifier") {
+    if (value.type === AST_NODE_TYPES.Identifier) {
         return value.name === "navigator";
     }
 
-    if (value.type !== "MemberExpression") {
+    if (value.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
     return (
         getMemberPropertyName(value) === "navigator" &&
-        value.object.type === "Identifier" &&
+        value.object.type === AST_NODE_TYPES.Identifier &&
         setHas(GLOBAL_OBJECT_NAMES, value.object.name)
     );
 };
@@ -36,7 +37,7 @@ const isNavigatorObject = (value: Readonly<TSESTree.Expression>): boolean => {
  *
  * @returns Whether the string starts with `blob:`.
  */
-export const isBlobUrl = (value: string): boolean => /^\s*blob:/iu.test(value);
+export const isBlobUrl = (value: string): boolean => /^\s*blob:/iv.test(value);
 
 /**
  * Check whether a value is a static `data:` URL.
@@ -45,7 +46,7 @@ export const isBlobUrl = (value: string): boolean => /^\s*blob:/iu.test(value);
  *
  * @returns Whether the string starts with `data:`.
  */
-export const isDataUrl = (value: string): boolean => /^\s*data:/iu.test(value);
+export const isDataUrl = (value: string): boolean => /^\s*data:/iv.test(value);
 
 const isWorkerConstructorName = (
     value: string | undefined
@@ -65,7 +66,8 @@ const isGlobalObjectName = (value: string): boolean =>
  */
 export const isWorkerGlobalObject = (
     value: Readonly<TSESTree.Expression>
-): boolean => value.type === "Identifier" && isGlobalObjectName(value.name);
+): boolean =>
+    value.type === AST_NODE_TYPES.Identifier && isGlobalObjectName(value.name);
 
 /**
  * Check whether a constructor callee targets `Worker` or `SharedWorker`.
@@ -77,11 +79,11 @@ export const isWorkerGlobalObject = (
 export const isWorkerConstructor = (
     callee: Readonly<TSESTree.NewExpression["callee"]>
 ): boolean => {
-    if (callee.type === "Identifier") {
+    if (callee.type === AST_NODE_TYPES.Identifier) {
         return isWorkerConstructorName(callee.name);
     }
 
-    if (callee.type !== "MemberExpression") {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -101,11 +103,11 @@ export const isWorkerConstructor = (
 export const isImportScriptsCall = (
     callee: Readonly<TSESTree.CallExpression["callee"]>
 ): boolean => {
-    if (callee.type === "Identifier") {
+    if (callee.type === AST_NODE_TYPES.Identifier) {
         return callee.name === "importScripts";
     }
 
-    if (callee.type !== "MemberExpression") {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -126,7 +128,7 @@ export const isImportScriptsCall = (
 export const isServiceWorkerContainerAccess = (
     value: Readonly<TSESTree.Expression>
 ): value is TSESTree.MemberExpression => {
-    if (value.type !== "MemberExpression") {
+    if (value.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -146,7 +148,7 @@ export const isServiceWorkerContainerAccess = (
 export const isServiceWorkerRegisterCall = (
     callee: Readonly<TSESTree.CallExpression["callee"]>
 ): boolean =>
-    callee.type === "MemberExpression" &&
+    callee.type === AST_NODE_TYPES.MemberExpression &&
     getMemberPropertyName(callee) === "register" &&
     isServiceWorkerContainerAccess(callee.object);
 
@@ -158,7 +160,7 @@ const isGlobalUrlObject = (
     }
 
     return (
-        node.object.type === "Identifier" &&
+        node.object.type === AST_NODE_TYPES.Identifier &&
         isGlobalObjectName(node.object.name)
     );
 };
@@ -175,8 +177,8 @@ export const isUrlCreateObjectUrlCall = (
     node: Readonly<TSESTree.Expression>
 ): node is TSESTree.CallExpression => {
     if (
-        node.type !== "CallExpression" ||
-        node.callee.type !== "MemberExpression"
+        node.type !== AST_NODE_TYPES.CallExpression ||
+        node.callee.type !== AST_NODE_TYPES.MemberExpression
     ) {
         return false;
     }
@@ -186,9 +188,9 @@ export const isUrlCreateObjectUrlCall = (
     }
 
     return (
-        (node.callee.object.type === "Identifier" &&
+        (node.callee.object.type === AST_NODE_TYPES.Identifier &&
             node.callee.object.name === "URL") ||
-        (node.callee.object.type === "MemberExpression" &&
+        (node.callee.object.type === AST_NODE_TYPES.MemberExpression &&
             isGlobalUrlObject(node.callee.object))
     );
 };

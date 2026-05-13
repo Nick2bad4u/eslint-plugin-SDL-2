@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 
 /** Default insecure-protocol blocklist patterns. */
-const defaultBlocklist: readonly RegExp[] = [/^(?:ftp|http|telnet|ws):\/\//iu];
+const defaultBlocklist: readonly RegExp[] = [/^(?:ftp|http|telnet|ws):\/\//iv];
 
 /** Default allowlisted literal URL exceptions. */
 const defaultExceptions: readonly RegExp[] = [
-    /^http:(?:\/\/|\\u002f\\u002f)schemas\.microsoft\.com.*/iu,
-    /^http:(?:\/\/|\\u002f\\u002f)schemas\.openxmlformats\.org.*/iu,
-    /^http:(?:\/|\\u002f){2}localhost(?::|\/|\\u002f)*/iu,
-    /^http:\/\/w{3}\.w3\.org\/1999\/xhtml/iu,
-    /^http:\/\/w{3}\.w3\.org\/2000\/svg/iu,
+    /^http:(?:\/\/|\\u002f\\u002f)schemas\.microsoft\.com.*/iv,
+    /^http:(?:\/\/|\\u002f\\u002f)schemas\.openxmlformats\.org.*/iv,
+    /^http:(?:\/|\\u002f){2}localhost(?::|\/|\\u002f)*/iv,
+    /^http:\/\/w{3}\.w3\.org\/1999\/xhtml/iv,
+    /^http:\/\/w{3}\.w3\.org\/2000\/svg/iv,
 ];
 
 /** Default source-text exceptions for variable/template contexts. */
@@ -62,13 +64,13 @@ const reportInsecureUrl = (
 ): void => {
     context.report({
         fix(fixer) {
-            if (!/http:/iu.test(replacementSourceText)) {
+            if (!/http:/iv.test(replacementSourceText)) {
                 return null;
             }
 
             return fixer.replaceText(
                 node,
-                replacementSourceText.replace(/http:/iu, "https:")
+                replacementSourceText.replace(/http:/iv, "https:")
             );
         },
         messageId: "doNotUseInsecureUrl",
@@ -97,8 +99,8 @@ const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
                 }
 
                 if (
-                    node.parent?.type === "JSXAttribute" &&
-                    node.parent.name.type === "JSXIdentifier" &&
+                    node.parent.type === AST_NODE_TYPES.JSXAttribute &&
+                    node.parent.name.type === AST_NODE_TYPES.JSXIdentifier &&
                     node.parent.name.name === "xmlns"
                 ) {
                     return;

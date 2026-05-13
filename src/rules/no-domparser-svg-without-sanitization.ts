@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -31,8 +32,8 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 if (
-                    firstArgument.type === "SpreadElement" ||
-                    secondArgument.type === "SpreadElement"
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }

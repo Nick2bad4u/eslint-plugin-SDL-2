@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -18,11 +19,14 @@ const getStaticTemplateLiteralValue = (
 };
 
 const getStringValue = (node: TSESTree.Expression): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral") {
+    if (node.type === AST_NODE_TYPES.TemplateLiteral) {
         return getStaticTemplateLiteralValue(node);
     }
 
@@ -30,20 +34,20 @@ const getStringValue = (node: TSESTree.Expression): string | undefined => {
 };
 
 const isAllowedExternalProtocol = (value: string): boolean =>
-    /^(?:https|mailto):/iu.test(value.trim());
+    /^(?:https|mailto):/iv.test(value.trim());
 
 const getMemberPropertyName = (
     memberExpression: TSESTree.MemberExpression
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -53,11 +57,11 @@ const getMemberPropertyName = (
 };
 
 const isShellObjectExpression = (node: TSESTree.Expression): boolean => {
-    if (node.type === "Identifier") {
+    if (node.type === AST_NODE_TYPES.Identifier) {
         return node.name === "shell";
     }
 
-    if (node.type !== "MemberExpression") {
+    if (node.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -67,7 +71,7 @@ const isShellObjectExpression = (node: TSESTree.Expression): boolean => {
 const isShellOpenExternalCallee = (
     callee: TSESTree.CallExpression["callee"]
 ): boolean => {
-    if (callee.type !== "MemberExpression") {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -91,7 +95,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement"
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }

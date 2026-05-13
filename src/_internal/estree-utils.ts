@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 /**
@@ -17,13 +18,13 @@ export const getMemberPropertyName = (
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -46,18 +47,13 @@ export const getPropertyName = (
         return undefined;
     }
 
-    if (property.key.type === "Identifier") {
+    if (property.key.type === AST_NODE_TYPES.Identifier) {
         return property.key.name;
     }
 
-    if (
-        property.key.type === "Literal" &&
-        typeof property.key.value === "string"
-    ) {
-        return property.key.value;
-    }
-
-    return undefined;
+    return typeof property.key.value === "string"
+        ? property.key.value
+        : undefined;
 };
 
 /**
@@ -73,7 +69,10 @@ export const getPropertyByName = (
     propertyName: string
 ): TSESTree.Property | undefined => {
     for (const propertyNode of objectExpression.properties) {
-        if (propertyNode.type !== "Property" || propertyNode.kind !== "init") {
+        if (
+            propertyNode.type !== AST_NODE_TYPES.Property ||
+            propertyNode.kind !== "init"
+        ) {
             continue;
         }
 
@@ -97,11 +96,17 @@ export const getPropertyByName = (
 export const getStaticStringValue = (
     node: Readonly<TSESTree.Expression>
 ): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    if (
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
+        node.expressions.length === 0
+    ) {
         return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
@@ -126,25 +131,25 @@ export const getStaticJsxAttributeStringValue = (
     }
 
     if (
-        attributeValue.type === "Literal" &&
+        attributeValue.type === AST_NODE_TYPES.Literal &&
         typeof attributeValue.value === "string"
     ) {
         return attributeValue.value;
     }
 
-    if (attributeValue.type !== "JSXExpressionContainer") {
+    if (attributeValue.type !== AST_NODE_TYPES.JSXExpressionContainer) {
         return undefined;
     }
 
     if (
-        attributeValue.expression.type === "Literal" &&
+        attributeValue.expression.type === AST_NODE_TYPES.Literal &&
         typeof attributeValue.expression.value === "string"
     ) {
         return attributeValue.expression.value;
     }
 
     if (
-        attributeValue.expression.type === "TemplateLiteral" &&
+        attributeValue.expression.type === AST_NODE_TYPES.TemplateLiteral &&
         attributeValue.expression.expressions.length === 0
     ) {
         return (

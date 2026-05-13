@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import {
     getFullTypeChecker,
     getNodeTypeAsString,
@@ -16,7 +18,7 @@ type AstUtilsRuleContext = Parameters<typeof getFullTypeChecker>[0];
 type MessageIds = "default";
 
 const isJsxIframeElement = (node: TSESTree.JSXOpeningElement): boolean => {
-    if (node.name.type !== "JSXIdentifier") {
+    if (node.name.type !== AST_NODE_TYPES.JSXIdentifier) {
         return false;
     }
 
@@ -26,7 +28,7 @@ const isJsxIframeElement = (node: TSESTree.JSXOpeningElement): boolean => {
 const getJsxAttributeName = (
     attributeNode: TSESTree.JSXAttribute
 ): string | undefined => {
-    if (attributeNode.name.type !== "JSXIdentifier") {
+    if (attributeNode.name.type !== AST_NODE_TYPES.JSXIdentifier) {
         return undefined;
     }
 
@@ -35,8 +37,8 @@ const getJsxAttributeName = (
 
 const isCreateElementIFrameCall = (node: TSESTree.Node): boolean => {
     if (
-        node.type !== "CallExpression" ||
-        node.callee.type !== "MemberExpression"
+        node.type !== AST_NODE_TYPES.CallExpression ||
+        node.callee.type !== AST_NODE_TYPES.MemberExpression
     ) {
         return false;
     }
@@ -49,7 +51,7 @@ const isCreateElementIFrameCall = (node: TSESTree.Node): boolean => {
 
     return (
         firstArgument !== undefined &&
-        firstArgument.type !== "SpreadElement" &&
+        firstArgument.type !== AST_NODE_TYPES.SpreadElement &&
         getStaticStringValue(firstArgument) === "iframe"
     );
 };
@@ -71,13 +73,13 @@ const isLikelyIFrameElement = (
         return true;
     }
 
-    if (node.type === "Identifier") {
+    if (node.type === AST_NODE_TYPES.Identifier) {
         const normalizedName = node.name.toLowerCase();
 
         return normalizedName === "frame" || normalizedName.endsWith("iframe");
     }
 
-    if (node.type !== "MemberExpression") {
+    if (node.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -97,7 +99,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
         return {
             AssignmentExpression(node: TSESTree.AssignmentExpression) {
-                if (node.left.type !== "MemberExpression") {
+                if (node.left.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -125,7 +127,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 });
             },
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -142,7 +144,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement" ||
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     getStaticStringValue(firstArgument) !== "srcdoc"
                 ) {
                     return;
@@ -150,7 +152,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement" ||
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement ||
                     getStaticStringValue(secondArgument) === ""
                 ) {
                     return;
@@ -177,7 +179,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== "JSXAttribute") {
+                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
                         continue;
                     }
 

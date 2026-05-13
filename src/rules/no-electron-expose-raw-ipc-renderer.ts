@@ -1,23 +1,25 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 import { getMemberPropertyName } from "../_internal/estree-utils.js";
 
 type MessageIds = "default";
 
 const isExpressionNode = (node: TSESTree.Node): node is TSESTree.Expression =>
-    node.type !== "ArrayPattern" &&
-    node.type !== "AssignmentPattern" &&
-    node.type !== "ObjectPattern";
+    node.type !== AST_NODE_TYPES.ArrayPattern &&
+    node.type !== AST_NODE_TYPES.AssignmentPattern &&
+    node.type !== AST_NODE_TYPES.ObjectPattern;
 
 const isContextBridgeObjectExpression = (
     expression: TSESTree.Expression
 ): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return expression.name === "contextBridge";
     }
 
-    if (expression.type !== "MemberExpression") {
+    if (expression.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -25,7 +27,7 @@ const isContextBridgeObjectExpression = (
 };
 
 const isContextBridgeExposeCall = (node: TSESTree.CallExpression): boolean => {
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -42,19 +44,19 @@ const isContextBridgeExposeCall = (node: TSESTree.CallExpression): boolean => {
 };
 
 const isIpcRendererReference = (expression: TSESTree.Expression): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return expression.name === "ipcRenderer";
     }
 
-    if (expression.type !== "MemberExpression") {
+    if (expression.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
-    if (expression.object.type === "Identifier") {
+    if (expression.object.type === AST_NODE_TYPES.Identifier) {
         return expression.object.name === "ipcRenderer";
     }
 
-    if (expression.object.type !== "MemberExpression") {
+    if (expression.object.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -67,29 +69,29 @@ const isUnsafeExposedValue = (expression: TSESTree.Expression): boolean => {
     }
 
     if (
-        expression.type === "CallExpression" &&
-        expression.callee.type === "MemberExpression" &&
+        expression.type === AST_NODE_TYPES.CallExpression &&
+        expression.callee.type === AST_NODE_TYPES.MemberExpression &&
         getMemberPropertyName(expression.callee) === "bind" &&
-        expression.callee.object.type === "MemberExpression"
+        expression.callee.object.type === AST_NODE_TYPES.MemberExpression
     ) {
         return isIpcRendererReference(expression.callee.object);
     }
 
-    if (expression.type === "ArrayExpression") {
+    if (expression.type === AST_NODE_TYPES.ArrayExpression) {
         return expression.elements.some(
             (element): element is TSESTree.Expression =>
                 element !== null &&
-                element.type !== "SpreadElement" &&
+                element.type !== AST_NODE_TYPES.SpreadElement &&
                 isUnsafeExposedValue(element)
         );
     }
 
-    if (expression.type !== "ObjectExpression") {
+    if (expression.type !== AST_NODE_TYPES.ObjectExpression) {
         return false;
     }
 
     return expression.properties.some((propertyNode) => {
-        if (propertyNode.type === "SpreadElement") {
+        if (propertyNode.type === AST_NODE_TYPES.SpreadElement) {
             return isUnsafeExposedValue(propertyNode.argument);
         }
 
@@ -114,7 +116,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     exposedValue === undefined ||
-                    exposedValue.type === "SpreadElement" ||
+                    exposedValue.type === AST_NODE_TYPES.SpreadElement ||
                     !isUnsafeExposedValue(exposedValue)
                 ) {
                     return;

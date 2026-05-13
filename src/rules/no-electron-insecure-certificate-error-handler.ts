@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayAt, arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -10,11 +11,17 @@ type MessageIds = "default";
 const getStaticStringValue = (
     node: TSESTree.Expression
 ): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    if (
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
+        node.expressions.length === 0
+    ) {
         return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
@@ -24,12 +31,13 @@ const getStaticStringValue = (
 const isOnMemberExpression = (
     callee: TSESTree.CallExpression["callee"]
 ): boolean => {
-    if (callee.type !== "MemberExpression" || callee.computed) {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression || callee.computed) {
         return false;
     }
 
     return (
-        callee.property.type === "Identifier" && callee.property.name === "on"
+        callee.property.type === AST_NODE_TYPES.Identifier &&
+        callee.property.name === "on"
     );
 };
 
@@ -38,7 +46,7 @@ const getCallbackParameterName = (
 ): string | undefined => {
     const callbackParameter = arrayAt(node.params, -1);
 
-    return callbackParameter?.type === "Identifier"
+    return callbackParameter?.type === AST_NODE_TYPES.Identifier
         ? callbackParameter.name
         : undefined;
 };
@@ -66,7 +74,10 @@ const isCertificateErrorEventRegistration = (
 
     const [firstArgument] = node.arguments;
 
-    if (firstArgument === undefined || firstArgument.type === "SpreadElement") {
+    if (
+        firstArgument === undefined ||
+        firstArgument.type === AST_NODE_TYPES.SpreadElement
+    ) {
         return false;
     }
 
@@ -86,14 +97,15 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement"
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }
 
                 if (
-                    secondArgument.type !== "ArrowFunctionExpression" &&
-                    secondArgument.type !== "FunctionExpression"
+                    secondArgument.type !==
+                        AST_NODE_TYPES.ArrowFunctionExpression &&
+                    secondArgument.type !== AST_NODE_TYPES.FunctionExpression
                 ) {
                     return;
                 }

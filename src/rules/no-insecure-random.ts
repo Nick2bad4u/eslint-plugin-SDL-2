@@ -1,7 +1,8 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
-import { basename, parse } from "node:path";
-import { arrayIncludes, isDefined } from "ts-extras";
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import path from "node:path";
+import { arrayIncludes, isDefined, setHas } from "ts-extras";
 
 import {
     getFullTypeChecker,
@@ -11,18 +12,16 @@ import { createRule } from "../_internal/create-rule.js";
 
 const bannedRandomLibraries = [
     "chance",
-    "random-number",
-    "random-int",
     "random-float",
+    "random-int",
+    "random-number",
     "random-seed",
     "unique-random",
 ] as const;
+const bannedRandomLibrarySet = new Set(bannedRandomLibraries);
 
 const isBannedRandomLibrary = (value: string): boolean =>
-    arrayIncludes(
-        bannedRandomLibraries,
-        value as (typeof bannedRandomLibraries)[number]
-    );
+    setHas(bannedRandomLibrarySet, value);
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], "default">({
@@ -42,7 +41,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
                               context
                           )
                       )
-                    : node.object.type === "Identifier" &&
+                    : node.object.type === AST_NODE_TYPES.Identifier &&
                       node.object.name === "crypto";
 
                 if (!isUnsafe) {
@@ -66,7 +65,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
                               context
                           )
                       )
-                    : node.object.type === "Identifier" &&
+                    : node.object.type === AST_NODE_TYPES.Identifier &&
                       node.object.name === "Math";
 
                 if (!isUnsafe) {
@@ -85,13 +84,15 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
 
                 if (
                     !isDefined(sourceArgument) ||
-                    sourceArgument.type !== "Literal" ||
+                    sourceArgument.type !== AST_NODE_TYPES.Literal ||
                     typeof sourceArgument.value !== "string"
                 ) {
                     return;
                 }
 
-                const requireName = parse(basename(sourceArgument.value)).name;
+                const requireName = path.parse(
+                    path.basename(sourceArgument.value)
+                ).name;
 
                 if (!isBannedRandomLibrary(requireName)) {
                     return;
@@ -109,7 +110,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
                     return;
                 }
 
-                if (!isBannedRandomLibrary(basename(sourceText))) {
+                if (!isBannedRandomLibrary(path.basename(sourceText))) {
                     return;
                 }
 

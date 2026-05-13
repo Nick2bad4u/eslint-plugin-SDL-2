@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
@@ -12,13 +14,13 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
                 const parentNode = node.parent;
 
                 if (
-                    parentNode?.type === "CallExpression" &&
+                    parentNode.type === AST_NODE_TYPES.CallExpression &&
                     parentNode.arguments.length === 1
                 ) {
                     const [firstArgument] = parentNode.arguments;
 
                     if (
-                        firstArgument?.type === "Literal" &&
+                        firstArgument?.type === AST_NODE_TYPES.Literal &&
                         (firstArgument.value === 0 ||
                             firstArgument.value === "0")
                     ) {
@@ -30,7 +32,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
                     fix(fixer) {
                         if (
                             node.computed ||
-                            node.property.type !== "Identifier"
+                            node.property.type !== AST_NODE_TYPES.Identifier
                         ) {
                             return null;
                         }

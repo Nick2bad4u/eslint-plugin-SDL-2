@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst, isDefined, stringSplit } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -9,11 +10,17 @@ type MessageIds = "default";
 const getStaticStringValue = (
     node: TSESTree.Expression
 ): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    if (
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
+        node.expressions.length === 0
+    ) {
         const firstQuasi = arrayFirst(node.quasis);
 
         if (
@@ -32,14 +39,14 @@ const getStaticStringValue = (
 const isWindowOpenCallee = (
     callee: TSESTree.CallExpression["callee"]
 ): boolean => {
-    if (callee.type !== "MemberExpression" || callee.computed) {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression || callee.computed) {
         return false;
     }
 
     return (
-        callee.object.type === "Identifier" &&
+        callee.object.type === AST_NODE_TYPES.Identifier &&
         callee.object.name === "window" &&
-        callee.property.type === "Identifier" &&
+        callee.property.type === AST_NODE_TYPES.Identifier &&
         callee.property.name === "open"
     );
 };
@@ -66,7 +73,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement"
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }
@@ -79,7 +86,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     thirdArgument === undefined ||
-                    thirdArgument.type === "SpreadElement"
+                    thirdArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     context.report({
                         messageId: "default",

@@ -1,78 +1,77 @@
-/* eslint-disable canonical/no-re-export -- Rule registry intentionally aggregates imported rule modules into a single exported map. */
 import type { TSESLint } from "@typescript-eslint/utils";
 import type { UnknownArray } from "type-fest";
 
-import noAngularBypassSanitizerRule from "../rules/no-angular-bypass-sanitizer.js";
-import noAngularBypassSecurityTrustHtmlRule from "../rules/no-angular-bypass-security-trust-html.js";
-import noAngularInnerhtmlBindingRule from "../rules/no-angular-innerhtml-binding.js";
-import noAngularSanitizationTrustedUrlsRule from "../rules/no-angular-sanitization-trusted-urls.js";
-import noAngularjsBypassSceRule from "../rules/no-angularjs-bypass-sce.js";
-import noAngularjsEnableSvgRule from "../rules/no-angularjs-enable-svg.js";
-import noAngularjsNgBindHtmlWithoutSanitizeRule from "../rules/no-angularjs-ng-bind-html-without-sanitize.js";
-import noAngularjsSanitizationWhitelistRule from "../rules/no-angularjs-sanitization-whitelist.js";
-import noAngularjsSceResourceUrlWildcardRule from "../rules/no-angularjs-sce-resource-url-wildcard.js";
-import noChildProcessExecRule from "../rules/no-child-process-exec.js";
-import noChildProcessShellTrueRule from "../rules/no-child-process-shell-true.js";
-import noCookiesRule from "../rules/no-cookies.js";
-import noDocumentDomainRule from "../rules/no-document-domain.js";
-import noDocumentExeccommandInsertHtmlRule from "../rules/no-document-execcommand-insert-html.js";
-import noDocumentParseHtmlUnsafeRule from "../rules/no-document-parse-html-unsafe.js";
-import noDocumentWriteRule from "../rules/no-document-write.js";
-import noDomparserHtmlWithoutSanitizationRule from "../rules/no-domparser-html-without-sanitization.js";
-import noDomparserSvgWithoutSanitizationRule from "../rules/no-domparser-svg-without-sanitization.js";
-import noDynamicImportUnsafeUrlRule from "../rules/no-dynamic-import-unsafe-url.js";
-import noElectronAllowRunningInsecureContentRule from "../rules/no-electron-allow-running-insecure-content.js";
-import noElectronDangerousBlinkFeaturesRule from "../rules/no-electron-dangerous-blink-features.js";
-import noElectronDisableContextIsolationRule from "../rules/no-electron-disable-context-isolation.js";
-import noElectronDisableSandboxRule from "../rules/no-electron-disable-sandbox.js";
-import noElectronDisableWebSecurityRule from "../rules/no-electron-disable-web-security.js";
-import noElectronEnableRemoteModuleRule from "../rules/no-electron-enable-remote-module.js";
-import noElectronEnableWebviewTagRule from "../rules/no-electron-enable-webview-tag.js";
-import noElectronExperimentalFeaturesRule from "../rules/no-electron-experimental-features.js";
-import noElectronExposeRawIpcRendererRule from "../rules/no-electron-expose-raw-ipc-renderer.js";
-import noElectronInsecureCertificateErrorHandlerRule from "../rules/no-electron-insecure-certificate-error-handler.js";
-import noElectronInsecureCertificateVerifyProcRule from "../rules/no-electron-insecure-certificate-verify-proc.js";
-import noElectronInsecurePermissionRequestHandlerRule from "../rules/no-electron-insecure-permission-request-handler.js";
-import noElectronNodeIntegrationRule from "../rules/no-electron-node-integration.js";
-import noElectronPermissionCheckHandlerAllowAllRule from "../rules/no-electron-permission-check-handler-allow-all.js";
-import noElectronUncheckedIpcSenderRule from "../rules/no-electron-unchecked-ipc-sender.js";
-import noElectronUnrestrictedNavigationRule from "../rules/no-electron-unrestricted-navigation.js";
-import noElectronUntrustedOpenExternalRule from "../rules/no-electron-untrusted-open-external.js";
-import noElectronWebviewAllowpopupsRule from "../rules/no-electron-webview-allowpopups.js";
-import noElectronWebviewInsecureWebpreferencesRule from "../rules/no-electron-webview-insecure-webpreferences.js";
-import noElectronWebviewNodeIntegrationRule from "../rules/no-electron-webview-node-integration.js";
-import noHtmlMethodRule from "../rules/no-html-method.js";
-import noHttpRequestToInsecureProtocolRule from "../rules/no-http-request-to-insecure-protocol.js";
-import noIframeSrcdocRule from "../rules/no-iframe-srcdoc.js";
-import noInnerHtmlRule from "../rules/no-inner-html.js";
-import noInsecureRandomRule from "../rules/no-insecure-random.js";
-import noInsecureTlsAgentOptionsRule from "../rules/no-insecure-tls-agent-options.js";
-import noInsecureUrlRule from "../rules/no-insecure-url.js";
-import noLocationJavascriptUrlRule from "../rules/no-location-javascript-url.js";
-import noMessageEventWithoutOriginCheckRule from "../rules/no-message-event-without-origin-check.js";
-import noMsappExecUnsafeRule from "../rules/no-msapp-exec-unsafe.js";
-import noNodeTlsCheckServerIdentityBypassRule from "../rules/no-node-tls-check-server-identity-bypass.js";
-import noNodeTlsLegacyProtocolRule from "../rules/no-node-tls-legacy-protocol.js";
-import noNodeTlsRejectUnauthorizedZeroRule from "../rules/no-node-tls-reject-unauthorized-zero.js";
-import noNodeTlsSecurityLevelZeroRule from "../rules/no-node-tls-security-level-zero.js";
-import noNodeVmRunInContextRule from "../rules/no-node-vm-run-in-context.js";
-import noNodeVmSourceTextModuleRule from "../rules/no-node-vm-source-text-module.js";
-import noNodeWorkerThreadsEvalRule from "../rules/no-node-worker-threads-eval.js";
-import noNonnullAssertionOnSecurityInputRule from "../rules/no-nonnull-assertion-on-security-input.js";
-import noPostmessageStarOriginRule from "../rules/no-postmessage-star-origin.js";
-import noPostmessageWithoutOriginAllowlistRule from "../rules/no-postmessage-without-origin-allowlist.js";
-import noRangeCreateContextualFragmentRule from "../rules/no-range-create-contextual-fragment.js";
-import noScriptSrcDataUrlRule from "../rules/no-script-src-data-url.js";
-import noScriptTextRule from "../rules/no-script-text.js";
-import noServiceWorkerUnsafeScriptUrlRule from "../rules/no-service-worker-unsafe-script-url.js";
-import noSetHtmlUnsafeRule from "../rules/no-set-html-unsafe.js";
-import noTrustedTypesPolicyPassThroughRule from "../rules/no-trusted-types-policy-pass-through.js";
-import noUnsafeAllocRule from "../rules/no-unsafe-alloc.js";
-import noUnsafeCastToTrustedTypesRule from "../rules/no-unsafe-cast-to-trusted-types.js";
-import noWindowOpenWithoutNoopenerRule from "../rules/no-window-open-without-noopener.js";
-import noWinjsHtmlUnsafeRule from "../rules/no-winjs-html-unsafe.js";
-import noWorkerBlobUrlRule from "../rules/no-worker-blob-url.js";
-import noWorkerDataUrlRule from "../rules/no-worker-data-url.js";
+import * as noAngularBypassSanitizerRuleModule from "../rules/no-angular-bypass-sanitizer.js";
+import * as noAngularBypassSecurityTrustHtmlRuleModule from "../rules/no-angular-bypass-security-trust-html.js";
+import * as noAngularInnerhtmlBindingRuleModule from "../rules/no-angular-innerhtml-binding.js";
+import * as noAngularSanitizationTrustedUrlsRuleModule from "../rules/no-angular-sanitization-trusted-urls.js";
+import * as noAngularjsBypassSceRuleModule from "../rules/no-angularjs-bypass-sce.js";
+import * as noAngularjsEnableSvgRuleModule from "../rules/no-angularjs-enable-svg.js";
+import * as noAngularjsNgBindHtmlWithoutSanitizeRuleModule from "../rules/no-angularjs-ng-bind-html-without-sanitize.js";
+import * as noAngularjsSanitizationWhitelistRuleModule from "../rules/no-angularjs-sanitization-whitelist.js";
+import * as noAngularjsSceResourceUrlWildcardRuleModule from "../rules/no-angularjs-sce-resource-url-wildcard.js";
+import * as noChildProcessExecRuleModule from "../rules/no-child-process-exec.js";
+import * as noChildProcessShellTrueRuleModule from "../rules/no-child-process-shell-true.js";
+import * as noCookiesRuleModule from "../rules/no-cookies.js";
+import * as noDocumentDomainRuleModule from "../rules/no-document-domain.js";
+import * as noDocumentExeccommandInsertHtmlRuleModule from "../rules/no-document-execcommand-insert-html.js";
+import * as noDocumentParseHtmlUnsafeRuleModule from "../rules/no-document-parse-html-unsafe.js";
+import * as noDocumentWriteRuleModule from "../rules/no-document-write.js";
+import * as noDomparserHtmlWithoutSanitizationRuleModule from "../rules/no-domparser-html-without-sanitization.js";
+import * as noDomparserSvgWithoutSanitizationRuleModule from "../rules/no-domparser-svg-without-sanitization.js";
+import * as noDynamicImportUnsafeUrlRuleModule from "../rules/no-dynamic-import-unsafe-url.js";
+import * as noElectronAllowRunningInsecureContentRuleModule from "../rules/no-electron-allow-running-insecure-content.js";
+import * as noElectronDangerousBlinkFeaturesRuleModule from "../rules/no-electron-dangerous-blink-features.js";
+import * as noElectronDisableContextIsolationRuleModule from "../rules/no-electron-disable-context-isolation.js";
+import * as noElectronDisableSandboxRuleModule from "../rules/no-electron-disable-sandbox.js";
+import * as noElectronDisableWebSecurityRuleModule from "../rules/no-electron-disable-web-security.js";
+import * as noElectronEnableRemoteModuleRuleModule from "../rules/no-electron-enable-remote-module.js";
+import * as noElectronEnableWebviewTagRuleModule from "../rules/no-electron-enable-webview-tag.js";
+import * as noElectronExperimentalFeaturesRuleModule from "../rules/no-electron-experimental-features.js";
+import * as noElectronExposeRawIpcRendererRuleModule from "../rules/no-electron-expose-raw-ipc-renderer.js";
+import * as noElectronInsecureCertificateErrorHandlerRuleModule from "../rules/no-electron-insecure-certificate-error-handler.js";
+import * as noElectronInsecureCertificateVerifyProcRuleModule from "../rules/no-electron-insecure-certificate-verify-proc.js";
+import * as noElectronInsecurePermissionRequestHandlerRuleModule from "../rules/no-electron-insecure-permission-request-handler.js";
+import * as noElectronNodeIntegrationRuleModule from "../rules/no-electron-node-integration.js";
+import * as noElectronPermissionCheckHandlerAllowAllRuleModule from "../rules/no-electron-permission-check-handler-allow-all.js";
+import * as noElectronUncheckedIpcSenderRuleModule from "../rules/no-electron-unchecked-ipc-sender.js";
+import * as noElectronUnrestrictedNavigationRuleModule from "../rules/no-electron-unrestricted-navigation.js";
+import * as noElectronUntrustedOpenExternalRuleModule from "../rules/no-electron-untrusted-open-external.js";
+import * as noElectronWebviewAllowpopupsRuleModule from "../rules/no-electron-webview-allowpopups.js";
+import * as noElectronWebviewInsecureWebpreferencesRuleModule from "../rules/no-electron-webview-insecure-webpreferences.js";
+import * as noElectronWebviewNodeIntegrationRuleModule from "../rules/no-electron-webview-node-integration.js";
+import * as noHtmlMethodRuleModule from "../rules/no-html-method.js";
+import * as noHttpRequestToInsecureProtocolRuleModule from "../rules/no-http-request-to-insecure-protocol.js";
+import * as noIframeSrcdocRuleModule from "../rules/no-iframe-srcdoc.js";
+import * as noInnerHtmlRuleModule from "../rules/no-inner-html.js";
+import * as noInsecureRandomRuleModule from "../rules/no-insecure-random.js";
+import * as noInsecureTlsAgentOptionsRuleModule from "../rules/no-insecure-tls-agent-options.js";
+import * as noInsecureUrlRuleModule from "../rules/no-insecure-url.js";
+import * as noLocationJavascriptUrlRuleModule from "../rules/no-location-javascript-url.js";
+import * as noMessageEventWithoutOriginCheckRuleModule from "../rules/no-message-event-without-origin-check.js";
+import * as noMsappExecUnsafeRuleModule from "../rules/no-msapp-exec-unsafe.js";
+import * as noNodeTlsCheckServerIdentityBypassRuleModule from "../rules/no-node-tls-check-server-identity-bypass.js";
+import * as noNodeTlsLegacyProtocolRuleModule from "../rules/no-node-tls-legacy-protocol.js";
+import * as noNodeTlsRejectUnauthorizedZeroRuleModule from "../rules/no-node-tls-reject-unauthorized-zero.js";
+import * as noNodeTlsSecurityLevelZeroRuleModule from "../rules/no-node-tls-security-level-zero.js";
+import * as noNodeVmRunInContextRuleModule from "../rules/no-node-vm-run-in-context.js";
+import * as noNodeVmSourceTextModuleRuleModule from "../rules/no-node-vm-source-text-module.js";
+import * as noNodeWorkerThreadsEvalRuleModule from "../rules/no-node-worker-threads-eval.js";
+import * as noNonnullAssertionOnSecurityInputRuleModule from "../rules/no-nonnull-assertion-on-security-input.js";
+import * as noPostmessageStarOriginRuleModule from "../rules/no-postmessage-star-origin.js";
+import * as noPostmessageWithoutOriginAllowlistRuleModule from "../rules/no-postmessage-without-origin-allowlist.js";
+import * as noRangeCreateContextualFragmentRuleModule from "../rules/no-range-create-contextual-fragment.js";
+import * as noScriptSrcDataUrlRuleModule from "../rules/no-script-src-data-url.js";
+import * as noScriptTextRuleModule from "../rules/no-script-text.js";
+import * as noServiceWorkerUnsafeScriptUrlRuleModule from "../rules/no-service-worker-unsafe-script-url.js";
+import * as noSetHtmlUnsafeRuleModule from "../rules/no-set-html-unsafe.js";
+import * as noTrustedTypesPolicyPassThroughRuleModule from "../rules/no-trusted-types-policy-pass-through.js";
+import * as noUnsafeAllocRuleModule from "../rules/no-unsafe-alloc.js";
+import * as noUnsafeCastToTrustedTypesRuleModule from "../rules/no-unsafe-cast-to-trusted-types.js";
+import * as noWindowOpenWithoutNoopenerRuleModule from "../rules/no-window-open-without-noopener.js";
+import * as noWinjsHtmlUnsafeRuleModule from "../rules/no-winjs-html-unsafe.js";
+import * as noWorkerBlobUrlRuleModule from "../rules/no-worker-blob-url.js";
+import * as noWorkerDataUrlRuleModule from "../rules/no-worker-data-url.js";
 
 /** Canonical SDL rule module type used in the exported registry map. */
 export type SdlRuleModule = TSESLint.RuleModule<string, Readonly<UnknownArray>>;
@@ -82,97 +81,117 @@ export type SdlRuleNamePattern = `no-${string}`;
 
 /** SDL rule registry keyed by rule name for plugin export wiring. */
 export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
-    "no-angular-bypass-sanitizer": noAngularBypassSanitizerRule,
+    "no-angular-bypass-sanitizer": noAngularBypassSanitizerRuleModule.default,
     "no-angular-bypass-security-trust-html":
-        noAngularBypassSecurityTrustHtmlRule,
-    "no-angular-innerhtml-binding": noAngularInnerhtmlBindingRule,
+        noAngularBypassSecurityTrustHtmlRuleModule.default,
+    "no-angular-innerhtml-binding": noAngularInnerhtmlBindingRuleModule.default,
     "no-angular-sanitization-trusted-urls":
-        noAngularSanitizationTrustedUrlsRule,
-    "no-angularjs-bypass-sce": noAngularjsBypassSceRule,
-    "no-angularjs-enable-svg": noAngularjsEnableSvgRule,
+        noAngularSanitizationTrustedUrlsRuleModule.default,
+    "no-angularjs-bypass-sce": noAngularjsBypassSceRuleModule.default,
+    "no-angularjs-enable-svg": noAngularjsEnableSvgRuleModule.default,
     "no-angularjs-ng-bind-html-without-sanitize":
-        noAngularjsNgBindHtmlWithoutSanitizeRule,
-    "no-angularjs-sanitization-whitelist": noAngularjsSanitizationWhitelistRule,
+        noAngularjsNgBindHtmlWithoutSanitizeRuleModule.default,
+    "no-angularjs-sanitization-whitelist":
+        noAngularjsSanitizationWhitelistRuleModule.default,
     "no-angularjs-sce-resource-url-wildcard":
-        noAngularjsSceResourceUrlWildcardRule,
-    "no-child-process-exec": noChildProcessExecRule,
-    "no-child-process-shell-true": noChildProcessShellTrueRule,
-    "no-cookies": noCookiesRule,
-    "no-document-domain": noDocumentDomainRule,
-    "no-document-execcommand-insert-html": noDocumentExeccommandInsertHtmlRule,
-    "no-document-parse-html-unsafe": noDocumentParseHtmlUnsafeRule,
-    "no-document-write": noDocumentWriteRule,
+        noAngularjsSceResourceUrlWildcardRuleModule.default,
+    "no-child-process-exec": noChildProcessExecRuleModule.default,
+    "no-child-process-shell-true": noChildProcessShellTrueRuleModule.default,
+    "no-cookies": noCookiesRuleModule.default,
+    "no-document-domain": noDocumentDomainRuleModule.default,
+    "no-document-execcommand-insert-html":
+        noDocumentExeccommandInsertHtmlRuleModule.default,
+    "no-document-parse-html-unsafe":
+        noDocumentParseHtmlUnsafeRuleModule.default,
+    "no-document-write": noDocumentWriteRuleModule.default,
     "no-domparser-html-without-sanitization":
-        noDomparserHtmlWithoutSanitizationRule,
+        noDomparserHtmlWithoutSanitizationRuleModule.default,
     "no-domparser-svg-without-sanitization":
-        noDomparserSvgWithoutSanitizationRule,
-    "no-dynamic-import-unsafe-url": noDynamicImportUnsafeUrlRule,
+        noDomparserSvgWithoutSanitizationRuleModule.default,
+    "no-dynamic-import-unsafe-url": noDynamicImportUnsafeUrlRuleModule.default,
     "no-electron-allow-running-insecure-content":
-        noElectronAllowRunningInsecureContentRule,
+        noElectronAllowRunningInsecureContentRuleModule.default,
     "no-electron-dangerous-blink-features":
-        noElectronDangerousBlinkFeaturesRule,
+        noElectronDangerousBlinkFeaturesRuleModule.default,
     "no-electron-disable-context-isolation":
-        noElectronDisableContextIsolationRule,
-    "no-electron-disable-sandbox": noElectronDisableSandboxRule,
-    "no-electron-disable-web-security": noElectronDisableWebSecurityRule,
-    "no-electron-enable-remote-module": noElectronEnableRemoteModuleRule,
-    "no-electron-enable-webview-tag": noElectronEnableWebviewTagRule,
-    "no-electron-experimental-features": noElectronExperimentalFeaturesRule,
-    "no-electron-expose-raw-ipc-renderer": noElectronExposeRawIpcRendererRule,
+        noElectronDisableContextIsolationRuleModule.default,
+    "no-electron-disable-sandbox": noElectronDisableSandboxRuleModule.default,
+    "no-electron-disable-web-security":
+        noElectronDisableWebSecurityRuleModule.default,
+    "no-electron-enable-remote-module":
+        noElectronEnableRemoteModuleRuleModule.default,
+    "no-electron-enable-webview-tag":
+        noElectronEnableWebviewTagRuleModule.default,
+    "no-electron-experimental-features":
+        noElectronExperimentalFeaturesRuleModule.default,
+    "no-electron-expose-raw-ipc-renderer":
+        noElectronExposeRawIpcRendererRuleModule.default,
     "no-electron-insecure-certificate-error-handler":
-        noElectronInsecureCertificateErrorHandlerRule,
+        noElectronInsecureCertificateErrorHandlerRuleModule.default,
     "no-electron-insecure-certificate-verify-proc":
-        noElectronInsecureCertificateVerifyProcRule,
+        noElectronInsecureCertificateVerifyProcRuleModule.default,
     "no-electron-insecure-permission-request-handler":
-        noElectronInsecurePermissionRequestHandlerRule,
-    "no-electron-node-integration": noElectronNodeIntegrationRule,
+        noElectronInsecurePermissionRequestHandlerRuleModule.default,
+    "no-electron-node-integration": noElectronNodeIntegrationRuleModule.default,
     "no-electron-permission-check-handler-allow-all":
-        noElectronPermissionCheckHandlerAllowAllRule,
-    "no-electron-unchecked-ipc-sender": noElectronUncheckedIpcSenderRule,
-    "no-electron-unrestricted-navigation": noElectronUnrestrictedNavigationRule,
-    "no-electron-untrusted-open-external": noElectronUntrustedOpenExternalRule,
-    "no-electron-webview-allowpopups": noElectronWebviewAllowpopupsRule,
+        noElectronPermissionCheckHandlerAllowAllRuleModule.default,
+    "no-electron-unchecked-ipc-sender":
+        noElectronUncheckedIpcSenderRuleModule.default,
+    "no-electron-unrestricted-navigation":
+        noElectronUnrestrictedNavigationRuleModule.default,
+    "no-electron-untrusted-open-external":
+        noElectronUntrustedOpenExternalRuleModule.default,
+    "no-electron-webview-allowpopups":
+        noElectronWebviewAllowpopupsRuleModule.default,
     "no-electron-webview-insecure-webpreferences":
-        noElectronWebviewInsecureWebpreferencesRule,
+        noElectronWebviewInsecureWebpreferencesRuleModule.default,
     "no-electron-webview-node-integration":
-        noElectronWebviewNodeIntegrationRule,
-    "no-html-method": noHtmlMethodRule,
-    "no-http-request-to-insecure-protocol": noHttpRequestToInsecureProtocolRule,
-    "no-iframe-srcdoc": noIframeSrcdocRule,
-    "no-inner-html": noInnerHtmlRule,
-    "no-insecure-random": noInsecureRandomRule,
-    "no-insecure-tls-agent-options": noInsecureTlsAgentOptionsRule,
-    "no-insecure-url": noInsecureUrlRule,
-    "no-location-javascript-url": noLocationJavascriptUrlRule,
+        noElectronWebviewNodeIntegrationRuleModule.default,
+    "no-html-method": noHtmlMethodRuleModule.default,
+    "no-http-request-to-insecure-protocol":
+        noHttpRequestToInsecureProtocolRuleModule.default,
+    "no-iframe-srcdoc": noIframeSrcdocRuleModule.default,
+    "no-inner-html": noInnerHtmlRuleModule.default,
+    "no-insecure-random": noInsecureRandomRuleModule.default,
+    "no-insecure-tls-agent-options":
+        noInsecureTlsAgentOptionsRuleModule.default,
+    "no-insecure-url": noInsecureUrlRuleModule.default,
+    "no-location-javascript-url": noLocationJavascriptUrlRuleModule.default,
     "no-message-event-without-origin-check":
-        noMessageEventWithoutOriginCheckRule,
-    "no-msapp-exec-unsafe": noMsappExecUnsafeRule,
+        noMessageEventWithoutOriginCheckRuleModule.default,
+    "no-msapp-exec-unsafe": noMsappExecUnsafeRuleModule.default,
     "no-node-tls-check-server-identity-bypass":
-        noNodeTlsCheckServerIdentityBypassRule,
-    "no-node-tls-legacy-protocol": noNodeTlsLegacyProtocolRule,
-    "no-node-tls-reject-unauthorized-zero": noNodeTlsRejectUnauthorizedZeroRule,
-    "no-node-tls-security-level-zero": noNodeTlsSecurityLevelZeroRule,
-    "no-node-vm-run-in-context": noNodeVmRunInContextRule,
-    "no-node-vm-source-text-module": noNodeVmSourceTextModuleRule,
-    "no-node-worker-threads-eval": noNodeWorkerThreadsEvalRule,
+        noNodeTlsCheckServerIdentityBypassRuleModule.default,
+    "no-node-tls-legacy-protocol": noNodeTlsLegacyProtocolRuleModule.default,
+    "no-node-tls-reject-unauthorized-zero":
+        noNodeTlsRejectUnauthorizedZeroRuleModule.default,
+    "no-node-tls-security-level-zero":
+        noNodeTlsSecurityLevelZeroRuleModule.default,
+    "no-node-vm-run-in-context": noNodeVmRunInContextRuleModule.default,
+    "no-node-vm-source-text-module": noNodeVmSourceTextModuleRuleModule.default,
+    "no-node-worker-threads-eval": noNodeWorkerThreadsEvalRuleModule.default,
     "no-nonnull-assertion-on-security-input":
-        noNonnullAssertionOnSecurityInputRule,
-    "no-postmessage-star-origin": noPostmessageStarOriginRule,
+        noNonnullAssertionOnSecurityInputRuleModule.default,
+    "no-postmessage-star-origin": noPostmessageStarOriginRuleModule.default,
     "no-postmessage-without-origin-allowlist":
-        noPostmessageWithoutOriginAllowlistRule,
-    "no-range-create-contextual-fragment": noRangeCreateContextualFragmentRule,
-    "no-script-src-data-url": noScriptSrcDataUrlRule,
-    "no-script-text": noScriptTextRule,
-    "no-service-worker-unsafe-script-url": noServiceWorkerUnsafeScriptUrlRule,
-    "no-set-html-unsafe": noSetHtmlUnsafeRule,
-    "no-trusted-types-policy-pass-through": noTrustedTypesPolicyPassThroughRule,
-    "no-unsafe-alloc": noUnsafeAllocRule,
-    "no-unsafe-cast-to-trusted-types": noUnsafeCastToTrustedTypesRule,
-    "no-window-open-without-noopener": noWindowOpenWithoutNoopenerRule,
-    "no-winjs-html-unsafe": noWinjsHtmlUnsafeRule,
-    "no-worker-blob-url": noWorkerBlobUrlRule,
-    "no-worker-data-url": noWorkerDataUrlRule,
+        noPostmessageWithoutOriginAllowlistRuleModule.default,
+    "no-range-create-contextual-fragment":
+        noRangeCreateContextualFragmentRuleModule.default,
+    "no-script-src-data-url": noScriptSrcDataUrlRuleModule.default,
+    "no-script-text": noScriptTextRuleModule.default,
+    "no-service-worker-unsafe-script-url":
+        noServiceWorkerUnsafeScriptUrlRuleModule.default,
+    "no-set-html-unsafe": noSetHtmlUnsafeRuleModule.default,
+    "no-trusted-types-policy-pass-through":
+        noTrustedTypesPolicyPassThroughRuleModule.default,
+    "no-unsafe-alloc": noUnsafeAllocRuleModule.default,
+    "no-unsafe-cast-to-trusted-types":
+        noUnsafeCastToTrustedTypesRuleModule.default,
+    "no-window-open-without-noopener":
+        noWindowOpenWithoutNoopenerRuleModule.default,
+    "no-winjs-html-unsafe": noWinjsHtmlUnsafeRuleModule.default,
+    "no-worker-blob-url": noWorkerBlobUrlRuleModule.default,
+    "no-worker-data-url": noWorkerDataUrlRuleModule.default,
 };
 
 export default sdlRules;
-/* eslint-enable canonical/no-re-export -- End of intentional registry aggregation. */

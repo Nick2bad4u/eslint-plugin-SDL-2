@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayJoin, isEmpty } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -11,32 +12,32 @@ type MessageIds = "default";
 const UNSAFE_WEBPREFERENCES_PATTERNS = [
     {
         flagName: "allowRunningInsecureContent",
-        pattern: /\ballowrunninginsecurecontent\s*=\s*(?:1|on|true|yes)\b/iu,
+        pattern: /\ballowrunninginsecurecontent\s*=\s*(?:1|on|true|yes)\b/iv,
     },
     {
         flagName: "contextIsolation",
-        pattern: /\bcontextisolation\s*=\s*(?:0|false|no|off)\b/iu,
+        pattern: /\bcontextisolation\s*=\s*(?:0|false|no|off)\b/iv,
     },
     {
         flagName: "experimentalFeatures",
-        pattern: /\bexperimentalfeatures\s*=\s*(?:1|on|true|yes)\b/iu,
+        pattern: /\bexperimentalfeatures\s*=\s*(?:1|on|true|yes)\b/iv,
     },
     {
         flagName: "sandbox",
-        pattern: /\bsandbox\s*=\s*(?:0|false|no|off)\b/iu,
+        pattern: /\bsandbox\s*=\s*(?:0|false|no|off)\b/iv,
     },
     {
         flagName: "webSecurity",
-        pattern: /\bwebsecurity\s*=\s*(?:0|false|no|off)\b/iu,
+        pattern: /\bwebsecurity\s*=\s*(?:0|false|no|off)\b/iv,
     },
 ] as const;
 
 const isJsxWebviewElement = (node: TSESTree.JSXOpeningElement): boolean =>
-    node.name.type === "JSXIdentifier" &&
+    node.name.type === AST_NODE_TYPES.JSXIdentifier &&
     node.name.name.toLowerCase() === "webview";
 
 const getJsxAttributeName = (attributeNode: TSESTree.JSXAttribute): string => {
-    if (attributeNode.name.type === "JSXIdentifier") {
+    if (attributeNode.name.type === AST_NODE_TYPES.JSXIdentifier) {
         return attributeNode.name.name.toLowerCase();
     }
 
@@ -60,7 +61,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== "JSXAttribute") {
+                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
                         continue;
                     }
 

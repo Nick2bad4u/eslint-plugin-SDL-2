@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { type getFullTypeChecker, getNodeTypeAsString } from "./ast-utils.js";
 import { getMemberPropertyName, getStaticStringValue } from "./estree-utils.js";
 
@@ -17,8 +19,8 @@ const isLikelyScriptIdentifierName = (identifierName: string): boolean =>
 
 const isCreateElementScriptCall = (node: TSESTree.Node): boolean => {
     if (
-        node.type !== "CallExpression" ||
-        node.callee.type !== "MemberExpression"
+        node.type !== AST_NODE_TYPES.CallExpression ||
+        node.callee.type !== AST_NODE_TYPES.MemberExpression
     ) {
         return false;
     }
@@ -31,7 +33,7 @@ const isCreateElementScriptCall = (node: TSESTree.Node): boolean => {
 
     return (
         firstArgument !== undefined &&
-        firstArgument.type !== "SpreadElement" &&
+        firstArgument.type !== AST_NODE_TYPES.SpreadElement &&
         getStaticStringValue(firstArgument) === "script"
     );
 };
@@ -54,11 +56,11 @@ export const isLikelyScriptElement = (
         return true;
     }
 
-    if (node.type === "Identifier") {
+    if (node.type === AST_NODE_TYPES.Identifier) {
         return isLikelyScriptIdentifierName(node.name);
     }
 
-    if (node.type !== "MemberExpression") {
+    if (node.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 

@@ -1,8 +1,10 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { getMemberPropertyName } from "./estree-utils.js";
 
-const SANITIZER_NAME_PATTERN = /createhtml|sanitize|trusted/u;
+const SANITIZER_NAME_PATTERN = /createhtml|sanitize|trusted/v;
 
 /**
  * Check whether a call is `new DOMParser().parseFromString(...)`.
@@ -14,7 +16,7 @@ const SANITIZER_NAME_PATTERN = /createhtml|sanitize|trusted/u;
 export const isDomParserParseFromStringCall = (
     node: Readonly<TSESTree.CallExpression>
 ): boolean => {
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -22,12 +24,12 @@ export const isDomParserParseFromStringCall = (
         return false;
     }
 
-    if (node.callee.object.type !== "NewExpression") {
+    if (node.callee.object.type !== AST_NODE_TYPES.NewExpression) {
         return false;
     }
 
     return (
-        node.callee.object.callee.type === "Identifier" &&
+        node.callee.object.callee.type === AST_NODE_TYPES.Identifier &&
         node.callee.object.callee.name === "DOMParser"
     );
 };
@@ -43,15 +45,15 @@ export const isDomParserParseFromStringCall = (
 export const isSanitizedExpression = (
     node: Readonly<TSESTree.Expression>
 ): boolean => {
-    if (node.type !== "CallExpression") {
+    if (node.type !== AST_NODE_TYPES.CallExpression) {
         return false;
     }
 
-    if (node.callee.type === "Identifier") {
+    if (node.callee.type === AST_NODE_TYPES.Identifier) {
         return SANITIZER_NAME_PATTERN.test(node.callee.name.toLowerCase());
     }
 
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 

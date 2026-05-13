@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined, setHas } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -45,8 +46,8 @@ const isRequireCallFromVmModule = (
     expression: null | TSESTree.Expression
 ): expression is TSESTree.CallExpression => {
     if (
-        expression?.type !== "CallExpression" ||
-        expression.callee.type !== "Identifier" ||
+        expression?.type !== AST_NODE_TYPES.CallExpression ||
+        expression.callee.type !== AST_NODE_TYPES.Identifier ||
         expression.callee.name !== "require"
     ) {
         return false;
@@ -56,8 +57,8 @@ const isRequireCallFromVmModule = (
 
     return (
         firstArgument !== undefined &&
-        firstArgument.type !== "SpreadElement" &&
-        firstArgument.type === "Literal" &&
+        firstArgument.type !== AST_NODE_TYPES.SpreadElement &&
+        firstArgument.type === AST_NODE_TYPES.Literal &&
         typeof firstArgument.value === "string" &&
         isVmModuleSource(firstArgument.value)
     );
@@ -66,13 +67,13 @@ const isRequireCallFromVmModule = (
 const getPatternIdentifier = (
     pattern: TSESTree.Property["value"]
 ): TSESTree.Identifier | undefined => {
-    if (pattern.type === "Identifier") {
+    if (pattern.type === AST_NODE_TYPES.Identifier) {
         return pattern;
     }
 
     if (
-        pattern.type === "AssignmentPattern" &&
-        pattern.left.type === "Identifier"
+        pattern.type === AST_NODE_TYPES.AssignmentPattern &&
+        pattern.left.type === AST_NODE_TYPES.Identifier
     ) {
         return pattern.left;
     }
@@ -89,7 +90,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
         return {
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type === "Identifier") {
+                if (node.callee.type === AST_NODE_TYPES.Identifier) {
                     if (!setHas(vmCallBindingNames, node.callee.name)) {
                         return;
                     }
@@ -102,7 +103,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     return;
                 }
 
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -113,7 +114,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 if (
-                    node.callee.object.type === "Identifier" &&
+                    node.callee.object.type === AST_NODE_TYPES.Identifier &&
                     setHas(vmNamespaceBindingNames, node.callee.object.name)
                 ) {
                     context.report({
@@ -125,7 +126,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 if (
-                    node.callee.object.type === "CallExpression" &&
+                    node.callee.object.type === AST_NODE_TYPES.CallExpression &&
                     isRequireCallFromVmModule(node.callee.object)
                 ) {
                     context.report({
@@ -141,15 +142,18 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 for (const specifierNode of node.specifiers) {
                     if (
-                        specifierNode.type === "ImportDefaultSpecifier" ||
-                        specifierNode.type === "ImportNamespaceSpecifier"
+                        specifierNode.type ===
+                            AST_NODE_TYPES.ImportDefaultSpecifier ||
+                        specifierNode.type ===
+                            AST_NODE_TYPES.ImportNamespaceSpecifier
                     ) {
                         vmNamespaceBindingNames.add(specifierNode.local.name);
                         continue;
                     }
 
                     const importedName =
-                        specifierNode.imported.type === "Identifier"
+                        specifierNode.imported.type ===
+                        AST_NODE_TYPES.Identifier
                             ? specifierNode.imported.name
                             : specifierNode.imported.value;
 
@@ -164,7 +168,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
             },
             NewExpression(node: TSESTree.NewExpression) {
-                if (node.callee.type === "Identifier") {
+                if (node.callee.type === AST_NODE_TYPES.Identifier) {
                     if (!setHas(vmConstructorBindingNames, node.callee.name)) {
                         return;
                     }
@@ -177,7 +181,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     return;
                 }
 
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -188,7 +192,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 if (
-                    node.callee.object.type === "Identifier" &&
+                    node.callee.object.type === AST_NODE_TYPES.Identifier &&
                     setHas(vmNamespaceBindingNames, node.callee.object.name)
                 ) {
                     context.report({
@@ -200,7 +204,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 if (
-                    node.callee.object.type === "CallExpression" &&
+                    node.callee.object.type === AST_NODE_TYPES.CallExpression &&
                     isRequireCallFromVmModule(node.callee.object)
                 ) {
                     context.report({
@@ -214,18 +218,18 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     return;
                 }
 
-                if (node.id.type === "Identifier") {
+                if (node.id.type === AST_NODE_TYPES.Identifier) {
                     vmNamespaceBindingNames.add(node.id.name);
                     return;
                 }
 
-                if (node.id.type !== "ObjectPattern") {
+                if (node.id.type !== AST_NODE_TYPES.ObjectPattern) {
                     return;
                 }
 
                 for (const propertyNode of node.id.properties) {
                     if (
-                        propertyNode.type !== "Property" ||
+                        propertyNode.type !== AST_NODE_TYPES.Property ||
                         propertyNode.computed
                     ) {
                         continue;

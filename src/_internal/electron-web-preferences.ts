@@ -1,5 +1,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 type ElectronPreferenceMessageIds = "default";
 
 type ElectronWebPreferenceCheck = Readonly<{
@@ -18,18 +20,13 @@ const getPropertyName = (
         return undefined;
     }
 
-    if (property.key.type === "Identifier") {
+    if (property.key.type === AST_NODE_TYPES.Identifier) {
         return property.key.name;
     }
 
-    if (
-        property.key.type === "Literal" &&
-        typeof property.key.value === "string"
-    ) {
-        return property.key.value;
-    }
-
-    return undefined;
+    return typeof property.key.value === "string"
+        ? property.key.value
+        : undefined;
 };
 
 const getPropertyByName = (
@@ -37,7 +34,10 @@ const getPropertyByName = (
     propertyName: string
 ): TSESTree.Property | undefined => {
     for (const propertyNode of objectExpression.properties) {
-        if (propertyNode.type !== "Property" || propertyNode.kind !== "init") {
+        if (
+            propertyNode.type !== AST_NODE_TYPES.Property ||
+            propertyNode.kind !== "init"
+        ) {
             continue;
         }
 
@@ -52,7 +52,10 @@ const getPropertyByName = (
 const getBooleanLiteralValue = (
     valueNode: Readonly<TSESTree.Node>
 ): boolean | undefined => {
-    if (valueNode.type !== "Literal" || typeof valueNode.value !== "boolean") {
+    if (
+        valueNode.type !== AST_NODE_TYPES.Literal ||
+        typeof valueNode.value !== "boolean"
+    ) {
         return undefined;
     }
 
@@ -72,7 +75,7 @@ export const createElectronWebPreferencesBooleanListener = (
     ) {
         const [firstArgument] = node.arguments;
 
-        if (firstArgument?.type !== "ObjectExpression") {
+        if (firstArgument?.type !== AST_NODE_TYPES.ObjectExpression) {
             return;
         }
 
@@ -81,7 +84,10 @@ export const createElectronWebPreferencesBooleanListener = (
             "webPreferences"
         );
 
-        if (webPreferencesProperty?.value.type !== "ObjectExpression") {
+        if (
+            webPreferencesProperty?.value.type !==
+            AST_NODE_TYPES.ObjectExpression
+        ) {
             return;
         }
 

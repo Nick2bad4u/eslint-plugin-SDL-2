@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { setHas } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -23,8 +24,8 @@ const isRequireCallFromWorkerThreads = (
     expression: null | TSESTree.Expression
 ): expression is TSESTree.CallExpression => {
     if (
-        expression?.type !== "CallExpression" ||
-        expression.callee.type !== "Identifier" ||
+        expression?.type !== AST_NODE_TYPES.CallExpression ||
+        expression.callee.type !== AST_NODE_TYPES.Identifier ||
         expression.callee.name !== "require"
     ) {
         return false;
@@ -34,8 +35,8 @@ const isRequireCallFromWorkerThreads = (
 
     return (
         firstArgument !== undefined &&
-        firstArgument.type !== "SpreadElement" &&
-        firstArgument.type === "Literal" &&
+        firstArgument.type !== AST_NODE_TYPES.SpreadElement &&
+        firstArgument.type === AST_NODE_TYPES.Literal &&
         typeof firstArgument.value === "string" &&
         isWorkerThreadsModuleSource(firstArgument.value)
     );
@@ -44,13 +45,13 @@ const isRequireCallFromWorkerThreads = (
 const getPatternIdentifier = (
     pattern: TSESTree.Property["value"]
 ): TSESTree.Identifier | undefined => {
-    if (pattern.type === "Identifier") {
+    if (pattern.type === AST_NODE_TYPES.Identifier) {
         return pattern;
     }
 
     if (
-        pattern.type === "AssignmentPattern" &&
-        pattern.left.type === "Identifier"
+        pattern.type === AST_NODE_TYPES.AssignmentPattern &&
+        pattern.left.type === AST_NODE_TYPES.Identifier
     ) {
         return pattern.left;
     }
@@ -61,12 +62,15 @@ const getPatternIdentifier = (
 const hasEvalTrueOption = (
     optionsNode: Readonly<TSESTree.Expression>
 ): boolean => {
-    if (optionsNode.type !== "ObjectExpression") {
+    if (optionsNode.type !== AST_NODE_TYPES.ObjectExpression) {
         return false;
     }
 
     for (const propertyNode of optionsNode.properties) {
-        if (propertyNode.type !== "Property" || propertyNode.kind !== "init") {
+        if (
+            propertyNode.type !== AST_NODE_TYPES.Property ||
+            propertyNode.kind !== "init"
+        ) {
             continue;
         }
 
@@ -75,7 +79,7 @@ const hasEvalTrueOption = (
         }
 
         if (
-            propertyNode.value.type === "Literal" &&
+            propertyNode.value.type === AST_NODE_TYPES.Literal &&
             propertyNode.value.value === true
         ) {
             return true;
@@ -90,11 +94,11 @@ const isWorkerThreadsWorkerConstructor = (
     workerBindingNames: ReadonlySet<string>,
     workerThreadsNamespaceBindingNames: ReadonlySet<string>
 ): boolean => {
-    if (callee.type === "Identifier") {
+    if (callee.type === AST_NODE_TYPES.Identifier) {
         return setHas(workerBindingNames, callee.name);
     }
 
-    if (callee.type !== "MemberExpression") {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -103,9 +107,9 @@ const isWorkerThreadsWorkerConstructor = (
     }
 
     return (
-        (callee.object.type === "Identifier" &&
+        (callee.object.type === AST_NODE_TYPES.Identifier &&
             setHas(workerThreadsNamespaceBindingNames, callee.object.name)) ||
-        (callee.object.type === "CallExpression" &&
+        (callee.object.type === AST_NODE_TYPES.CallExpression &&
             isRequireCallFromWorkerThreads(callee.object))
     );
 };
@@ -124,8 +128,10 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 for (const specifierNode of node.specifiers) {
                     if (
-                        specifierNode.type === "ImportDefaultSpecifier" ||
-                        specifierNode.type === "ImportNamespaceSpecifier"
+                        specifierNode.type ===
+                            AST_NODE_TYPES.ImportDefaultSpecifier ||
+                        specifierNode.type ===
+                            AST_NODE_TYPES.ImportNamespaceSpecifier
                     ) {
                         workerThreadsNamespaceBindingNames.add(
                             specifierNode.local.name
@@ -134,7 +140,8 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     }
 
                     const importedName =
-                        specifierNode.imported.type === "Identifier"
+                        specifierNode.imported.type ===
+                        AST_NODE_TYPES.Identifier
                             ? specifierNode.imported.name
                             : specifierNode.imported.value;
 
@@ -158,7 +165,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement" ||
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement ||
                     !hasEvalTrueOption(secondArgument)
                 ) {
                     return;
@@ -174,18 +181,18 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     return;
                 }
 
-                if (node.id.type === "Identifier") {
+                if (node.id.type === AST_NODE_TYPES.Identifier) {
                     workerThreadsNamespaceBindingNames.add(node.id.name);
                     return;
                 }
 
-                if (node.id.type !== "ObjectPattern") {
+                if (node.id.type !== AST_NODE_TYPES.ObjectPattern) {
                     return;
                 }
 
                 for (const propertyNode of node.id.properties) {
                     if (
-                        propertyNode.type !== "Property" ||
+                        propertyNode.type !== AST_NODE_TYPES.Property ||
                         propertyNode.computed
                     ) {
                         continue;

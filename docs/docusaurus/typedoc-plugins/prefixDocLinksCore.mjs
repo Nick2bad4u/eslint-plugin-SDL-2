@@ -158,7 +158,7 @@ function findInlineLinkClosingParen(input, startIndex) {
  *
  * The payload is the text inside `(...)` for an inline link.
  *
- * - Destination may be `<...>` or a raw destination.
+ * - Destination may be `&lt;...>` or a raw destination.
  * - Remainder (if any) includes the title and its leading whitespace.
  *
  * @param {string} payload

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -12,13 +13,13 @@ const getMemberPropertyName = (
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -30,11 +31,11 @@ const getMemberPropertyName = (
 const isIpcMainObjectExpression = (
     expression: TSESTree.Expression
 ): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return expression.name === "ipcMain";
     }
 
-    if (expression.type !== "MemberExpression") {
+    if (expression.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -44,7 +45,7 @@ const isIpcMainObjectExpression = (
 const isIpcMainHandlerRegistration = (
     node: TSESTree.CallExpression
 ): boolean => {
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -62,8 +63,8 @@ const isFunctionExpression = (
 ): expression is
     | TSESTree.ArrowFunctionExpression
     | TSESTree.FunctionExpression =>
-    expression.type === "ArrowFunctionExpression" ||
-    expression.type === "FunctionExpression";
+    expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+    expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const hasSenderValidationPattern = (
     callbackNode:
@@ -73,7 +74,11 @@ const hasSenderValidationPattern = (
     eventParameterName: string
 ): boolean => {
     const callbackSourceText = context.sourceCode.getText(callbackNode);
-    const escapedEventName = eventParameterName.replaceAll("$", String.raw`\$`);
+    const escapedEventName = eventParameterName.replaceAll(
+        "$",
+        // eslint-disable-next-line etc-misc/no-unnecessary-template-literal -- String.raw preserves the intended regex-escape backslash.
+        () => String.raw`\$`
+    );
     // eslint-disable-next-line security/detect-non-literal-regexp -- Event parameter identifier is escaped before interpolation for sender-access detection.
     const eventSenderPattern = new RegExp(
         String.raw`\b${escapedEventName}\s*\.\s*(?:sender|senderFrame)\b`,
@@ -82,6 +87,7 @@ const hasSenderValidationPattern = (
 
     return (
         eventSenderPattern.test(callbackSourceText) ||
+        // eslint-disable-next-line regexp/require-unicode-sets-regexp -- `/v` is not yet parseable in the current TypeScript-ESLint parser stack.
         /\b(?:allowlist|getURL|isTrusted|origin|validate|whitelist)\b/u.test(
             callbackSourceText
         )
@@ -101,7 +107,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     handlerNode === undefined ||
-                    handlerNode.type === "SpreadElement" ||
+                    handlerNode.type === AST_NODE_TYPES.SpreadElement ||
                     !isFunctionExpression(handlerNode)
                 ) {
                     return;
@@ -109,7 +115,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 const eventParameter = arrayFirst(handlerNode.params);
 
-                if (eventParameter?.type !== "Identifier") {
+                if (eventParameter?.type !== AST_NODE_TYPES.Identifier) {
                     return;
                 }
 

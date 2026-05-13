@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -13,17 +14,18 @@ const isFunctionExpression = (
 ): expression is
     | TSESTree.ArrowFunctionExpression
     | TSESTree.FunctionExpression =>
-    expression.type === "ArrowFunctionExpression" ||
-    expression.type === "FunctionExpression";
+    expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+    expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const isBooleanTrueLiteral = (
     expression: null | TSESTree.Expression | undefined
-): boolean => expression?.type === "Literal" && expression.value === true;
+): boolean =>
+    expression?.type === AST_NODE_TYPES.Literal && expression.value === true;
 
 const isAllowAllPermissionCheckHandler = (
     callbackNode: TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression
 ): boolean => {
-    if (callbackNode.body.type !== "BlockStatement") {
+    if (callbackNode.body.type !== AST_NODE_TYPES.BlockStatement) {
         return isBooleanTrueLiteral(callbackNode.body);
     }
 
@@ -34,7 +36,7 @@ const isAllowAllPermissionCheckHandler = (
     const onlyStatement = arrayFirst(callbackNode.body.body);
 
     return (
-        onlyStatement?.type === "ReturnStatement" &&
+        onlyStatement?.type === AST_NODE_TYPES.ReturnStatement &&
         isBooleanTrueLiteral(onlyStatement.argument)
     );
 };
@@ -44,7 +46,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -59,7 +61,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement" ||
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     !isFunctionExpression(firstArgument) ||
                     !isAllowAllPermissionCheckHandler(firstArgument)
                 ) {

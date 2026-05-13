@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
 
 const isFalseLiteral = (node: TSESTree.Property["value"]): boolean =>
-    node.type === "Literal" && node.value === false;
+    node.type === AST_NODE_TYPES.Literal && node.value === false;
 
 const getObjectPropertyName = (
     propertyNode: TSESTree.Property
@@ -15,25 +17,23 @@ const getObjectPropertyName = (
         return undefined;
     }
 
-    if (propertyNode.key.type === "Identifier") {
+    if (propertyNode.key.type === AST_NODE_TYPES.Identifier) {
         return propertyNode.key.name;
     }
 
-    if (
-        propertyNode.key.type === "Literal" &&
-        typeof propertyNode.key.value === "string"
-    ) {
-        return propertyNode.key.value;
-    }
-
-    return undefined;
+    return typeof propertyNode.key.value === "string"
+        ? propertyNode.key.value
+        : undefined;
 };
 
 const findRejectUnauthorizedFalseProperty = (
     objectExpression: TSESTree.ObjectExpression
 ): TSESTree.Property | undefined => {
     for (const propertyNode of objectExpression.properties) {
-        if (propertyNode.type !== "Property" || propertyNode.kind !== "init") {
+        if (
+            propertyNode.type !== AST_NODE_TYPES.Property ||
+            propertyNode.kind !== "init"
+        ) {
             continue;
         }
 
@@ -64,7 +64,8 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 context.report({
                     fix(fixer) {
                         if (
-                            insecureOptionProperty.value.type !== "Literal" ||
+                            insecureOptionProperty.value.type !==
+                                AST_NODE_TYPES.Literal ||
                             insecureOptionProperty.value.value !== false
                         ) {
                             return null;

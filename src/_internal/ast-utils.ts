@@ -5,6 +5,7 @@ import type {
 } from "type-fest";
 import type ts from "typescript";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined } from "ts-extras";
 
 type RuleSourceCodeLike = Readonly<{
@@ -110,12 +111,12 @@ const isWindowIdentifierName = (name: string): boolean =>
 const getMemberPropertyName = (
     node: Readonly<TSESTree.MemberExpression>
 ): string | undefined => {
-    if (node.property.type === "Identifier") {
+    if (node.property.type === AST_NODE_TYPES.Identifier) {
         return node.property.name;
     }
 
     if (
-        node.property.type === "Literal" &&
+        node.property.type === AST_NODE_TYPES.Literal &&
         typeof node.property.value === "string"
     ) {
         return node.property.value;
@@ -133,11 +134,11 @@ const isDocumentMemberReference = (
         return false;
     }
 
-    if (node.object.type === "Identifier") {
+    if (node.object.type === AST_NODE_TYPES.Identifier) {
         return isWindowIdentifierName(node.object.name);
     }
 
-    if (node.object.type !== "MemberExpression") {
+    if (node.object.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -147,12 +148,12 @@ const isDocumentMemberReference = (
         return false;
     }
 
-    if (node.object.object.type === "ThisExpression") {
+    if (node.object.object.type === AST_NODE_TYPES.ThisExpression) {
         return true;
     }
 
     return (
-        node.object.object.type === "Identifier" &&
+        node.object.object.type === AST_NODE_TYPES.Identifier &&
         node.object.object.name === "globalThis"
     );
 };
@@ -173,11 +174,11 @@ export const isDocumentObject = (
         );
     }
 
-    if (node.type === "Identifier") {
+    if (node.type === AST_NODE_TYPES.Identifier) {
         return node.name === "document";
     }
 
-    if (node.type === "MemberExpression") {
+    if (node.type === AST_NODE_TYPES.MemberExpression) {
         return isDocumentMemberReference(node);
     }
 

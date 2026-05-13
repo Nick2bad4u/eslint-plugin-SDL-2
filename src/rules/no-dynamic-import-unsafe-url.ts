@@ -12,7 +12,7 @@ import {
 type MessageIds = "default";
 
 const isJavaScriptUrl = (value: string): boolean =>
-    /^\s*javascript\s*:/iu.test(value);
+    /^\s*javascript\s*:/iv.test(value);
 
 const isUnsafeDynamicImportSource = (
     expression: Readonly<TSESTree.Expression>

@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -11,13 +12,13 @@ const getMemberPropertyName = (
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -29,11 +30,17 @@ const getMemberPropertyName = (
 const getStaticStringValue = (
     node: TSESTree.Expression
 ): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    if (
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
+        node.expressions.length === 0
+    ) {
         return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
@@ -51,7 +58,7 @@ const isAllowedOriginLiteral = (origin: string): boolean => {
         return false;
     }
 
-    return /^https?:\/\//iu.test(normalizedOrigin);
+    return /^https?:\/\//iv.test(normalizedOrigin);
 };
 
 /** Rule implementation. */
@@ -59,7 +66,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
         return {
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -71,7 +78,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement"
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }

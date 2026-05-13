@@ -8,10 +8,10 @@ import { createRule } from "../_internal/create-rule.js";
 type MessageIds = "default";
 
 const hasNgBindHtmlPattern = (text: string): boolean =>
-    /\bng-bind-html\b/iu.test(text);
+    /\bng-bind-html\b/iv.test(text);
 
 const hasKnownSanitizePattern = (text: string): boolean =>
-    /\b(?:ngsanitize|\$sanitize|sanitize)\b/iu.test(text);
+    /\b(?:ngsanitize|\$sanitize|sanitize)\b/iv.test(text);
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({

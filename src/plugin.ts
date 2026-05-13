@@ -1,12 +1,14 @@
 import type { ESLint, Linter } from "eslint";
+import type { UnknownRecord } from "type-fest";
 
-import typeScriptPlugin from "@typescript-eslint/eslint-plugin";
+import * as typeScriptPluginModule from "@typescript-eslint/eslint-plugin";
 import typeScriptParser from "@typescript-eslint/parser";
-import nodePlugin from "eslint-plugin-n";
-import securityPlugin from "eslint-plugin-security";
+import * as nodePluginModule from "eslint-plugin-n";
+import * as securityPluginModule from "eslint-plugin-security";
 
 import type { SdlConfigName } from "./_internal/config-references.js";
 
+// eslint-disable-next-line import-x/extensions -- JSON ESM import requires explicit file extension with import attributes.
 import packageJson from "../package.json" with { type: "json" };
 import sdlRules from "./_internal/rules-registry.js";
 
@@ -18,9 +20,31 @@ type SdlPluginWithConfigs = ESLint.Plugin & {
     readonly configs: Readonly<Record<SdlConfigName, SdlConfigArray>>;
 };
 
-const typeScriptEslintPlugin = typeScriptPlugin as unknown as ESLint.Plugin;
-const nodeEslintPlugin = nodePlugin as unknown as ESLint.Plugin;
-const securityEslintPlugin = securityPlugin as unknown as ESLint.Plugin;
+const isUnknownRecord = (value: unknown): value is Readonly<UnknownRecord> =>
+    typeof value === "object" && value !== null;
+
+const isEslintPlugin = (value: unknown): value is ESLint.Plugin =>
+    isUnknownRecord(value);
+
+const resolvePlugin = (pluginModule: unknown): ESLint.Plugin => {
+    if (isUnknownRecord(pluginModule)) {
+        const moduleDefault = pluginModule["default"];
+
+        if (isEslintPlugin(moduleDefault)) {
+            return moduleDefault;
+        }
+    }
+
+    if (isEslintPlugin(pluginModule)) {
+        return pluginModule;
+    }
+
+    throw new TypeError("Expected an ESLint plugin module.");
+};
+
+const typeScriptEslintPlugin = resolvePlugin(typeScriptPluginModule);
+const nodeEslintPlugin = resolvePlugin(nodePluginModule);
+const securityEslintPlugin = resolvePlugin(securityPluginModule);
 
 const typeScriptFiles = ["**/*.{ts,tsx,mts,cts}"];
 
@@ -245,13 +269,16 @@ const packageJsonVersion =
         ? packageJson.version
         : "0.0.0";
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- Type bridge between @typescript-eslint RuleModule readonly options and ESLint plugin rule map.
+const pluginRules = sdlRules as unknown as NonNullable<ESLint.Plugin["rules"]>;
+
 const pluginCore: SdlPlugin = {
     meta: {
         name: "eslint-plugin-sdl-2",
         namespace: "sdl",
         version: packageJsonVersion,
     },
-    rules: sdlRules as unknown as NonNullable<ESLint.Plugin["rules"]>,
+    rules: pluginRules,
 };
 
 const configs: SdlConfigMap = {
@@ -273,7 +300,7 @@ configs.recommended = createRecommendedConfig(configs);
 const sdlPlugin: SdlPluginWithConfigs = {
     ...pluginCore,
     configs,
-    rules: sdlRules as unknown as NonNullable<ESLint.Plugin["rules"]>,
+    rules: pluginRules,
 };
 
 export default sdlPlugin;

@@ -21,6 +21,7 @@ const assertRuleTesterHook: (
 };
 
 assertRuleTesterHook(afterAll, "afterAll");
+// eslint-disable-next-line @typescript-eslint/strict-void-return -- RuleTester expects the Vitest hook function reference.
 RuleTester.afterAll = afterAll;
 assertRuleTesterHook(describe, "describe");
 RuleTester.describe = describe;

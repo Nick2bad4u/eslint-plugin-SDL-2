@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayIncludes } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -8,7 +9,7 @@ import { createRule } from "../_internal/create-rule.js";
 const isExplicitlyDisabledSvgLiteral = (
     argument: TSESTree.Node | undefined
 ): boolean =>
-    argument?.type === "Literal" &&
+    argument?.type === AST_NODE_TYPES.Literal &&
     arrayIncludes(
         [
             0,

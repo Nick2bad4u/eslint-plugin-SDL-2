@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import {
     getFullTypeChecker,
     isDocumentObject,
@@ -15,7 +17,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
             "CallExpression[arguments.length=1][callee.property.name=/^(?:write|writeln)$/]"(
                 node: TSESTree.CallExpression
             ) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 

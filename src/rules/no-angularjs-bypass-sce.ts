@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst, arrayIncludes } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
 
 const isEmptyLiteral = (argument: TSESTree.Node | undefined): boolean =>
-    argument?.type === "Literal" && argument.value === "";
+    argument?.type === AST_NODE_TYPES.Literal && argument.value === "";
 
 const isSceProviderEnabledSafeLiteral = (
     argument: TSESTree.Node | undefined
 ): boolean =>
-    argument?.type === "Literal" &&
+    argument?.type === AST_NODE_TYPES.Literal &&
     arrayIncludes(
         [
             1,
@@ -51,8 +52,8 @@ export const noAngularjsBypassSceRule: ReturnType<typeof createRule> =
                     node: TSESTree.CallExpression
                 ) {
                     if (
-                        node.callee.type !== "MemberExpression" ||
-                        node.callee.property.type !== "Identifier"
+                        node.callee.type !== AST_NODE_TYPES.MemberExpression ||
+                        node.callee.property.type !== AST_NODE_TYPES.Identifier
                     ) {
                         return;
                     }

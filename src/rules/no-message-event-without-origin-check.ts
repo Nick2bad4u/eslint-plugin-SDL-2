@@ -2,6 +2,7 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import type { UnknownRecord } from "type-fest";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { keyIn, objectEntries } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -21,30 +22,24 @@ type RuleContext = Readonly<TSESLint.RuleContext<MessageIds, unknown[]>>;
 const isFunctionExpression = (
     expression: Readonly<TSESTree.Node>
 ): expression is CallbackFunction =>
-    expression.type === "ArrowFunctionExpression" ||
-    expression.type === "FunctionExpression";
+    expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+    expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const hasMessageEventGuardKeywords = (callbackText: string): boolean =>
-    /\b(?:allowlist|origin|trusted|validate|verify|whitelist)\b/iu.test(
+    /\b(?:allowlist|origin|trusted|validate|verify|whitelist)\b/iv.test(
         callbackText
     );
 
-const toNode = (value: unknown): Readonly<TSESTree.Node> | undefined => {
-    if (typeof value !== "object" || value === null) {
-        return undefined;
-    }
+const isUnknownRecord = (value: unknown): value is UnknownRecord =>
+    typeof value === "object" && value !== null;
 
-    const recordValue = value as UnknownRecord;
+const isNodeLike = (value: unknown): value is Readonly<TSESTree.Node> =>
+    isUnknownRecord(value) &&
+    keyIn(value, "type") &&
+    typeof value["type"] === "string";
 
-    if (
-        !keyIn(recordValue, "type") ||
-        typeof recordValue["type"] !== "string"
-    ) {
-        return undefined;
-    }
-
-    return recordValue as unknown as Readonly<TSESTree.Node>;
-};
+const toNode = (value: unknown): Readonly<TSESTree.Node> | undefined =>
+    isNodeLike(value) ? value : undefined;
 
 const someDescendantNode = (
     node: Readonly<TSESTree.Node>,
@@ -91,7 +86,7 @@ const isIdentifierNamed = (
     node: Readonly<TSESTree.Node>,
     identifierName: string
 ): node is TSESTree.Identifier =>
-    node.type === "Identifier" && node.name === identifierName;
+    node.type === AST_NODE_TYPES.Identifier && node.name === identifierName;
 
 const isStaticPropertyMatch = (
     memberExpression: Readonly<TSESTree.MemberExpression>,
@@ -106,7 +101,7 @@ const patternContainsProperty = (
     propertyName: string
 ): boolean =>
     pattern.properties.some((propertyNode) => {
-        if (propertyNode.type !== "Property") {
+        if (propertyNode.type !== AST_NODE_TYPES.Property) {
             return false;
         }
 
@@ -119,21 +114,21 @@ const containsObjectDestructureFromIdentifier = (
     propertyName: string
 ): boolean =>
     someDescendantNode(rootNode, (node) => {
-        if (node.type === "VariableDeclarator") {
+        if (node.type === AST_NODE_TYPES.VariableDeclarator) {
             return (
-                node.id.type === "ObjectPattern" &&
+                node.id.type === AST_NODE_TYPES.ObjectPattern &&
                 node.init !== null &&
                 isIdentifierNamed(node.init, sourceName) &&
                 patternContainsProperty(node.id, propertyName)
             );
         }
 
-        if (node.type !== "AssignmentExpression") {
+        if (node.type !== AST_NODE_TYPES.AssignmentExpression) {
             return false;
         }
 
         return (
-            node.left.type === "ObjectPattern" &&
+            node.left.type === AST_NODE_TYPES.ObjectPattern &&
             isIdentifierNamed(node.right, sourceName) &&
             patternContainsProperty(node.left, propertyName)
         );
@@ -145,7 +140,7 @@ const containsMemberPropertyAccess = (
     propertyName: string
 ): boolean =>
     someDescendantNode(rootNode, (node) =>
-        node.type === "MemberExpression"
+        node.type === AST_NODE_TYPES.MemberExpression
             ? isStaticPropertyMatch(node, objectName, propertyName)
             : false
     );
@@ -155,7 +150,7 @@ const hasObjectPatternProperty = (
     propertyName: string
 ): boolean =>
     objectPattern.properties.some((propertyNode) => {
-        if (propertyNode.type !== "Property") {
+        if (propertyNode.type !== AST_NODE_TYPES.Property) {
             return false;
         }
 
@@ -231,15 +226,18 @@ const shouldReportMessageEventCallback = (
 ): boolean => {
     const [firstParameter] = callbackNode.params;
 
-    if (firstParameter === undefined || firstParameter.type === "RestElement") {
+    if (
+        firstParameter === undefined ||
+        firstParameter.type === AST_NODE_TYPES.RestElement
+    ) {
         return false;
     }
 
-    if (firstParameter.type === "Identifier") {
+    if (firstParameter.type === AST_NODE_TYPES.Identifier) {
         return reportsIdentifierCallback(callbackNode, context, firstParameter);
     }
 
-    if (firstParameter.type === "ObjectPattern") {
+    if (firstParameter.type === AST_NODE_TYPES.ObjectPattern) {
         return reportsObjectPatternCallback(
             callbackNode,
             context,
@@ -251,7 +249,7 @@ const shouldReportMessageEventCallback = (
 };
 
 const isMessageEventListenerCall = (node: TSESTree.CallExpression): boolean => {
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -263,14 +261,14 @@ const isMessageEventListenerCall = (node: TSESTree.CallExpression): boolean => {
 
     return (
         firstArgument !== undefined &&
-        firstArgument.type !== "SpreadElement" &&
+        firstArgument.type !== AST_NODE_TYPES.SpreadElement &&
         getStaticStringValue(firstArgument) === "message"
     );
 };
 
 const isOnMessageAssignment = (node: TSESTree.AssignmentExpression): boolean =>
     node.operator === "=" &&
-    node.left.type === "MemberExpression" &&
+    node.left.type === AST_NODE_TYPES.MemberExpression &&
     getMemberPropertyName(node.left) === "onmessage";
 
 /** Rule implementation. */
@@ -304,7 +302,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement"
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }

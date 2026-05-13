@@ -86,7 +86,6 @@ export const sdlRuleSets = Object.freeze({
  *     rules: BenchmarkRules;
  * }) => import("eslint").Linter.Config[]}
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types -- Function signature is fully documented through the exported @type annotation above.
 export const createSdlFlatConfig = (options) => [
     {
         files: ["**/*.{ts,tsx,mts,cts}"],

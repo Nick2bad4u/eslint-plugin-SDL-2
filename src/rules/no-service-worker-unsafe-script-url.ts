@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 import { getStaticStringValue } from "../_internal/estree-utils.js";
 import {
@@ -12,7 +14,7 @@ import {
 type MessageIds = "default";
 
 const isJavaScriptUrl = (value: string): boolean =>
-    /^\s*javascript\s*:/iu.test(value);
+    /^\s*javascript\s*:/iv.test(value);
 
 const isUnsafeServiceWorkerScriptUrl = (
     expression: Readonly<TSESTree.Expression>
@@ -41,7 +43,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement" ||
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     !isUnsafeServiceWorkerScriptUrl(firstArgument)
                 ) {
                     return;

@@ -1,5 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined, setHas } from "ts-extras";
 
 import { getMemberPropertyName } from "./estree-utils.js";
@@ -28,11 +29,11 @@ const NODE_TLS_CALL_METHOD_NAMES = new Set([
 export const isNodeTlsObjectExpression = (
     expression: Readonly<TSESTree.Expression>
 ): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return setHas(NODE_TLS_OBJECT_NAMES, expression.name);
     }
 
-    if (expression.type !== "MemberExpression") {
+    if (expression.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -53,11 +54,11 @@ export const isNodeTlsObjectExpression = (
 export const isRelevantNodeTlsCall = (
     callee: Readonly<TSESTree.CallExpression["callee"]>
 ): boolean => {
-    if (callee.type === "Identifier") {
+    if (callee.type === AST_NODE_TYPES.Identifier) {
         return callee.name === "createSecureContext";
     }
 
-    if (callee.type !== "MemberExpression") {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -80,7 +81,7 @@ export const isRelevantNodeTlsCall = (
 export const isRelevantNodeTlsConstructor = (
     callee: Readonly<TSESTree.NewExpression["callee"]>
 ): boolean => {
-    if (callee.type !== "MemberExpression") {
+    if (callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -103,11 +104,11 @@ export const isRelevantNodeTlsOptionsObject = (
 ): boolean => {
     const parentNode = node.parent;
 
-    if (parentNode?.type === "CallExpression") {
+    if (parentNode.type === AST_NODE_TYPES.CallExpression) {
         return isRelevantNodeTlsCall(parentNode.callee);
     }
 
-    if (parentNode?.type === "NewExpression") {
+    if (parentNode.type === AST_NODE_TYPES.NewExpression) {
         return isRelevantNodeTlsConstructor(parentNode.callee);
     }
 
@@ -126,7 +127,7 @@ export const isNodeTlsStaticMember = (
     node: Readonly<TSESTree.AssignmentExpression["left"]>,
     propertyNames: ReadonlySet<string>
 ): node is TSESTree.MemberExpression => {
-    if (node.type !== "MemberExpression") {
+    if (node.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 

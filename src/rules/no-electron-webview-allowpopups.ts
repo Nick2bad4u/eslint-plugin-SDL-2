@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
 
 const isJsxWebviewElement = (node: TSESTree.JSXOpeningElement): boolean => {
-    if (node.name.type === "JSXIdentifier") {
+    if (node.name.type === AST_NODE_TYPES.JSXIdentifier) {
         return node.name.name.toLowerCase() === "webview";
     }
 
@@ -16,7 +18,7 @@ const isJsxWebviewElement = (node: TSESTree.JSXOpeningElement): boolean => {
 const getJsxAttributeName = (
     attributeNode: TSESTree.JSXAttribute
 ): string | undefined => {
-    if (attributeNode.name.type !== "JSXIdentifier") {
+    if (attributeNode.name.type !== AST_NODE_TYPES.JSXIdentifier) {
         return undefined;
     }
 
@@ -30,7 +32,7 @@ const isTruthyJsxAttributeValue = (
         return true;
     }
 
-    if (attributeValue.type === "Literal") {
+    if (attributeValue.type === AST_NODE_TYPES.Literal) {
         if (typeof attributeValue.value === "boolean") {
             return attributeValue.value;
         }
@@ -42,12 +44,12 @@ const isTruthyJsxAttributeValue = (
         return false;
     }
 
-    if (attributeValue.type !== "JSXExpressionContainer") {
+    if (attributeValue.type !== AST_NODE_TYPES.JSXExpressionContainer) {
         return false;
     }
 
     if (
-        attributeValue.expression.type === "Literal" &&
+        attributeValue.expression.type === AST_NODE_TYPES.Literal &&
         typeof attributeValue.expression.value === "boolean"
     ) {
         return attributeValue.expression.value;
@@ -66,7 +68,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== "JSXAttribute") {
+                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
                         continue;
                     }
 

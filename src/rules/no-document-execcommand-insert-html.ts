@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import {
     getFullTypeChecker,
     isDocumentObject,
@@ -22,7 +24,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
         return {
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -48,7 +50,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement" ||
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     !isInsertHtmlCommand(firstArgument)
                 ) {
                     return;
@@ -56,7 +58,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     thirdArgument === undefined ||
-                    thirdArgument.type === "SpreadElement" ||
+                    thirdArgument.type === AST_NODE_TYPES.SpreadElement ||
                     getStaticStringValue(thirdArgument) === ""
                 ) {
                     return;

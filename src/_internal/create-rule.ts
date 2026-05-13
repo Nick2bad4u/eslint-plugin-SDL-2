@@ -10,6 +10,11 @@ const docsBaseUrl =
     "https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules";
 
 /** Shared SDL rule helper that injects canonical docs URLs. */
-export const createRule: ReturnType<
+const ruleCreatorFactory: ReturnType<
     typeof ESLintUtils.RuleCreator<SdlRuleDocs>
-> = ESLintUtils.RuleCreator<SdlRuleDocs>((name) => `${docsBaseUrl}/${name}`);
+> =
+    // eslint-disable-next-line new-cap -- RuleCreator is intentionally a callable factory.
+    ESLintUtils.RuleCreator<SdlRuleDocs>((name) => `${docsBaseUrl}/${name}`);
+
+/** Shared SDL rule helper that injects canonical docs URLs. */
+export const createRule: typeof ruleCreatorFactory = ruleCreatorFactory;

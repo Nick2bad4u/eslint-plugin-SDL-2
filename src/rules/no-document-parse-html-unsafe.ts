@@ -1,5 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 import {
     getMemberPropertyName,
@@ -11,11 +13,11 @@ type MessageIds = "default";
 const isDocumentConstructorReference = (
     expression: TSESTree.Expression
 ): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return expression.name === "Document";
     }
 
-    if (expression.type !== "MemberExpression") {
+    if (expression.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -24,7 +26,7 @@ const isDocumentConstructorReference = (
     }
 
     return (
-        expression.object.type === "Identifier" &&
+        expression.object.type === AST_NODE_TYPES.Identifier &&
         (expression.object.name === "globalThis" ||
             expression.object.name === "self" ||
             expression.object.name === "window")
@@ -34,7 +36,7 @@ const isDocumentConstructorReference = (
 const isDocumentParseHtmlUnsafeCall = (
     node: TSESTree.CallExpression
 ): boolean => {
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -58,7 +60,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument !== undefined &&
-                    firstArgument.type !== "SpreadElement" &&
+                    firstArgument.type !== AST_NODE_TYPES.SpreadElement &&
                     getStaticStringValue(firstArgument) === ""
                 ) {
                     return;

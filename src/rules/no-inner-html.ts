@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import {
     getFullTypeChecker,
     getNodeTypeAsString,
@@ -8,7 +10,7 @@ import {
 import { createRule } from "../_internal/create-rule.js";
 
 const isEmptyStringLiteral = (node: TSESTree.Node): boolean =>
-    node.type === "Literal" && node.value === "";
+    node.type === AST_NODE_TYPES.Literal && node.value === "";
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<
@@ -25,7 +27,7 @@ const rule: ReturnType<typeof createRule> = createRule<
                 context
             );
 
-            return /HTML.*Element/u.test(nodeType) || nodeType === "any";
+            return /HTML.*Element/v.test(nodeType) || nodeType === "any";
         };
 
         return {
@@ -36,7 +38,7 @@ const rule: ReturnType<typeof createRule> = createRule<
                     return;
                 }
 
-                if (node.left.type !== "MemberExpression") {
+                if (node.left.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -52,7 +54,7 @@ const rule: ReturnType<typeof createRule> = createRule<
             "CallExpression[arguments.length=2] > MemberExpression.callee[property.name='insertAdjacentHTML']"(
                 node: TSESTree.MemberExpression
             ) {
-                if (node.parent.type !== "CallExpression") {
+                if (node.parent.type !== AST_NODE_TYPES.CallExpression) {
                     return;
                 }
 

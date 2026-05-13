@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 import { getStaticStringValue } from "../_internal/estree-utils.js";
 import {
@@ -21,7 +23,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 for (const argumentNode of node.arguments) {
-                    if (argumentNode.type === "SpreadElement") {
+                    if (argumentNode.type === AST_NODE_TYPES.SpreadElement) {
                         continue;
                     }
 
@@ -49,7 +51,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement"
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }

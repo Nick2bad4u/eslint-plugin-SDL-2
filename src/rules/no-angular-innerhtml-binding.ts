@@ -8,7 +8,7 @@ import { createRule } from "../_internal/create-rule.js";
 type MessageIds = "default";
 
 const hasInnerHtmlBindingPattern = (text: string): boolean =>
-    /\[\s*innerhtml\s*\]\s*=/iu.test(text);
+    /\[\s*innerhtml\s*\]\s*=/iv.test(text);
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { isDefined, setHas } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -15,8 +16,8 @@ const TRUSTED_TYPE_NAMES = new Set([
 
 const getTypeName = (node: TSESTree.TypeNode): string | undefined => {
     if (
-        node.type === "TSTypeReference" &&
-        node.typeName.type === "Identifier"
+        node.type === AST_NODE_TYPES.TSTypeReference &&
+        node.typeName.type === AST_NODE_TYPES.Identifier
     ) {
         return node.typeName.name;
     }
@@ -33,18 +34,18 @@ const isTrustedTypeNode = (node: TSESTree.TypeNode): boolean => {
 const getExpressionCalleeName = (
     expression: TSESTree.Expression
 ): string | undefined => {
-    if (expression.type !== "CallExpression") {
+    if (expression.type !== AST_NODE_TYPES.CallExpression) {
         return undefined;
     }
 
-    if (expression.callee.type === "Identifier") {
+    if (expression.callee.type === AST_NODE_TYPES.Identifier) {
         return expression.callee.name;
     }
 
     if (
-        expression.callee.type === "MemberExpression" &&
+        expression.callee.type === AST_NODE_TYPES.MemberExpression &&
         !expression.callee.computed &&
-        expression.callee.property.type === "Identifier"
+        expression.callee.property.type === AST_NODE_TYPES.Identifier
     ) {
         return expression.callee.property.name;
     }
@@ -61,7 +62,7 @@ const isKnownTrustedFactoryCall = (
         return false;
     }
 
-    return /sanitize|createhtml|createscripturl|createscript|trusted/u.test(
+    return /sanitize|createhtml|createscripturl|createscript|trusted/v.test(
         calleeName.toLowerCase()
     );
 };

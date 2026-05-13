@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst, isDefined, setHas } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -16,9 +17,9 @@ type PolicyFactoryFunction =
     | TSESTree.FunctionExpression;
 
 const isExpressionNode = (node: TSESTree.Node): node is TSESTree.Expression =>
-    node.type !== "ArrayPattern" &&
-    node.type !== "AssignmentPattern" &&
-    node.type !== "ObjectPattern";
+    node.type !== AST_NODE_TYPES.ArrayPattern &&
+    node.type !== AST_NODE_TYPES.AssignmentPattern &&
+    node.type !== AST_NODE_TYPES.ObjectPattern;
 
 const POLICY_FACTORY_NAMES = new Set([
     "createHTML",
@@ -29,15 +30,15 @@ const POLICY_FACTORY_NAMES = new Set([
 const isFunctionExpression = (
     expression: TSESTree.Expression
 ): expression is PolicyFactoryFunction =>
-    expression.type === "ArrowFunctionExpression" ||
-    expression.type === "FunctionExpression";
+    expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
+    expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const unwrapTransparentExpression = (
     expression: TSESTree.Expression
 ): TSESTree.Expression => {
     if (
-        expression.type === "TSAsExpression" ||
-        expression.type === "TSTypeAssertion"
+        expression.type === AST_NODE_TYPES.TSAsExpression ||
+        expression.type === AST_NODE_TYPES.TSTypeAssertion
     ) {
         return unwrapTransparentExpression(expression.expression);
     }
@@ -48,15 +49,15 @@ const unwrapTransparentExpression = (
 const isPassThroughFactory = (factoryNode: PolicyFactoryFunction): boolean => {
     const [firstParameter] = factoryNode.params;
 
-    if (firstParameter?.type !== "Identifier") {
+    if (firstParameter?.type !== AST_NODE_TYPES.Identifier) {
         return false;
     }
 
-    if (factoryNode.body.type !== "BlockStatement") {
+    if (factoryNode.body.type !== AST_NODE_TYPES.BlockStatement) {
         const expressionBody = unwrapTransparentExpression(factoryNode.body);
 
         return (
-            expressionBody.type === "Identifier" &&
+            expressionBody.type === AST_NODE_TYPES.Identifier &&
             expressionBody.name === firstParameter.name
         );
     }
@@ -68,7 +69,7 @@ const isPassThroughFactory = (factoryNode: PolicyFactoryFunction): boolean => {
     const onlyStatement = arrayFirst(factoryNode.body.body);
 
     if (
-        onlyStatement?.type !== "ReturnStatement" ||
+        onlyStatement?.type !== AST_NODE_TYPES.ReturnStatement ||
         onlyStatement.argument === null
     ) {
         return false;
@@ -79,7 +80,7 @@ const isPassThroughFactory = (factoryNode: PolicyFactoryFunction): boolean => {
     );
 
     return (
-        returnedExpression.type === "Identifier" &&
+        returnedExpression.type === AST_NODE_TYPES.Identifier &&
         returnedExpression.name === firstParameter.name
     );
 };
@@ -87,7 +88,7 @@ const isPassThroughFactory = (factoryNode: PolicyFactoryFunction): boolean => {
 const isTrustedTypesCreatePolicyCall = (
     node: TSESTree.CallExpression
 ): boolean => {
-    if (node.callee.type !== "MemberExpression") {
+    if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -95,11 +96,11 @@ const isTrustedTypesCreatePolicyCall = (
         return false;
     }
 
-    if (node.callee.object.type === "Identifier") {
+    if (node.callee.object.type === AST_NODE_TYPES.Identifier) {
         return node.callee.object.name === "trustedTypes";
     }
 
-    if (node.callee.object.type !== "MemberExpression") {
+    if (node.callee.object.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -119,15 +120,15 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement" ||
-                    secondArgument.type !== "ObjectExpression"
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement ||
+                    secondArgument.type !== AST_NODE_TYPES.ObjectExpression
                 ) {
                     return;
                 }
 
                 for (const propertyNode of secondArgument.properties) {
                     if (
-                        propertyNode.type !== "Property" ||
+                        propertyNode.type !== AST_NODE_TYPES.Property ||
                         propertyNode.kind !== "init"
                     ) {
                         continue;

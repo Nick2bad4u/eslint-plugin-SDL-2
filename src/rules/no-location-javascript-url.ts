@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -12,13 +13,13 @@ const getMemberPropertyName = (
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -30,11 +31,17 @@ const getMemberPropertyName = (
 const getStaticStringValue = (
     node: TSESTree.Expression
 ): string | undefined => {
-    if (node.type === "Literal" && typeof node.value === "string") {
+    if (
+        node.type === AST_NODE_TYPES.Literal &&
+        typeof node.value === "string"
+    ) {
         return node.value;
     }
 
-    if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    if (
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
+        node.expressions.length === 0
+    ) {
         return arrayFirst(node.quasis)?.value.cooked ?? undefined;
     }
 
@@ -42,12 +49,12 @@ const getStaticStringValue = (
 };
 
 const isJavaScriptUrl = (value: string): boolean =>
-    /^\s*javascript\s*:/iu.test(value);
+    /^\s*javascript\s*:/iv.test(value);
 
 const isLocationLikeLeftHand = (
     expression: TSESTree.AssignmentExpression["left"]
 ): boolean => {
-    if (expression.type !== "MemberExpression") {
+    if (expression.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -84,7 +91,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 });
             },
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -102,7 +109,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement"
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }

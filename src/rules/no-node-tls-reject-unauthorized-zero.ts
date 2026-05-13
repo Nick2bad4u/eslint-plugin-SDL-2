@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { arrayFirst } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
@@ -12,13 +13,13 @@ const getMemberPropertyName = (
 ): string | undefined => {
     if (
         !memberExpression.computed &&
-        memberExpression.property.type === "Identifier"
+        memberExpression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return memberExpression.property.name;
     }
 
     if (
-        memberExpression.property.type === "Literal" &&
+        memberExpression.property.type === AST_NODE_TYPES.Literal &&
         typeof memberExpression.property.value === "string"
     ) {
         return memberExpression.property.value;
@@ -28,7 +29,7 @@ const getMemberPropertyName = (
 };
 
 const isProcessEnvAccess = (node: TSESTree.Expression): boolean => {
-    if (node.type !== "MemberExpression") {
+    if (node.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -36,13 +37,16 @@ const isProcessEnvAccess = (node: TSESTree.Expression): boolean => {
         return false;
     }
 
-    return node.object.type === "Identifier" && node.object.name === "process";
+    return (
+        node.object.type === AST_NODE_TYPES.Identifier &&
+        node.object.name === "process"
+    );
 };
 
 const isTlsRejectUnauthorizedMember = (
     node: TSESTree.AssignmentExpression["left"]
 ): boolean => {
-    if (node.type !== "MemberExpression") {
+    if (node.type !== AST_NODE_TYPES.MemberExpression) {
         return false;
     }
 
@@ -54,12 +58,12 @@ const isTlsRejectUnauthorizedMember = (
 };
 
 const isUnsafeOverrideValue = (node: TSESTree.Expression): boolean => {
-    if (node.type === "Literal") {
+    if (node.type === AST_NODE_TYPES.Literal) {
         return node.value === 0 || node.value === "0";
     }
 
     return (
-        node.type === "TemplateLiteral" &&
+        node.type === AST_NODE_TYPES.TemplateLiteral &&
         node.expressions.length === 0 &&
         arrayFirst(node.quasis)?.value.cooked === "0"
     );
@@ -89,7 +93,8 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                         {
                             fix(fixer) {
                                 const replacementValue =
-                                    node.right.type === "TemplateLiteral"
+                                    node.right.type ===
+                                    AST_NODE_TYPES.TemplateLiteral
                                         ? "`1`"
                                         : "'1'";
 

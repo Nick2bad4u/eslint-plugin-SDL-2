@@ -1,23 +1,25 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { createRule } from "../_internal/create-rule.js";
 
 type MessageIds = "default";
 
-const SECURITY_INPUT_PATTERN = /html|input|message|origin|payload|token|url/iu;
+const SECURITY_INPUT_PATTERN = /html|input|message|origin|payload|token|url/iv;
 
 const isSecuritySensitiveExpression = (
     expression: TSESTree.Expression
 ): boolean => {
-    if (expression.type === "Identifier") {
+    if (expression.type === AST_NODE_TYPES.Identifier) {
         return SECURITY_INPUT_PATTERN.test(expression.name);
     }
 
     if (
-        expression.type === "MemberExpression" &&
+        expression.type === AST_NODE_TYPES.MemberExpression &&
         !expression.computed &&
-        expression.property.type === "Identifier"
+        expression.property.type === AST_NODE_TYPES.Identifier
     ) {
         return SECURITY_INPUT_PATTERN.test(expression.property.name);
     }

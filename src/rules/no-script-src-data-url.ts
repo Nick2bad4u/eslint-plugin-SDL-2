@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types -- ESTree/ESLint callback parameter shapes are mutable in upstream types and cannot be represented as fully readonly without invasive casts. */
 import type { TSESTree } from "@typescript-eslint/utils";
 
+import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+
 import { getFullTypeChecker } from "../_internal/ast-utils.js";
 import { createRule } from "../_internal/create-rule.js";
 import {
@@ -12,16 +14,16 @@ import { isLikelyScriptElement } from "../_internal/script-element.js";
 
 type MessageIds = "default";
 
-const isDataUrl = (value: string): boolean => /^\s*data:/iu.test(value);
+const isDataUrl = (value: string): boolean => /^\s*data:/iv.test(value);
 
 const isJsxScriptElement = (node: TSESTree.JSXOpeningElement): boolean =>
-    node.name.type === "JSXIdentifier" &&
+    node.name.type === AST_NODE_TYPES.JSXIdentifier &&
     node.name.name.toLowerCase() === "script";
 
 const getJsxAttributeName = (
     attributeNode: TSESTree.JSXAttribute
 ): string | undefined => {
-    if (attributeNode.name.type !== "JSXIdentifier") {
+    if (attributeNode.name.type !== AST_NODE_TYPES.JSXIdentifier) {
         return undefined;
     }
 
@@ -35,7 +37,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
         return {
             AssignmentExpression(node: TSESTree.AssignmentExpression) {
-                if (node.left.type !== "MemberExpression") {
+                if (node.left.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -63,7 +65,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 });
             },
             CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== "MemberExpression") {
+                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
                     return;
                 }
 
@@ -80,10 +82,10 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === "SpreadElement" ||
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     getStaticStringValue(firstArgument) !== "src" ||
                     secondArgument === undefined ||
-                    secondArgument.type === "SpreadElement"
+                    secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;
                 }
@@ -113,7 +115,7 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                 }
 
                 for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== "JSXAttribute") {
+                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
                         continue;
                     }
 
