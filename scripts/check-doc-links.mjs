@@ -64,6 +64,8 @@ const IGNORED_DIRECTORIES = new Set([
     "dist",
     ".vite",
     "coverage",
+    "temp",
+    ".temp",
     ".stryker-tmp",
 ]);
 
