@@ -57,7 +57,7 @@ const createNamedConfig = (
 });
 
 const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL Angular Security", {
+    createNamedConfig("🔐 SDL: Angular Security", {
         plugins: {
             sdl: plugin,
         },
@@ -71,7 +71,7 @@ const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
 ];
 
 const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL AngularJS Security", {
+    createNamedConfig("🔐 SDL: AngularJS Security", {
         plugins: {
             sdl: plugin,
         },
@@ -86,7 +86,7 @@ const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
 ];
 
 const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL Common Web Security", {
+    createNamedConfig("🔐 SDL: Common Web Security", {
         plugins: {
             sdl: plugin,
         },
@@ -128,7 +128,7 @@ const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
 ];
 
 const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL Electron Security", {
+    createNamedConfig("🔐 SDL: Electron Security", {
         plugins: {
             sdl: plugin,
         },
@@ -158,7 +158,7 @@ const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
 ];
 
 const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL Node.js Runtime Safety", {
+    createNamedConfig("🔐 SDL: Node.js Runtime Safety", {
         plugins: {
             n: nodeEslintPlugin,
         },
@@ -166,7 +166,7 @@ const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
             "n/no-deprecated-api": "error",
         },
     }),
-    createNamedConfig("SDL Node.js Security", {
+    createNamedConfig("🔐 SDL: Node.js Security", {
         plugins: {
             sdl: plugin,
         },
@@ -188,7 +188,7 @@ const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
 ];
 
 const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL React JSX Support", {
+    createNamedConfig("🔐 SDL: React JSX Support", {
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {
@@ -197,7 +197,7 @@ const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
             },
         },
     }),
-    createNamedConfig("SDL React Security", {
+    createNamedConfig("🔐 SDL: React Security", {
         plugins: {
             sdl: plugin,
         },
@@ -205,7 +205,7 @@ const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
 ];
 
 const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
-    createNamedConfig("SDL TypeScript Parser Support", {
+    createNamedConfig("🔐 SDL: TypeScript Parser Support", {
         languageOptions: {
             parserOptions: {
                 ecmaVersion: "latest",
@@ -213,7 +213,7 @@ const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
             },
         },
     }),
-    createNamedConfig("SDL TypeScript Security", {
+    createNamedConfig("🔐 SDL: TypeScript Security", {
         files: [...typeScriptFiles],
         languageOptions: {
             parser: typeScriptParser,
@@ -242,7 +242,7 @@ const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
 const createRequiredConfig = (
     configs: Readonly<SdlConfigMap>
 ): SdlConfigArray => [
-    createNamedConfig("SDL Required Security Baseline"),
+    createNamedConfig("🔐 SDL: Required Security Baseline"),
     ...configs.angular,
     ...configs.angularjs,
     ...configs.common,
@@ -254,10 +254,10 @@ const createRequiredConfig = (
 const createRecommendedConfig = (
     configs: Readonly<SdlConfigMap>
 ): SdlConfigArray => [
-    createNamedConfig("SDL Recommended Security Baseline"),
+    createNamedConfig("🔐 SDL: Recommended Security Baseline"),
     ...configs.required,
     ...configs.typescript,
-    createNamedConfig("SDL Recommended Security Plugins", {
+    createNamedConfig("🔐 SDL: Recommended Security Plugins", {
         plugins: {
             security: securityEslintPlugin,
         },

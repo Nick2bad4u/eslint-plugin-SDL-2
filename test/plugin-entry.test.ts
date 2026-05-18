@@ -69,13 +69,13 @@ describe("sdl plugin entry", () => {
         }
 
         expect(getConfigNames(sdlPlugin.configs.required)).toContain(
-            "SDL Required Security Baseline"
+            "🔐 SDL: Required Security Baseline"
         );
         expect(getConfigNames(sdlPlugin.configs.recommended)).toContain(
-            "SDL Recommended Security Baseline"
+            "🔐 SDL: Recommended Security Baseline"
         );
         expect(getConfigNames(sdlPlugin.configs.electron)).toContain(
-            "SDL Electron Security"
+            "🔐 SDL: Electron Security"
         );
     });
 
