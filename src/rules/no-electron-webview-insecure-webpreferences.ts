@@ -53,50 +53,45 @@ const getUnsafeWebPreferencesFlags = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
-                if (!isJsxWebviewElement(node)) {
-                    return;
+    create: (context) => ({
+        JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
+            if (!isJsxWebviewElement(node)) {
+                return;
+            }
+
+            for (const attributeNode of node.attributes) {
+                if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
+                    continue;
                 }
 
-                for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
-                        continue;
-                    }
-
-                    if (
-                        getJsxAttributeName(attributeNode) !== "webpreferences"
-                    ) {
-                        continue;
-                    }
-
-                    const staticValue = getStaticJsxAttributeStringValue(
-                        attributeNode.value
-                    );
-
-                    if (typeof staticValue !== "string") {
-                        continue;
-                    }
-
-                    const unsafeFlags =
-                        getUnsafeWebPreferencesFlags(staticValue);
-
-                    if (isEmpty(unsafeFlags)) {
-                        continue;
-                    }
-
-                    context.report({
-                        data: {
-                            flags: arrayJoin(unsafeFlags, ", "),
-                        },
-                        messageId: "default",
-                        node: attributeNode,
-                    });
+                if (getJsxAttributeName(attributeNode) !== "webpreferences") {
+                    continue;
                 }
-            },
-        };
-    },
+
+                const staticValue = getStaticJsxAttributeStringValue(
+                    attributeNode.value
+                );
+
+                if (typeof staticValue !== "string") {
+                    continue;
+                }
+
+                const unsafeFlags = getUnsafeWebPreferencesFlags(staticValue);
+
+                if (isEmpty(unsafeFlags)) {
+                    continue;
+                }
+
+                context.report({
+                    data: {
+                        flags: arrayJoin(unsafeFlags, ", "),
+                    },
+                    messageId: "default",
+                    node: attributeNode,
+                });
+            }
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

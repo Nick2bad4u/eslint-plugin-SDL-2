@@ -51,37 +51,35 @@ const findRejectUnauthorizedFalseProperty = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            ObjectExpression(node: TSESTree.ObjectExpression) {
-                const insecureOptionProperty =
-                    findRejectUnauthorizedFalseProperty(node);
+    create: (context) => ({
+        ObjectExpression(node: TSESTree.ObjectExpression) {
+            const insecureOptionProperty =
+                findRejectUnauthorizedFalseProperty(node);
 
-                if (insecureOptionProperty === undefined) {
-                    return;
-                }
+            if (insecureOptionProperty === undefined) {
+                return;
+            }
 
-                context.report({
-                    fix(fixer) {
-                        if (
-                            insecureOptionProperty.value.type !==
-                                AST_NODE_TYPES.Literal ||
-                            insecureOptionProperty.value.value !== false
-                        ) {
-                            return null;
-                        }
+            context.report({
+                fix(fixer) {
+                    if (
+                        insecureOptionProperty.value.type !==
+                            AST_NODE_TYPES.Literal ||
+                        insecureOptionProperty.value.value !== false
+                    ) {
+                        return null;
+                    }
 
-                        return fixer.replaceText(
-                            insecureOptionProperty.value,
-                            "true"
-                        );
-                    },
-                    messageId: "default",
-                    node: insecureOptionProperty,
-                });
-            },
-        };
-    },
+                    return fixer.replaceText(
+                        insecureOptionProperty.value,
+                        "true"
+                    );
+                },
+                messageId: "default",
+                node: insecureOptionProperty,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

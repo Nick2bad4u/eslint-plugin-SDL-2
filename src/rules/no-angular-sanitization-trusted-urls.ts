@@ -5,18 +5,16 @@ const rule: ReturnType<typeof createRule> = createRule<
     [],
     "noSanitizationTrustedUrls"
 >({
-    create(context) {
-        return {
-            "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationTrustedUrlList$/]"(
-                node
-            ) {
-                context.report({
-                    messageId: "noSanitizationTrustedUrls",
-                    node,
-                });
-            },
-        };
-    },
+    create: (context) => ({
+        "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationTrustedUrlList$/]"(
+            node
+        ) {
+            context.report({
+                messageId: "noSanitizationTrustedUrls",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

@@ -149,7 +149,7 @@ ruleTester.run(
             "shell.close();",
             // Covers line 87: object is not shell-like → no report
             "fs.readFile('path');",
-            // Covers line 96: allowed https:// protocol → early return (no report)
+            // Covers line 96: allowed HTTPS:// protocol → early return (no report)
             "shell.openExternal('https://safe.example.com');",
             // Covers line 96: allowed mailto: protocol
             "shell.openExternal('mailto:user@example.com');",
@@ -574,12 +574,12 @@ ruleTester.run("no-iframe-srcdoc", getPluginRule("no-iframe-srcdoc"), {
         "iframe.setAttribute('class', 'frame');",
         // Covers JSX non-iframe element with srcdoc
         {
-            code: String.raw`<div srcdoc='content' />;`,
+            code: "<div srcdoc='content' />;",
             languageOptions: tsReactLanguageOptions,
         },
         // Covers JSX iframe without srcdoc attribute
         {
-            code: String.raw`<iframe className="frame" />;`,
+            code: '<iframe className="frame" />;',
             languageOptions: tsReactLanguageOptions,
         },
     ],

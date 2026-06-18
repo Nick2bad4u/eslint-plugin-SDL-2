@@ -459,6 +459,7 @@ body {
     border-inline-start-color: rgb(91 67 214 / 34%);
 }
 
+/* stylelint-disable-next-line css-performance-budget/no-giant-selector-lists -- Docusaurus sidebar categories use explicit generated route classes. */
 .sb-cat-developer > .menu__link,
 .sb-cat-rule-navigation > .menu__list-item-collapsible > .menu__link,
 .sb-cat-rules > .menu__list-item-collapsible > .menu__link,
@@ -482,6 +483,7 @@ body {
     gap: 0.5rem;
 }
 
+/* stylelint-disable-next-line css-performance-budget/no-giant-selector-lists -- Docusaurus sidebar category icons mirror the explicit category list above. */
 .sb-cat-developer > .menu__link::before,
 .sb-cat-rule-navigation > .menu__list-item-collapsible > .menu__link::before,
 .sb-cat-rules > .menu__list-item-collapsible > .menu__link::before,

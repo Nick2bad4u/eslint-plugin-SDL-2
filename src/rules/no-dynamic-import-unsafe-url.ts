@@ -30,20 +30,18 @@ const isUnsafeDynamicImportSource = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            ImportExpression(node: TSESTree.ImportExpression) {
-                if (!isUnsafeDynamicImportSource(node.source)) {
-                    return;
-                }
+    create: (context) => ({
+        ImportExpression(node: TSESTree.ImportExpression) {
+            if (!isUnsafeDynamicImportSource(node.source)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node: node.source,
-                });
-            },
-        };
-    },
+            context.report({
+                messageId: "default",
+                node: node.source,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

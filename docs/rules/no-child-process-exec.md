@@ -97,5 +97,5 @@ strict.
 
 > **Rule catalog ID:** R062
 
-- [Node.js child\_process documentation](https://nodejs.org/api/child_process.html)
+- [Node.js child_process documentation](https://nodejs.org/api/child_process.html)
 - [OWASP Command Injection](https://owasp.org/www-community/attacks/Command_Injection)

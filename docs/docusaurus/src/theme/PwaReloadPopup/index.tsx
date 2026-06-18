@@ -3,9 +3,9 @@ import { type ReactNode, useState } from "react";
 
 import styles from "./styles.module.css";
 
-type Props = {
+interface Props {
     readonly onReload: () => void;
-};
+}
 
 /**
  * Show a dismissible PWA update banner when a newer service worker is ready.
@@ -22,28 +22,28 @@ export default function PwaReloadPopup({ onReload }: Props): ReactNode {
     }
 
     return (
-        <div className={styles["popup"]}>
-            <output aria-live="polite" className={styles["message"]}>
+        <div className={styles.popup}>
+            <output aria-live="polite" className={styles.message}>
                 <Translate
-                    id="theme.PwaReloadPopup.info"
                     description="The text for the PWA reload popup"
+                    id="theme.PwaReloadPopup.info"
                 >
                     New version available
                 </Translate>
             </output>
 
-            <div className={styles["actions"]}>
+            <div className={styles.actions}>
                 <button
-                    className={`button button--sm ${styles["reloadButton"]}`}
-                    type="button"
+                    className={`button button--sm ${styles.reloadButton}`}
                     onClick={() => {
                         setIsVisible(false);
                         onReload();
                     }}
+                    type="button"
                 >
                     <Translate
-                        id="theme.PwaReloadPopup.refreshButtonText"
                         description="The text for the PWA reload button"
+                        id="theme.PwaReloadPopup.refreshButtonText"
                     >
                         Refresh
                     </Translate>
@@ -56,9 +56,11 @@ export default function PwaReloadPopup({ onReload }: Props): ReactNode {
                         id: "theme.PwaReloadPopup.closeButtonAriaLabel",
                         message: "Close",
                     })}
-                    className={styles["closeButton"]}
+                    className={styles.closeButton}
+                    onClick={() => {
+                        setIsVisible(false);
+                    }}
                     type="button"
-                    onClick={() => setIsVisible(false)}
                 >
                     <span aria-hidden="true">×</span>
                 </button>

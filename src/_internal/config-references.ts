@@ -1,3 +1,5 @@
+import type { ArrayValues } from "type-fest";
+
 /** Ordered list of built-in SDL flat-config preset names. */
 export const sdlConfigNames = [
     "angular",
@@ -12,4 +14,4 @@ export const sdlConfigNames = [
 ] as const;
 
 /** Union of supported SDL flat-config preset names. */
-export type SdlConfigName = (typeof sdlConfigNames)[number];
+export type SdlConfigName = ArrayValues<typeof sdlConfigNames>;

@@ -5,12 +5,11 @@ type MessageIds = "default";
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return createElectronWebPreferencesBooleanListener(context, {
+    create: (context) =>
+        createElectronWebPreferencesBooleanListener(context, {
             disallowedValue: true,
             preferenceName: "webviewTag",
-        });
-    },
+        }),
     meta: {
         deprecated: false,
         docs: {

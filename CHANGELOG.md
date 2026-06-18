@@ -1,39 +1,30 @@
 <!-- markdownlint-disable -->
 <!-- eslint-disable markdown/no-missing-label-refs -->
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
 ## [1.0.1] - 2026-03-13
 
-
 [c94f474...c94f474](https://github.com/Nick2bad4u/eslint-plugin-typefest/compare/c94f47418c00ccf8e84b8a7dd1539db18518d22a...c94f47418c00ccf8e84b8a7dd1539db18518d22a)
-
 
 ### 🧹 Chores
 
 - Release v1.0.1 [`(c94f474)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c94f47418c00ccf8e84b8a7dd1539db18518d22a)
 
-
-
-
-
-
 ## [1.0.0] - 2026-03-13
 
-
 [d233b9c...fe9afd2](https://github.com/Nick2bad4u/eslint-plugin-typefest/compare/d233b9c2b49f5f87e10e2c2ee04deed9765f54a3...fe9afd26fe79835b171003e19575a90518e14be6)
-
 
 ### ✨ Features
 
 - ✨ [feat] Add Prettier configuration and bootstrap instructions
-📝 [docs] Update ESLint configuration with package installation guidance
-🧪 [test] Enhance type safety and fix assertions in prefer-ts-extras-key-in tests
-🔧 [chore] Include prettier.config.ts in TypeScript configuration
+  📝 [docs] Update ESLint configuration with package installation guidance
+  🧪 [test] Enhance type safety and fix assertions in prefer-ts-extras-key-in tests
+  🔧 [chore] Include prettier.config.ts in TypeScript configuration
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8219846)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/82198469abc5897572fba1dc3e17a4929daaf7e3)
-
 
 - ✨ [feat] Enhance ESLint configuration and improve scope resolution utilities
 
@@ -45,7 +36,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8219
 - Improve type safety in tests by refining fix function checks and ensuring expected types.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3d0c909)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3d0c909e2649b1603e278ba9774d35b7fe9694c1)
-
 
 - ✨ [feat] Add contributors section and update package dependencies
 
@@ -63,7 +53,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3d0c
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1d5fa24)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/1d5fa24bbea2842389a350d0e5389134b16ee4c3)
 
-
 - ✨ [feat] Add strict profile configuration and enhance module exports
 
 - Introduced a new `.attw.json` file with strict profile settings
@@ -73,15 +62,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1d5f
 - Modified build scripts to generate CommonJS compatible files
 
 - Added new linting command for strict package checks
-🧪 [test] Extend tests for runtime plugin shape validation
+  🧪 [test] Extend tests for runtime plugin shape validation
 
 - Implemented tests to verify the exported structure of the runtime plugin
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7ff063c)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7ff063cd9834399920a111b9c48c3e6ef3ae624c)
 
-
 - ✨ [feat] Enhance Mermaid configuration and add presets rules synchronization
-
 
 - 🛠️ [fix] Update `mermaid.config.json` to include `ishikawa` settings for improved diagram layout.
 
@@ -97,35 +84,25 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7ff0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(292e4a4)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/292e4a49f94c517cb317dbf77cbad13bccdfa3d0)
 
-
 - ✨ [feat] Add blog link to navigation menu
 
 - Introduced a new link to the blog section in the navigation menu for easier access.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(76ff1fe)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/76ff1fe85bdff07695c59e70cdd023603de59b7f)
 
-
 - ✨ [feat] Add rule catalog ID validation and normalize markdown table spacing
 
-
 - 📝 Introduced a new function `assertRuleCatalogIdLine` to validate that each rule documentation contains exactly one canonical Rule catalog ID line.
-  
 - 📜 This function checks for the presence of the Rule catalog ID line and ensures it is correctly positioned relative to the "Further reading" heading.
-  
 - ✅ Added assertions to verify the expected format and order of the Rule catalog ID line.
 
-
 - 🛠️ Enhanced the `normalizeRulesSectionMarkdown` function to standardize markdown table row spacing.
-  
 - 🔄 This function normalizes the spacing of markdown tables to ensure consistent formatting across generated tables.
-  
 - 📏 It trims whitespace and adjusts column alignment for better comparison between generated and expected markdown tables.
-
 
 - 🧪 Updated tests to utilize the new normalization function for comparing readme rules sections, ensuring snapshot stability.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c1caabb)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c1caabb730504b1ad1d737428b156c8675b7e0eb)
-
 
 - ✨ [feat] Introduce default operators for nullish comparison parsing
 
@@ -136,7 +113,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c1ca
 - Enhanced flexibility by allowing custom operators while maintaining default behavior
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(473f8d6)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/473f8d6329ade1b3e203c7c1fb7a0d2961a41b05)
-
 
 - ✨ [feat] Enhance typed rule functionality and validation
 
@@ -151,7 +127,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(473f
 - 🧪 [test] Ensure typed services retrieval behaves correctly in various contexts
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(370a7cd)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/370a7cd7d545a20d0b9047adb75094fa5fbc7709)
-
 
 - ✨ [feat] Enhance sidebar readability and button styles
 
@@ -171,7 +146,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(370a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(719bab6)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/719bab6821895a1509e99e2c263776f94f407ae6)
 
-
 - ✨ [feat] Implement telemetry for typed rule paths
 
 - 🛠️ [fix] Add telemetry recording for prefilter evaluations in array-like expression checks
@@ -185,7 +159,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(719b
 - 🧪 [test] Enhance tests to mock typed rule services and validate telemetry functionality
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8bb7d79)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/8bb7d79ac483fd2336235c0018d072d76a78e060)
-
 
 - ✨ [feat] Enhance rule documentation and argument validation
 
@@ -203,7 +176,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8bb7
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(36e010b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/36e010b654605c0c0bc1f0fd570bc5e3557dd272)
 
-
 - ✨ [feat] Enhance rule reporting and configuration management
 
 - 🛠️ Refactor rule reporting to enforce policy-aware handling
@@ -220,9 +192,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(36e0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ef3e2b0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ef3e2b0f505bd52bf9043ce4f3061c5fa9d26343)
 
-
 - ✨ [feat] Enhance rule metadata with ruleId and ruleNumber
-
 
 - 🆕 Introduced `ruleId` and `ruleNumber` properties in the `RuleDocsMetadata` type to uniquely identify rules.
 
@@ -238,7 +208,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ef3e
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(dae1c27)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/dae1c27f6a81ce85d86580020ac57dc5ac73e58e)
 
-
 - ✨ [feat] Enhance logging functionality in scripts
 
 - 📝 Update log-prompt.ps1 to include success and failure messages for prompt logging
@@ -252,7 +221,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(dae1
 - 📝 Update remove-temp.sh to include success/failure messages and dry run feedback
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(954d614)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/954d6144b034d79a7fd4cf013b1396ac2aea67ce)
-
 
 - ✨ [feat] Enhance TypeScript ESLint integration with new utilities and benchmarks
 
@@ -274,7 +242,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(954d
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(021b3e9)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/021b3e936183cb36f498cb5904e2e60a1467170c)
 
-
 - ✨ [feat] Add type annotations to exported constants and introduce new tsconfig for Vitest type-checking
 
 - 🛠️ [fix] Update `isPresentStressFixture`, `recommendedZeroMessageBaseline`, `safeCastToStressFixture`, `setHasStressFixture`, and `stringSplitStressFixture` with explicit type annotations
@@ -291,7 +258,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(021b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(21e0d49)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/21e0d498a8ed4c996ad2844795716c2cfdd01593)
 
-
 - ✨ [feat] Add sync:readme-rules-table script to package.json and optimize rule handling
 
 - Introduced a new script command to synchronize the README rules table.
@@ -299,7 +265,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(21e0
 - Refactored rule name checks to utilize Set for improved performance in sync-readme-rules-table.mjs.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(92bd316)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/92bd316192d7f16ca8cbcd9d13565b1751a503af)
-
 
 - ✨ [feat] Enhance typefest plugin with new functionality and documentation updates
 
@@ -314,7 +279,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(92bd
 - 🧪 Improve test mocks for `typed-rule.js` in `prefer-ts-extras-set-has` and `prefer-ts-extras-string-split` tests
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b496d4e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b496d4e9e7b79d90c1ca42dd8de32437f25a398d)
-
 
 - ✨ [feat] Enhance ESLint Plugin with various improvements and optimizations
 
@@ -331,7 +295,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b496
 - 📝 [docs] Update comments and documentation for clarity and consistency across multiple files
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(00fc246)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/00fc24679cd832ceed639e19414838bcad265851)
-
 
 - ✨ [feat] Enhance ESLint Plugin with New Rules and Performance Improvements
 
@@ -355,7 +318,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(00fc
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a1e6f4b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a1e6f4ba9c120d62306db5a2868e1495f5a3a5df)
 
-
 - ✨ [feat] Update dependencies and enhance parser options handling
 
 - 🔧 Update `@eslint/compat` to version `2.0.3` and `@eslint/config-helpers` to `0.5.3` in package.json and package-lock.json
@@ -371,7 +333,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a1e6
 - 📝 Update test cases in plugin-source-configs.test.ts for renamed config variables
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(be1768e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/be1768ecb0caa251823fc6c1092d59ce7d103df9)
-
 
 - ✨ [feat] Introduce 'recommended-type-checked' configuration for ESLint plugin
 
@@ -393,7 +354,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(be17
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3e11f34)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3e11f3414a7deda15d7ca4ce1dc9b33175f9cea5)
 
-
 - ✨ [feat] Add deMorgan ESLint plugin and update dependencies
 
 - 🆕 Import `eslint-plugin-de-morgan` for enhanced rule checks
@@ -403,7 +363,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3e11
 - 🗑️ Remove obsolete `rule-docs-url.ts` file
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4ab8742)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4ab87429abba03528830985abc2645c04f1d56b8)
-
 
 - ✨ [feat] auto-enable parser services and centralize preset membership
 
@@ -449,9 +408,7 @@ These changes aim to reduce duplication, improve reliability of presets, and mak
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3e52bb0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3e52bb09e51b587351e8927e947ee7d34ca57c7f)
 
-
 - ✨ [feat] Enhance import insertion functionality and add failure handling
-
 
 - 🛠️ [fix] Modify `createImportInsertionFix` to accept an optional `moduleSpecifierHint` parameter, allowing for more flexible import handling when the specifier cannot be inferred from the import text.
 
@@ -468,7 +425,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3e52
 - 🧪 [test] Create comprehensive tests for the new failure handling in `safe-type-operation`, including local and global observer notifications.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f06b2d9)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/f06b2d997d21d0567915dbabcac36bbc49f50ae5)
-
 
 - ✨ [feat] Enhance TypeFest rules with new options and improvements
 
@@ -498,7 +454,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f06b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(46a0938)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/46a0938464a8b70ba3aea1023157589517fc8b17)
 
-
 - ✨ [feat] Enhance TypeFest ESLint rules with ts-extras utilities
 
 - 🔧 [refactor] Update `prefer-type-fest-literal-union.ts` to use `arrayFirst` and `arrayJoin` for improved literal union text generation.
@@ -521,7 +476,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(46a0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6a02cd3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6a02cd3f09977c68334884e0f51efc61de550d8d)
 
-
 - ✨ [feat] Add comprehensive audit prompt for repository quality and scalability
 
 - Introduce a new prompt for deep-scan and refactor tasks aimed at enhancing stability, performance, and maintainability.
@@ -531,7 +485,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6a02
 - Provide a structured execution plan for searching, analyzing, refactoring, and validating code changes.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(042e729)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/042e729588719f03e61fab404d0cfdd6c8bfbe7f)
-
 
 - ✨ [feat] Introduce isDefined utility from ts-extras for nullish checks
 
@@ -555,7 +508,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(042e
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(647d69f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/647d69f6f8475e274d3e02e4e806df224f46da47)
 
-
 - ✨ [feat] Implement import insertion coordination and enhance type import handling
 
 - Introduced `ImportFixIntent` type for managing autofix and suggestion intents in import insertion.
@@ -569,7 +521,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(647d
 - Enhanced unit tests to verify self-contained suggestion-intent fixes with import insertion.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5879928)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/5879928457bb7615018776d8c03f0ea213e0388f)
-
 
 - ✨ [feat] Enhance import insertion handling and deduplication logic
 
@@ -593,7 +544,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5879
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e5b98f0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e5b98f0f409c34817972c2da205e1c7e8eb5d936)
 
-
 - ✨ [feat] Introduce runtime harness for prefer-ts-extras-assert-present tests
 
 - 🆕 Added a new file `prefer-ts-extras-assert-present-runtime-harness.ts` containing utilities for testing the `prefer-ts-extras-assert-present` rule.
@@ -613,7 +563,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e5b9
 - ✅ Ensured that invalid and valid test cases are clearly defined and utilize the new utilities for better maintainability and readability.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f0826fe)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/f0826fe3c507b5dcd2fc7a6d9c68c6cc318f9021)
-
 
 - ✨ [feat] Enhance fixer parse-safety coverage tests
 
@@ -635,7 +584,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f082
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(25e991b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/25e991bb37399af03b9e1d19e9abe9248095f24e)
 
-
 - ✨ [feat] Enhance homepage with GitHub stats and improve layout
 
 - 🆕 Add GitHubStats component to display live repository badges
@@ -650,41 +598,39 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(25e9
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1489fe5)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/1489fe589c1e44b4fdb47256ced3177967844d7c)
 
-
 - ✨ [feat] Enforce canonical docs & expand rule guides
 
 📝 [docs] Flesh out every helper rule page with
 
 - “Targeted pattern scope” sections, clearer example labels,
-   package‑documentation blocks, migration notes and links.
+  package‑documentation blocks, migration notes and links.
 
 - Added dozens of ts‑extras/type‑fest helper snippets and
-   canonical headings so the guides are self‑contained.
+  canonical headings so the guides are self‑contained.
 
 ✨ [feat] Introduce a remark‑lint plugin to verify and
- enforce the H1/H2 schema for rule docs
+enforce the H1/H2 schema for rule docs
 
 - wired into .remarkrc and used by test suite.
 
 🧪 [test] Update docs‑integrity spec to assert heading order,
- package labels and redact legacy patterns.
+package labels and redact legacy patterns.
 
 - Add new cases for reversed `typeof undefined` to the
-   prefer‑ts‑extras‑is‑defined‑filter rule.
+  prefer‑ts‑extras‑is‑defined‑filter rule.
 
 🛠️ [fix] Improve prefer‑ts‑extras‑is‑defined‑filter logic to
- catch inverted typeof checks and add corresponding tests.
+catch inverted typeof checks and add corresponding tests.
 
 🧹 [chore] [dependency] Update various dev dependencies (stylelint‑a11y,
- stryker, npm‑check‑updates, eslint‑plugin‑package‑json, etc.)
- and tidy package.json.
+stryker, npm‑check‑updates, eslint‑plugin‑package‑json, etc.)
+and tidy package.json.
 
 The changes raise documentation quality, make future edits
 deterministic and reduce manual review churn while
 handling a subtle predicate bug.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5ef9c15)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/5ef9c157b9304ef69f1c4c3b9fa3ede02ddae86f)
-
 
 - ✨ [feat] Enhance unicode and emoji support in autofixes
 
@@ -700,20 +646,19 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5ef9
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7349e48)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7349e48baf605c4457a8fe27765bb29cd998122a)
 
-
 - ✨ [feat] Add global identifier guards and expand test coverage
 
 ✨ Introduce robust global‑scope helpers and apply them across rules
 
 - add `isGlobalIdentifierNamed`, `isGlobalUndefinedIdentifier` and
-   `getVariableInScopeChain` to typed‑rule
+  `getVariableInScopeChain` to typed‑rule
 
 - export new regex constants for test file detection and normalize
-   lookup logic
+  lookup logic
 
 - adapt rule implementations to accept context and use the new checks
-   so shadowed globals (e.g. `undefined`, `Number`, `Object`, `Error`,
-   etc.) no longer trigger false positives
+  so shadowed globals (e.g. `undefined`, `Number`, `Object`, `Error`,
+  etc.) no longer trigger false positives
 
 🚜 Refactor internal helpers for clarity
 
@@ -726,18 +671,18 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7349
 🧪 Vastly expand automated tests
 
 - add coverage for array‑like expressions, import insertion, imported
-   type/value symbols, normalization, typed‑rule utilities, plugin
-   entry runtime branches and new rule‑guard suite
+  type/value symbols, normalization, typed‑rule utilities, plugin
+  entry runtime branches and new rule‑guard suite
 
 - enrich rule specs with shadowing, malformed AST ranges, recursive
-   types, non‑identifier guards, undocumented edge cases and more
+  types, non‑identifier guards, undocumented edge cases and more
 
 - ensure every rule short‑circuits on test file paths
 
 🛠️ Fix edge cases and add safe fallbacks
 
 - handle invalid program ranges, disabled import fixes and detached
-   nodes in import insertion
+  nodes in import insertion
 
 - guard against volatile/throwing fix getters in report descriptors
 
@@ -757,7 +702,6 @@ These changes reduce false positives, harden rules against variable
 shadowing, and significantly improve test reliability and coverage.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6ae4136)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6ae41360a5a5e5c6bdc1fafd67aa9400b0472e2f)
-
 
 - ✨ [feat] Add plugin settings to control autofixes and shared helper utilities
 
@@ -785,7 +729,6 @@ and reduce code drift by centralizing shared functionality.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6b530ec)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6b530ece7f5f101f9d599fdacd7f526321060d6c)
 
-
 - ✨ [feat] Update test coverage scripts and enhance JUnit reporting
 
 - 🔧 Modify coverage job to run tests with JUnit report generation
@@ -797,7 +740,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6b53
 - 🔍 Refactor assertions in prefer-ts-extras-is-empty, prefer-ts-extras-is-infinite, and prefer-ts-extras-not tests to use regex matching for improved accuracy
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fe9b0b3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/fe9b0b3d4133560154045a82ec981920ba847574)
-
 
 - ✨ [feat] Add ESLint 9 compatibility checks and update documentation
 
@@ -812,7 +754,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fe9b
 - 🚜 [refactor] Simplify regex patterns in typed-rule.ts for test file detection
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8e7a5a8)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/8e7a5a8890c707d01bd8af285ff7bd3eb53a9698)
-
 
 - ✨ [feat] Enhance ESLint Benchmarking and Add New Fixtures
 
@@ -838,13 +779,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8e7a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(72b72c3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/72b72c3d76e79c5c48b80909a5f26f5d304afd53)
 
-
 - ✨ [feat] Update rules to require 'frozen: false' for typefest ESLint rules
 
 - 📝 Added 'frozen: false' to the documentation of multiple TypeFest ESLint rules to indicate that these rules are not frozen and can be modified in the future.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(110d7dd)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/110d7dd4ad77096226ed311227c6e9dc54b8669a)
-
 
 - ✨ [feat] Adds preset-tagged rule recommendations
 
@@ -865,7 +804,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(110d
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(155c352)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/155c352f4fdb9a3ac38104a5b11b67ede23aefe4)
 
-
 - ✨ [feat] Enhance TypeFest rule tests with detailed metadata and messages
 
 - 🛠️ [fix] Refactor rule tests to include `ruleId`, `docsDescription`, and `messages` for better clarity and maintainability
@@ -880,7 +818,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(155c
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(db8f3d9)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/db8f3d907e5b7dff0f98dc648045e96776573ba2)
 
-
 - ✨ [feat] Enhance prefer-ts-extras-is-equal-type tests with metadata validation
 
 - 📝 Add metadata loading function for `prefer-ts-extras-is-equal-type` rule
@@ -893,7 +830,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(db8f
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b7735ff)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b7735fff0c81b9b0e938e11e80f466824d347ee6)
 
-
 - ✨ [feat] Enhance prefer-ts-extras-is-equal-type rule with ts-extras integration
 
 - 🛠️ [fix] Add support for isEqualType function from ts-extras in ESLint rule
@@ -904,7 +840,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b773
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(64beea6)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/64beea69975339a2924f307a80baf25d38e4c3c7)
 
-
 - ✨ [feat] Introduce local Typefest plugin dogfooding rules
 
 - Added local Typefest plugin for manual dogfooding in ESLint configuration
@@ -914,7 +849,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(64be
 - Updated section headers from "MARK" to "SECTION" for consistency across the config
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(df8b7be)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/df8b7be5d4074457f8d826c979149f8f861f7c73)
-
 
 - ✨ [feat] Implement script for temp directory cleanup
 
@@ -927,7 +861,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(df8b
 - 📝 Create `remove-temp.ps1` script to handle temp directory cleanup
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(98e032b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/98e032b352efbe56862f5912aaab20d094319018)
-
 
 - ✨ [feat] Update node configuration and dependencies
 
@@ -971,7 +904,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(98e0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5c39e3d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/5c39e3d5254fd081c9bd94a35933f21cd396893e)
 
-
 - ✨ [feat] Add Stryker mutation testing configuration
 
 - 🛠️ [config] Create .github/workflows/stryker.yml for scheduled and manual mutation testing
@@ -985,7 +917,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5c39
 - 🛠️ [config] Adjust thresholds for mutation testing to improve quality metrics
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7608574)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7608574ff670f60b3822c80f981c06e41e61e748)
-
 
 - ✨ [feat] Update ESLint configuration and dependencies
 
@@ -1033,7 +964,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7608
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8afc040)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/8afc040b174fd9de7074b1ef149837163aa8dddf)
 
-
 - ✨ [feat] Adds import-safe autofixes to lint rules
 
 ✨ [feat] Expands many helper/type preference diagnostics to deliver automatic fixes or targeted suggestions, reducing manual migrations while keeping behavior stable.
@@ -1053,7 +983,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8afc
 🧪 [test] Adds broad invalid-case coverage with expected autofix and suggestion outputs to verify safety gates and rewrite correctness.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bfc3d8d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/bfc3d8d98165dd6866d558d059a2f6cd46369752)
-
 
 - ✨ [feat] Adds safe autofixes for preference rules
 
@@ -1079,7 +1008,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bfc3
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(25a1784)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/25a1784bf26d1d3e9023f21ed2d2023e1d628e02)
 
-
 - ✨ [feat] Add authors configuration for blog
 
 - Introduced authors.yml to define contributors for the blog
@@ -1089,7 +1017,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(25a1
 - Added Nick2bad4u with image, title, permalink, and social links
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(53bf4a6)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/53bf4a66503c9a0274fea8af7b4cc1ee70c485ac)
-
 
 - ✨ [feat] Add favicon and enhance ESLint Config Inspector build script
 
@@ -1104,7 +1031,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(53bf
 - 📄 Create index redirect page for improved SEO and usability
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2359e0c)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2359e0c73d136715759ac931708f1f494a23a447)
-
 
 - ✨ [feat] Enhance documentation and CI workflow
 
@@ -1126,7 +1052,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2359
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a8ce34a)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a8ce34af2b417febf44ca290ff535ba226c44a7f)
 
-
 - ✨ [feat] Integrate Stryker for mutation testing and enhance changelog generation
 
 - 🔧 Add scripts for changelog generation, preview, and release notes using git-cliff
@@ -1144,7 +1069,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a8ce
 - 🎨 Adjust formatting in prefer-type-fest-tagged-brands test for consistency
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2c6b5ef)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2c6b5ef32519e49d3162d67786ba71cce83daf01)
-
 
 - ✨ [feat] Adds TypeFest typing preference rules
 
@@ -1172,7 +1096,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2c6b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(dcd7a6f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/dcd7a6ffeea657c615551a71e08bcf6e7afbc4df)
 
-
 - ✨ [feat] Add modern docs UI enhancements
 
 ✨ [feat] Adds a client-side enhancement module to improve documentation site UX with scroll progress feedback, interactive hover behavior, fallback reveal animations, theme-toggle animation, dynamic accents, and desktop cursor lighting.
@@ -1186,7 +1109,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(dcd7
 - Improves readability and maintenance confidence without changing runtime or linting behavior.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d81f477)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/d81f47784ebb46ade581d9f8f58fd073bd088608)
-
 
 - ✨ [feat] Enhance documentation structure and content for eslint-plugin-typefest
 
@@ -1207,7 +1129,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d81f
 - 🧹 [chore] Clean up package.json and package-lock.json to ensure proper dependency management
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a73ec43)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a73ec4395f4b8c8977837a94ca16fbb998da3989)
-
 
 - ✨ [feat] Update Docusaurus homepage links and text
 
@@ -1247,20 +1168,14 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a73e
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(413a896)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/413a896d53a2576852b4bc02e554478137e50477)
 
-
 - ✨ [feat] Enhance ESLint Plugin and Documentation
-
 
 - 🛠️ [build] Add workspaces support for Docusaurus in package.json
 
 - 📝 [docs] Introduce new scripts for documentation management:
-  
 - 📜 [scripts] Add build-eslint-inspector.mjs to build static ESLint Config Inspector
-  
 - 🔗 [scripts] Implement check-doc-links.mjs to verify documentation links
-  
 - 🧹 [scripts] Create lint-actionlint.mjs for linting GitHub Actions workflows
-  
 - ✅ [scripts] Add verify-eslint-inspector.mjs to validate ESLint Inspector integration
 
 - 🛠️ [fix] Update tsconfig.eslint.json to include TypeScript files in docs directory
@@ -1270,7 +1185,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(413a
 - 🧹 [chore] Clean up and optimize existing scripts for better maintainability
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(17f1583)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/17f1583bc3a8ca11d587c827ac23d73895fd8c98)
-
 
 - ✨ [feat] Enhance TypeFest ESLint Plugin with TypeScript Support
 
@@ -1291,7 +1205,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(17f1
 - 📝 Modify test cases to reflect changes in the plugin's configuration structure and rule registration.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(58d2f8d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/58d2f8dad12ea27c2417c65490cc542b18a0bcbd)
-
 
 - ✨ [feat] Add new ESLint rules for TypeScript extras
 
@@ -1323,7 +1236,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(58d2
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e731149)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e7311497fccdd2a094cde912c332f28b562a9adb)
 
-
 - ✨ [feat] Enhance ESLint configuration with new rules and plugins
 
 - 🔧 Import `defineConfig` and `globalIgnores` from `@eslint/config-helpers`
@@ -1336,46 +1248,29 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e731
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2cb3cac)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2cb3cac8a808b97edc8e28aecad7c65bce1c22b0)
 
-
 - ✨ [feat] Introduce new rules for TypeScript extras
 
-
 - ✨ [feat] Add `prefer-ts-extras-as-writable` rule
-  
 - Enforces the use of `asWritable(value)` from `ts-extras` over `Writable<T>` assertions from `type-fest`.
-  
 - Includes logic to identify and report incorrect usages in TypeScript files.
-  
 - Provides comprehensive tests for valid and invalid cases.
 
-
 - ✨ [feat] Add `prefer-ts-extras-safe-cast-to` rule
-  
 - Requires the use of `safeCastTo<T>(value)` from `ts-extras` for type-safe assertions instead of direct `as` casts.
-  
 - Implements checks to ensure type safety and reports violations.
-  
 - Includes tests to validate the functionality of the rule.
 
-
 - 🛠️ [fix] Update imports to use `import type` for TypeScript types
-  
 - Changes imports in multiple files to use `import type` for better type-only imports, improving performance and clarity.
 
-
 - 🧪 [test] Add tests for new rules
-  
 - Comprehensive test cases for both `prefer-ts-extras-as-writable` and `prefer-ts-extras-safe-cast-to` rules.
-  
 - Includes valid and invalid scenarios to ensure robust rule enforcement.
 
-
 - 🧹 [chore] Update rule tester utilities
-  
 - Adjustments to the rule tester to accommodate new rules and ensure compatibility with existing tests.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7702d74)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7702d7457c6a6f278e1a3ed786e9c46fa04dc6d0)
-
 
 - ✨ [feat] Add .madgerc and .npmpackagejsonlintrc.json configuration files
 
@@ -1392,7 +1287,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7702
 - Included validation for author names and license types to ensure compliance
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(52dea7a)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/52dea7a2b170f4a07f7975d2c12f26773aa6fd5c)
-
 
 - ✨ [feat] Enhance ESLint configuration and testing setup
 
@@ -1411,7 +1305,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(52de
 - 🔧 [build] Adjust Vite configuration for parallel test execution
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(570a740)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/570a7402f6ea936368bf1dd9364c107327357582)
-
 
 - ✨ [feat] Adds canonical TypeFest alias lint rules
 
@@ -1439,7 +1332,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(570a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fdaf37b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/fdaf37b4f0b1e9185e9d6b82c8cc11befb8f32d8)
 
-
 - ✨ [feat] Adds canonical TypeFest alias rules
 
 ✨ [feat] Adds typed lint coverage that flags imported legacy aliases for all-or-none and at-least-one key groups, and steers usage toward canonical TypeFest utilities to reduce semantic drift.
@@ -1455,7 +1347,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fdaf
 - 🧪 [test] Improves existing typed fixtures with additional non-trigger patterns to better guard against false positives.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f3d1dfc)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/f3d1dfcb50479d3e1319af1e2f213eb5bb1692d1)
-
 
 - ✨ [feat] Enforces canonical TypeFest aliases
 
@@ -1485,7 +1376,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f3d1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(38e7310)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/38e73102067f20b68f8508b95171511b178e3705)
 
-
 - ✨ [feat] Implement prefer-type-fest-non-empty-tuple rule
 
 - 📝 Add documentation for the prefer-type-fest-non-empty-tuple rule
@@ -1497,7 +1387,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(38e7
 - 🧪 Add test cases for valid and invalid usages of NonEmptyTuple
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4715139)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4715139acd6f3d0f1d0e4a506eee30c84f5fea23)
-
 
 - ✨ [feat] Enhance TypeScript Extras with New Array and Assertion Utilities
 
@@ -1517,7 +1406,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4715
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e2d0ec0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e2d0ec00a7925321774f10dcbf9c8237464584b3)
 
-
 - ✨ [feat] Update package.json and package-lock.json with new remark packages
 
 - Add "remark" and "remark-cli" for enhanced markdown processing
@@ -1525,7 +1413,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e2d0
 - Include "remark-lint" for linting markdown files
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a324362)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a3243623759d4219255e750c02b216e6bb5f224d)
-
 
 - ✨ [feat] Update package.json and package-lock.json with new remark-lint rules
 
@@ -1559,72 +1446,44 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a324
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(55a2687)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/55a26876bf6c5a78873fe449590b9fde596ec41d)
 
-
 - ✨ [feat] Enhance TypeScript rule testing and add new type utilities
 
-
 - 🔧 [build] Update `tsconfig` files to improve project structure and exclude unnecessary directories
-  
 - Adjust `tsconfig.build.json` to include `exclude` patterns for `.cache`, `dist`, and `node_modules`
-  
 - Modify `tsconfig.eslint.json` to include additional `include` patterns for TypeScript files
-  
 - Refactor `tsconfig.js.json` to streamline configuration and exclude unnecessary files
-  
 - Clean up `tsconfig.json` by removing redundant options and improving `exclude` patterns
 
-
 - 🛠️ [fix] Improve type safety in rule tests
-  
 - Refactor `typed-rule-tester.ts` to enhance project service options and allow default projects
-  
 - Create new test fixtures for `prefer-type-fest-*` rules to ensure proper type handling
-  
 - Update existing tests for `prefer-ts-extras-*` rules to use the new testing structure
 
-
 - ✨ [feat] Introduce new type utilities using `type-fest`
-  
 - Add `prefer-type-fest-async-return-type` rule to enforce the use of `AsyncReturnType`
-  
 - Implement `prefer-type-fest-except` rule to promote the use of `Except` for type manipulation
-  
 - Create tests for `UnknownArray`, `UnknownMap`, and `UnknownSet` to validate type safety
 
-
 - 🧪 [test] Add comprehensive tests for new and existing rules
-  
 - Implement tests for `prefer-type-fest-*` rules to ensure they function as expected
-  
 - Update test cases for `prefer-ts-extras-*` rules to align with new testing methodology
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c7085da)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c7085daeaa35a5fc9a980e327d28113b35a8dcee)
 
-
 - ✨ [feat] Update dependencies and add Vite configuration for linting
 
-
 - 🔧 [build] Upgrade various ESLint plugins and configurations in `package.json` to enhance linting capabilities
-  
 - Added new plugins: `@eslint/config-helpers`, `@eslint/css`, `@eslint/json`, `@eslint/markdown`, `@html-eslint/eslint-plugin`, `@html-eslint/parser`, `@vitest/eslint-plugin`, and many others for improved code quality and support for various file types
-  
 - Updated existing plugins to their latest versions for better performance and features
-  
 - Included `vite` and `vite-tsconfig-paths` for better integration with TypeScript and Vite tooling
 
-
 - 🎨 [style] Introduce `vite.config.ts` for Vitest configuration
-  
 - Configured Vitest to run linting and tooling tests with detailed coverage settings
-  
 - Set up environment variables and paths for better project structure and maintainability
-  
 - Defined test settings including coverage thresholds, file exclusions, and test timeouts to ensure robust testing practices
-  
 - Implemented caching and optimization settings for improved performance during test runs
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bd59068)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/bd5906889751671df9f18db89fa218f2cbcd763c)
-
 
 - ✨ [feat] Update package.json with new dependencies for enhanced linting and markdown processing
 
@@ -1646,7 +1505,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bd59
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a7c1162)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a7c1162a1e8a86c7543310ef491fc7a4cbcaf1a9)
 
-
 - ✨ [feat] Enhance ESLint Plugin with New Rules and TypeScript Configurations
 
 - 🆕 [feat] Introduce `prefer-ts-extras-array-concat` rule to enforce usage of `arrayConcat` from `ts-extras` for better typing.
@@ -1665,88 +1523,57 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a7c1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4c55f69)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4c55f695e4a6214348d084e0756ea4af6fac83f1)
 
-
 - Add prefer-ts-extras rules for array and object utilities [`(e7bdca6)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e7bdca6ae1d25f5fcd0ada0b2234d1cf86f5cf03)
 
-
 - Add prefer-type-fest-value-of rule to enforce ValueOf<T> usage [`(6aa5b95)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6aa5b955e06d923a1e6754e3edb7fa378d095f0c)
-
-
 
 ### 🛠️ Bug Fixes
 
 - 🛠️ [fix] Update module imports to use dynamic import syntax
-
 
 - Refactor multiple test files to replace static module imports with dynamic imports using `import()`.
 
 - This change enhances the flexibility of module loading and may improve performance in certain scenarios.
 
 - The following files were updated:
-  
 - `prefer-ts-extras-set-has.test.ts`
-  
 - `prefer-ts-extras-string-split.test.ts`
-  
 - `prefer-type-fest-abstract-constructor.test.ts`
-  
 - `prefer-type-fest-arrayable.test.ts`
-  
 - `prefer-type-fest-async-return-type.test.ts`
-  
 - `prefer-type-fest-constructor.test.ts`
-  
 - `prefer-type-fest-except.test.ts`
-  
 - `prefer-type-fest-if.test.ts`
-  
 - `prefer-type-fest-iterable-element.test.ts`
-  
 - `prefer-type-fest-json-array.test.ts`
-  
 - `prefer-type-fest-json-object.test.ts`
-  
 - `prefer-type-fest-json-primitive.test.ts`
-  
 - `prefer-type-fest-json-value.test.ts`
-  
 - `prefer-type-fest-literal-union.test.ts`
-  
 - `prefer-type-fest-non-empty-tuple.test.ts`
-  
 - `prefer-type-fest-promisable.test.ts`
-  
 - `prefer-type-fest-simplify.test.ts`
-  
 - `prefer-type-fest-tuple-of.test.ts`
-  
 - `prefer-type-fest-unknown-array.test.ts`
-  
 - `prefer-type-fest-unknown-map.test.ts`
-  
 - `prefer-type-fest-unknown-set.test.ts`
-  
 - `prefer-type-fest-value-of.test.ts`
-  
 - `prefer-type-fest-writable-deep.test.ts`
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3786790)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3786790627efa5dda227e8ae1d4b23d4efed40b3)
-
 
 - 🛠️ [fix] Replace appendPendingValues function with inline logic for better clarity
 
 - 🔄 Updated multiple instances in typescript-eslint-node-autofix.ts to directly push values into arrays
 
 - 🧹 Removed the unused appendPendingValues function to streamline the code
-🛠️ [fix] Enhance type safety in prefer-ts-extras-safe-cast-to rule
+  🛠️ [fix] Enhance type safety in prefer-ts-extras-safe-cast-to rule
 
 - 🔄 Utilized isDefined from ts-extras for improved null checks on expressionTsNode
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a1e119d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a1e119de70162a3600b02853761cd8a30df50fea)
 
-
 - 🛠️ [fix] Improve import-aware fixes and type handling
-
 
 - 🔧 Update `createImportAwareFixes` to handle replacement fixes for both autofix and suggestion intents.
 
@@ -1767,7 +1594,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a1e1
 - 🧪 Refactor existing tests to accommodate multiple output scenarios for various rules, ensuring robust validation of fixture outputs.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(be7cea7)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/be7cea7dfc090bfcd00cbedbd70ac16aad978948)
-
 
 - 🛠️ [fix] Update prefer-type-fest-json-value rule documentation and implementation
 
@@ -1809,7 +1635,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(be7c
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(17b8f52)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/17b8f5264091ca2d6089637834b7fa04e007acb8)
 
-
 - 🛠️ [fix] Update ESLint rule configurations and improve import handling
 
 - 🔧 Modify "node-dependencies/no-deprecated" rule to allow "prettier-plugin-packagejson" for better compatibility
@@ -1821,7 +1646,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(17b8
 - 🧪 Enhance tests for import insertion to validate new behavior with named imports
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(892f32c)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/892f32c53b0175d189eded52181d4fef5c806920)
-
 
 - 🛠️ [fix] Refactor ESLint rule implementations for improved reporting and fixes
 
@@ -1843,9 +1667,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(892f
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9375d77)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/9375d778d50fb7feb5362597759820de5e1b40a3)
 
-
 - 🛠️ [fix] Update source assertions for TypeScript extras rules
-
 
 - 🔧 Refactor `prefer-ts-extras-as-writable` test to check for new structure and metadata.
 
@@ -1887,114 +1709,63 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9375
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(415b2fe)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/415b2fe2a972bdff91f115d610ee5c9b9761115a)
 
-
 - 🛠️ [fix] Remove unnecessary isTestFilePath mocks from test files
 
 - 🧪 Cleaned up multiple test files by removing the isTestFilePath mock function, which was consistently set to return false.
 
 - 📂 Affected files include:
-  
 - prefer-ts-extras-array-find-last.test.ts
-  
 - prefer-ts-extras-array-find.test.ts
-  
 - prefer-ts-extras-array-first.test.ts
-  
 - prefer-ts-extras-array-includes.test.ts
-  
 - prefer-ts-extras-array-join.test.ts
-  
 - prefer-ts-extras-array-last.test.ts
-  
 - prefer-ts-extras-as-writable.test.ts
-  
 - prefer-ts-extras-assert-defined.test.ts
-  
 - prefer-ts-extras-assert-error.test.ts
-  
 - prefer-ts-extras-assert-present.test.ts
-  
 - prefer-ts-extras-is-defined-filter.test.ts
-  
 - prefer-ts-extras-is-defined.test.ts
-  
 - prefer-ts-extras-is-empty.test.ts
-  
 - prefer-ts-extras-is-infinite.test.ts
-  
 - prefer-ts-extras-is-present-filter.test.ts
-  
 - prefer-ts-extras-is-present.test.ts
-  
 - prefer-ts-extras-key-in.test.ts
-  
 - prefer-ts-extras-object-entries.test.ts
-  
 - prefer-ts-extras-object-from-entries.test.ts
-  
 - prefer-ts-extras-object-has-own.test.ts
-  
 - prefer-ts-extras-object-keys.test.ts
-  
 - prefer-ts-extras-object-values.test.ts
-  
 - prefer-ts-extras-safe-cast-to.test.ts
-  
 - prefer-ts-extras-set-has.test.ts
-  
 - prefer-ts-extras-string-split.test.ts
-  
 - prefer-type-fest-abstract-constructor.test.ts
-  
 - prefer-type-fest-arrayable.test.ts
-  
 - prefer-type-fest-async-return-type.test.ts
-  
 - prefer-type-fest-conditional-pick.test.ts
-  
 - prefer-type-fest-constructor.test.ts
-  
 - prefer-type-fest-except.test.ts
-  
 - prefer-type-fest-if.test.ts
-  
 - prefer-type-fest-iterable-element.test.ts
-  
 - prefer-type-fest-json-array.test.ts
-  
 - prefer-type-fest-json-object.test.ts
-  
 - prefer-type-fest-json-primitive.test.ts
-  
 - prefer-type-fest-json-value.test.ts
-  
 - prefer-type-fest-literal-union.test.ts
-  
 - prefer-type-fest-non-empty-tuple.test.ts
-  
 - prefer-type-fest-promisable.test.ts
-  
 - prefer-type-fest-simplify.test.ts
-  
 - prefer-type-fest-tuple-of.test.ts
-  
 - prefer-type-fest-unknown-array.test.ts
-  
 - prefer-type-fest-unknown-map.test.ts
-  
 - prefer-type-fest-unknown-set.test.ts
-  
 - prefer-type-fest-value-of.test.ts
-  
 - prefer-type-fest-writable-deep.test.ts
-  
 - prefer-type-fest-writable.test.ts
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(42e9cfd)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/42e9cfdda964ac07b32d4f31a313d7e6b3e5b65e)
 
-
 - 🛠️ [fix] Refactor and optimize test cases for prefer-ts-extras and prefer-type-fest rules
-
 
 - 🔧 Update `prefer-ts-extras-set-has.test.ts` to import runtime harness utilities and remove redundant code.
 
@@ -2008,9 +1779,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(42e9
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(78c8608)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/78c86080b31c14fffe92eb341db9d32286566361)
 
-
 - 🛠️ [fix] Refactor prefer-ts-extras-set-has and prefer-type-fest-promisable tests
-
 
 - 🔧 [test] Import test cases from prefer-ts-extras-set-has-cases for better organization
 
@@ -2023,7 +1792,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(78c8
 - ⚡ [refactor] Enhance readability and maintainability by consolidating test case definitions
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ad971e5)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ad971e53cdc971a24de6338a3384389187ba37ea)
-
 
 - 🛠️ [fix] Enhance type handling and error reporting in ESLint synchronization script
 
@@ -2053,9 +1821,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ad97
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(72e9b70)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/72e9b70f084fd2f63509b01eb0e596d2844bc338)
 
-
 - 🛠️ [fix] Refactor type-fest rule tests for improved fixture handling and parsing
-
 
 - 🔧 Update `prefer-type-fest-abstract-constructor.test.ts` to use a dynamic fixture creation function for generating fixable output code, enhancing maintainability and readability.
 
@@ -2072,7 +1838,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(72e9
 - 🧪 Add fast-check properties to various tests to ensure that generated code remains parseable and adheres to expected structures, enhancing test reliability.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(24f4d30)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/24f4d30b7003eda3f09e41895c3ee54cf34afaae)
-
 
 - 🛠️ [fix] Update dependencies in package.json and package-lock.json
 
@@ -2093,7 +1858,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(24f4
 - 🔧 Upgrade @easyops-cn/docusaurus-search-local to version 0.55.1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(99f276b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/99f276bf7e98e8077b80cd77c51cc5b122eec66d)
-
 
 - 🛠️ [fix] Update TypeFest rules and documentation for improved clarity and accuracy
 
@@ -2131,16 +1895,12 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(99f2
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4894a46)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4894a469b4d5d1f1305737470312152b63a27cab)
 
-
 - 🛠️ [fix] Improve type handling and testing for TypeScript rules
-
 
 - 🔧 [build] Update test files to include necessary imports for TypeScript parsing
 
 - 🧪 [test] Enhance tests for prefer-type-fest-arrayable with fast-check integration
-  
 - Introduce new utilities for generating arrayable types and unions
-  
 - Implement comprehensive tests to ensure correct reporting and fixing of arrayable types
 
 - 🧪 [test] Refactor prefer-type-fest-async-return-type tests for clarity and consistency
@@ -2148,17 +1908,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4894
 - 🧪 [test] Adjust prefer-type-fest-json-primitive tests to correct type declaration handling
 
 - 🧪 [test] Expand prefer-type-fest-literal-union tests with fast-check for better coverage
-  
 - Add generators for various literal union cases and cross-family unions
-  
 - Ensure that generated unions are correctly reported and parsed
 
 - 🧪 [test] Update prefer-type-fest-promisable tests to validate autofix behavior
-  
 - Ensure that the autofix preserves parseability and correctly inserts necessary imports
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(48155f0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/48155f0b4a6693d72f38a2aa6016621b07a99900)
-
 
 - 🛠️ [fix] Improve type normalization and documentation across rules
 
@@ -2184,9 +1940,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4815
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(95fdc29)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/95fdc29c3b3754079161967f6f28f630e8cb6fcf)
 
-
 - 🛠️ [fix] Improve import insertion and type handling
-
 
 - 🛠️ Update `isArrayLikeType` to provide clearer documentation on its purpose and parameters.
 
@@ -2210,13 +1964,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(95fd
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(338f913)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/338f9131139d00ce9c875eed219d2ce38e98be42)
 
-
 - 🛠️ [fix] Remove unused prettier-plugin-jsdoc-type from configuration
 
 - Eliminated "prettier-plugin-jsdoc-type" from the plugins list in multiple sections of the .prettierrc file
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3d31bbc)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3d31bbc7a6e3e09429df3cc42c134218158c9ee2)
-
 
 - 🛠️ [fix] Update messages for TypeFest rule tests to improve clarity
 
@@ -2250,7 +2002,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3d31
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c606fd2)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c606fd2b73ca23cfb48854fc0170aae43635d1c6)
 
-
 - 🛠️ [fix] Adds missing-import insertion to autofixes
 
 🛠️ [fix] Improves autofix reliability by applying safe rewrites even when required helper imports are not already present.
@@ -2279,7 +2030,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c606
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7639e4d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7639e4d3d04fd40ec505141ee4c9d5a6fce34388)
 
-
 - 🛠️ [fix] Improve documentation link checker functionality
 
 - Enhance `isUrlLike` function comment for clarity
@@ -2295,7 +2045,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7639
 - Refactor link validation logic to reduce redundancy
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(721700d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/721700d4f551e3b9b70675dc68c11b9ccd4f0c72)
-
 
 - 🛠️ [fix] Guard missing filenames in lint rules
 
@@ -2316,7 +2065,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7217
 - Introduces shared metadata smoke checks and extends many rule suites with no-fix, suggestion, whitespace-normalization, shadowing, and qualified-type scenarios to reduce survivor regressions.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c7c99db)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c7c99dba2a2b84979ad8462087f8c60348cbda73)
-
 
 - 🛠️ [fix] Improves rule matching and early exits
 
@@ -2342,7 +2090,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c7c9
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3ede063)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3ede06303b78cea7525adb221778dea080e352a9)
 
-
 - 🛠️ [fix] Stabilizes plugin export defaults
 
 🛠️ [fix] Ensures the published plugin always exposes a complete, predictable object shape.
@@ -2367,9 +2114,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3ede
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8f4b499)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/8f4b499a6c0285c3cc0b92c4ba08b78af04e8a08)
 
-
 - 🛠️ [fix] Update type aliases to use TypeScript's type-fest library
-
 
 - 🔧 [fix] Replace `MaybePromise` with `Promisable` in `prefer-type-fest-promisable.test.ts`
 
@@ -2405,12 +2150,9 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8f4b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(895cb41)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/895cb413648d9421fcfd6c557cb66025ebc1cb8d)
 
-
-
 ### 🛡️ Security
 
 - 🔧 [build] Update package dependencies for improved stability and features
-
 
 - 📦 Upgrade "@stylistic/eslint-plugin" from "^5.9.0" to "^5.10.0" for enhanced linting capabilities.
 
@@ -2420,74 +2162,47 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(895c
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b76ce59)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b76ce59b0a7317ddb8d5cac096f30d2859963dfe)
 
+- _(deps)_ [dependency] Update the github-actions group across 1 directory with 7 updates [`(7b08932)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7b089328816b87606e9b80a03a22495aecfd7de0)
 
-- *(deps)* [dependency] Update the github-actions group across 1 directory with 7 updates [`(7b08932)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7b089328816b87606e9b80a03a22495aecfd7de0)
-
-
-- *(deps)* [dependency] Update the github-actions group across 1 directory with 8 updates [`(acd2932)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/acd29320fdc5e4e99afe81e099e3f6beb622f455)
-
+- _(deps)_ [dependency] Update the github-actions group across 1 directory with 8 updates [`(acd2932)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/acd29320fdc5e4e99afe81e099e3f6beb622f455)
 
 - [StepSecurity] Apply security best practices
 
 Signed-off-by: StepSecurity Bot <bot@stepsecurity.io> [`(de875de)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/de875ded17a8f5ee5851d27586215eeb2bf1d419)
 
-
 - 📝 [docs] Add comprehensive guidelines for various file types in the repository
 
-
 - ✨ [feat] Introduce JSON guidelines to ensure clarity and consistency in JSON files
-  
 - Emphasize strictness and intentionality in JSON structure
-  
 - Provide style recommendations, structural best practices, and security considerations
 
-
 - ✨ [feat] Add MJS guidelines for modern JavaScript modules
-  
 - Focus on ESM usage, syntax preferences, and async patterns
-  
 - Encourage documentation and type annotations for better maintainability
 
-
 - ✨ [feat] Establish Markdown guidelines for documentation and content creation
-  
 - Outline content rules, formatting standards, and front matter usage
-  
 - Include tooling alignment instructions for maintaining Markdown quality
 
-
 - ✨ [feat] Create detailed instructions for testing ESLint rules
-  
 - Define goals for ESLint rule testing, setup requirements, and coding standards
-  
 - Highlight best practices for writing tests, including valid and invalid cases
 
-
 - ✨ [feat] Provide TypeScript 5.9+ development guidelines
-  
 - Focus on modern TypeScript features, strict typing, and utility types
-  
 - Emphasize error handling, async patterns, and coding style best practices
 
-
 - ✨ [feat] Introduce YAML guidelines for robust YAML authoring
-  
 - Stress predictability and readability in YAML files
-  
 - Offer style, structure, and tooling recommendations for YAML usage
 
-
 - ✨ [feat] Add Copilot instructions for ESLint plugin development
-  
 - Define the role, architecture, and constraints for ESLint rule creation
-  
 - Emphasize code quality, testing standards, and tool usage for effective development
-
 
 - 🧹 [chore] Remove instructions folder from .gitignore to allow tracking of new guidelines
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(976452b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/976452b5c39227330fa42d56f08eab88968d53a6)
-
 
 - 📝 [docs] Add configuration files for various tools
 
@@ -2509,73 +2224,69 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9764
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(20a6723)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/20a672338e3a0d93f3a85dca1dd1df52e48b18eb)
 
-
-
 ### 🛠️ Other Changes
 
 - Add tests and TypeScript configuration for uptime-watcher plugin
 
 - Implement tests for various rules in the uptime-watcher plugin, including:
- 
+
 - prefer-ts-extras-is-present-filter
- 
+
 - prefer-ts-extras-object-has-own
- 
+
 - prefer-type-fest-json-value
- 
+
 - prefer-type-fest-promisable
- 
+
 - prefer-type-fest-tagged-brands
- 
+
 - prefer-type-fest-unknown-record
- 
+
 - prefer-type-fest-value-of
- 
+
 - preload-no-local-is-plain-object
- 
+
 - renderer-no-browser-dialogs
- 
+
 - renderer-no-direct-bridge-readiness
- 
+
 - renderer-no-direct-electron-log
- 
+
 - renderer-no-direct-networking
- 
+
 - renderer-no-direct-preload-bridge
- 
+
 - renderer-no-electron-import
- 
+
 - renderer-no-import-internal-service-utils
- 
+
 - renderer-no-ipc-renderer-usage
- 
+
 - renderer-no-preload-bridge-writes
- 
+
 - renderer-no-process-env
- 
+
 - renderer-no-window-open
- 
+
 - require-ensure-error-in-catch
- 
+
 - require-error-cause-in-catch
- 
+
 - shared-no-outside-imports
- 
+
 - shared-types-no-local-is-plain-object
- 
+
 - store-actions-require-finally-reset
- 
+
 - test-no-mock-return-value-constructors
- 
+
 - tsdoc-no-console-example
- 
+
 - typed-eventbus-payload-assignable
 
 - Add TypeScript configuration files for linting and building the uptime-watcher plugin.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d233b9c)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/d233b9c2b49f5f87e10e2c2ee04deed9765f54a3)
-
-
 
 ### 🚜 Refactor
 
@@ -2625,9 +2336,7 @@ Overall this refactor makes metadata authoritative, automates documentation, and
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(93ac9b2)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/93ac9b21c4af4817d278a6b28c0076d8f275b6f2)
 
-
 - 🚜 [refactor] Remove open-pull-requests-limit from Dependabot configuration
-
 
 - Eliminated the open-pull-requests-limit setting from GitHub Actions and npm updates
 
@@ -2635,13 +2344,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(93ac
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(043d8e0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/043d8e0e4e13ce0b50b9962b8f62c838f6ac8647)
 
-
 - 🚜 [refactor] Remove versioning strategy from GitHub Actions updates
 
 - Eliminated the `versioning-strategy: increase` line for GitHub Actions updates in the Dependabot configuration
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bc34602)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/bc34602c5d2bfdb727f39932458712012a0b1f5a)
-
 
 - 🚜 [refactor] Simplify Dependabot configuration in YAML file
 
@@ -2655,11 +2362,9 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bc34
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(cc09090)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/cc09090b487eac05c34f854a0e9aaabef9406d08)
 
-
 - 🚜 [refactor] Remove unnecessary name from Docusaurus NPM dependencies in Dependabot configuration
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(625bf6c)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/625bf6c76b4fdd57ce7775faab33cb9f2fa30e30)
-
 
 - 🚜 [refactor] Remove unnecessary naming and versioning strategy for Dependabot updates
 
@@ -2669,19 +2374,17 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(625b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(50e9b6e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/50e9b6ecb39f81e9ffe2214166b5143302aff525)
 
-
 - 🚜 [refactor] centralize documentation URL base for rules
 
 🚜 expose a shared `RULE_DOCS_URL_BASE` constant from the internal helper
- previously the base URL lived silently inside the module as a private
- value; exporting it makes the canonical docs prefix configurable and
- avoids repeated literals.
+previously the base URL lived silently inside the module as a private
+value; exporting it makes the canonical docs prefix configurable and
+avoids repeated literals.
 
 🚜 adjust every rule module to import the base and build a local
- `RULE_DOCS_URL` by appending its own name
- this replaces dozens of hard‑coded links, keeping metadata urls in
- sync and making a future change to the host/path trivial.
-
+`RULE_DOCS_URL` by appending its own name
+this replaces dozens of hard‑coded links, keeping metadata urls in
+sync and making a future change to the host/path trivial.
 
 - reduces duplication across the codebase
 
@@ -2692,7 +2395,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(50e9
 The change is purely structural; rule behavior is unaffected.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(08e3bab)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/08e3babbd1e0599cb734c359a1a40f2c686256b0)
-
 
 - 🚜 [refactor] Centralize member‑call and throw‑consequent logic and streamline rules
 
@@ -2740,9 +2442,7 @@ This consolidation reduces duplication, strengthens type safety, and simplifies 
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3d21778)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3d21778f72cabd910c1d79136fc01fd0a7807a4b)
 
-
 - 🚜 [refactor] Simplify array-like type checks and improve code reuse
-
 
 - 🔧 [build] Refactor `prefer-ts-extras-array-includes` and `prefer-ts-extras-array-join` rules to utilize a shared `createIsArrayLikeExpressionChecker` function for determining array-like expressions.
 
@@ -2762,7 +2462,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3d21
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e3c8cda)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e3c8cda4cc05fec1a9b7f353473bb1e0ebf54e73)
 
-
 - 🚜 [refactor] switch rule docs to Docusaurus routes & add footer links
 
 📝 [docs] add ADR 0006/0007 entries and pages, update sidebar/index with new decisions
@@ -2776,7 +2475,6 @@ Enhances user experience by pointing editors and links at rendered documentation
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(91a136d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/91a136dbd7dd14660f9a4b9a6aeffc0e4a6b7657)
 
-
 - 🚜 [refactor] Improve code readability and formatting in inspect_pr_checks.py
 
 - 🛠️ Adjust function signatures for better clarity
@@ -2789,7 +2487,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(91a1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a62ba9e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a62ba9eb919101eabe2fde50818be1b64866cdd4)
 
-
 - 🚜 [refactor] Treats tests like other files
 
 🚜 [refactor] Aligns plugin/test heuristics
@@ -2800,16 +2497,15 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a62b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(72c85a8)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/72c85a8e2335f64003b42f78dc8104a105169f03)
 
-
 - 🚜 [refactor] Remove redundant defaultOptions stubs
 
 🚜 [refactor]
+
 - Drops the explicit defaultOptions arrays from typed rule definitions so configuration relies on implicit defaults and keeps source definitions concise.
-🎨 [style]
+  🎨 [style]
 - Refreshes doc/test helpers with tighter formatting for import/type utilities and assertion checks to match the cleaned-up style.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(60e7e00)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/60e7e0073c1a54ac8b6611e269bc74a53537aa3c)
-
 
 - 🚜 [refactor] Enforce readonly parameter typing
 
@@ -2827,10 +2523,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(60e7
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0422fd8)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/0422fd8f088a1e8f6231815f795e57e4a01a916c)
 
-
 - Migrate plugin to TypeScript and restructure codebase [`(2101a3e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2101a3ec1f446f93c0351941344f34603bfb3f13)
-
-
 
 ### 📝 Documentation
 
@@ -2838,27 +2531,22 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0422
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e095a9f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e095a9f3bfee6d69d1e9091a10b3e31176c1d32f)
 
-
 - 📝 [docs] Update Stylelint configuration with installation instructions
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(15d3bea)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/15d3beaba202108f75ac0ad87962bac935f63c2f)
 
-
 - 📝 [docs] Update contributor badge formatting and documentation guidelines
-✨ [feat] Enhance commit message guidelines with hybrid Gitmoji format
-🔧 [build] Add devEngines configuration for Node.js and npm version enforcement
+  ✨ [feat] Enhance commit message guidelines with hybrid Gitmoji format
+  🔧 [build] Add devEngines configuration for Node.js and npm version enforcement
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9339c8c)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/9339c8c73edde7b0d0577e3d92624ce000d0d06b)
 
-
 - 📝 [docs] Update commit message guidelines to include Gitmoji format and examples
-🔧 [build] Add commitlint-config-gitmoji as a dependency for enforcing commit message format
+  🔧 [build] Add commitlint-config-gitmoji as a dependency for enforcing commit message format
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ee06635)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ee06635387e8a07fd4a5072ccebfdb37551e2ee1)
 
-
 - 📝 [docs] Add blank line before "Further reading" section in rule documentation
-
 
 - Added a blank line before the "## Further reading" section in multiple TypeScript extra and TypeFest rule documentation files to improve readability and adhere to documentation standards.
 
@@ -2868,87 +2556,53 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ee06
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8350423)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/835042393b7b31364243bfe9f851e12b1c07fcb9)
 
-
 - 📝 [docs] Add comprehensive charts for developer documentation
 
-
 - ✨ [feat] Introduce "Docs Link Integrity and Anchor Stability" chart
-  
 - Provides a flowchart for maintaining stable documentation links and anchors.
-  
 - Includes a maintainer policy and suggested command sequence for validation.
 
-
 - ✨ [feat] Add "Import-Safe Autofix Decision Tree" chart
-  
 - Outlines decision-making for safe import rewrites and suggestions.
-  
 - Highlights the importance of symbol safety and parse safety.
 
-
 - ✨ [feat] Create "Preset Composition and Rule Matrix" chart
-  
 - Explains how rule metadata integrates into user-facing documentation.
-  
 - Provides practical use cases and common failure modes.
 
-
 - ✨ [feat] Implement "Preset Semver and Deprecation Lifecycle" chart
-  
 - Details the lifecycle for managing preset changes with semver awareness.
-  
 - Offers maintainer guidance on handling preset modifications.
 
-
 - ✨ [feat] Develop "Rule Authoring to Release Lifecycle" chart
-  
 - Maps the entire process from rule proposal to publication.
-  
 - Emphasizes the importance of documentation throughout the lifecycle.
 
-
 - ✨ [feat] Add "Typed Rule Performance Budget and Hotspots" chart
-  
 - Analyzes performance considerations for typed rules.
-  
 - Suggests policies for managing semantic type resolution.
 
-
 - ✨ [feat] Introduce "Typed Rule Semantic Analysis Flow" chart
-  
 - Details the semantic path for typed rules, focusing on service acquisition and type operations.
-  
 - Encourages fail-fast behavior in typed rule contexts.
 
-
 - 🧹 [chore] Update index.md to include new charts in the developer section
-  
 - Ensures all new charts are listed for easy navigation.
 
-
 - 🧹 [chore] Modify typedoc configuration to expand entry points
-  
 - Adjusts entry point strategy to include internal files for better documentation generation.
 
-
 - 🛠️ [fix] Refactor various internal functions for improved clarity and performance
-  
 - Simplifies function signatures and enhances readability across multiple files.
-  
 - Ensures consistent error handling and type safety in type operations.
 
-
 - 🧪 [test] Enhance rule metadata tests for improved validation
-  
 - Introduces new utility functions for validating rule metadata integrity.
-  
 - Ensures that rule IDs and numbers are correctly formatted and sequenced.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2f9b6d3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2f9b6d386efd59b703aefa982a483257ec424500)
 
-
 - 📝 [docs] Update developer documentation and charts
-
 
 - ✨ [feat] Add "Rule Catalog & Doc Sync" and "Change Impact Matrix" to sidebars
 
@@ -2967,7 +2621,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2f9b
 - 🔧 [build] Update TypeDoc configuration to adjust private class field visibility and type conversion depth
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4817427)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/481742759795f51f0b053217f9a8dbbb41307b1c)
-
 
 - 📝 [docs] Add snapshot tests for rule documentation headings
 
@@ -3007,9 +2660,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4817
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(015b85e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/015b85e5ec5405a89807ba1767f361084f5df7d7)
 
-
 - 📝 [docs] Add documentation URLs for TypeFest ESLint rules
-
 
 - 📜 Updated the `prefer-ts-extras-is-empty` rule to include a documentation URL.
 
@@ -3135,16 +2786,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(015b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bef8875)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/bef8875701aae3580b2a1b137a3d0738267457b0)
 
-
 - 📝 [docs] Update description for review-hacky-brittle-fixes prompt
-
 
 - Clarify the purpose of the prompt to perform a comprehensive audit of the repository, focusing on fragile, brittle, or hacky code.
 
 - Remove outdated agent reference for improved clarity.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(12454e9)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/12454e9f6e7e4499ac9082c122d0287455fe3bab)
-
 
 - 📝 [docs] Add blog and architecture decision records for eslint-plugin-typefest
 
@@ -3168,7 +2816,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1245
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6541e53)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6541e53092db4bc31702088ad4a203a3262dfe0b)
 
-
 - 📝 [docs] Update TypeFest rule documentation for clarity and consistency
 
 - 📝 [docs] Revise `prefer-type-fest-tuple-of` to emphasize deprecated alias usage
@@ -3190,12 +2837,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6541
 - 📝 [docs] Update `prefer-type-fest-writable` to clarify targeted patterns and behavior
 
 - 📝 [docs] Add alternative configuration example for applying recommended rules selectively
-🛠️ [fix] Normalize line endings in typed rule tester fixtures
+  🛠️ [fix] Normalize line endings in typed rule tester fixtures
 
 - 🛠️ [fix] Implement line ending normalization to ensure consistent fixture reading
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9acb9a8)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/9acb9a8bb27cf23d4503b52c095c48120bf5f568)
-
 
 - 📝 [docs] Adds ADR hub and updates docs build flow
 
@@ -3213,18 +2859,15 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9acb
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(51d6a5d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/51d6a5d7ca6f3c5e14f32794f20f4c6ddb91f5cd)
 
-
 - 📝 [docs] Update Code of Conduct to reflect no formal guidelines
-🔧 [build] Change logo file types in manifest.json from SVG to PNG
-🎨 [style] Enhance case name formatting in ruleTester.ts for better visibility
-🔧 [build] Simplify project name label in vite.config.ts from "Frontend" to "Test"
-🔧 [build] Update vitest configuration in vitest.stryker.config.ts for improved test handling
+  🔧 [build] Change logo file types in manifest.json from SVG to PNG
+  🎨 [style] Enhance case name formatting in ruleTester.ts for better visibility
+  🔧 [build] Simplify project name label in vite.config.ts from "Frontend" to "Test"
+  🔧 [build] Update vitest configuration in vitest.stryker.config.ts for improved test handling
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7d246f8)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7d246f84d4928bbae4ddfb3d51bb092a56864ef0)
 
-
 - 📝 [docs] Update documentation scripts in package.json
-
 
 - 🔧 Reordered the `docs:toc` and `docs:validate-links` scripts for better clarity and consistency.
 
@@ -3236,28 +2879,19 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7d24
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f099e8d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/f099e8d191c3e432d3f50535834e08cef9ce09cb)
 
-
 - 📝 [docs] Update strict and type-fest-types presets documentation
 
-
 - 📜 Refactor the rules table in `strict.md` for better readability
-  
 - Added new rules: `prefer-type-fest-abstract-constructor`, `prefer-type-fest-constructor`, `prefer-type-fest-literal-union`, `prefer-type-fest-merge-exclusive`, `prefer-type-fest-required-deep`, `prefer-type-fest-readonly-deep`, and `prefer-type-fest-writable-deep`
-  
 - Removed outdated rules: `prefer-type-fest-require-exactly-one`, `prefer-type-fest-require-one-or-none`, `prefer-type-fest-schema`, `prefer-type-fest-set-non-nullable`, `prefer-type-fest-set-optional`, `prefer-type-fest-set-readonly`, `prefer-type-fest-set-required`, `prefer-type-fest-simplify`, `prefer-type-fest-tagged-brands`, `prefer-type-fest-tuple-of`, `prefer-type-fest-unknown-array`, `prefer-type-fest-unknown-map`, `prefer-type-fest-unknown-record`, `prefer-type-fest-unknown-set`, `prefer-type-fest-unwrap-tagged`, `prefer-type-fest-value-of`, and `prefer-type-fest-writable`
 
-
 - 📜 Refactor the rules table in `type-fest-types.md` for better readability
-  
 - Added new rules: `prefer-type-fest-abstract-constructor`, `prefer-type-fest-constructor`, `prefer-type-fest-literal-union`, `prefer-type-fest-merge-exclusive`, `prefer-type-fest-required-deep`, `prefer-type-fest-readonly-deep`, and `prefer-type-fest-writable-deep`
-  
 - Removed outdated rules: `prefer-type-fest-require-exactly-one`, `prefer-type-fest-require-one-or-none`, `prefer-type-fest-schema`, `prefer-type-fest-set-non-nullable`, `prefer-type-fest-set-optional`, `prefer-type-fest-set-readonly`, `prefer-type-fest-set-required`, `prefer-type-fest-simplify`, `prefer-type-fest-tagged-brands`, `prefer-type-fest-tuple-of`, `prefer-type-fest-unknown-array`, `prefer-type-fest-unknown-map`, `prefer-type-fest-unknown-record`, `prefer-type-fest-unknown-set`, `prefer-type-fest-unwrap-tagged`, `prefer-type-fest-value-of`, and `prefer-type-fest-writable`
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(92500d2)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/92500d25d901851046813ee34b0d0ba1bc29663f)
 
-
 - 📝 [docs] Update presets documentation with rule matrices and details
-
 
 - 📜 Added a comprehensive rule matrix to `index.md` for better visibility of rules, fixes, and preset keys.
 
@@ -3273,9 +2907,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9250
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b8b30d5)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b8b30d533d1ccda5f5d9450da6013c9eb6997a57)
 
-
 - 📝 [docs] Enhance documentation across multiple rules and tests
-
 
 - 📝 [docs] Add JSDoc comments for utility functions in `prefer-ts-extras-is-empty.ts`
 
@@ -3335,9 +2967,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b8b3
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(562ff90)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/562ff901516df7171c834f22ed0b83b92cdcc693)
 
-
 - 📝 [docs] Enhance ESLint rule documentation across multiple files
-
 
 - ✨ [feat] Add detailed ESLint rule definitions and metadata for `prefer-ts-extras-object-keys`, `prefer-ts-extras-object-values`, `prefer-ts-extras-safe-cast-to`, `prefer-ts-extras-set-has`, `prefer-ts-extras-string-split`, `prefer-type-fest-arrayable`, `prefer-type-fest-async-return-type`, `prefer-type-fest-conditional-pick`, `prefer-type-fest-except`, `prefer-type-fest-if`, `prefer-type-fest-iterable-element`, `prefer-type-fest-json-array`, `prefer-type-fest-json-object`, `prefer-type-fest-json-primitive`, `prefer-type-fest-json-value`, `prefer-type-fest-keys-of-union`, `prefer-type-fest-non-empty-tuple`, `prefer-type-fest-omit-index-signature`, `prefer-type-fest-primitive`, `prefer-type-fest-promisable`, `prefer-type-fest-require-all-or-none`, `prefer-type-fest-require-at-least-one`, `prefer-type-fest-require-exactly-one`, `prefer-type-fest-require-one-or-none`, `prefer-type-fest-schema`, `prefer-type-fest-set-non-nullable`, `prefer-type-fest-set-optional`, `prefer-type-fest-set-readonly`, `prefer-type-fest-set-required`, `prefer-type-fest-simplify`, `prefer-type-fest-tagged-brands`, `prefer-type-fest-tuple-of`, `prefer-type-fest-unknown-array`, `prefer-type-fest-unknown-map`, `prefer-type-fest-unknown-record`, `prefer-type-fest-unknown-set`, `prefer-type-fest-unwrap-tagged`, and `prefer-type-fest-value-of`.
 
@@ -3346,7 +2976,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(562f
 - 🧹 [chore] Update `ruleTester` utility functions with additional documentation to improve clarity on their usage and functionality.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ef195de)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ef195de3aaabb27a1e3542df4c1a025a2d28c701)
-
 
 - 📝 [docs] Update CSS documentation and global styles for Docusaurus
 
@@ -3357,7 +2986,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ef19
 - Updated hover background color for sidebar menu links for better accessibility.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6863895)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/68638954b10b776b033cd5a207f83531347f28ab)
-
 
 - 📝 [docs] Adds package-level module docs
 
@@ -3373,9 +3001,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6863
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(84bc8a1)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/84bc8a1d500497e1ce3bd9302f1aefd69b698c79)
 
-
 - 📝 [docs] Update documentation for type-fest utility rules
-
 
 - 🔧 Refactor rule documentation to replace "Legacy" terminology with "Non-canonical" for clarity.
 
@@ -3389,9 +3015,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(84bc
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(07214d3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/07214d3546cf52dafafc26936403cf090ddffb3c)
 
-
 - 📝 [docs] Update documentation for type-fest utility types
-
 
 - 📝 Improve clarity in examples for `prefer-type-fest-set-required`, `prefer-type-fest-simplify`, `prefer-type-fest-tagged-brands`, `prefer-type-fest-tuple-of`, `prefer-type-fest-unknown-array`, `prefer-type-fest-unknown-map`, `prefer-type-fest-unknown-record`, `prefer-type-fest-unknown-set`, `prefer-type-fest-unwrap-tagged`, and `prefer-type-fest-value-of` rules.
 
@@ -3405,15 +3029,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0721
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9a45e98)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/9a45e98c3c63a49374ed2dbfe37e1a45b518a564)
 
-
-
 ### ⚡ Performance
 
 - ⚡️ [perf] Update import-x/no-unused-modules rule configuration
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(83baba7)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/83baba78bad3ad109c19e0aee332ffa54f5c0bac)
-
-
 
 ### 🎨 Styling
 
@@ -3428,7 +3048,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(83ba
 - Reformatted code for better readability and consistency in `plugin-entry.test.ts`, `plugin-public-types.test-d.ts`, `plugin-runtime-entry-types.test-d.ts`, `prefer-type-fest-except.test.ts`, `prefer-type-fest-unknown-map.test.ts`, and `prefer-type-fest-unknown-set.test.ts`
 
 - Ensured consistent use of double quotes in mock imports
-✨ [feat] Enhance ESLint compatibility and plugin versioning
+  ✨ [feat] Enhance ESLint compatibility and plugin versioning
 
 - Added `toPosixPath` and `collectStringEntries` utility functions in `eslint9-compat-smoke.mjs`
 
@@ -3440,9 +3060,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(83ba
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4b8520f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4b8520f0d1e192b2cd41dda6ea899bb5dbc6faa2)
 
-
 - 🎨 [style] Update Docusaurus config and documentation for improved UI
-
 
 - Update icon labels in Docusaurus config for better visual consistency
 
@@ -3456,16 +3074,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4b85
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2c033a5)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2c033a5e68a590b8d3f08d105957dc468dd7b6b7)
 
-
 - 🎨 [style] Adjust doMock method signature formatting
-
 
 - Refactor doMock method declaration to align with TypeScript interface augmentation guidelines.
 
 - Ensure method signature is clearly defined for better readability and maintainability.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f72a493)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/f72a49344875884878dd937a71ae7553da492276)
-
 
 - 🎨 [style] Update icons and labels in Docusaurus configuration
 
@@ -3481,7 +3096,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(f72a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5c9c3d3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/5c9c3d30b1892862be5cdd337cd45ee5034e4d92)
 
-
 - 🎨 [style] Remove unnecessary whitespace in rule configuration files
 
 - Cleaned up multiple TypeScript rule files by removing trailing whitespace in the configuration sections.
@@ -3489,135 +3103,71 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5c9c
 - This change improves code readability and maintains consistency across the codebase.
 
 - Affected files include:
-  
 - `prefer-ts-extras-assert-present.ts`
-  
 - `prefer-ts-extras-is-defined-filter.ts`
-  
 - `prefer-ts-extras-is-defined.ts`
-  
 - `prefer-ts-extras-is-empty.ts`
-  
 - `prefer-ts-extras-is-equal-type.ts`
-  
 - `prefer-ts-extras-is-finite.ts`
-  
 - `prefer-ts-extras-is-infinite.ts`
-  
 - `prefer-ts-extras-is-integer.ts`
-  
 - `prefer-ts-extras-is-present-filter.ts`
-  
 - `prefer-ts-extras-is-present.ts`
-  
 - `prefer-ts-extras-is-safe-integer.ts`
-  
 - `prefer-ts-extras-key-in.ts`
-  
 - `prefer-ts-extras-not.ts`
-  
 - `prefer-ts-extras-object-entries.ts`
-  
 - `prefer-ts-extras-object-from-entries.ts`
-  
 - `prefer-ts-extras-object-has-in.ts`
-  
 - `prefer-ts-extras-object-has-own.ts`
-  
 - `prefer-ts-extras-object-keys.ts`
-  
 - `prefer-ts-extras-object-values.ts`
-  
 - `prefer-ts-extras-safe-cast-to.ts`
-  
 - `prefer-ts-extras-set-has.ts`
-  
 - `prefer-ts-extras-string-split.ts`
-  
 - `prefer-type-fest-arrayable.ts`
-  
 - `prefer-type-fest-async-return-type.ts`
-  
 - `prefer-type-fest-conditional-pick.ts`
-  
 - `prefer-type-fest-constructor.ts`
-  
 - `prefer-type-fest-except.ts`
-  
 - `prefer-type-fest-if.ts`
-  
 - `prefer-type-fest-iterable-element.ts`
-  
 - `prefer-type-fest-json-array.ts`
-  
 - `prefer-type-fest-json-object.ts`
-  
 - `prefer-type-fest-json-primitive.ts`
-  
 - `prefer-type-fest-json-value.ts`
-  
 - `prefer-type-fest-keys-of-union.ts`
-  
 - `prefer-type-fest-literal-union.ts`
-  
 - `prefer-type-fest-merge-exclusive.ts`
-  
 - `prefer-type-fest-non-empty-tuple.ts`
-  
 - `prefer-type-fest-omit-index-signature.ts`
-  
 - `prefer-type-fest-partial-deep.ts`
-  
 - `prefer-type-fest-primitive.ts`
-  
 - `prefer-type-fest-promisable.ts`
-  
 - `prefer-type-fest-readonly-deep.ts`
-  
 - `prefer-type-fest-require-all-or-none.ts`
-  
 - `prefer-type-fest-require-at-least-one.ts`
-  
 - `prefer-type-fest-require-exactly-one.ts`
-  
 - `prefer-type-fest-require-one-or-none.ts`
-  
 - `prefer-type-fest-required-deep.ts`
-  
 - `prefer-type-fest-schema.ts`
-  
 - `prefer-type-fest-set-non-nullable.ts`
-  
 - `prefer-type-fest-set-optional.ts`
-  
 - `prefer-type-fest-set-readonly.ts`
-  
 - `prefer-type-fest-set-required.ts`
-  
 - `prefer-type-fest-simplify.ts`
-  
 - `prefer-type-fest-tagged-brands.ts`
-  
 - `prefer-type-fest-tuple-of.ts`
-  
 - `prefer-type-fest-unknown-array.ts`
-  
 - `prefer-type-fest-unknown-map.ts`
-  
 - `prefer-type-fest-unknown-record.ts`
-  
 - `prefer-type-fest-unknown-set.ts`
-  
 - `prefer-type-fest-unwrap-tagged.ts`
-  
 - `prefer-type-fest-value-of.ts`
-  
 - `prefer-type-fest-writable-deep.ts`
-  
 - `prefer-type-fest-writable.ts`
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c37f3cc)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c37f3cca935850135cb83007efd1baf9c4550e2a)
-
 
 - 🎨 [style] Refactor code for consistency and readability
 
@@ -3651,168 +3201,92 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c37f
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9a70578)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/9a70578fa48e099426d2a71df8f63046a88b9b09)
 
-
 - 🎨 [style] Clean up trailing whitespace in TypeScript rule files
 
 - Removed trailing whitespace from multiple TypeScript rule files to maintain code consistency and cleanliness.
 
 - Affected files include:
-  
 - `prefer-ts-extras-is-finite.ts`
-  
 - `prefer-ts-extras-is-infinite.ts`
-  
 - `prefer-ts-extras-is-integer.ts`
-  
 - `prefer-ts-extras-is-present-filter.ts`
-  
 - `prefer-ts-extras-is-present.ts`
-  
 - `prefer-ts-extras-is-safe-integer.ts`
-  
 - `prefer-ts-extras-key-in.ts`
-  
 - `prefer-ts-extras-not.ts`
-  
 - `prefer-ts-extras-object-entries.ts`
-  
 - `prefer-ts-extras-object-from-entries.ts`
-  
 - `prefer-ts-extras-object-has-in.ts`
-  
 - `prefer-ts-extras-object-has-own.ts`
-  
 - `prefer-ts-extras-object-keys.ts`
-  
 - `prefer-ts-extras-object-values.ts`
-  
 - `prefer-ts-extras-safe-cast-to.ts`
-  
 - `prefer-ts-extras-set-has.ts`
-  
 - `prefer-ts-extras-string-split.ts`
-  
 - `prefer-type-fest-arrayable.ts`
-  
 - `prefer-type-fest-async-return-type.ts`
-  
 - `prefer-type-fest-conditional-pick.ts`
-  
 - `prefer-type-fest-constructor.ts`
-  
 - `prefer-type-fest-except.ts`
-  
 - `prefer-type-fest-if.ts`
-  
 - `prefer-type-fest-iterable-element.ts`
-  
 - `prefer-type-fest-json-array.ts`
-  
 - `prefer-type-fest-json-object.ts`
-  
 - `prefer-type-fest-json-primitive.ts`
-  
 - `prefer-type-fest-json-value.ts`
-  
 - `prefer-type-fest-keys-of-union.ts`
-  
 - `prefer-type-fest-literal-union.ts`
-  
 - `prefer-type-fest-merge-exclusive.ts`
-  
 - `prefer-type-fest-non-empty-tuple.ts`
-  
 - `prefer-type-fest-omit-index-signature.ts`
-  
 - `prefer-type-fest-partial-deep.ts`
-  
 - `prefer-type-fest-primitive.ts`
-  
 - `prefer-type-fest-promisable.ts`
-  
 - `prefer-type-fest-readonly-deep.ts`
-  
 - `prefer-type-fest-require-all-or-none.ts`
-  
 - `prefer-type-fest-require-at-least-one.ts`
-  
 - `prefer-type-fest-require-exactly-one.ts`
-  
 - `prefer-type-fest-require-one-or-none.ts`
-  
 - `prefer-type-fest-required-deep.ts`
-  
 - `prefer-type-fest-schema.ts`
-  
 - `prefer-type-fest-set-non-nullable.ts`
-  
 - `prefer-type-fest-set-optional.ts`
-  
 - `prefer-type-fest-set-readonly.ts`
-  
 - `prefer-type-fest-set-required.ts`
-  
 - `prefer-type-fest-simplify.ts`
-  
 - `prefer-type-fest-tagged-brands.ts`
-  
 - `prefer-type-fest-tuple-of.ts`
-  
 - `prefer-type-fest-unknown-array.ts`
-  
 - `prefer-type-fest-unknown-map.ts`
-  
 - `prefer-type-fest-unknown-record.ts`
-  
 - `prefer-type-fest-unknown-set.ts`
-  
 - `prefer-type-fest-unwrap-tagged.ts`
-  
 - `prefer-type-fest-value-of.ts`
-  
 - `prefer-type-fest-writable-deep.ts`
-  
 - `prefer-type-fest-writable.ts`
-🧪 [test] Update test files for consistency
+  🧪 [test] Update test files for consistency
 
 - Adjusted test files to remove trailing whitespace and ensure consistent formatting.
 
 - Affected test files include:
-  
 - `imported-type-aliases.test.ts`
-  
 - `prefer-type-fest-arrayable.test.ts`
-  
 - `prefer-type-fest-async-return-type.test.ts`
-  
 - `prefer-type-fest-json-array.test.ts`
-  
 - `prefer-type-fest-json-object.test.ts`
-  
 - `prefer-type-fest-partial-deep.test.ts`
-  
 - `prefer-type-fest-require-all-or-none.test.ts`
-  
 - `prefer-type-fest-require-exactly-one.test.ts`
-  
 - `prefer-type-fest-required-deep.test.ts`
-  
 - `prefer-type-fest-set-non-nullable.test.ts`
-  
 - `prefer-type-fest-set-optional.test.ts`
-  
 - `prefer-type-fest-set-required.test.ts`
-  
 - `prefer-type-fest-simplify.test.ts`
-  
 - `prefer-type-fest-tagged-brands.test.ts`
-  
 - `prefer-type-fest-unknown-array.test.ts`
-  
 - `prefer-type-fest-unwrap-tagged.test.ts`
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e6eeff5)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e6eeff586d1d69f4c812df893a00f836dde93222)
-
 
 - 🎨 [style] Refine stylelint disable comments in custom.css
 
@@ -3822,7 +3296,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e6ee
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6eb9b0f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6eb9b0ff35cb5769ce2142ae048c29e8e05ec5f9)
 
-
 - 🎨 [style] Refine stylelint disable comments in CSS module
 
 - Removed unnecessary stylelint rules for improved clarity
@@ -3831,7 +3304,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6eb9
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1d8c4af)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/1d8c4af3441e33c1a4db469903c731a91ea80470)
 
-
 - 🎨 [style] Improve code formatting and consistency in scripts
 
 - Adjust spacing in parameter definitions in `.github/CleanReleases.ps1` and `.github/RepoSize.ps1`
@@ -3839,7 +3311,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1d8c
 - Standardize spacing in output formatting for better readability
 
 - Enhance clarity by ensuring consistent spacing in condition checks
-✨ [feat] Add bootstrap script for GitHub labels
+  ✨ [feat] Add bootstrap script for GitHub labels
 
 - Introduce `scripts/bootstrap-labels.ps1` to manage GitHub issue/PR labels
 
@@ -3850,7 +3322,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1d8c
 - Provide audit and export functionalities for label management
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7f84870)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7f84870ac38c2d089a0bfb6fe85025cce034c2ce)
-
 
 - 🎨 [style] Clean up code formatting and improve readability
 
@@ -3876,7 +3347,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7f84
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b4b1929)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b4b1929c19e9e23e7e2c88229979a2c23473a4b3)
 
-
 - 🎨 [style] Improve code formatting and consistency across multiple files
 
 - ✨ Adjust spacing around object destructuring in `prefer-ts-extras-array-first.ts`
@@ -3894,7 +3364,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b4b1
 - 🎨 Modify spacing in `docs-integrity.test.ts` to align with style guidelines
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(22c06f3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/22c06f32690751743723df370ee9f648bb27b943)
-
 
 - 🎨 [style] Refactor code formatting for consistency and readability
 
@@ -3932,8 +3401,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(22c0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4ab154d)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4ab154d52bb4581406410e848c69daebc6d0e847)
 
-
-
 ### 🧪 Testing
 
 - 🧪 [test] Enhance type safety and listener functionality across multiple test files
@@ -3951,7 +3418,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4ab1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2193ed9)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/2193ed9abc153379bcb5c989ded4729d78ebd5d6)
 
-
 - 🧪 [test] Update error handling assertions in tests
 
 - Refactored multiple test cases to replace `.toThrowError()` with `.toThrow()`, aligning with updated Jest practices for error assertions.
@@ -3960,9 +3426,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2193
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(02a1f4e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/02a1f4ea66ef3dda4e2ab79f03851ddaacdd9d70)
 
-
 - 🧪 [test] Enhance type safety and parsing for TypeFest rules
-
 
 - ✨ [feat] Introduce `replaceOrThrow` utility function to streamline text replacements in test fixtures across multiple test files.
 
@@ -3984,7 +3448,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(02a1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d1092f9)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/d1092f9268d3ba4649775868068210e930ef9df9)
 
-
 - 🧪 [test] bolster guards and metadata across rules
 
 - 🛠️ [fix] grow ESLint ignorePattern with v8/c8/nyc/codecov/coveralls tokens to prevent spurious warnings
@@ -4004,7 +3467,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d109
 - 🧪 [test] update many existing tests with new fixtures, outputs and scenario names to improve coverage and resilience
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4c685cb)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4c685cbac3253139b206443b8fa80571a470b30b)
-
 
 - 🧪 [test] Refactor test cases to use 'test' instead of 'it' for consistency
 
@@ -4028,7 +3490,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4c68
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(10c699a)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/10c699af540ea73a73ab0e69acb9d2c217b3d9ff)
 
-
 - 🧪 [test] Expands type-utility rule coverage
 
 🧪 [test] Strengthens rule reliability by adding edge-case assertions for detection and autofix behavior across multiple type-utility preference rules.
@@ -4036,14 +3497,12 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(10c6
 - Adds reversed-union, whitespace-normalized, extra/missing generic argument, and nested-type scenarios to reduce false positives and false negatives.
 
 - Verifies non-fix behavior when required imports are missing, so diagnostics stay accurate without unsafe edits.
-🧪 [test] Broadens valid-case coverage for multi-member unions and duplicate-member combinations to ensure rules trigger only on exact intended patterns.
-🎨 [style] Normalizes import ordering and modernizes matcher assertions and regex flags in metadata checks to keep tests consistent and less brittle.
+  🧪 [test] Broadens valid-case coverage for multi-member unions and duplicate-member combinations to ensure rules trigger only on exact intended patterns.
+  🎨 [style] Normalizes import ordering and modernizes matcher assertions and regex flags in metadata checks to keep tests consistent and less brittle.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(145743a)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/145743a270bfa524527bdcfd1ff264a7fce87aa1)
 
-
 - 📝 [test] Enhance type-fest rule tests with additional cases
-
 
 - ✨ [test] Add valid cases for Awaited with Promise and qualified ReturnType
 
@@ -4091,17 +3550,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1457
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ec44a53)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ec44a53779b9a5e7d5ea0f2e0f08c7c318a92366)
 
-
-
 ### 🧹 Chores
 
 - Release v1.0.0 [`(fe9afd2)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/fe9afd26fe79835b171003e19575a90518e14be6)
 
-
 - 🧹 [chore] Clean up configuration files by removing bootstrap instructions
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(79d484b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/79d484b673d237e04d4d6a36eaa413162edec085)
-
 
 - 🧹 [chore] migrate documentation URLs to GitHub Pages and bump dev dependencies
 
@@ -4115,7 +3570,6 @@ The changes simplify hosting strategy for docs and keep development dependencies
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(aeb72ee)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/aeb72eeeb9be48054bf96209b07ff62e9f777d33)
 
-
 - 🗑️ [chore] Remove ESLint Config Inspector build and verification scripts
 
 - Deleted `build-eslint-inspector.mjs` and `verify-eslint-inspector.mjs` scripts
@@ -4126,8 +3580,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(aeb7
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(79dd244)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/79dd2444ee0729ab547a608945aca8f9097070fc)
 
-
-
 ### 👷 CI/CD
 
 - 👷 [ci] Update Codecov action version for improved functionality
@@ -4135,8 +3587,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(79dd
 - Updated the Codecov test results action to a specific commit for better stability and features
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(232fe61)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/232fe61b01124fd8bf0113271cf6ff2eaba70c99)
-
-
 
 ### 🔧 Build System
 
@@ -4151,7 +3601,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(232f
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fbc4753)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/fbc47539a7a9af13b983e0061e147e1d100d83b2)
 
-
 - 🔧 [build] Update package dependencies and configurations
 
 - 🔧 Update packageManager to npm@11.11.1 in package.json
@@ -4160,11 +3609,10 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fbc4
 
 - 🔧 Add @package-json/types as a dev dependency in package-lock.json
 
-- 🎨 Adjust files entry in package.json to include docs/rules/**
-🧪 [test] Clean up test file by removing unnecessary blank line in plugin-entry.test.ts
+- 🎨 Adjust files entry in package.json to include docs/rules/\*\*
+  🧪 [test] Clean up test file by removing unnecessary blank line in plugin-entry.test.ts
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c2cb0ea)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/c2cb0ea80a19d336113a4599c453eec35166ddb1)
-
 
 - 🔧 [build] Update package configurations and dependencies
 
@@ -4184,7 +3632,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(c2cb
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4d8023a)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4d8023abd7080def62cafa17ec1128de75c17d7d)
 
-
 - 🔧 [build] Update code for improved readability and safety
 
 - 🛠️ Refactor rule access to use bracket notation for consistency
@@ -4199,7 +3646,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4d80
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6d7d427)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6d7d4277dbb4ab767076fce90a84934e4bfd04f9)
 
-
 - 🔧 [build] Refactor vitest globals type definitions
 
 - 🛠️ Update import statement for createTypedRule
@@ -4209,7 +3655,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6d7d
 - 🛠️ Adjust doMock method signature for improved type safety
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(db4aff6)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/db4aff6ccb4a292eb3621a53cfa73f6379a17567)
-
 
 - 🔧 [build] Update TypeScript ESLint dependencies and related packages
 
@@ -4229,9 +3674,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(db4a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(124785e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/124785ed1892b86fedc8ad44509902dd39332a47)
 
-
 - 🔧 [build] Update PowerShell script execution commands and error handling
-
 
 - 🛠️ [fix] Modify Windows script execution commands in hooks.json to use PowerShell with appropriate flags for better compatibility.
 
@@ -4243,7 +3686,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1247
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8bee5b3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/8bee5b36f4ba4bc67ec6010bc65a73e60d83a9c7)
 
-
 - 🔧 [build] Refactor module source imports for consistency across rules
 
 - 🛠️ [fix] Update all rules to use `TS_EXTRAS_MODULE_SOURCE` instead of hardcoded string "ts-extras" for improved maintainability and consistency.
@@ -4252,9 +3694,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(8bee
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0ec1cf7)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/0ec1cf79284b6bda8b6c4bc68d32972cc7f7c80b)
 
-
 - 🔧 [build] Update package-lock.json to remove unnecessary dev flags
-
 
 - Removed "dev": true from multiple dependencies in package-lock.json to clean up the lock file and ensure only necessary dev dependencies are marked as such.
 
@@ -4264,13 +3704,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0ec1
 
 ✨ [feat] Enhance type name resolution in prefer-ts-extras-set-has rule
 
-
 - Integrated `getTypeName` function to improve type name retrieval for candidate types.
 
 - Updated logic to check both the resolved type name and the symbol name for "ReadonlySet" and "Set" to enhance type detection accuracy.
 
 ✨ [feat] Improve type name handling in prefer-ts-extras-string-split rule
-
 
 - Implemented `getTypeName` function to retrieve the type name of candidate types.
 
@@ -4278,16 +3716,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0ec1
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e2a2129)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e2a21297ba718c316f6e158605474e3b72384a0b)
 
-
 - 🔧 [build] Update Stryker Vitest configuration
 
 - Add setupFiles entry to specify custom setup script for Vitest
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a0f74f2)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a0f74f2c7e56fda2ae08bd98de7c3bbb1fda951c)
 
-
 - 🔧 [build] Update dependencies and add autofix smoke test
-
 
 - 🔧 [build] Upgrade `eslint-plugin-array-func` from `^5.1.0` to `^5.1.1`
 
@@ -4306,7 +3741,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a0f7
 - 🧹 [chore] Add `.gitkeep` to `test/fixtures/autofix-smoke` directory to maintain structure
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fb71524)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/fb71524bea3708c7d8be18eec2bbbdd101eec1a4)
-
 
 - 🔧 [build] Update dependencies for TypeDoc and ESLint plugins
 
@@ -4346,7 +3780,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(fb71
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a916f48)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a916f4835b426f01dc82ae38e14719a1953c3bed)
 
-
 - 🔧 [build] Update package dependencies in package.json and package-lock.json
 
 - 🔄 [dependency] Update eslint-plugin-package-json ^0.89.4
@@ -4356,7 +3789,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a916
 - 🔄 [dependency] Update postcss-sort-media-queries ^6.1.0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3231367)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3231367cb944df9345c0de8b7934346044e8ba68)
-
 
 - 🔧 [build] Update TypeFest plugin and tests for improved rule documentation synchronization
 
@@ -4368,22 +3800,20 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3231
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ee0edba)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ee0edbad0a9c287b0e05ce6f63410fa34ec1682b)
 
-
 - 🔧 [build] Update TypeFest rule configurations for improved type inference
 
 - 🛠️ [fix] Set `recommended` to `false` for `prefer-ts-extras-object-keys` and `prefer-ts-extras-object-values` rules
 - 🛠️ [fix] Set `recommended` to `true` for `prefer-ts-extras-safe-cast-to`, `prefer-ts-extras-set-has`, and other TypeFest rules
 - ⚡ [perf] Introduce `typefestConfigs` for all rules to specify recommended configurations
- 
+
 - 📜 [docs] Update documentation URLs for better reference
 - 🧪 [test] Enhance rule metadata tests to validate `recommended` and `typefestConfigs` properties
- 
+
 - 🔍 [test] Ensure type checks for `recommended` are boolean
- 
+
 - 🔍 [test] Validate that `typefestConfigs` contains valid references
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6a2586a)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/6a2586aa770cc53bf466a6b3b04e140dc3e62dc6)
-
 
 - 🔧 [build] Optimize scope variable retrieval with cycle detection
 
@@ -4407,7 +3837,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6a25
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ccc8365)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ccc8365d2550d4881467b30ea50e86340277fdbd)
 
-
 - 🔧 [build] Refactor TypeScript ESLint node autofix suppression logic
 
 - 🛠️ Update import from `createTypeScriptEslintNodeAutofixSuppressionChecker` to `createTypeScriptEslintNodeExpressionSkipChecker` in multiple rule files for consistency
@@ -4418,9 +3847,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ccc8
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7a1aa5f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/7a1aa5f593e42eda2c185e2c70b3c48a5c0cf39d)
 
-
 - 🔧 [build] Refactor rule metadata test imports and remove deprecated tests
-
 
 - 🛠️ Update import statements in multiple test files to replace `addTypeFestRuleMetadataAndFilenameFallbackTests` with `addTypeFestRuleMetadataSmokeTests` for consistency and clarity.
 
@@ -4432,13 +3859,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(7a1a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4ae5381)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4ae53812112c8f33d658c3e6be6b3e82a5b42438)
 
-
 - 🔧 [build] Remove unused import for remark-ignore from .remarkrc.mjs
 
 - Clean up the configuration file by eliminating the import statement for remark-ignore, which is no longer needed.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d3cc622)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/d3cc622c6e7bfcf17735a7bb5771ffbbea089e40)
-
 
 - 🔧 [build] Update stylelint-plugin-use-baseline to version 1.2.6
 
@@ -4446,92 +3871,58 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(d3cc
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a37b73b)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a37b73bcb7b205c52c9cfe40dcc57ca2ce5cddec)
 
-
 - 🔧 [build] Refactor type reference handling in tests
-
 
 - 🛠️ Update type reference variable names from `typeReference` to `tsReference` for consistency across multiple test files.
 
 - 🧪 Modify parsing functions to return `tsReference` instead of `typeReference` in:
-  
 - `prefer-type-fest-primitive.test.ts`
-  
 - `prefer-type-fest-readonly-deep.test.ts`
-  
 - `prefer-type-fest-require-all-or-none.test.ts`
-  
 - `prefer-type-fest-require-at-least-one.test.ts`
-  
 - `prefer-type-fest-require-exactly-one.test.ts`
-  
 - `prefer-type-fest-require-one-or-none.test.ts`
-  
 - `prefer-type-fest-required-deep.test.ts`
-  
 - `prefer-type-fest-schema.test.ts`
-  
 - `prefer-type-fest-set-non-nullable.test.ts`
-  
 - `prefer-type-fest-set-optional.test.ts`
-  
 - `prefer-type-fest-set-readonly.test.ts`
-  
 - `prefer-type-fest-set-required.test.ts`
-  
 - `prefer-type-fest-simplify.test.ts`
-  
 - `prefer-type-fest-tagged-brands.test.ts`
-  
 - `prefer-type-fest-tuple-of.test.ts`
-  
 - `prefer-type-fest-unknown-array.test.ts`
-  
 - `prefer-type-fest-unknown-map.test.ts`
-  
 - `prefer-type-fest-unknown-record.test.ts`
-  
 - `prefer-type-fest-unknown-set.test.ts`
-  
 - `prefer-type-fest-unwrap-tagged.test.ts`
-  
 - `prefer-type-fest-value-of.test.ts`
-  
 - `prefer-type-fest-writable-deep.test.ts`
-  
 - `prefer-type-fest-writable.test.ts`
 
 - 🎨 Improve readability and maintainability of test code by ensuring consistent naming conventions.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(bf40c75)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/bf40c75de70bb03d12426e9a6b4ca61121d95495)
 
-
 - 🔧 [build] Update configuration and dependencies
 
 - 🛠️ [fix] Update eslint-plugin-file-progress-2 to version 3.4.2
 
 - 📝 [docs] Modify tsconfig files for improved declaration handling
-  
 - 🔧 Set "isolatedDeclarations" to true in tsconfig.build.json
-  
 - 🔧 Set "isolatedModules" to true in tsconfig.build.json
-  
 - 🔧 Enable "checkJs" and "erasableSyntaxOnly" in tsconfig.eslint.json and tsconfig.js.json
 
 - 🚜 [refactor] Change exported types to internal types for better encapsulation
-  
 - 🔄 Change "export type UnionArrayLikeMatchMode" to "type UnionArrayLikeMatchMode" in array-like-expression.ts
-  
 - 🔄 Change "export type ImportedTypeAliasMatch" to "type ImportedTypeAliasMatch" in imported-type-aliases.ts
-  
 - 🔄 Change "export type ImportedValueAliasMap" to "type ImportedValueAliasMap" in imported-value-symbols.ts
 
 - 🎨 [style] Update DEFAULT_RULE_DOCS_URL_BASE to a constant in rule-docs-url.ts
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(475a43e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/475a43e989567f2e4c57633edf650a928ef71925)
 
-
 - 🔧 [build] Add defaultOptions to multiple TypeScript rules
-
 
 - ✨ [feat] Introduced `defaultOptions: []` in `prefer-ts-extras-not.ts`, ensuring consistent default behavior across rules.
 
@@ -4637,7 +4028,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(475a
 
 🧪 [test] Update tests to reflect changes in rule configurations
 
-
 - 🧪 [test] Modified `configs.test.ts` to utilize `UnknownRecord` from `type-fest`, improving type safety.
 
 - 🧪 [test] Updated `prefer-type-fest-writable-deep.test.ts` to reflect changes in return types, ensuring consistency.
@@ -4645,7 +4035,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(475a
 - 🧪 [test] Adjusted `typed-rule-internal.test.ts` to improve clarity in test descriptions and ensure accurate path recognition.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9082660)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/90826605cb10f2a9ca47e47f8aafaa621e972e9b)
-
 
 - 🔧 [build] Refactor benchmark and test configurations
 
@@ -4665,17 +4054,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9082
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(528c601)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/528c601c385c557e677649bbaa06af894e6e9f82)
 
-
 - 🔧 [build] Update dependencies in package.json and package-lock.json
 
 - 🛠️ Update `eslint-plugin-jsdoc` from `^62.7.0` to `^62.7.1` to incorporate the latest improvements and fixes.
 
 - 🧹 Remove unused dependencies:
-  
 - `eslint-plugin-mdx` version `^3.6.2`
-  
 - `eslint-plugin-storybook` version `^10.2.11`
-  
 - `storybook` version `^10.2.11`
 
 - 🔧 Clean up `package-lock.json` by removing entries for the removed dependencies and updating the lock file accordingly.
@@ -4688,7 +4073,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(528c
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(db80fb0)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/db80fb0425ed6198b5e3c426c2632208081053ad)
 
-
 - 🔧 [build] Update aliasReplacementFix checks for consistency across rules
 
 - 🛠️ [fix] Change condition from `!replacementFix` to `replacementFix === null` in multiple rules to ensure clarity in reporting
@@ -4697,162 +4081,86 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(db80
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ba3b799)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ba3b799b909cd67fe3c334cfb9aec7da650e57a5)
 
-
 - 🔧 [build] Mark rules as non-deprecated
-
 
 - 📝 Update metadata for multiple rules in the TypeScript extras library to indicate they are not deprecated.
 
 - 🔧 Set `deprecated: false` for the following rules:
-  
 - prefer-ts-extras-array-find-last-index
-  
 - prefer-ts-extras-array-find-last
-  
 - prefer-ts-extras-array-find
-  
 - prefer-ts-extras-array-first
-  
 - prefer-ts-extras-array-includes
-  
 - prefer-ts-extras-array-join
-  
 - prefer-ts-extras-array-last
-  
 - prefer-ts-extras-as-writable
-  
 - prefer-ts-extras-assert-defined
-  
 - prefer-ts-extras-assert-error
-  
 - prefer-ts-extras-assert-present
-  
 - prefer-ts-extras-is-defined-filter
-  
 - prefer-ts-extras-is-defined
-  
 - prefer-ts-extras-is-empty
-  
 - prefer-ts-extras-is-equal-type
-  
 - prefer-ts-extras-is-finite
-  
 - prefer-ts-extras-is-infinite
-  
 - prefer-ts-extras-is-integer
-  
 - prefer-ts-extras-is-present-filter
-  
 - prefer-ts-extras-is-present
-  
 - prefer-ts-extras-is-safe-integer
-  
 - prefer-ts-extras-key-in
-  
 - prefer-ts-extras-not
-  
 - prefer-ts-extras-object-entries
-  
 - prefer-ts-extras-object-from-entries
-  
 - prefer-ts-extras-object-has-in
-  
 - prefer-ts-extras-object-has-own
-  
 - prefer-ts-extras-object-keys
-  
 - prefer-ts-extras-object-values
-  
 - prefer-ts-extras-safe-cast-to
-  
 - prefer-ts-extras-set-has
-  
 - prefer-ts-extras-string-split
-  
 - prefer-type-fest-arrayable
-  
 - prefer-type-fest-async-return-type
-  
 - prefer-type-fest-conditional-pick
-  
 - prefer-type-fest-constructor
-  
 - prefer-type-fest-except
-  
 - prefer-type-fest-if
-  
 - prefer-type-fest-iterable-element
-  
 - prefer-type-fest-json-array
-  
 - prefer-type-fest-json-object
-  
 - prefer-type-fest-json-primitive
-  
 - prefer-type-fest-json-value
-  
 - prefer-type-fest-keys-of-union
-  
 - prefer-type-fest-literal-union
-  
 - prefer-type-fest-merge-exclusive
-  
 - prefer-type-fest-non-empty-tuple
-  
 - prefer-type-fest-omit-index-signature
-  
 - prefer-type-fest-partial-deep
-  
 - prefer-type-fest-primitive
-  
 - prefer-type-fest-promisable
-  
 - prefer-type-fest-readonly-deep
-  
 - prefer-type-fest-require-all-or-none
-  
 - prefer-type-fest-require-at-least-one
-  
 - prefer-type-fest-require-exactly-one
-  
 - prefer-type-fest-require-one-or-none
-  
 - prefer-type-fest-required-deep
-  
 - prefer-type-fest-schema
-  
 - prefer-type-fest-set-non-nullable
-  
 - prefer-type-fest-set-optional
-  
 - prefer-type-fest-set-readonly
-  
 - prefer-type-fest-set-required
-  
 - prefer-type-fest-simplify
-  
 - prefer-type-fest-tagged-brands
-  
 - prefer-type-fest-tuple-of
-  
 - prefer-type-fest-unknown-array
-  
 - prefer-type-fest-unknown-map
-  
 - prefer-type-fest-unknown-record
-  
 - prefer-type-fest-unknown-set
-  
 - prefer-type-fest-unwrap-tagged
-  
 - prefer-type-fest-value-of
-  
 - prefer-type-fest-writable-deep
-  
 - prefer-type-fest-writable
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(46e0d73)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/46e0d732d26617586d5b1533da10fd9d729bec56)
-
 
 - 🔧 [build] Raises lint baseline and hardens rules
 
@@ -4872,9 +4180,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(46e0
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3ad591e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/3ad591e4f8be1ffade32bc896ec0af34673ef703)
 
-
 - 🔧 [build] Update dependencies in package.json
-
 
 - 📦 Upgrade @typescript-eslint/parser and @typescript-eslint/utils to version 8.56.1 for improved TypeScript support.
 
@@ -4892,7 +4198,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(3ad5
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4f1aede)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/4f1aede544912eba9af43a5078b774ede5845435)
 
-
 - 🔧 [build] Update Stryker configuration for improved testing
 
 - Adjust `test:stryker` scripts to use `--ignoreStatic` flag for better performance
@@ -4900,7 +4205,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(4f1a
 - Change `ignoreStatic` option in Stryker config to `false` for comprehensive mutant testing
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(28104ce)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/28104ce26257b19d12fb03c117832bb62fab0a26)
-
 
 - 🔧 [build] Update Stryker configuration and package.json scripts
 
@@ -4912,7 +4216,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(2810
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5f83e37)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/5f83e378a295fcba40c50841f08b8e13223fba6a)
 
-
 - 🔧 [build] Update package.json and package-lock.json
 
 - ✨ Add overrides for jsonc-eslint-parser to use version ^3.1.0
@@ -4920,7 +4223,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5f83
 - 🔧 Remove unused dependencies from package-lock.json
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b934c2e)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b934c2e401cac9ef0889f3d606107b6ee6e0716e)
-
 
 - 🔧 [build] Update dependencies in package.json
 
@@ -4956,9 +4258,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b934
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(63355ae)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/63355ae568aabe9d928faa0d575643f48768d5fa)
 
-
 - 🔧 [build] Update dependencies in package.json
-
 
 - 🔄 Upgrade "@html-eslint/eslint-plugin" and "@html-eslint/parser" to version 0.56.0 for improved HTML linting capabilities.
 
@@ -4974,7 +4274,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(6335
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e06b605)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/e06b605ec157e48bdef1667bd9b7d29c594ee17a)
 
-
 - 🔧 [build] Update Stryker dependencies and package manager version
 
 - Upgrade Stryker packages to version 9.5.1 for improved functionality
@@ -4982,7 +4281,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(e06b
 - Update package manager version to 11.10.1 for better compatibility
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1dde506)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/1dde506c1d63afe0a9d0ffc1ea7fb8d4722e1844)
-
 
 - 🔧 [build] Update Knip configuration to remove unnecessary dependencies
 
@@ -4992,16 +4290,13 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(1dde
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(5d2f382)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/5d2f382a0e7cdbc2463d18c6f322c29f0d697ace)
 
-
 - 🔧 [build] Update TypeScript configuration for ESLint
-
 
 - ✨ [feat] Include `knip.config.ts` in the TypeScript ESLint configuration
 
 - 📂 This addition allows ESLint to recognize and lint the `knip.config.ts` file, ensuring consistent code quality and adherence to coding standards across the project.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a4ac857)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a4ac8576e18b4a30ef54662a3857951dca1ac277)
-
 
 - 🔧 [build] Force install dependencies in Docusaurus deployment workflow
 
@@ -5017,13 +4312,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a4ac
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(b1b30c3)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/b1b30c3c1fb58329c11e49acbe4e84acae2d46c4)
 
-
 - 🔧 [build] Update npm-check-updates to version 19.4.0
 
 - Upgraded the "npm-check-updates" package in both package.json and package-lock.json to ensure compatibility with the latest features and fixes.
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0d1b867)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/0d1b867c174310b07659a43fbd41694ab4579337)
-
 
 - 🔧 [build] Update Docusaurus configuration and add manifest file
 
@@ -5037,7 +4330,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(0d1b
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9327651)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/93276515f3fef321f4fea54d762fdf9d63ac07b5)
 
-
 - 🔧 [build] Refactor TypeFest plugin types and configurations
 
 - 🆕 Export `TypefestConfigName` and `TypefestPresetConfig` types for better clarity
@@ -5050,7 +4342,6 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(9327
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a0fdbab)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/a0fdbabd4429095440c4efd43d07829ace5b2afc)
 
-
 - 🔧 [build] Update eslint-plugin-testing-library to version 7.16.0
 
 - [dependency] Update version 7.16.0 in package.json and package-lock.json
@@ -5059,225 +4350,146 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(a0fd
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(25224f5)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/25224f59273e80a3b6231b8eaf954f164f3565f2)
 
-
 - 🔧 [build] Refactor TypeFest ESLint rules for consistency and clarity
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-require-all-or-none`
-  
 - Moved `name`, `meta`, and `defaultOptions` to the end of the rule definition for consistency.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-require-at-least-one`
-  
 - Adjusted the structure to match the new format.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-require-exactly-one`
-  
 - Ensured consistent ordering of properties.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-require-one-or-none`
-  
 - Updated to follow the new structure.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-schema`
-  
 - Aligned with the new metadata format.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-set-non-nullable`
-  
 - Adjusted to maintain consistency across rules.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-set-optional`
-  
 - Updated to follow the new structure.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-set-readonly`
-  
 - Ensured consistent ordering of properties.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-set-required`
-  
 - Aligned with the new metadata format.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-simplify`
-  
 - Updated to follow the new structure.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-tagged-brands`
-  
 - Adjusted to maintain consistency across rules.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-tuple-of`
-  
 - Ensured consistent ordering of properties.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-unknown-array`
-  
 - Aligned with the new metadata format.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-unknown-map`
-  
 - Updated to follow the new structure.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-unknown-record`
-  
 - Ensured consistent ordering of properties.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-unknown-set`
-  
 - Aligned with the new metadata format.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-unwrap-tagged`
-  
 - Updated to follow the new structure.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-value-of`
-  
 - Ensured consistent ordering of properties.
 
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-writable`
-  
 - Aligned with the new metadata format.
 
 - 🧪 [test] Update docs integrity test to use expectTypeOf for description validation
-  
 - Changed `expect(typeof description).toBe("string")` to `expectTypeOf(description).toBeString()`
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ce485eb)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ce485eb271acb65d12753e772cdcd320572bdeab)
 
-
 - 🔧 [build] Refactor TypeFest ESLint rules for consistency and clarity
 
-
 - 🛠️ [fix] Reorganize rule metadata for `prefer-type-fest-require-all-or-none`:
-  
 - Moved `name`, `meta`, and `defaultOptions` to the correct positions.
-  
 - Ensured the `create` function remains intact while maintaining functionality.
 
-
 - 🛠️ [fix] Update `prefer-type-fest-require-at-least-one` rule structure:
-  
 - Adjusted metadata organization for clarity.
-  
 - Preserved the core logic within the `create` function.
-
 
 - 🛠️ [fix] Refactor `prefer-type-fest-require-exactly-one` rule:
-  
 - Streamlined metadata for better readability.
-  
 - Kept the reporting logic unchanged.
-
 
 - 🛠️ [fix] Revise `prefer-type-fest-require-one-or-none` rule:
-  
 - Enhanced metadata structure for consistency.
-  
 - Maintained existing functionality in the `create` method.
-
 
 - 🛠️ [fix] Modify `prefer-type-fest-schema` rule:
-  
 - Reorganized metadata for improved clarity.
-  
 - Ensured the reporting logic remains functional.
-
 
 - 🛠️ [fix] Adjust `prefer-type-fest-set-non-nullable` rule:
-  
 - Updated metadata layout for consistency.
-  
 - Preserved the core logic in the `create` function.
-
 
 - 🛠️ [fix] Refactor `prefer-type-fest-set-optional` rule:
-  
 - Improved metadata organization for clarity.
-  
 - Maintained existing functionality.
-
 
 - 🛠️ [fix] Revise `prefer-type-fest-set-readonly` rule:
-  
 - Streamlined metadata for better readability.
-  
 - Ensured the reporting logic remains intact.
 
-
 - 🛠️ [fix] Update `prefer-type-fest-set-required` rule:
-  
 - Enhanced metadata structure for consistency.
-  
 - Preserved the core logic within the `create` function.
-
 
 - 🛠️ [fix] Refactor `prefer-type-fest-simplify` rule:
-  
 - Reorganized metadata for improved clarity.
-  
 - Kept the reporting logic unchanged.
-
 
 - 🛠️ [fix] Modify `prefer-type-fest-tagged-brands` rule:
-  
 - Adjusted metadata organization for clarity.
-  
 - Maintained existing functionality in the `create` method.
-
 
 - 🛠️ [fix] Revise `prefer-type-fest-tuple-of` rule:
-  
 - Improved metadata layout for consistency.
-  
 - Preserved the core logic in the `create` function.
-
 
 - 🛠️ [fix] Adjust `prefer-type-fest-unknown-array` rule:
-  
 - Updated metadata structure for clarity.
-  
 - Ensured the reporting logic remains functional.
 
-
 - 🛠️ [fix] Refactor `prefer-type-fest-unknown-map` rule:
-  
 - Streamlined metadata for better readability.
-  
 - Maintained existing functionality.
 
-
 - 🛠️ [fix] Modify `prefer-type-fest-unknown-record` rule:
-  
 - Enhanced metadata organization for consistency.
-  
 - Preserved the core logic within the `create` function.
 
-
 - 🛠️ [fix] Revise `prefer-type-fest-unknown-set` rule:
-  
 - Reorganized metadata for improved clarity.
-  
 - Kept the reporting logic unchanged.
 
-
 - 🛠️ [fix] Update `prefer-type-fest-unwrap-tagged` rule:
-  
 - Adjusted metadata layout for consistency.
-  
 - Maintained existing functionality in the `create` method.
 
-
 - 🛠️ [fix] Refactor `prefer-type-fest-value-of` rule:
-  
 - Improved metadata structure for clarity.
-  
 - Preserved the core logic in the `create` function.
 
-
 - 🛠️ [fix] Modify `prefer-type-fest-writable` rule:
-  
 - Streamlined metadata for better readability.
-  
 - Ensured the reporting logic remains intact.
 
 📝 [docs] Update documentation integrity tests
@@ -5288,9 +4500,7 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ce48
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(df2ae2f)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/df2ae2f38b3f8c5d03b1737f5bf328a8132adc77)
 
-
 - 🔧 [build] Update dependencies for improved compatibility and features
-
 
 - 📦 Upgrade "@typescript-eslint/utils" from "^8.55.0" to "^8.56.0" for enhanced TypeScript support.
 
@@ -5304,13 +4514,11 @@ Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(df2a
 
 Signed-off-by: Nick2bad4u <20943337+Nick2bad4u@users.noreply.github.com> [`(ff78dc7)`](https://github.com/Nick2bad4u/eslint-plugin-typefest/commit/ff78dc7d23858611fe280055f82504009732e61c)
 
-
-
-
-
-
 ## Contributors
+
 Thanks to all the [contributors](https://github.com/Nick2bad4u/eslint-plugin-typefest/graphs/contributors) for their hard work!
+
 ## License
+
 This project is licensed under the [UnLicense](https://github.com/Nick2bad4u/eslint-plugin-typefest/blob/main/LICENSE)
-*This changelog was automatically generated with [git-cliff](https://github.com/orhun/git-cliff).*
+_This changelog was automatically generated with [git-cliff](https://github.com/orhun/git-cliff)._

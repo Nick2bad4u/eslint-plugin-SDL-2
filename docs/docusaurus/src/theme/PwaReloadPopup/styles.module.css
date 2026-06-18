@@ -18,8 +18,10 @@
     padding: 0.95rem 1rem;
     border: 1px solid var(--pwa-popup-border-color);
     border-radius: 1rem;
+    /* stylelint-disable-next-line css-performance-budget/no-expensive-positioning-patterns -- Small fixed PWA prompt uses blur to match the site surface treatment. */
     backdrop-filter: blur(16px);
     background: var(--pwa-popup-background-color);
+    /* stylelint-disable-next-line css-performance-budget/no-expensive-positioning-patterns -- Fixed PWA prompt shadow is constrained to a small surface. */
     box-shadow:
         0 24px 40px -28px var(--home-hero-shadow-color, rgb(15 23 42 / 28%)),
         inset 0 1px 0 var(--home-hero-highlight-color, rgb(255 255 255 / 24%));

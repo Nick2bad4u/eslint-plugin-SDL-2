@@ -1,17 +1,17 @@
+import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+
 /**
  * @packageDocumentation
  * Sidebar structure for the primary documentation section under `docs/`.
  */
-import { readFileSync, readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-
-import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
 const repositoryOwner = "Nick2bad4u";
 const repositoryName = "eslint-plugin-SDL-2";
 const repositoryBaseUrl = `https://github.com/${repositoryOwner}/${repositoryName}`;
 const developerDocsDirectoryPath = fileURLToPath(
-    new URL("./site-docs/developer", import.meta.url)
+    new URL("site-docs/developer", import.meta.url)
 );
 
 type DeveloperGuideDocEntry = Readonly<{
@@ -44,34 +44,6 @@ const developerGuideIconByDocId: Readonly<Record<string, string>> = {
 };
 
 const developerGuidesExcludedDocIds = new Set(["developer/typed-paths"]);
-
-/**
- * Read a frontmatter scalar value with optional surrounding quotes.
- *
- * @param markdownContent - Raw markdown file content.
- * @param fieldName - Frontmatter field to read.
- *
- * @returns Parsed frontmatter value when present.
- */
-function readFrontmatterStringField(
-    markdownContent: string,
-    fieldName: string
-): null | string {
-    const pattern = new RegExp(`^${fieldName}:\\s*(.+)$`, "mu");
-    const match = pattern.exec(markdownContent);
-
-    if (match === null) {
-        return null;
-    }
-
-    const [, rawValue] = match;
-
-    if (rawValue === undefined) {
-        return null;
-    }
-
-    return rawValue.trim().replace(/^(["'])(.*)\1$/u, "$2");
-}
 
 /**
  * Build dynamic maintainer-guide entries from top-level developer docs.
@@ -110,7 +82,7 @@ function getDeveloperGuideDocEntries(): DeveloperGuideDocEntry[] {
             );
             const sidebarPosition =
                 sidebarPositionRaw === null
-                    ? Number.POSITIVE_INFINITY
+                    ? Infinity
                     : Number.parseInt(sidebarPositionRaw, 10);
             const icon = developerGuideIconByDocId[entry.docId] ?? "📄";
 
@@ -121,7 +93,7 @@ function getDeveloperGuideDocEntries(): DeveloperGuideDocEntry[] {
                 docId: entry.docId,
                 label: `${icon} ${title}`,
                 sidebarPosition: Number.isNaN(sidebarPosition)
-                    ? Number.POSITIVE_INFINITY
+                    ? Infinity
                     : sidebarPosition,
             } satisfies DeveloperGuideDocEntry;
         })
@@ -160,6 +132,34 @@ function getDeveloperSubfolderDocIds(folderName: "adr" | "charts"): string[] {
             return `developer/${folderName}/${normalizedDocStem}`;
         })
         .sort((leftId, rightId) => leftId.localeCompare(rightId));
+}
+
+/**
+ * Read a frontmatter scalar value with optional surrounding quotes.
+ *
+ * @param markdownContent - Raw markdown file content.
+ * @param fieldName - Frontmatter field to read.
+ *
+ * @returns Parsed frontmatter value when present.
+ */
+function readFrontmatterStringField(
+    markdownContent: string,
+    fieldName: string
+): null | string {
+    const pattern = new RegExp(String.raw`^${fieldName}:\s*(.+)$`, "mu");
+    const match = pattern.exec(markdownContent);
+
+    if (match === null) {
+        return null;
+    }
+
+    const [, rawValue] = match;
+
+    if (rawValue === undefined) {
+        return null;
+    }
+
+    return rawValue.trim().replace(/^(["'])(.*)\1$/u, "$2");
 }
 
 const developerAdrDocIds = getDeveloperSubfolderDocIds("adr");
@@ -245,14 +245,14 @@ const sidebars = {
         {
             className: "sb-cat-developer-adr",
             collapsed: true,
+            collapsible: true,
             customProps: {
                 badge: "adr",
             },
-            items: developerAdrDocIds,
-            label: `🧭 Architecture Decisions (${developerAdrDocIds.length})`,
-            collapsible: true,
             description:
                 "Architectural decisions and design rationale for eslint-plugin-sdl-2.",
+            items: developerAdrDocIds,
+            label: `🧭 Architecture Decisions (${developerAdrDocIds.length})`,
             link: {
                 id: "developer/adr/index",
                 type: "doc",
@@ -262,14 +262,14 @@ const sidebars = {
         {
             className: "sb-cat-dev-charts",
             collapsed: true,
+            collapsible: true,
             customProps: {
                 badge: "charts",
             },
-            items: developerChartDocIds,
-            label: `📊 Charts (${developerChartDocIds.length})`,
-            collapsible: true,
             description:
                 "Visual aids for understanding plugin architecture, processes, and policies.",
+            items: developerChartDocIds,
+            label: `📊 Charts (${developerChartDocIds.length})`,
             link: {
                 id: "developer/charts/index",
                 type: "doc",
@@ -280,11 +280,11 @@ const sidebars = {
             className: "sb-cat-api-types",
             collapsed: true,
             collapsible: true,
-            description:
-                "Type-level contracts and shared type aliases exposed by the plugin.",
             customProps: {
                 badge: "types",
             },
+            description:
+                "Type-level contracts and shared type aliases exposed by the plugin.",
             items: [
                 {
                     dirName: "developer/api/plugin/type-aliases",
@@ -304,11 +304,11 @@ const sidebars = {
             className: "sb-cat-api-runtime",
             collapsed: true,
             collapsible: true,
-            description:
-                "Runtime API references for rule authoring and plugin extension.",
             customProps: {
                 badge: "runtime",
             },
+            description:
+                "Runtime API references for rule authoring and plugin extension.",
             items: [
                 {
                     collapsed: true,
@@ -371,17 +371,17 @@ const sidebars = {
                 },
                 {
                     href: repositoryBaseUrl,
-                    label: "\ue709 GitHub repository",
+                    label: "\u{E709} GitHub repository",
                     type: "link",
                 },
                 {
                     href: "https://www.npmjs.com/package/eslint-plugin-sdl-2",
-                    label: "\ue616 npm package",
+                    label: "\u{E616} npm package",
                     type: "link",
                 },
                 {
                     href: `${repositoryBaseUrl}/releases`,
-                    label: "\ueb09 Releases",
+                    label: "\u{EB09} Releases",
                     type: "link",
                 },
                 {
@@ -391,7 +391,7 @@ const sidebars = {
                 },
                 {
                     href: `${repositoryBaseUrl}/blob/main/CONTRIBUTING.md`,
-                    label: "\uf0c0 Contributing guide",
+                    label: "\u{F0C0} Contributing guide",
                     type: "link",
                 },
                 {

@@ -29,20 +29,18 @@ const isSecuritySensitiveExpression = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            TSNonNullExpression(node: TSESTree.TSNonNullExpression) {
-                if (!isSecuritySensitiveExpression(node.expression)) {
-                    return;
-                }
+    create: (context) => ({
+        TSNonNullExpression(node: TSESTree.TSNonNullExpression) {
+            if (!isSecuritySensitiveExpression(node.expression)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-        };
-    },
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

@@ -43,7 +43,7 @@ describe("rule reporting policy contract", () => {
                 sourceText.includes("createRule(") ||
                     sourceText.includes("createRule<"),
                 `Rule '${fileName}' must be declared through createRule(...)`
-            ).toBeTruthy();
+            ).toBe(true);
 
             expect(
                 sourceText,
@@ -57,12 +57,12 @@ describe("rule reporting policy contract", () => {
             expect(
                 !hasDefaultOptions || metaIndex !== -1,
                 `Rule '${fileName}' must declare meta before defaultOptions`
-            ).toBeTruthy();
+            ).toBe(true);
 
             expect(
                 !hasDefaultOptions || defaultOptionsIndex > metaIndex,
                 `Rule '${fileName}' must declare defaultOptions only inside meta.defaultOptions`
-            ).toBeTruthy();
+            ).toBe(true);
         }
     });
 });

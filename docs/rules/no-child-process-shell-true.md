@@ -4,7 +4,7 @@ Disallow Node child process options that enable `shell: true`.
 
 ## Targeted pattern scope
 
-Node child\_process execution options that enable `shell: true`.
+Node child_process execution options that enable `shell: true`.
 
 ## What this rule reports
 

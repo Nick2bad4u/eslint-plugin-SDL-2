@@ -2,6 +2,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { arrayIncludes } from "ts-extras";
 
 import { getFullTypeChecker } from "../_internal/ast-utils.js";
 import { createRule } from "../_internal/create-rule.js";
@@ -14,9 +15,14 @@ import { isLikelyScriptElement } from "../_internal/script-element.js";
 type MessageIds = "default";
 
 const isScriptTextPropertyName = (propertyName: string | undefined): boolean =>
-    propertyName === "innerText" ||
-    propertyName === "text" ||
-    propertyName === "textContent";
+    arrayIncludes(
+        [
+            "innerText",
+            "text",
+            "textContent",
+        ],
+        propertyName ?? ""
+    );
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({

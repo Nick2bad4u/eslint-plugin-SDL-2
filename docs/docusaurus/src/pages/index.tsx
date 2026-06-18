@@ -1,65 +1,65 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import Layout from "@theme/Layout";
 import Heading from "@theme/Heading";
-import GitHubStats from "../components/GitHubStats";
+import Layout from "@theme/Layout";
 
+import GitHubStats from "../components/GitHubStats";
 import styles from "./index.module.css";
 
-type HeroBadge = {
+interface HeroBadge {
     readonly description: string;
     readonly icon: string;
     readonly label: string;
-};
+}
 
-type HeroStat = {
+interface HeroStat {
     readonly description: string;
     readonly headline: string;
     readonly toneClassName:
         | "heroStatAnalysis"
         | "heroStatDesign"
         | "heroStatMaintenance";
-};
+}
 
-type LifecycleStep = {
-    readonly className:
-        | "phaseAnalysis"
-        | "phasePlanning"
-        | "phaseDesign"
-        | "phaseDevelopment"
-        | "phaseTesting"
-        | "phaseMaintenance";
-    readonly label: string;
-};
-
-type HomeCard = {
+interface HomeCard {
     readonly description: string;
     readonly icon: string;
     readonly title: string;
     readonly to: string;
     readonly toneClassName:
-        | "cardTonePlanning"
         | "cardToneDevelopment"
-        | "cardToneMaintenance";
-};
+        | "cardToneMaintenance"
+        | "cardTonePlanning";
+}
+
+interface LifecycleStep {
+    readonly className:
+        | "phaseAnalysis"
+        | "phaseDesign"
+        | "phaseDevelopment"
+        | "phaseMaintenance"
+        | "phasePlanning"
+        | "phaseTesting";
+    readonly label: string;
+}
 
 const heroBadges: readonly HeroBadge[] = [
     {
         description:
             "The docs theme mirrors the six-stage wheel in the project logo, from analysis through maintenance.",
-        icon: "\uf0ad",
+        icon: "\u{F0AD}",
         label: "SDL lifecycle aligned",
     },
     {
         description:
             "Coverage spans browser, Node, Electron, Angular, AngularJS, and Trusted Types surfaces.",
-        icon: "\uf135",
+        icon: "\u{F135}",
         label: "Cross-stack security coverage",
     },
     {
         description:
             "Presets, remediation docs, and safe suggestions help teams roll rules out incrementally.",
-        icon: "\ue73d",
+        icon: "\u{E73D}",
         label: "Practical adoption path",
     },
 ];
@@ -94,16 +94,16 @@ const lifecycleSteps: readonly LifecycleStep[] = [
     { className: "phaseMaintenance", label: "6 · Maintenance" },
 ];
 
-const overviewButtonIcon = "\udb81\udf1d";
-const comparePresetsButtonIcon = "\udb85\udc92";
-const heroKickerIcon = "\uf0ad";
-const heroKickerIcon2 = "\uf135";
+const overviewButtonIcon = "\u{F071D}";
+const comparePresetsButtonIcon = "\u{F1492}";
+const heroKickerIcon = "\u{F0AD}";
+const heroKickerIcon2 = "\u{F135}";
 
 const homeCards: readonly HomeCard[] = [
     {
         description:
             "Install the plugin, enable a preset, and start with the SDL overview and first security checks.",
-        icon: "\uf135",
+        icon: "\u{F135}",
         title: "Get Started",
         to: "/docs/rules/getting-started",
         toneClassName: "cardTonePlanning",
@@ -111,7 +111,7 @@ const homeCards: readonly HomeCard[] = [
     {
         description:
             "Adopt common rules first, then layer framework and runtime-specific protections where they apply.",
-        icon: "\ue690",
+        icon: "\u{E690}",
         title: "Presets",
         to: "/docs/rules/presets",
         toneClassName: "cardToneDevelopment",
@@ -119,7 +119,7 @@ const homeCards: readonly HomeCard[] = [
     {
         description:
             "Browse every SDL rule with focused examples, rationale, and remediation guidance.",
-        icon: "\uf02d",
+        icon: "\u{F02D}",
         title: "Rule Reference",
         to: "/docs/rules/overview",
         toneClassName: "cardToneMaintenance",
@@ -132,8 +132,8 @@ export default function Home() {
 
     return (
         <Layout
-            title="eslint-plugin-sdl-2 docs"
             description="Security-focused documentation for eslint-plugin-sdl-2"
+            title="eslint-plugin-sdl-2 docs"
         >
             <header className={styles.heroBanner}>
                 <div className={`container ${styles.heroContent}`}>
@@ -155,8 +155,8 @@ export default function Home() {
                             <div className={styles.heroBadgeRow}>
                                 {heroBadges.map((badge) => (
                                     <article
-                                        key={badge.label}
                                         className={styles.heroBadge}
+                                        key={badge.label}
                                     >
                                         <p className={styles.heroBadgeLabel}>
                                             <span
@@ -198,8 +198,8 @@ export default function Home() {
                             <div className={styles.heroStats}>
                                 {heroStats.map((stat) => (
                                     <article
-                                        key={stat.headline}
                                         className={`${styles.heroStatCard} ${styles[stat.toneClassName]}`}
+                                        key={stat.headline}
                                     >
                                         <p className={styles.heroStatHeading}>
                                             {stat.headline}
@@ -242,8 +242,8 @@ export default function Home() {
                                 <ul className={styles.phaseList}>
                                     {lifecycleSteps.map((step) => (
                                         <li
-                                            key={step.label}
                                             className={`${styles.phaseChip} ${styles[step.className]}`}
+                                            key={step.label}
                                         >
                                             {step.label}
                                         </li>
@@ -261,8 +261,8 @@ export default function Home() {
                         <div className={styles.cardGrid}>
                             {homeCards.map((card) => (
                                 <article
-                                    key={card.title}
                                     className={`${styles.card} ${styles[card.toneClassName]}`}
+                                    key={card.title}
                                 >
                                     <div className={styles.cardHeader}>
                                         <p className={styles.cardIcon}>

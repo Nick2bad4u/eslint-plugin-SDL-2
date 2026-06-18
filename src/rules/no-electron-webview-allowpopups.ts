@@ -60,37 +60,33 @@ const isTruthyJsxAttributeValue = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
-                if (!isJsxWebviewElement(node)) {
-                    return;
+    create: (context) => ({
+        JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
+            if (!isJsxWebviewElement(node)) {
+                return;
+            }
+
+            for (const attributeNode of node.attributes) {
+                if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
+                    continue;
                 }
 
-                for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
-                        continue;
-                    }
-
-                    if (getJsxAttributeName(attributeNode) !== "allowpopups") {
-                        continue;
-                    }
-
-                    if (!isTruthyJsxAttributeValue(attributeNode.value)) {
-                        continue;
-                    }
-
-                    context.report({
-                        fix(fixer) {
-                            return fixer.remove(attributeNode);
-                        },
-                        messageId: "default",
-                        node: attributeNode,
-                    });
+                if (getJsxAttributeName(attributeNode) !== "allowpopups") {
+                    continue;
                 }
-            },
-        };
-    },
+
+                if (!isTruthyJsxAttributeValue(attributeNode.value)) {
+                    continue;
+                }
+
+                context.report({
+                    fix: (fixer) => fixer.remove(attributeNode),
+                    messageId: "default",
+                    node: attributeNode,
+                });
+            }
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

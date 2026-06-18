@@ -50,12 +50,11 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     node: targetOrigin,
                     suggest: [
                         {
-                            fix(fixer) {
-                                return fixer.replaceText(
+                            fix: (fixer) =>
+                                fixer.replaceText(
                                     targetOrigin,
                                     "location.origin"
-                                );
-                            },
+                                ),
                             messageId: "replaceWithExplicitOrigin",
                         },
                     ],

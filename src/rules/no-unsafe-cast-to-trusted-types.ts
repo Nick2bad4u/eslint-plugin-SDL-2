@@ -69,38 +69,36 @@ const isKnownTrustedFactoryCall = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            TSAsExpression(node: TSESTree.TSAsExpression) {
-                if (!isTrustedTypeNode(node.typeAnnotation)) {
-                    return;
-                }
+    create: (context) => ({
+        TSAsExpression(node: TSESTree.TSAsExpression) {
+            if (!isTrustedTypeNode(node.typeAnnotation)) {
+                return;
+            }
 
-                if (isKnownTrustedFactoryCall(node.expression)) {
-                    return;
-                }
+            if (isKnownTrustedFactoryCall(node.expression)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-            TSTypeAssertion(node: TSESTree.TSTypeAssertion) {
-                if (!isTrustedTypeNode(node.typeAnnotation)) {
-                    return;
-                }
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+        TSTypeAssertion(node: TSESTree.TSTypeAssertion) {
+            if (!isTrustedTypeNode(node.typeAnnotation)) {
+                return;
+            }
 
-                if (isKnownTrustedFactoryCall(node.expression)) {
-                    return;
-                }
+            if (isKnownTrustedFactoryCall(node.expression)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-        };
-    },
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

@@ -2,7 +2,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { isDefined, setHas } from "ts-extras";
+import { arrayIncludes, isDefined, setHas } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
 import {
@@ -17,6 +17,12 @@ import {
 
 type LegacyTlsPropertyName = "maxVersion" | "minVersion" | "secureProtocol";
 type MessageIds = "default";
+
+const LEGACY_TLS_PROPERTY_NAMES = [
+    "maxVersion",
+    "minVersion",
+    "secureProtocol",
+] as const satisfies readonly LegacyTlsPropertyName[];
 
 const LEGACY_TLS_VERSION_VALUES = new Set([
     "TLSv1",
@@ -48,11 +54,7 @@ const getLegacyTlsPropertyName = (
 ): LegacyTlsPropertyName | undefined => {
     const propertyName = getPropertyName(propertyNode);
 
-    if (
-        propertyName === "maxVersion" ||
-        propertyName === "minVersion" ||
-        propertyName === "secureProtocol"
-    ) {
+    if (arrayIncludes(LEGACY_TLS_PROPERTY_NAMES, propertyName)) {
         return propertyName;
     }
 
@@ -69,82 +71,80 @@ const isTlsDefaultVersionMember = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            AssignmentExpression(node: TSESTree.AssignmentExpression) {
+    create: (context) => ({
+        AssignmentExpression(node: TSESTree.AssignmentExpression) {
+            if (
+                node.operator !== "=" ||
+                !isTlsDefaultVersionMember(node.left)
+            ) {
+                return;
+            }
+
+            const configuredValue = getStaticStringValue(node.right);
+
+            if (
+                typeof configuredValue !== "string" ||
+                !setHas(LEGACY_TLS_VERSION_VALUES, configuredValue)
+            ) {
+                return;
+            }
+
+            context.report({
+                data: {
+                    configuredValue,
+                    propertyName:
+                        getMemberPropertyName(node.left) ??
+                        "DEFAULT_MIN_VERSION",
+                },
+                messageId: "default",
+                node: node.right,
+            });
+        },
+        ObjectExpression(node: TSESTree.ObjectExpression) {
+            if (!isRelevantNodeTlsOptionsObject(node)) {
+                return;
+            }
+
+            for (const propertyNode of node.properties) {
                 if (
-                    node.operator !== "=" ||
-                    !isTlsDefaultVersionMember(node.left)
+                    propertyNode.type !== AST_NODE_TYPES.Property ||
+                    propertyNode.kind !== "init"
                 ) {
-                    return;
+                    continue;
                 }
 
-                const configuredValue = getStaticStringValue(node.right);
+                if (!isExpressionNode(propertyNode.value)) {
+                    continue;
+                }
+
+                const propertyName = getLegacyTlsPropertyName(propertyNode);
+
+                if (!isDefined(propertyName)) {
+                    continue;
+                }
+
+                const configuredValue = getStaticStringValue(
+                    propertyNode.value
+                );
 
                 if (
                     typeof configuredValue !== "string" ||
-                    !setHas(LEGACY_TLS_VERSION_VALUES, configuredValue)
+                    !isLegacyTlsPropertyValue(propertyName, configuredValue)
                 ) {
-                    return;
+                    continue;
                 }
 
                 context.report({
                     data: {
                         configuredValue,
-                        propertyName:
-                            getMemberPropertyName(node.left) ??
-                            "DEFAULT_MIN_VERSION",
+                        propertyName,
                     },
                     messageId: "default",
-                    node: node.right,
+                    node: propertyNode.value,
                 });
-            },
-            ObjectExpression(node: TSESTree.ObjectExpression) {
-                if (!isRelevantNodeTlsOptionsObject(node)) {
-                    return;
-                }
-
-                for (const propertyNode of node.properties) {
-                    if (
-                        propertyNode.type !== AST_NODE_TYPES.Property ||
-                        propertyNode.kind !== "init"
-                    ) {
-                        continue;
-                    }
-
-                    if (!isExpressionNode(propertyNode.value)) {
-                        continue;
-                    }
-
-                    const propertyName = getLegacyTlsPropertyName(propertyNode);
-
-                    if (!isDefined(propertyName)) {
-                        continue;
-                    }
-
-                    const configuredValue = getStaticStringValue(
-                        propertyNode.value
-                    );
-
-                    if (
-                        typeof configuredValue !== "string" ||
-                        !isLegacyTlsPropertyValue(propertyName, configuredValue)
-                    ) {
-                        continue;
-                    }
-
-                    context.report({
-                        data: {
-                            configuredValue,
-                            propertyName,
-                        },
-                        messageId: "default",
-                        node: propertyNode.value,
-                    });
-                }
-            },
-        };
-    },
+            }
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

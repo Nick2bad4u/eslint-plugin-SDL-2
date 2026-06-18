@@ -28,75 +28,73 @@ const isSecurityLevelZeroCipherString = (value: string): boolean =>
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            AssignmentExpression(node: TSESTree.AssignmentExpression) {
+    create: (context) => ({
+        AssignmentExpression(node: TSESTree.AssignmentExpression) {
+            if (
+                node.operator !== "=" ||
+                !isNodeTlsStaticMember(
+                    node.left,
+                    TLS_DEFAULT_CIPHERS_PROPERTY_NAMES
+                )
+            ) {
+                return;
+            }
+
+            const configuredValue = getStaticStringValue(node.right);
+
+            if (
+                typeof configuredValue !== "string" ||
+                !isSecurityLevelZeroCipherString(configuredValue)
+            ) {
+                return;
+            }
+
+            context.report({
+                data: {
+                    configuredValue,
+                    propertyName: "DEFAULT_CIPHERS",
+                },
+                messageId: "default",
+                node: node.right,
+            });
+        },
+        ObjectExpression(node: TSESTree.ObjectExpression) {
+            if (!isRelevantNodeTlsOptionsObject(node)) {
+                return;
+            }
+
+            for (const propertyNode of node.properties) {
                 if (
-                    node.operator !== "=" ||
-                    !isNodeTlsStaticMember(
-                        node.left,
-                        TLS_DEFAULT_CIPHERS_PROPERTY_NAMES
-                    )
+                    propertyNode.type !== AST_NODE_TYPES.Property ||
+                    propertyNode.kind !== "init" ||
+                    getPropertyName(propertyNode) !== "ciphers" ||
+                    !isExpressionNode(propertyNode.value)
                 ) {
-                    return;
+                    continue;
                 }
 
-                const configuredValue = getStaticStringValue(node.right);
+                const configuredValue = getStaticStringValue(
+                    propertyNode.value
+                );
 
                 if (
                     typeof configuredValue !== "string" ||
                     !isSecurityLevelZeroCipherString(configuredValue)
                 ) {
-                    return;
+                    continue;
                 }
 
                 context.report({
                     data: {
                         configuredValue,
-                        propertyName: "DEFAULT_CIPHERS",
+                        propertyName: "ciphers",
                     },
                     messageId: "default",
-                    node: node.right,
+                    node: propertyNode.value,
                 });
-            },
-            ObjectExpression(node: TSESTree.ObjectExpression) {
-                if (!isRelevantNodeTlsOptionsObject(node)) {
-                    return;
-                }
-
-                for (const propertyNode of node.properties) {
-                    if (
-                        propertyNode.type !== AST_NODE_TYPES.Property ||
-                        propertyNode.kind !== "init" ||
-                        getPropertyName(propertyNode) !== "ciphers" ||
-                        !isExpressionNode(propertyNode.value)
-                    ) {
-                        continue;
-                    }
-
-                    const configuredValue = getStaticStringValue(
-                        propertyNode.value
-                    );
-
-                    if (
-                        typeof configuredValue !== "string" ||
-                        !isSecurityLevelZeroCipherString(configuredValue)
-                    ) {
-                        continue;
-                    }
-
-                    context.report({
-                        data: {
-                            configuredValue,
-                            propertyName: "ciphers",
-                        },
-                        messageId: "default",
-                        node: propertyNode.value,
-                    });
-                }
-            },
-        };
-    },
+            }
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

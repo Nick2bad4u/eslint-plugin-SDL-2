@@ -28,7 +28,7 @@ type NoInsecureUrlOptions = Readonly<{
     varExceptions?: readonly string[];
 }>;
 
-type Options = [NoInsecureUrlOptions];
+type Options = [NoInsecureUrlOptions?];
 
 const asCaseInsensitiveRegex = (pattern: RegExp | string): RegExp => {
     if (pattern instanceof RegExp) {
@@ -40,7 +40,7 @@ const asCaseInsensitiveRegex = (pattern: RegExp | string): RegExp => {
     return new RegExp(pattern, "iu");
 };
 
-const matches = (patterns: readonly RegExp[], value: string): boolean =>
+const hasPatternMatch = (patterns: readonly RegExp[], value: string): boolean =>
     patterns.some((pattern) => pattern.test(value));
 
 const toRegexSources = (patterns: readonly RegExp[]): readonly string[] =>
@@ -54,7 +54,7 @@ const shouldAttemptFix = (
     const targetNode = node.parent ?? node;
     const targetText = context.sourceCode.getText(targetNode);
 
-    return !matches(variableExceptions, targetText);
+    return !hasPatternMatch(variableExceptions, targetText);
 };
 
 const reportInsecureUrl = (
@@ -107,8 +107,8 @@ const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
                 }
 
                 if (
-                    !matches(blocklist, node.value) ||
-                    matches(exceptions, node.value)
+                    !hasPatternMatch(blocklist, node.value) ||
+                    hasPatternMatch(exceptions, node.value)
                 ) {
                     return;
                 }
@@ -129,11 +129,11 @@ const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
 
                 const isRawMatch =
                     shouldAttemptFix(variableExceptions, context, node) &&
-                    matches(blocklist, node.value.raw) &&
-                    !matches(exceptions, node.value.raw);
+                    hasPatternMatch(blocklist, node.value.raw) &&
+                    !hasPatternMatch(exceptions, node.value.raw);
                 const isCookedMatch =
-                    matches(blocklist, node.value.cooked) &&
-                    !matches(exceptions, node.value.cooked);
+                    hasPatternMatch(blocklist, node.value.cooked) &&
+                    !hasPatternMatch(exceptions, node.value.cooked);
 
                 if (!isRawMatch && !isCookedMatch) {
                     return;

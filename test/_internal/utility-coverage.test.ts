@@ -59,9 +59,9 @@ describe("ast-utils", () => {
             },
         };
 
-        expect(hasFullTypeInformation(validContext)).toBeTruthy();
+        expect(hasFullTypeInformation(validContext)).toBe(true);
         expect(getFullTypeChecker(validContext)).toBe(fakeTypeChecker);
-        expect(hasFullTypeInformation({ sourceCode: {} })).toBeFalsy();
+        expect(hasFullTypeInformation({ sourceCode: {} })).toBe(false);
         expect(getFullTypeChecker({ sourceCode: {} })).toBeUndefined();
     });
 
@@ -113,14 +113,10 @@ describe("ast-utils", () => {
             type: "Identifier",
         });
 
-        expect(
-            isDocumentObject(documentIdentifier, {}, undefined)
-        ).toBeTruthy();
-        expect(isDocumentObject(windowDocument, {}, undefined)).toBeTruthy();
-        expect(
-            isDocumentObject(thisWindowDocument, {}, undefined)
-        ).toBeTruthy();
-        expect(isDocumentObject(notDocument, {}, undefined)).toBeFalsy();
+        expect(isDocumentObject(documentIdentifier, {}, undefined)).toBe(true);
+        expect(isDocumentObject(windowDocument, {}, undefined)).toBe(true);
+        expect(isDocumentObject(thisWindowDocument, {}, undefined)).toBe(true);
+        expect(isDocumentObject(notDocument, {}, undefined)).toBe(false);
     });
 });
 
@@ -264,22 +260,22 @@ describe("node-tls-config", () => {
             type: "MemberExpression",
         });
 
-        expect(isNodeTlsObjectExpression(tlsIdentifier)).toBeTruthy();
-        expect(isRelevantNodeTlsCall(createServerCallee)).toBeTruthy();
-        expect(isRelevantNodeTlsConstructor(newAgentCallee)).toBeTruthy();
-        expect(isRelevantNodeTlsOptionsObject(optionsNode)).toBeTruthy();
+        expect(isNodeTlsObjectExpression(tlsIdentifier)).toBe(true);
+        expect(isRelevantNodeTlsCall(createServerCallee)).toBe(true);
+        expect(isRelevantNodeTlsConstructor(newAgentCallee)).toBe(true);
+        expect(isRelevantNodeTlsOptionsObject(optionsNode)).toBe(true);
         expect(
             isNodeTlsStaticMember(assignLeft, new Set(["DEFAULT_MIN_VERSION"]))
-        ).toBeTruthy();
+        ).toBe(true);
     });
 });
 
 describe("worker-code-loading", () => {
     it("recognizes worker-related URL and API patterns", () => {
         expect.hasAssertions();
-        expect(isBlobUrl("blob:https://example.com")).toBeTruthy();
-        expect(isDataUrl("data:text/javascript,alert(1)")).toBeTruthy();
-        expect(isBlobUrl("https://example.com")).toBeFalsy();
+        expect(isBlobUrl("blob:https://example.com")).toBe(true);
+        expect(isDataUrl("data:text/javascript,alert(1)")).toBe(true);
+        expect(isBlobUrl("https://example.com")).toBe(false);
 
         const workerCtor = asType<TSESTree.Identifier>({
             name: "Worker",
@@ -322,13 +318,11 @@ describe("worker-code-loading", () => {
 
         expect(
             isWorkerGlobalObject(asType({ name: "self", type: "Identifier" }))
-        ).toBeTruthy();
-        expect(isWorkerConstructor(workerCtor)).toBeTruthy();
-        expect(isImportScriptsCall(importScriptsCallee)).toBeTruthy();
-        expect(
-            isServiceWorkerContainerAccess(serviceWorkerAccess)
-        ).toBeTruthy();
-        expect(isServiceWorkerRegisterCall(registerCallee)).toBeTruthy();
-        expect(isUrlCreateObjectUrlCall(createObjectUrl)).toBeTruthy();
+        ).toBe(true);
+        expect(isWorkerConstructor(workerCtor)).toBe(true);
+        expect(isImportScriptsCall(importScriptsCallee)).toBe(true);
+        expect(isServiceWorkerContainerAccess(serviceWorkerAccess)).toBe(true);
+        expect(isServiceWorkerRegisterCall(registerCallee)).toBe(true);
+        expect(isUrlCreateObjectUrlCall(createObjectUrl)).toBe(true);
     });
 });

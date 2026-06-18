@@ -2,18 +2,16 @@ import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], "noBypass">({
-    create(context) {
-        return {
-            "CallExpression[arguments.length>0][callee.property.name=/^bypassSecurityTrust(?:html|resourceurl|script|style|url)$/i]"(
-                node
-            ) {
-                context.report({
-                    messageId: "noBypass",
-                    node,
-                });
-            },
-        };
-    },
+    create: (context) => ({
+        "CallExpression[arguments.length>0][callee.property.name=/^bypassSecurityTrust(?:html|resourceurl|script|style|url)$/i]"(
+            node
+        ) {
+            context.report({
+                messageId: "noBypass",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

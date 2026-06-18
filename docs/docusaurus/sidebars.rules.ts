@@ -1,15 +1,7 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
-type RuleGroupDefinition = Readonly<{
-    className: string;
-    description: string;
-    itemClassName: string;
-    label: string;
-    matches: (ruleDocId: string) => boolean;
-}>;
+import { readdirSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 type RuleDocCatalogEntry = Readonly<{
     catalogId: null | string;
@@ -18,11 +10,12 @@ type RuleDocCatalogEntry = Readonly<{
     sidebarLabel: string;
 }>;
 
-type RuleSidebarDocItem = Readonly<{
+type RuleGroupDefinition = Readonly<{
     className: string;
-    id: string;
+    description: string;
+    itemClassName: string;
     label: string;
-    type: "doc";
+    matches: (ruleDocId: string) => boolean;
 }>;
 
 type RuleSidebarCategoryItem = Readonly<{
@@ -33,6 +26,13 @@ type RuleSidebarCategoryItem = Readonly<{
     items: RuleSidebarDocItem[];
     label: string;
     type: "category";
+}>;
+
+type RuleSidebarDocItem = Readonly<{
+    className: string;
+    id: string;
+    label: string;
+    type: "doc";
 }>;
 
 const rulesDocsDirectoryPath = fileURLToPath(
@@ -121,18 +121,6 @@ const ruleGroups: readonly RuleGroupDefinition[] = [
 
 const presetSidebarItems = [
     {
-        className: "sb-doc-preset-common",
-        id: "presets/common",
-        label: "🟢 Common",
-        type: "doc",
-    },
-    {
-        className: "sb-doc-preset-typescript",
-        id: "presets/typescript",
-        label: "🔷 TypeScript",
-        type: "doc",
-    },
-    {
         className: "sb-doc-preset-angular",
         id: "presets/angular",
         label: "🅰️ Angular",
@@ -142,6 +130,18 @@ const presetSidebarItems = [
         className: "sb-doc-preset-angularjs",
         id: "presets/angularjs",
         label: "🧭 AngularJS",
+        type: "doc",
+    },
+    {
+        className: "sb-doc-preset-common",
+        id: "presets/common",
+        label: "🟢 Common",
+        type: "doc",
+    },
+    {
+        className: "sb-doc-preset-electron",
+        id: "presets/electron",
+        label: "⚡ Electron",
         type: "doc",
     },
     {
@@ -157,9 +157,9 @@ const presetSidebarItems = [
         type: "doc",
     },
     {
-        className: "sb-doc-preset-electron",
-        id: "presets/electron",
-        label: "⚡ Electron",
+        className: "sb-doc-preset-recommended",
+        id: "presets/recommended",
+        label: "⭐ Recommended",
         type: "doc",
     },
     {
@@ -169,127 +169,12 @@ const presetSidebarItems = [
         type: "doc",
     },
     {
-        className: "sb-doc-preset-recommended",
-        id: "presets/recommended",
-        label: "⭐ Recommended",
+        className: "sb-doc-preset-typescript",
+        id: "presets/typescript",
+        label: "🔷 TypeScript",
         type: "doc",
     },
 ] as const;
-
-/**
- * Parse `R###` rule catalog id from a rule docs markdown file.
- *
- * @param markdownContent - Raw markdown file content.
- *
- * @returns Rule catalog id when present.
- */
-function getRuleCatalogId(markdownContent: string): null | string {
-    const match = ruleCatalogIdLinePattern.exec(markdownContent);
-
-    if (match === null) {
-        return null;
-    }
-
-    const [, catalogId] = match;
-
-    return catalogId ?? null;
-}
-
-/**
- * Convert an optional `R###` id into numeric sort order.
- *
- * @param catalogId - Rule catalog marker.
- *
- * @returns Numeric sort order or `Infinity` when missing.
- */
-function getRuleCatalogOrder(catalogId: null | string): number {
-    if (catalogId === null) {
-        return Number.POSITIVE_INFINITY;
-    }
-
-    const numericPart = catalogId.replace(/^R/u, "");
-    const parsed = Number.parseInt(numericPart, 10);
-
-    return Number.isNaN(parsed) ? Number.POSITIVE_INFINITY : parsed;
-}
-
-/**
- * Convert one kebab token into a readable word for sidebar labels.
- *
- * @param token - Rule id segment token.
- *
- * @returns Display-safe token label.
- */
-function formatRuleLabelToken(token: string): string {
-    const mappedToken = ruleLabelTokenMap[token];
-
-    if (mappedToken !== undefined) {
-        return mappedToken;
-    }
-
-    if (/^\d+$/u.test(token)) {
-        return token;
-    }
-
-    if (token.length === 0) {
-        return token;
-    }
-
-    return `${token[0]?.toUpperCase() ?? ""}${token.slice(1)}`;
-}
-
-/**
- * Build a concise human-readable label from a `no-*` rule id.
- *
- * @param docId - Rule document id.
- *
- * @returns Formatted readable sidebar label text.
- */
-function getReadableRuleLabel(docId: string): string {
-    const slug = docId.replace(/^no-/u, "");
-
-    return slug
-        .split("-")
-        .filter((token) => token.length > 0)
-        .map((token) => formatRuleLabelToken(token))
-        .join(" ");
-}
-
-/**
- * Return sorted rule docs metadata discovered from `docs/rules/*.md`.
- *
- * @returns Rule entries sorted by catalog id, then doc id.
- */
-function getAllRuleDocEntries(): RuleDocCatalogEntry[] {
-    return readdirSync(rulesDocsDirectoryPath, { withFileTypes: true })
-        .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-        .map((entry) => entry.name.replace(/\.md$/u, ""))
-        .filter((docId) => docId.startsWith("no-"))
-        .map((docId) => {
-            const markdownPath = fileURLToPath(
-                new URL(`../rules/${docId}.md`, import.meta.url)
-            );
-            const markdownContent = readFileSync(markdownPath, "utf8");
-            const catalogId = getRuleCatalogId(markdownContent);
-
-            return {
-                catalogId,
-                catalogOrder: getRuleCatalogOrder(catalogId),
-                docId,
-                sidebarLabel:
-                    catalogId === null
-                        ? getReadableRuleLabel(docId)
-                        : `${catalogId} · ${getReadableRuleLabel(docId)}`,
-            } satisfies RuleDocCatalogEntry;
-        })
-        .sort((leftEntry, rightEntry) => {
-            if (leftEntry.catalogOrder !== rightEntry.catalogOrder) {
-                return leftEntry.catalogOrder - rightEntry.catalogOrder;
-            }
-
-            return leftEntry.docId.localeCompare(rightEntry.docId);
-        });
-}
 
 /**
  * Build grouped sidebar categories from discovered rule entries.
@@ -376,6 +261,121 @@ function buildRuleGroupItems(ruleDocEntries: readonly RuleDocCatalogEntry[]) {
     }
 
     return groupedItems;
+}
+
+/**
+ * Convert one kebab token into a readable word for sidebar labels.
+ *
+ * @param token - Rule id segment token.
+ *
+ * @returns Display-safe token label.
+ */
+function formatRuleLabelToken(token: string): string {
+    const mappedToken = ruleLabelTokenMap[token];
+
+    if (mappedToken !== undefined) {
+        return mappedToken;
+    }
+
+    if (/^\d+$/u.test(token)) {
+        return token;
+    }
+
+    if (token.length === 0) {
+        return token;
+    }
+
+    return `${token.at(0)?.toUpperCase() ?? ""}${token.slice(1)}`;
+}
+
+/**
+ * Return sorted rule docs metadata discovered from `docs/rules/*.md`.
+ *
+ * @returns Rule entries sorted by catalog id, then doc id.
+ */
+function getAllRuleDocEntries(): RuleDocCatalogEntry[] {
+    return readdirSync(rulesDocsDirectoryPath, { withFileTypes: true })
+        .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
+        .map((entry) => entry.name.replace(/\.md$/u, ""))
+        .filter((docId) => docId.startsWith("no-"))
+        .map((docId) => {
+            const markdownPath = fileURLToPath(
+                new URL(`../rules/${docId}.md`, import.meta.url)
+            );
+            const markdownContent = readFileSync(markdownPath, "utf8");
+            const catalogId = getRuleCatalogId(markdownContent);
+
+            return {
+                catalogId,
+                catalogOrder: getRuleCatalogOrder(catalogId),
+                docId,
+                sidebarLabel:
+                    catalogId === null
+                        ? getReadableRuleLabel(docId)
+                        : `${catalogId} · ${getReadableRuleLabel(docId)}`,
+            } satisfies RuleDocCatalogEntry;
+        })
+        .sort((leftEntry, rightEntry) => {
+            if (leftEntry.catalogOrder !== rightEntry.catalogOrder) {
+                return leftEntry.catalogOrder - rightEntry.catalogOrder;
+            }
+
+            return leftEntry.docId.localeCompare(rightEntry.docId);
+        });
+}
+
+/**
+ * Build a concise human-readable label from a `no-*` rule id.
+ *
+ * @param docId - Rule document id.
+ *
+ * @returns Formatted readable sidebar label text.
+ */
+function getReadableRuleLabel(docId: string): string {
+    const slug = docId.replace(/^no-/u, "");
+
+    return slug
+        .split("-")
+        .filter((token) => token.length > 0)
+        .map((token) => formatRuleLabelToken(token))
+        .join(" ");
+}
+
+/**
+ * Parse `R###` rule catalog id from a rule docs markdown file.
+ *
+ * @param markdownContent - Raw markdown file content.
+ *
+ * @returns Rule catalog id when present.
+ */
+function getRuleCatalogId(markdownContent: string): null | string {
+    const match = ruleCatalogIdLinePattern.exec(markdownContent);
+
+    if (match === null) {
+        return null;
+    }
+
+    const [, catalogId] = match;
+
+    return catalogId ?? null;
+}
+
+/**
+ * Convert an optional `R###` id into numeric sort order.
+ *
+ * @param catalogId - Rule catalog marker.
+ *
+ * @returns Numeric sort order or `Infinity` when missing.
+ */
+function getRuleCatalogOrder(catalogId: null | string): number {
+    if (catalogId === null) {
+        return Infinity;
+    }
+
+    const numericPart = catalogId.replace(/^R/u, "");
+    const parsed = Number.parseInt(numericPart, 10);
+
+    return Number.isNaN(parsed) ? Infinity : parsed;
 }
 
 const ruleDocEntries = getAllRuleDocEntries();

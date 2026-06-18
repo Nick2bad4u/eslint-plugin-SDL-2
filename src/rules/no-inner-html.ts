@@ -20,7 +20,7 @@ const rule: ReturnType<typeof createRule> = createRule<
     create(context) {
         const fullTypeChecker = getFullTypeChecker(context);
 
-        const mightBeHTMLElement = (node: TSESTree.Node): boolean => {
+        const isPossibleHtmlElement = (node: TSESTree.Node): boolean => {
             const nodeType = getNodeTypeAsString(
                 fullTypeChecker,
                 node,
@@ -42,7 +42,7 @@ const rule: ReturnType<typeof createRule> = createRule<
                     return;
                 }
 
-                if (!mightBeHTMLElement(node.left.object)) {
+                if (!isPossibleHtmlElement(node.left.object)) {
                     return;
                 }
 
@@ -67,7 +67,7 @@ const rule: ReturnType<typeof createRule> = createRule<
                     return;
                 }
 
-                if (!mightBeHTMLElement(node.object)) {
+                if (!isPossibleHtmlElement(node.object)) {
                     return;
                 }
 

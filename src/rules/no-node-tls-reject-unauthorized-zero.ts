@@ -71,45 +71,43 @@ const isUnsafeOverrideValue = (node: TSESTree.Expression): boolean => {
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            AssignmentExpression(node: TSESTree.AssignmentExpression) {
-                if (node.operator !== "=") {
-                    return;
-                }
+    create: (context) => ({
+        AssignmentExpression(node: TSESTree.AssignmentExpression) {
+            if (node.operator !== "=") {
+                return;
+            }
 
-                if (!isTlsRejectUnauthorizedMember(node.left)) {
-                    return;
-                }
+            if (!isTlsRejectUnauthorizedMember(node.left)) {
+                return;
+            }
 
-                if (!isUnsafeOverrideValue(node.right)) {
-                    return;
-                }
+            if (!isUnsafeOverrideValue(node.right)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                    suggest: [
-                        {
-                            fix(fixer) {
-                                const replacementValue =
-                                    node.right.type ===
-                                    AST_NODE_TYPES.TemplateLiteral
-                                        ? "`1`"
-                                        : "'1'";
+            context.report({
+                messageId: "default",
+                node,
+                suggest: [
+                    {
+                        fix(fixer) {
+                            const replacementValue =
+                                node.right.type ===
+                                AST_NODE_TYPES.TemplateLiteral
+                                    ? "`1`"
+                                    : "'1'";
 
-                                return fixer.replaceText(
-                                    node.right,
-                                    replacementValue
-                                );
-                            },
-                            messageId: "replaceWithTlsRejectUnauthorizedOne",
+                            return fixer.replaceText(
+                                node.right,
+                                replacementValue
+                            );
                         },
-                    ],
-                });
-            },
-        };
-    },
+                        messageId: "replaceWithTlsRejectUnauthorizedOne",
+                    },
+                ],
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

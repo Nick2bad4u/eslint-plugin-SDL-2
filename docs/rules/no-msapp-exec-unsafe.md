@@ -56,4 +56,4 @@ Disable only for legacy Windows Store app code that is isolated and audited.
 
 > **Rule catalog ID:** R022
 
-- [Microsoft documentation: `MSApp.execUnsafeLocalFunction`](https://learn.microsoft.com/en-us/previous-versions/windows/apps/hh780593\(v=win.10\))
+- [Microsoft documentation: `MSApp.execUnsafeLocalFunction`](<https://learn.microsoft.com/en-us/previous-versions/windows/apps/hh780593(v=win.10)>)

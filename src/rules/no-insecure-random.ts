@@ -1,7 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import path from "node:path";
+import * as path from "node:path";
 import { arrayIncludes, isDefined, setHas } from "ts-extras";
 
 import {

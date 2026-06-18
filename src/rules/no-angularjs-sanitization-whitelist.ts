@@ -5,18 +5,16 @@ const rule: ReturnType<typeof createRule> = createRule<
     [],
     "noSanitizationWhitelist"
 >({
-    create(context) {
-        return {
-            "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationWhitelist$/]"(
-                node
-            ) {
-                context.report({
-                    messageId: "noSanitizationWhitelist",
-                    node,
-                });
-            },
-        };
-    },
+    create: (context) => ({
+        "CallExpression[arguments.length>0][callee.object.name='$compileProvider'][callee.property.name=/^(?:aHref|imgSrc)SanitizationWhitelist$/]"(
+            node
+        ) {
+            context.report({
+                messageId: "noSanitizationWhitelist",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

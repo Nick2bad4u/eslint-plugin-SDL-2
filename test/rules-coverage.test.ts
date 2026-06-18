@@ -14,9 +14,9 @@ import {
 
 const ruleTester = createRuleTester();
 
-// ─── no-location-javascript-url ──────────────────────────────────────────────
-// Baseline covers only the AssignmentExpression path with a Literal value.
-// Missing: CallExpression (assign/replace/open), template literal, SpreadElement.
+// ─── no-location-javascript-url ────────────────────────────────────────────── Baseline covers only the
+// AssignmentExpression path with a Literal value. Missing: CallExpression (assign/replace/open), template literal,
+// SpreadElement.
 ruleTester.run(
     "no-location-javascript-url",
     getPluginRule("no-location-javascript-url"),
@@ -389,7 +389,7 @@ ruleTester.run(
                 errors: [{ messageId: "default" }],
                 output: "http.get(`https://api.example.com/status`);",
             },
-            // Https.get with http URL (callee object name "https" is valid)
+            // Https.get with HTTP URL (callee object name "https" is valid)
             {
                 code: "https.get('http://api.example.com/status');",
                 errors: [{ messageId: "default" }],
@@ -405,7 +405,7 @@ ruleTester.run(
             "http.post('http://example.com');",
             // Non-"http"/"https" callee object name
             "myHttp.get('http://example.com');",
-            // Https.request with https URL - not insecure
+            // Https.request with HTTPS URL - not insecure
             "https.request('https://api.example.com/data');",
             // Nested callee (no direct Identifier object) - e.g. require('http').get
             "require('http').get('http://example.com');",
@@ -528,9 +528,8 @@ ruleTester.run(
     }
 );
 
-// ─── no-unsafe-cast-to-trusted-types ─────────────────────────────────────────
-// Baseline covers only TSAsExpression with TrustedHTML.
-// Missing: TSTypeAssertion (angle-bracket), TrustedScript/TrustedScriptURL,
+// ─── no-unsafe-cast-to-trusted-types ───────────────────────────────────────── Baseline covers only TSAsExpression
+// with TrustedHTML. Missing: TSTypeAssertion (angle-bracket), TrustedScript/TrustedScriptURL,
 // factory function validation paths (getExpressionCalleeName branches).
 ruleTester.run(
     "no-unsafe-cast-to-trusted-types",
@@ -605,9 +604,8 @@ ruleTester.run(
     }
 );
 
-// ─── no-insecure-url ─────────────────────────────────────────────────────────
-// Baseline covers Literal string and JSX attribute.
-// Missing: TemplateElement, varExceptions option, custom options, JSX xmlns skip.
+// ─── no-insecure-url ───────────────────────────────────────────────────────── Baseline covers Literal string and JSX
+// attribute. Missing: TemplateElement, varExceptions option, custom options, JSX xmlns skip.
 ruleTester.run("no-insecure-url", getPluginRule("no-insecure-url"), {
     invalid: [
         // TemplateElement with insecure URL (raw match)
@@ -650,10 +648,9 @@ ruleTester.run("no-insecure-url", getPluginRule("no-insecure-url"), {
     ],
 });
 
-// ─── no-trusted-types-policy-pass-through ────────────────────────────────────
-// Baseline covers arrow function pass-through and function expression pass-through.
-// Missing: window.trustedTypes (MemberExpression callee object), block statement return,
-// TSAsExpression wrapped return, non-init property kind, spread property, no second arg.
+// ─── no-trusted-types-policy-pass-through ──────────────────────────────────── Baseline covers arrow function
+// pass-through and function expression pass-through. Missing: window.trustedTypes (MemberExpression callee object),
+// block statement return, TSAsExpression wrapped return, non-init property kind, spread property, no second arg.
 ruleTester.run(
     "no-trusted-types-policy-pass-through",
     getPluginRule("no-trusted-types-policy-pass-through"),
@@ -815,7 +812,7 @@ ruleTester.run(
         valid: [
             // Identifier-based sanitize call (already in baseline)
             "new DOMParser().parseFromString(sanitize(html), 'text/html');",
-            // MemberExpression callee sanitize: obj.sanitize(html) - isSanitizedExpression with MemberExpression
+            // MemberExpression callee sanitize: obj.sanitize(HTML) - isSanitizedExpression with MemberExpression
             "new DOMParser().parseFromString(DOMPurify.sanitize(userHtml), 'text/html');",
             // Obj.purify.sanitize
             "new DOMParser().parseFromString(purify.sanitize(unsafeHtml), 'text/html');",

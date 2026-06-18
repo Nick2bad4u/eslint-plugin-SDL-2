@@ -41,11 +41,11 @@ const isNodeLike = (value: unknown): value is Readonly<TSESTree.Node> =>
 const toNode = (value: unknown): Readonly<TSESTree.Node> | undefined =>
     isNodeLike(value) ? value : undefined;
 
-const someDescendantNode = (
+const hasDescendantNode = (
     node: Readonly<TSESTree.Node>,
-    predicate: (node: Readonly<TSESTree.Node>) => boolean
+    hasMatchingNode: (node: Readonly<TSESTree.Node>) => boolean
 ): boolean => {
-    if (predicate(node)) {
+    if (hasMatchingNode(node)) {
         return true;
     }
 
@@ -60,7 +60,7 @@ const someDescendantNode = (
 
                 if (
                     childNode !== undefined &&
-                    someDescendantNode(childNode, predicate)
+                    hasDescendantNode(childNode, hasMatchingNode)
                 ) {
                     return true;
                 }
@@ -73,7 +73,7 @@ const someDescendantNode = (
 
         if (
             childNode !== undefined &&
-            someDescendantNode(childNode, predicate)
+            hasDescendantNode(childNode, hasMatchingNode)
         ) {
             return true;
         }
@@ -96,7 +96,7 @@ const isStaticPropertyMatch = (
     isIdentifierNamed(memberExpression.object, objectName) &&
     getMemberPropertyName(memberExpression) === propertyName;
 
-const patternContainsProperty = (
+const hasPatternProperty = (
     pattern: Readonly<TSESTree.ObjectPattern>,
     propertyName: string
 ): boolean =>
@@ -108,18 +108,18 @@ const patternContainsProperty = (
         return getPropertyName(propertyNode) === propertyName;
     });
 
-const containsObjectDestructureFromIdentifier = (
+const hasObjectDestructureFromIdentifier = (
     rootNode: Readonly<TSESTree.Node>,
     sourceName: string,
     propertyName: string
 ): boolean =>
-    someDescendantNode(rootNode, (node) => {
+    hasDescendantNode(rootNode, (node) => {
         if (node.type === AST_NODE_TYPES.VariableDeclarator) {
             return (
                 node.id.type === AST_NODE_TYPES.ObjectPattern &&
                 node.init !== null &&
                 isIdentifierNamed(node.init, sourceName) &&
-                patternContainsProperty(node.id, propertyName)
+                hasPatternProperty(node.id, propertyName)
             );
         }
 
@@ -130,16 +130,16 @@ const containsObjectDestructureFromIdentifier = (
         return (
             node.left.type === AST_NODE_TYPES.ObjectPattern &&
             isIdentifierNamed(node.right, sourceName) &&
-            patternContainsProperty(node.left, propertyName)
+            hasPatternProperty(node.left, propertyName)
         );
     });
 
-const containsMemberPropertyAccess = (
+const hasMemberPropertyAccess = (
     rootNode: Readonly<TSESTree.Node>,
     objectName: string,
     propertyName: string
 ): boolean =>
-    someDescendantNode(rootNode, (node) =>
+    hasDescendantNode(rootNode, (node) =>
         node.type === AST_NODE_TYPES.MemberExpression
             ? isStaticPropertyMatch(node, objectName, propertyName)
             : false
@@ -157,22 +157,18 @@ const hasObjectPatternProperty = (
         return getPropertyName(propertyNode) === propertyName;
     });
 
-const callbackUsesMessageData = (
+const hasCallbackMessageDataUsage = (
     callbackNode: CallbackFunction,
     eventParameterName: string
 ): boolean =>
-    containsMemberPropertyAccess(
-        callbackNode.body,
-        eventParameterName,
-        "data"
-    ) ||
-    containsObjectDestructureFromIdentifier(
+    hasMemberPropertyAccess(callbackNode.body, eventParameterName, "data") ||
+    hasObjectDestructureFromIdentifier(
         callbackNode.body,
         eventParameterName,
         "data"
     );
 
-const callbackHasOriginValidation = (
+const hasCallbackOriginValidation = (
     callbackNode: CallbackFunction,
     context: RuleContext,
     eventParameterName: string
@@ -180,12 +176,12 @@ const callbackHasOriginValidation = (
     const callbackSourceText = context.sourceCode.getText(callbackNode);
 
     return (
-        containsMemberPropertyAccess(
+        hasMemberPropertyAccess(
             callbackNode.body,
             eventParameterName,
             "origin"
         ) ||
-        containsObjectDestructureFromIdentifier(
+        hasObjectDestructureFromIdentifier(
             callbackNode.body,
             eventParameterName,
             "origin"
@@ -194,15 +190,15 @@ const callbackHasOriginValidation = (
     );
 };
 
-const reportsIdentifierCallback = (
+const shouldReportIdentifierCallback = (
     callbackNode: CallbackFunction,
     context: RuleContext,
     eventParameter: TSESTree.Identifier
 ): boolean =>
-    callbackUsesMessageData(callbackNode, eventParameter.name) &&
-    !callbackHasOriginValidation(callbackNode, context, eventParameter.name);
+    hasCallbackMessageDataUsage(callbackNode, eventParameter.name) &&
+    !hasCallbackOriginValidation(callbackNode, context, eventParameter.name);
 
-const reportsObjectPatternCallback = (
+const shouldReportObjectPatternCallback = (
     callbackNode: CallbackFunction,
     context: RuleContext,
     eventParameter: TSESTree.ObjectPattern
@@ -234,11 +230,15 @@ const shouldReportMessageEventCallback = (
     }
 
     if (firstParameter.type === AST_NODE_TYPES.Identifier) {
-        return reportsIdentifierCallback(callbackNode, context, firstParameter);
+        return shouldReportIdentifierCallback(
+            callbackNode,
+            context,
+            firstParameter
+        );
     }
 
     if (firstParameter.type === AST_NODE_TYPES.ObjectPattern) {
-        return reportsObjectPatternCallback(
+        return shouldReportObjectPatternCallback(
             callbackNode,
             context,
             firstParameter

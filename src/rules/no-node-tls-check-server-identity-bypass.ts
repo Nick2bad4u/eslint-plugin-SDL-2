@@ -76,54 +76,49 @@ const isAlwaysSuccessfulCheckServerIdentity = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            AssignmentExpression(node: TSESTree.AssignmentExpression) {
+    create: (context) => ({
+        AssignmentExpression(node: TSESTree.AssignmentExpression) {
+            if (
+                node.operator !== "=" ||
+                !isNodeTlsStaticMember(
+                    node.left,
+                    CHECK_SERVER_IDENTITY_PROPERTY_NAMES
+                ) ||
+                !isFunctionExpression(node.right) ||
+                !isAlwaysSuccessfulCheckServerIdentity(node.right)
+            ) {
+                return;
+            }
+
+            context.report({
+                messageId: "default",
+                node: node.right,
+            });
+        },
+        ObjectExpression(node: TSESTree.ObjectExpression) {
+            if (!isRelevantNodeTlsOptionsObject(node)) {
+                return;
+            }
+
+            for (const propertyNode of node.properties) {
                 if (
-                    node.operator !== "=" ||
-                    !isNodeTlsStaticMember(
-                        node.left,
-                        CHECK_SERVER_IDENTITY_PROPERTY_NAMES
-                    ) ||
-                    !isFunctionExpression(node.right) ||
-                    !isAlwaysSuccessfulCheckServerIdentity(node.right)
+                    propertyNode.type !== AST_NODE_TYPES.Property ||
+                    propertyNode.kind !== "init" ||
+                    getPropertyName(propertyNode) !== "checkServerIdentity" ||
+                    !isExpressionNode(propertyNode.value) ||
+                    !isFunctionExpression(propertyNode.value) ||
+                    !isAlwaysSuccessfulCheckServerIdentity(propertyNode.value)
                 ) {
-                    return;
+                    continue;
                 }
 
                 context.report({
                     messageId: "default",
-                    node: node.right,
+                    node: propertyNode.value,
                 });
-            },
-            ObjectExpression(node: TSESTree.ObjectExpression) {
-                if (!isRelevantNodeTlsOptionsObject(node)) {
-                    return;
-                }
-
-                for (const propertyNode of node.properties) {
-                    if (
-                        propertyNode.type !== AST_NODE_TYPES.Property ||
-                        propertyNode.kind !== "init" ||
-                        getPropertyName(propertyNode) !==
-                            "checkServerIdentity" ||
-                        !isExpressionNode(propertyNode.value) ||
-                        !isFunctionExpression(propertyNode.value) ||
-                        !isAlwaysSuccessfulCheckServerIdentity(
-                            propertyNode.value
-                        )
-                    ) {
-                        continue;
-                    }
-
-                    context.report({
-                        messageId: "default",
-                        node: propertyNode.value,
-                    });
-                }
-            },
-        };
-    },
+            }
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

@@ -2,15 +2,15 @@ import Link from "@docusaurus/Link";
 
 import styles from "./GitHubStats.module.css";
 
-type GitHubBadge = {
+interface GitHubBadge {
     readonly alt: string;
     readonly href: string;
     readonly src: string;
-};
+}
 
-type GitHubStatsProps = {
+interface GitHubStatsProps {
     readonly className?: string;
-};
+}
 
 const liveBadges: readonly GitHubBadge[] = [
     {
@@ -61,21 +61,21 @@ export default function GitHubStats({ className = "" }: GitHubStatsProps) {
         <ul className={badgeListClassName}>
             {liveBadges.map((badge) => (
                 <li
-                    key={badge.src}
                     className={styles["liveBadgeListItem"] ?? ""}
+                    key={badge.src}
                 >
                     <Link
                         className={styles["liveBadgeAnchor"] ?? ""}
                         href={badge.href}
-                        target="_blank"
                         rel="noopener noreferrer"
+                        target="_blank"
                     >
                         <img
                             alt={badge.alt}
                             className={styles["liveBadgeImage"] ?? ""}
-                            src={badge.src}
-                            loading="lazy"
                             decoding="async"
+                            loading="lazy"
+                            src={badge.src}
                         />
                     </Link>
                 </li>

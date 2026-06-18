@@ -2,18 +2,16 @@ import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], "default">({
-    create(context) {
-        return {
-            "CallExpression[arguments.length=1][callee.object.name='MSApp'][callee.property.name='execUnsafeLocalFunction']"(
-                node
-            ) {
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-        };
-    },
+    create: (context) => ({
+        "CallExpression[arguments.length=1][callee.object.name='MSApp'][callee.property.name='execUnsafeLocalFunction']"(
+            node
+        ) {
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

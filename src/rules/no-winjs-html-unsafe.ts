@@ -2,18 +2,16 @@ import { createRule } from "../_internal/create-rule.js";
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], "default">({
-    create(context) {
-        return {
-            "CallExpression[callee.object.object.name='WinJS'][callee.object.property.name='Utilities'][callee.property.name=/^(?:insertAdjacent|setInner|setOuter)HTMLUnsafe$/]"(
-                node
-            ) {
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-        };
-    },
+    create: (context) => ({
+        "CallExpression[callee.object.object.name='WinJS'][callee.object.property.name='Utilities'][callee.property.name=/^(?:insertAdjacent|setInner|setOuter)HTMLUnsafe$/]"(
+            node
+        ) {
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

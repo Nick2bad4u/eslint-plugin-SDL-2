@@ -12,44 +12,42 @@ const hasInnerHtmlBindingPattern = (text: string): boolean =>
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            Literal(node: TSESTree.Literal) {
-                if (typeof node.value !== "string") {
-                    return;
-                }
+    create: (context) => ({
+        Literal(node: TSESTree.Literal) {
+            if (typeof node.value !== "string") {
+                return;
+            }
 
-                if (!hasInnerHtmlBindingPattern(node.value)) {
-                    return;
-                }
+            if (!hasInnerHtmlBindingPattern(node.value)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-            TemplateLiteral(node: TSESTree.TemplateLiteral) {
-                if (node.expressions.length > 0) {
-                    return;
-                }
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+        TemplateLiteral(node: TSESTree.TemplateLiteral) {
+            if (node.expressions.length > 0) {
+                return;
+            }
 
-                const templateValue = arrayFirst(node.quasis)?.value.cooked;
+            const templateValue = arrayFirst(node.quasis)?.value.cooked;
 
-                if (typeof templateValue !== "string") {
-                    return;
-                }
+            if (typeof templateValue !== "string") {
+                return;
+            }
 
-                if (!hasInnerHtmlBindingPattern(templateValue)) {
-                    return;
-                }
+            if (!hasInnerHtmlBindingPattern(templateValue)) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-        };
-    },
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

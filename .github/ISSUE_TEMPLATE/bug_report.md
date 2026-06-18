@@ -3,8 +3,8 @@ name: Bug report
 about: Report a reproducible bug in eslint-plugin-sdl-2
 title: "Bug: "
 labels:
-    - bug
-    - triage
+ - bug
+ - triage
 assignees: []
 ---
 

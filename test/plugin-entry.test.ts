@@ -21,7 +21,7 @@ describe("sdl plugin entry", () => {
 
         const packageEntryPlugin = (await import("../plugin.mjs")).default;
 
-        expect(Object.isFrozen(packageEntryPlugin)).toBeTruthy();
+        expect(Object.isFrozen(packageEntryPlugin)).toBe(true);
         expect(packageEntryPlugin.meta).toStrictEqual(sdlPlugin.meta);
     });
 
@@ -168,11 +168,11 @@ describe("sdl plugin entry", () => {
             expect(
                 rule.meta?.deprecated,
                 `${ruleName} should define meta.deprecated`
-            ).toBeFalsy();
+            ).toBe(false);
             expect(
                 rule.meta?.docs?.frozen,
                 `${ruleName} should define meta.docs.frozen`
-            ).toBeFalsy();
+            ).toBe(false);
         }
     });
 });

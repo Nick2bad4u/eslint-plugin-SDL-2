@@ -108,12 +108,11 @@ export const createElectronWebPreferencesBooleanListener = (
         }
 
         context.report({
-            fix(fixer) {
-                return fixer.replaceText(
+            fix: (fixer) =>
+                fixer.replaceText(
                     preferenceValueNode,
                     String(!check.disallowedValue)
-                );
-            },
+                ),
             messageId: "default",
             node: preferenceProperty,
         });

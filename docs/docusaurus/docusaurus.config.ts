@@ -1,10 +1,10 @@
-import { themes as prismThemes } from "prism-react-renderer";
-
-import type { Config, PluginModule } from "@docusaurus/types";
 import type { Options as DocsPluginOptions } from "@docusaurus/plugin-content-docs";
 import type * as Preset from "@docusaurus/preset-classic";
+import type { Config, PluginModule } from "@docusaurus/types";
+
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
+import { themes as prismThemes } from "prism-react-renderer";
 
 /** Route base path where docs site is deployed (GitHub Pages project path). */
 const baseUrl = process.env["DOCUSAURUS_BASE_URL"] ?? "/eslint-plugin-SDL-2/";
@@ -20,7 +20,7 @@ const siteDescription =
 /** Social preview image path relative to the static directory. */
 const socialCardImagePath = "img/logo.png";
 /** Absolute social preview image URL. */
-const socialCardImageUrl = new URL(socialCardImagePath, siteUrl).toString();
+const socialCardImageUrl = new URL(socialCardImagePath, siteUrl).href;
 /** Opt-in flag for experimental Docusaurus performance features. */
 const enableExperimentalFaster =
     process.env["DOCUSAURUS_ENABLE_EXPERIMENTAL"] === "true";
@@ -77,57 +77,51 @@ const vscodeLanguageServerTypesEsmEntry = resolveOptionalModule(
  * warnings inside Docusaurus. This plugin only activates when those optional
  * packages are actually installed in the current workspace.
  */
-const suppressKnownWebpackWarningsPlugin: PluginModule = () => {
-    return {
-        configureWebpack() {
-            return {
-                ignoreWarnings: [
-                    /**
-                     * Suppress the known webpack critical-dependency warning
-                     * emitted by the UMD build of vscode-languageserver-types.
-                     *
-                     * We already alias to the ESM entry when available, but
-                     * some transitive resolution paths still surface the UMD
-                     * warning during docs builds. This is third-party noise,
-                     * not a site-level problem.
-                     */
-                    (warning: unknown) => {
-                        const warningRecord = warning as
-                            | Readonly<Record<string, unknown>>
-                            | undefined;
-                        const warningMessage = warningRecord?.["message"];
+const suppressKnownWebpackWarningsPlugin: PluginModule = () => ({
+    configureWebpack() {
+        return {
+            ignoreWarnings: [
+                /**
+                 * Suppress the known webpack critical-dependency warning
+                 * emitted by the UMD build of vscode-languageserver-types.
+                 *
+                 * We already alias to the ESM entry when available, but some
+                 * transitive resolution paths still surface the UMD warning
+                 * during docs builds. This is third-party noise, not a
+                 * site-level problem.
+                 */
+                (warning: unknown) => {
+                    const warningRecord = warning as
+                        | Readonly<Record<string, unknown>>
+                        | undefined;
+                    const warningMessage = warningRecord?.["message"];
 
-                        return (
-                            typeof warningMessage === "string" &&
-                            warningMessage.includes(
-                                "Critical dependency: require function is used in a way in which dependencies cannot be statically extracted"
-                            )
-                        );
-                    },
-                ],
-                resolve: {
-                    alias: {
-                        ...(vscodeCssLanguageServiceEsmEntry === undefined
-                            ? {}
-                            : {
-                                  "vscode-css-languageservice$":
-                                      vscodeCssLanguageServiceEsmEntry,
-                              }),
-                        ...(vscodeLanguageServerTypesEsmEntry === undefined
-                            ? {}
-                            : {
-                                  "vscode-languageserver-types$":
-                                      vscodeLanguageServerTypesEsmEntry,
-                                  "vscode-languageserver-types/lib/umd/main.js$":
-                                      vscodeLanguageServerTypesEsmEntry,
-                              }),
-                    },
+                    return (
+                        typeof warningMessage === "string" &&
+                        warningMessage.includes(
+                            "Critical dependency: require function is used in a way in which dependencies cannot be statically extracted"
+                        )
+                    );
                 },
-            };
-        },
-        name: "suppress-known-webpack-warnings",
-    };
-};
+            ],
+            resolve: {
+                alias: {
+                    ...(vscodeCssLanguageServiceEsmEntry !== undefined && {
+                        "vscode-css-languageservice$":
+                            vscodeCssLanguageServiceEsmEntry,
+                    }),
+                    ...(vscodeLanguageServerTypesEsmEntry !== undefined && {
+                        "vscode-languageserver-types$":
+                            vscodeLanguageServerTypesEsmEntry,
+                        "vscode-languageserver-types/lib/umd/main.js$":
+                            vscodeLanguageServerTypesEsmEntry,
+                    }),
+                },
+            },
+        };
+    },
+    name: "suppress-known-webpack-warnings",
+});
 
 /** Footer copyright HTML used by the site theme config. */
 const footerCopyright =
@@ -144,27 +138,25 @@ const removeHeadAttrFlagKey = [
 
 /** Docusaurus future flags, including optional experimental fast path. */
 const futureConfig = {
-    ...(enableExperimentalFaster
-        ? {
-              faster: {
-                  mdxCrossCompilerCache: true,
-                  rspackBundler: true,
-                  rspackPersistentCache: true,
-                  ssgWorkerThreads: true,
-              },
-          }
-        : {}),
+    ...(enableExperimentalFaster && {
+        faster: {
+            mdxCrossCompilerCache: true,
+            rspackBundler: true,
+            rspackPersistentCache: true,
+            ssgWorkerThreads: true,
+        },
+    }),
     v4: {
+        fasterByDefault: true,
+        mdx1CompatDisabledByDefault: true,
         [removeHeadAttrFlagKey]: true,
+        removeLegacyPostBuildHeadAttribute: true,
+        siteStorageNamespacing: true,
         // NOTE: Enabling cascade layers currently breaks our production CSS output
         // (CssMinimizer parsing errors -> large chunks of CSS dropped), which
         // makes many Infima (--ifm-*) variables undefined across the site.
         // Re-enable only after verifying the build output CSS is valid.
         useCssCascadeLayers: false,
-        siteStorageNamespacing: true,
-        fasterByDefault: true,
-        removeLegacyPostBuildHeadAttribute: true,
-        mdx1CompatDisabledByDefault: true,
     },
 } satisfies Config["future"];
 
@@ -172,11 +164,11 @@ const futureConfig = {
 const config = {
     baseUrl,
     baseUrlIssueBanner: true,
+    clientModules: [modernEnhancementsClientModule],
     deploymentBranch: "gh-pages",
     favicon: "img/favicon.svg",
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: futureConfig,
-    clientModules: [modernEnhancementsClientModule],
     headTags: [
         // Preconnect to GitHub for faster resource loading
         {
@@ -209,10 +201,6 @@ const config = {
             tagName: "script",
         },
     ],
-    storage: {
-        namespace: true,
-        type: "localStorage",
-    },
     i18n: {
         defaultLocale: "en",
         locales: ["en"],
@@ -335,9 +323,9 @@ const config = {
                 docs: {
                     breadcrumbs: true,
                     editUrl: `https://github.com/${organizationName}/${projectName}/blob/main/docs/docusaurus/`,
-                    path: "site-docs",
                     includeCurrentVersion: true,
                     onInlineTags: "ignore",
+                    path: "site-docs",
                     routeBasePath: "docs",
                     showLastUpdateAuthor: true,
                     showLastUpdateTime: true,
@@ -405,6 +393,10 @@ const config = {
         ],
     ],
     projectName,
+    storage: {
+        namespace: true,
+        type: "localStorage",
+    },
     tagline:
         "Security-focused ESLint rules and flat-config presets for SDL-first codebases.",
     themeConfig: {
@@ -413,17 +405,6 @@ const config = {
             disableSwitch: false,
             respectPrefersColorScheme: true,
         },
-        metadata: [
-            {
-                content:
-                    "eslint, eslint-plugin, security, sdl, typescript, linting, static analysis, code quality",
-                name: "keywords",
-            },
-            {
-                content: siteDescription,
-                name: "description",
-            },
-        ],
         footer: {
             copyright: footerCopyright,
             links: [
@@ -452,19 +433,19 @@ const config = {
                     items: [
                         {
                             href: `https://github.com/${organizationName}/${projectName}/releases`,
-                            label: "\ueb09 Releases",
+                            label: "\u{EB09} Releases",
                         },
                         {
                             href: `${deployedDocsRootUrl}eslint-inspector/`,
-                            label: "\ue7d2 ESLint Inspector",
+                            label: "\u{E7D2} ESLint Inspector",
                         },
                         {
                             href: `${deployedDocsRootUrl}stylelint-inspector/`,
-                            label: "\ue7d2 Stylelint Inspector",
+                            label: "\u{E7D2} Stylelint Inspector",
                         },
                         {
                             href: `https://www.npmjs.com/package/${projectName}`,
-                            label: "\uf113 NPM package",
+                            label: "\u{F113} NPM package",
                         },
                     ],
                     title: "📁 Project",
@@ -473,19 +454,19 @@ const config = {
                     items: [
                         {
                             href: `https://github.com/${organizationName}/${projectName}`,
-                            label: "\uea84 GitHub Repository",
+                            label: "\u{EA84} GitHub Repository",
                         },
                         {
                             href: `https://github.com/${organizationName}/${projectName}/issues`,
-                            label: "\uf188 Report Issues",
+                            label: "\u{F188} Report Issues",
                         },
                         {
                             href: `https://www.npmjs.com/package/${projectName}`,
-                            label: "\ue616 NPM",
+                            label: "\u{E616} NPM",
                         },
                         {
                             href: `https://github.com/${organizationName}/${projectName}/blob/main/CONTRIBUTING.md`,
-                            label: "\uf0c0 Contributing",
+                            label: "\u{F0C0} Contributing",
                         },
                     ],
                     title: "⚙️ Support",
@@ -493,24 +474,30 @@ const config = {
             ],
             logo: {
                 alt: "eslint-plugin-SDL-2 logo",
+                height: 60,
                 href: `https://github.com/${organizationName}/${projectName}`,
                 src: "img/logo.svg",
                 width: 60,
-                height: 60,
             },
             style: "dark",
         },
         image: "img/logo.png",
+        metadata: [
+            {
+                content:
+                    "eslint, eslint-plugin, security, sdl, typescript, linting, static analysis, code quality",
+                name: "keywords",
+            },
+            {
+                content: siteDescription,
+                name: "description",
+            },
+        ],
         navbar: {
-            style: "dark",
             hideOnScroll: true,
             items: [
                 {
                     activeBaseRegex: "^/docs/rules/overview/?$",
-                    label: "📚 Docs",
-                    position: "left",
-                    to: "/docs/rules/overview",
-                    type: "dropdown",
                     items: [
                         {
                             label: "• Overview",
@@ -521,13 +508,13 @@ const config = {
                             to: "/docs/rules/getting-started",
                         },
                     ],
+                    label: "📚 Docs",
+                    position: "left",
+                    to: "/docs/rules/overview",
+                    type: "dropdown",
                 },
                 {
                     activeBaseRegex: "^/docs/rules(?:/(?!presets(?:/|$)).*)?$",
-                    label: "📜 Rules",
-                    position: "left",
-                    to: "/docs/rules/no-insecure-url",
-                    type: "dropdown",
                     items: [
                         {
                             label: "• Rule Reference",
@@ -550,13 +537,13 @@ const config = {
                             to: "/docs/rules/no-unsafe-alloc",
                         },
                     ],
+                    label: "📜 Rules",
+                    position: "left",
+                    to: "/docs/rules/no-insecure-url",
+                    type: "dropdown",
                 },
                 {
                     activeBaseRegex: "^/docs/rules/presets(?:/.*)?$",
-                    label: "🛠️ Presets",
-                    position: "left",
-                    to: "/docs/rules/presets",
-                    type: "dropdown",
                     items: [
                         {
                             label: "• Preset Reference",
@@ -599,12 +586,12 @@ const config = {
                             to: "/docs/rules/presets/recommended",
                         },
                     ],
+                    label: "🛠️ Presets",
+                    position: "left",
+                    to: "/docs/rules/presets",
+                    type: "dropdown",
                 },
                 {
-                    label: "\udb80\ude19 Dev",
-                    position: "right",
-                    to: "/docs/developer",
-                    type: "dropdown",
                     items: [
                         {
                             label: "• Development Guide",
@@ -631,12 +618,12 @@ const config = {
                             to: "/docs/category/runtime",
                         },
                     ],
+                    label: "\u{F0219} Dev",
+                    position: "right",
+                    to: "/docs/developer",
+                    type: "dropdown",
                 },
                 {
-                    label: "\ueaa4 Blog",
-                    position: "right",
-                    to: "/blog",
-                    type: "dropdown",
                     items: [
                         {
                             label: "• Latest Posts",
@@ -647,27 +634,31 @@ const config = {
                             to: "/blog/archive",
                         },
                     ],
+                    label: "\u{EAA4} Blog",
+                    position: "right",
+                    to: "/blog",
+                    type: "dropdown",
                 },
                 {
                     href: `https://github.com/${organizationName}/${projectName}`,
-                    label: "\ue65b GitHub",
-                    position: "right",
-                    type: "dropdown",
                     items: [
                         {
                             href: `https://github.com/${organizationName}/${projectName}`,
-                            label: "• \ue709 GitHub",
+                            label: "• \u{E709} GitHub",
                         },
                         {
                             href: `https://www.npmjs.com/package/${projectName}`,
-                            label: "• \ue616 NPM",
+                            label: "• \u{E616} NPM",
                         },
                         {
-                            href: `https://github.com/${organizationName}/${projectName}/releases`,
                             className: "navbar-dropdown-divider-before",
+                            href: `https://github.com/${organizationName}/${projectName}/releases`,
                             label: "• Releases",
                         },
                     ],
+                    label: "\u{E65B} GitHub",
+                    position: "right",
+                    type: "dropdown",
                 },
             ],
             logo: {
@@ -677,15 +668,11 @@ const config = {
                 src: "img/logo.svg",
                 width: 48,
             },
+            style: "dark",
             title: "eslint-plugin-SDL-2",
         },
         prism: {
-            additionalLanguages: [
-                "bash",
-                "json",
-                "yaml",
-                "typescript",
-            ],
+            additionalLanguages: ["bash", "json", "yaml", "typescript"],
             darkTheme: prismThemes.dracula,
             defaultLanguage: "typescript",
             theme: prismThemes.github,

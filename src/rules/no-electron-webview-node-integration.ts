@@ -61,7 +61,7 @@ const isTruthyJsxAttributeValue = (
     return true;
 };
 
-const webPreferencesHasNodeIntegration = (
+const hasNodeIntegrationWebPreference = (
     attributeValue: TSESTree.JSXAttribute["value"]
 ): boolean => {
     if (attributeValue === null) {
@@ -80,54 +80,48 @@ const webPreferencesHasNodeIntegration = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
-                if (!isJsxWebviewElement(node)) {
-                    return;
+    create: (context) => ({
+        JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
+            if (!isJsxWebviewElement(node)) {
+                return;
+            }
+
+            for (const attributeNode of node.attributes) {
+                if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
+                    continue;
                 }
 
-                for (const attributeNode of node.attributes) {
-                    if (attributeNode.type !== AST_NODE_TYPES.JSXAttribute) {
-                        continue;
-                    }
+                const attributeName = getJsxAttributeName(attributeNode);
 
-                    const attributeName = getJsxAttributeName(attributeNode);
-
-                    if (isNodeIntegrationAttribute(attributeName)) {
-                        if (!isTruthyJsxAttributeValue(attributeNode.value)) {
-                            continue;
-                        }
-
-                        context.report({
-                            fix(fixer) {
-                                return fixer.remove(attributeNode);
-                            },
-                            messageId: "default",
-                            node: attributeNode,
-                        });
-
-                        continue;
-                    }
-
-                    if (attributeName !== "webpreferences") {
-                        continue;
-                    }
-
-                    if (
-                        !webPreferencesHasNodeIntegration(attributeNode.value)
-                    ) {
+                if (isNodeIntegrationAttribute(attributeName)) {
+                    if (!isTruthyJsxAttributeValue(attributeNode.value)) {
                         continue;
                     }
 
                     context.report({
+                        fix: (fixer) => fixer.remove(attributeNode),
                         messageId: "default",
                         node: attributeNode,
                     });
+
+                    continue;
                 }
-            },
-        };
-    },
+
+                if (attributeName !== "webpreferences") {
+                    continue;
+                }
+
+                if (!hasNodeIntegrationWebPreference(attributeNode.value)) {
+                    continue;
+                }
+
+                context.report({
+                    messageId: "default",
+                    node: attributeNode,
+                });
+            }
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

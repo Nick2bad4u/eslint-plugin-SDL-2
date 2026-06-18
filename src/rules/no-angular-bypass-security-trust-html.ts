@@ -28,27 +28,24 @@ const getMemberPropertyName = (
 
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
-    create(context) {
-        return {
-            CallExpression(node: TSESTree.CallExpression) {
-                if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
-                    return;
-                }
+    create: (context) => ({
+        CallExpression(node: TSESTree.CallExpression) {
+            if (node.callee.type !== AST_NODE_TYPES.MemberExpression) {
+                return;
+            }
 
-                if (
-                    getMemberPropertyName(node.callee) !==
-                    "bypassSecurityTrustHtml"
-                ) {
-                    return;
-                }
+            if (
+                getMemberPropertyName(node.callee) !== "bypassSecurityTrustHtml"
+            ) {
+                return;
+            }
 
-                context.report({
-                    messageId: "default",
-                    node,
-                });
-            },
-        };
-    },
+            context.report({
+                messageId: "default",
+                node,
+            });
+        },
+    }),
     meta: {
         deprecated: false,
         docs: {

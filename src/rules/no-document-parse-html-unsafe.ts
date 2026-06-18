@@ -1,6 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/utils";
 
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import { arrayIncludes } from "ts-extras";
 
 import { createRule } from "../_internal/create-rule.js";
 import {
@@ -27,9 +28,14 @@ const isDocumentConstructorReference = (
 
     return (
         expression.object.type === AST_NODE_TYPES.Identifier &&
-        (expression.object.name === "globalThis" ||
-            expression.object.name === "self" ||
-            expression.object.name === "window")
+        arrayIncludes(
+            [
+                "globalThis",
+                "self",
+                "window",
+            ],
+            expression.object.name
+        )
     );
 };
 
