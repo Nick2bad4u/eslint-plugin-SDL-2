@@ -61,15 +61,13 @@ const isIpcMainHandlerRegistration = (
 const isFunctionExpression = (
     expression: TSESTree.CallExpressionArgument
 ): expression is
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionExpression =>
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression =>
     expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
     expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const hasSenderValidationPattern = (
     callbackNode:
-        | TSESTree.ArrowFunctionExpression
-        | TSESTree.FunctionExpression,
+        TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
     context: TSESLint.RuleContext<MessageIds, unknown[]>,
     eventParameterName: string
 ): boolean => {

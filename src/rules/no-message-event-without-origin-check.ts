@@ -13,8 +13,7 @@ import {
 } from "../_internal/estree-utils.js";
 
 type CallbackFunction =
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionExpression;
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
 
 type MessageIds = "default";
 type RuleContext = Readonly<TSESLint.RuleContext<MessageIds, unknown[]>>;

@@ -28,6 +28,7 @@ export default [...sdl.configs.common];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | [`no-cookies`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-cookies) | — |
@@ -57,3 +58,4 @@ export default [...sdl.configs.common];
 | [`no-winjs-html-unsafe`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-winjs-html-unsafe) | — |
 | [`no-worker-blob-url`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-blob-url) | — |
 | [`no-worker-data-url`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-data-url) | — |
+<!-- prettier-ignore-end -->

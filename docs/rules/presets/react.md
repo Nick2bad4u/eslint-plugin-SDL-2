@@ -28,6 +28,8 @@ export default [...sdl.configs.react];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | — | — |
+<!-- prettier-ignore-end -->

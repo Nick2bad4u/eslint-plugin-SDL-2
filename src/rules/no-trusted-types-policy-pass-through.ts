@@ -13,8 +13,7 @@ import {
 type MessageIds = "default";
 
 type PolicyFactoryFunction =
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionExpression;
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
 
 const isExpressionNode = (node: TSESTree.Node): node is TSESTree.Expression =>
     node.type !== AST_NODE_TYPES.ArrayPattern &&

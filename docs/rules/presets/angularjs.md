@@ -27,6 +27,7 @@ export default [...sdl.configs.angularjs];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | [`no-angularjs-bypass-sce`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-bypass-sce) | — |
@@ -34,3 +35,4 @@ export default [...sdl.configs.angularjs];
 | [`no-angularjs-ng-bind-html-without-sanitize`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-ng-bind-html-without-sanitize) | — |
 | [`no-angularjs-sanitization-whitelist`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-sanitization-whitelist) | — |
 | [`no-angularjs-sce-resource-url-wildcard`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angularjs-sce-resource-url-wildcard) | — |
+<!-- prettier-ignore-end -->

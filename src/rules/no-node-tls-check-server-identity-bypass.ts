@@ -12,8 +12,7 @@ import {
 } from "../_internal/node-tls-config.js";
 
 type CheckServerIdentityFunction =
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionExpression;
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;
 
 type MessageIds = "default";
 

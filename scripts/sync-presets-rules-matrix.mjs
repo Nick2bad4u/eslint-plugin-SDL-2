@@ -179,16 +179,20 @@ const toPresetRuleRow = (ruleName) => {
 const createPresetRulesTable = (ruleNames) => {
     if (ruleNames.length === 0) {
         return [
+            "<!-- prettier-ignore-start -->",
             "| Rule | Fix |",
             "| --- | :-: |",
             "| — | — |",
+            "<!-- prettier-ignore-end -->",
         ].join("\n");
     }
 
     return [
+        "<!-- prettier-ignore-start -->",
         "| Rule | Fix |",
         "| --- | :-: |",
         ...ruleNames.map(toPresetRuleRow),
+        "<!-- prettier-ignore-end -->",
     ].join("\n");
 };
 

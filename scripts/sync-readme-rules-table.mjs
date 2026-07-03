@@ -255,9 +255,11 @@ export const generateReadmeRulesSectionFromRules = (rules) => {
         ...createPresetLegendLines(),
         "- `⚛️ React` provides JSX parser context and intentionally has no SDL rule rows in this matrix.",
         "",
+        "<!-- prettier-ignore-start -->",
         "| Rule | Fix | Preset key |",
         "| --- | :-: | :-- |",
         ...rows,
+        "<!-- prettier-ignore-end -->",
         "",
     ].join("\n");
 };

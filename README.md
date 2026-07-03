@@ -48,6 +48,7 @@ export default [...sdl.configs.recommended];
   - [⭐](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/recommended) — [`sdl.configs.recommended`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/recommended)
 - `⚛️ React` provides JSX parser context and intentionally has no SDL rule rows in this matrix.
 
+<!-- prettier-ignore-start -->
 | Rule | Fix | Preset key |
 | --- | :-: | :-- |
 | [`no-angular-bypass-sanitizer`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angular-bypass-sanitizer) | — | [🅰️](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/angular) [✅](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/required) [⭐](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/recommended) |
@@ -121,6 +122,7 @@ export default [...sdl.configs.recommended];
 | [`no-winjs-html-unsafe`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-winjs-html-unsafe) | — | [🟢](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/common) [✅](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/required) [⭐](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/recommended) |
 | [`no-worker-blob-url`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-blob-url) | — | [🟢](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/common) [✅](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/required) [⭐](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/recommended) |
 | [`no-worker-data-url`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-data-url) | — | [🟢](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/common) [✅](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/required) [⭐](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/presets/recommended) |
+<!-- prettier-ignore-end -->
 
 ## Development
 

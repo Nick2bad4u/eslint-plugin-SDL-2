@@ -27,8 +27,10 @@ export default [...sdl.configs.typescript];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | [`no-nonnull-assertion-on-security-input`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-nonnull-assertion-on-security-input) | — |
 | [`no-trusted-types-policy-pass-through`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-trusted-types-policy-pass-through) | — |
 | [`no-unsafe-cast-to-trusted-types`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-unsafe-cast-to-trusted-types) | — |
+<!-- prettier-ignore-end -->

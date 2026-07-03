@@ -27,6 +27,7 @@ export default [...sdl.configs.node];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | [`no-child-process-exec`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-child-process-exec) | — |
@@ -41,3 +42,4 @@ export default [...sdl.configs.node];
 | [`no-node-vm-source-text-module`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-vm-source-text-module) | — |
 | [`no-node-worker-threads-eval`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-node-worker-threads-eval) | — |
 | [`no-unsafe-alloc`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-unsafe-alloc) | 🔧 |
+<!-- prettier-ignore-end -->

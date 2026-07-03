@@ -12,8 +12,7 @@ type MessageIds = "default";
 const isFunctionExpression = (
     expression: TSESTree.CallExpressionArgument
 ): expression is
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionExpression =>
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression =>
     expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
     expression.type === AST_NODE_TYPES.FunctionExpression;
 

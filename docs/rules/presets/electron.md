@@ -27,6 +27,7 @@ export default [...sdl.configs.electron];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | [`no-electron-allow-running-insecure-content`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-allow-running-insecure-content) | 🔧 |
@@ -49,3 +50,4 @@ export default [...sdl.configs.electron];
 | [`no-electron-webview-allowpopups`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-webview-allowpopups) | 🔧 |
 | [`no-electron-webview-insecure-webpreferences`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-webview-insecure-webpreferences) | — |
 | [`no-electron-webview-node-integration`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-electron-webview-node-integration) | 🔧 |
+<!-- prettier-ignore-end -->

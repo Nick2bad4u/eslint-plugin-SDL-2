@@ -27,6 +27,7 @@ export default [...sdl.configs.required];
   - `💡` = suggestions available
   - `—` = report only
 
+<!-- prettier-ignore-start -->
 | Rule | Fix |
 | --- | :-: |
 | [`no-angular-bypass-sanitizer`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-angular-bypass-sanitizer) | — |
@@ -97,3 +98,4 @@ export default [...sdl.configs.required];
 | [`no-winjs-html-unsafe`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-winjs-html-unsafe) | — |
 | [`no-worker-blob-url`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-blob-url) | — |
 | [`no-worker-data-url`](https://nick2bad4u.github.io/eslint-plugin-SDL-2/docs/rules/no-worker-data-url) | — |
+<!-- prettier-ignore-end -->

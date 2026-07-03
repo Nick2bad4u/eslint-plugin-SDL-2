@@ -31,15 +31,13 @@ const getMemberPropertyName = (
 const isFunctionExpression = (
     expression: TSESTree.CallExpressionArgument
 ): expression is
-    | TSESTree.ArrowFunctionExpression
-    | TSESTree.FunctionExpression =>
+    TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression =>
     expression.type === AST_NODE_TYPES.ArrowFunctionExpression ||
     expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const hasUnsafeAllowAction = (
     callbackNode:
-        | TSESTree.ArrowFunctionExpression
-        | TSESTree.FunctionExpression,
+        TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
     context: TSESLint.RuleContext<MessageIds, unknown[]>
 ): boolean => {
     const callbackSourceText = context.sourceCode.getText(callbackNode);
@@ -50,8 +48,7 @@ const hasUnsafeAllowAction = (
 
 const hasPreventDefaultCall = (
     callbackNode:
-        | TSESTree.ArrowFunctionExpression
-        | TSESTree.FunctionExpression,
+        TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression,
     context: TSESLint.RuleContext<MessageIds, unknown[]>,
     eventParameterName: string
 ): boolean => {
