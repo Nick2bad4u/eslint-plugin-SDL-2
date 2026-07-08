@@ -867,3 +867,5 @@ eslint-plugin-sdl-main/
 # Ignore generated doc coverage badges
 docs/docusaurus/static/img/coverage.json
 docs/docusaurus/static/img/coverage.svg
+.lychee.report.md
+.lycheecache
