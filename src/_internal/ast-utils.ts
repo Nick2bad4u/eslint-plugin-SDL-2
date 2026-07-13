@@ -81,7 +81,10 @@ export const getFullTypeChecker = (
 /** Resolve the textual type for an ESTree node via parser services. */
 export const getNodeTypeAsString = (
     fullTypeChecker: Readonly<ts.TypeChecker> | undefined,
-    node: null | Readonly<TSESTree.Node> | undefined,
+    node:
+        | null
+        | Readonly<TSESTree.Node>
+        | undefined,
     context: unknown
 ): string => {
     if (!isDefined(fullTypeChecker) || node === null || node === undefined) {

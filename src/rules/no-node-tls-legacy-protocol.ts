@@ -15,7 +15,10 @@ import {
     isRelevantNodeTlsOptionsObject,
 } from "../_internal/node-tls-config.js";
 
-type LegacyTlsPropertyName = "maxVersion" | "minVersion" | "secureProtocol";
+type LegacyTlsPropertyName =
+    | "maxVersion"
+    | "minVersion"
+    | "secureProtocol";
 type MessageIds = "default";
 
 const LEGACY_TLS_PROPERTY_NAMES = [

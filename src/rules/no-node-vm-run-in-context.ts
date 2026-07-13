@@ -11,7 +11,10 @@ import {
 } from "../_internal/estree-utils.js";
 
 type DisallowedVmCallName =
-    "compileFunction" | "runInContext" | "runInNewContext" | "runInThisContext";
+    | "compileFunction"
+    | "runInContext"
+    | "runInNewContext"
+    | "runInThisContext";
 
 type DisallowedVmConstructorName = "Script";
 

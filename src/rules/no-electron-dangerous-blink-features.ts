@@ -95,26 +95,24 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
                     return;
                 }
 
-                const enableBlinkFeaturesProperty = getPropertyByName(
+                const blinkFeaturesProperty = getPropertyByName(
                     webPreferencesProperty.value,
                     "enableBlinkFeatures"
                 );
 
-                if (enableBlinkFeaturesProperty === undefined) {
+                if (blinkFeaturesProperty === undefined) {
                     return;
                 }
 
                 if (
-                    !isDangerousBlinkFeaturesValue(
-                        enableBlinkFeaturesProperty.value
-                    )
+                    !isDangerousBlinkFeaturesValue(blinkFeaturesProperty.value)
                 ) {
                     return;
                 }
 
                 context.report({
                     messageId: "default",
-                    node: enableBlinkFeaturesProperty,
+                    node: blinkFeaturesProperty,
                 });
             },
         };

@@ -112,7 +112,17 @@ const config = [
             "unicorn/no-break-in-nested-loop": "off",
             "unicorn/no-global-object-property-assignment": "off",
             "unicorn/no-immediate-mutation": "off",
+            // A continuous scroll-progress indicator cannot be represented by an observer.
+            "unicorn/prefer-observer-apis": "off",
             "unicorn/prefer-single-call": "off",
+        },
+    },
+    // TypeDoc creates these API targets during the dedicated documentation gate.
+    {
+        files: ["docs/docusaurus/site-docs/developer/index.md"],
+        name: "Generated API Link Validation Boundary",
+        rules: {
+            "remark/remark": "off",
         },
     },
     {

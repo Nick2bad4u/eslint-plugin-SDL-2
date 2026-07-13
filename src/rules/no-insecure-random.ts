@@ -90,11 +90,11 @@ const rule: ReturnType<typeof createRule> = createRule<[], "default">({
                     return;
                 }
 
-                const requireName = path.parse(
+                const requiredModuleName = path.parse(
                     path.basename(sourceArgument.value)
                 ).name;
 
-                if (!isBannedRandomLibrary(requireName)) {
+                if (!isBannedRandomLibrary(requiredModuleName)) {
                     return;
                 }
 

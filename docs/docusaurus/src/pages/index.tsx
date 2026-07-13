@@ -16,7 +16,9 @@ interface HeroStat {
     readonly description: string;
     readonly headline: string;
     readonly toneClassName:
-        "heroStatAnalysis" | "heroStatDesign" | "heroStatMaintenance";
+        | "heroStatAnalysis"
+        | "heroStatDesign"
+        | "heroStatMaintenance";
 }
 
 interface HomeCard {
@@ -25,7 +27,9 @@ interface HomeCard {
     readonly title: string;
     readonly to: string;
     readonly toneClassName:
-        "cardToneDevelopment" | "cardToneMaintenance" | "cardTonePlanning";
+        | "cardToneDevelopment"
+        | "cardToneMaintenance"
+        | "cardTonePlanning";
 }
 
 interface LifecycleStep {

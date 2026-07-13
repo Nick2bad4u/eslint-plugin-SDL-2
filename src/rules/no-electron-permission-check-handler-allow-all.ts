@@ -17,7 +17,10 @@ const isFunctionExpression = (
     expression.type === AST_NODE_TYPES.FunctionExpression;
 
 const isBooleanTrueLiteral = (
-    expression: null | TSESTree.Expression | undefined
+    expression:
+        | null
+        | TSESTree.Expression
+        | undefined
 ): boolean =>
     expression?.type === AST_NODE_TYPES.Literal && expression.value === true;
 
