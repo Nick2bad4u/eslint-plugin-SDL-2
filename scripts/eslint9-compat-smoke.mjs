@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 
 import tsParser from "@typescript-eslint/parser";
 import { ESLint } from "eslint";
-import pc from "picocolors";
 
 const pluginModuleSpecifier =
     process.env["SDL_PLUGIN_SPECIFIER"] ?? "../plugin.mjs";
@@ -195,8 +194,7 @@ const assertEslintMajor = (expectedMajor) => {
     }
 
     console.log(
-        `${pc.green("✓")}` +
-            ` ESLint runtime ${pc.bold(runtimeVersion)} detected for compatibility smoke checks.`
+        `✓ ESLint runtime ${runtimeVersion} detected for compatibility smoke checks.`
     );
 };
 
@@ -362,10 +360,7 @@ const runScenario = async ({
     }
 
     console.log(
-        `${pc.green("✓")}` +
-            ` ${pc.bold(name)} ${pc.gray("->")} ${pc.bold(ruleId)} (${typed ? "typed" : "non-typed"}, fix=${fix}) produced ${pc.magenta(
-                String(matchingMessages.length)
-            )} message(s).`
+        `✓ ${name} -> ${ruleId} (${typed ? "typed" : "non-typed"}, fix=${fix}) produced ${matchingMessages.length} message(s).`
     );
 };
 
@@ -402,7 +397,7 @@ for (const scenario of scenarios) {
     assertFixtureExists(scenario.fixturePath);
 }
 
-console.log(pc.bold(pc.cyan("Running ESLint 9 compatibility smoke checks...")));
+console.log("Running ESLint 9 compatibility smoke checks...");
 
 const expectedEslintMajor = parseExpectedEslintMajor(process.argv.slice(2));
 assertEslintMajor(expectedEslintMajor);
@@ -411,4 +406,4 @@ for (const scenario of scenarios) {
     await runScenario(scenario);
 }
 
-console.log(pc.bold(pc.green("ESLint 9 compatibility smoke checks passed.")));
+console.log("ESLint 9 compatibility smoke checks passed.");
