@@ -390,7 +390,18 @@ jobs:
                   if [ "$ALREADY_PUBLISHED" = "true" ]; then
                     npm pack "${PACKAGE_NAME}@${VERSION}" --json --pack-destination temp/package > temp/npm-pack.json
                   else
+                    package_json_backup=$(mktemp)
+                    cp package.json "$package_json_backup"
+                    restore_package_json() {
+                      cp "$package_json_backup" package.json
+                      rm -f "$package_json_backup"
+                    }
+                    trap restore_package_json EXIT
+                    npm pkg set "gitHead=$(git rev-parse HEAD)"
                     npm pack --json --pack-destination temp/package > temp/npm-pack.json
+                    restore_package_json
+                    trap - EXIT
+                    git diff --exit-code -- package.json package-lock.json
                   fi
                   filename=$(node scripts/read-npm-pack-filename.mjs < temp/npm-pack.json)
                   tarball="${GITHUB_WORKSPACE}/temp/package/${filename}"
@@ -406,6 +417,13 @@ jobs:
                   set -euo pipefail
                   ./node_modules/.bin/publint "$PACKAGE_TARBALL"
                   ./node_modules/.bin/attw "$PACKAGE_TARBALL" --profile strict
+                  packed_git_head=$(tar -xOf "$PACKAGE_TARBALL" package/package.json |
+                    node -e 'let data = ""; process.stdin.setEncoding("utf8"); process.stdin.on("data", chunk => data += chunk); process.stdin.on("end", () => process.stdout.write(JSON.parse(data).gitHead ?? ""));')
+                  release_git_head=$(git rev-parse HEAD)
+                  if [ "$packed_git_head" != "$release_git_head" ]; then
+                    echo "::error::Packed gitHead is '${packed_git_head:-missing}', expected ${release_git_head}."
+                    exit 1
+                  fi
                   tar -tf "$PACKAGE_TARBALL" > temp/package-inventory.txt
                   for required_path in \
                     package/package.json \
