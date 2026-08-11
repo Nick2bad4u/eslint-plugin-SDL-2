@@ -30,37 +30,35 @@ const getMemberPropertyName = (
 const isTruthyLiteral = (node: TSESTree.Property["value"]): boolean =>
     node.type === AST_NODE_TYPES.Literal && node.value === true;
 
+const getPropertyKeyName = (
+    propertyNode: TSESTree.Property
+): string | undefined => {
+    if (propertyNode.key.type === AST_NODE_TYPES.Identifier) {
+        return propertyNode.key.name;
+    }
+
+    if (
+        propertyNode.key.type === AST_NODE_TYPES.Literal &&
+        typeof propertyNode.key.value === "string"
+    ) {
+        return propertyNode.key.value;
+    }
+
+    return undefined;
+};
+
 const hasShellTrueOption = (optionsNode: TSESTree.Expression): boolean => {
     if (optionsNode.type !== AST_NODE_TYPES.ObjectExpression) {
         return false;
     }
 
-    for (const propertyNode of optionsNode.properties) {
-        if (
-            propertyNode.type !== AST_NODE_TYPES.Property ||
-            propertyNode.kind !== "init"
-        ) {
-            continue;
-        }
-
-        const keyName =
-            propertyNode.key.type === AST_NODE_TYPES.Identifier
-                ? propertyNode.key.name
-                : propertyNode.key.type === AST_NODE_TYPES.Literal &&
-                    typeof propertyNode.key.value === "string"
-                  ? propertyNode.key.value
-                  : undefined;
-
-        if (keyName !== "shell") {
-            continue;
-        }
-
-        if (isTruthyLiteral(propertyNode.value)) {
-            return true;
-        }
-    }
-
-    return false;
+    return optionsNode.properties.some(
+        (propertyNode) =>
+            propertyNode.type === AST_NODE_TYPES.Property &&
+            propertyNode.kind === "init" &&
+            getPropertyKeyName(propertyNode) === "shell" &&
+            isTruthyLiteral(propertyNode.value)
+    );
 };
 
 const isTargetChildProcessMethod = (node: TSESTree.CallExpression): boolean => {
@@ -80,27 +78,26 @@ const isTargetChildProcessMethod = (node: TSESTree.CallExpression): boolean => {
 /** Rule implementation. */
 const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
     create(context) {
-        return {
-            CallExpression(node: TSESTree.CallExpression) {
-                if (!isTargetChildProcessMethod(node)) {
-                    return;
-                }
+        const checkCallExpression = (node: TSESTree.CallExpression): void => {
+            if (!isTargetChildProcessMethod(node)) {
+                return;
+            }
 
-                for (const argumentNode of node.arguments) {
-                    if (argumentNode.type === AST_NODE_TYPES.SpreadElement) {
-                        continue;
-                    }
-
-                    if (!hasShellTrueOption(argumentNode)) {
-                        continue;
-                    }
-
+            for (const argumentNode of node.arguments) {
+                if (
+                    argumentNode.type !== AST_NODE_TYPES.SpreadElement &&
+                    hasShellTrueOption(argumentNode)
+                ) {
                     context.report({
                         messageId: "default",
                         node: argumentNode,
                     });
                 }
-            },
+            }
+        };
+
+        return {
+            CallExpression: checkCallExpression,
         };
     },
     meta: {

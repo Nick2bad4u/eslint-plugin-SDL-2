@@ -198,6 +198,5 @@ const rule: ReturnType<typeof createRule> = createRule<Options, MessageIds>({
     name: "no-insecure-url",
 });
 
-export { defaultBlocklist, defaultExceptions, defaultVariableExceptions };
 export default rule;
 /* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */

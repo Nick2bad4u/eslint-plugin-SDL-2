@@ -74,7 +74,6 @@ const hasSenderValidationPattern = (
     const callbackSourceText = context.sourceCode.getText(callbackNode);
     const escapedEventName = eventParameterName.replaceAll(
         "$",
-        // eslint-disable-next-line etc-misc/no-unnecessary-template-literal -- String.raw preserves the intended regex-escape backslash.
         () => String.raw`\$`
     );
     // eslint-disable-next-line security/detect-non-literal-regexp -- Event parameter identifier is escaped before interpolation for sender-access detection.

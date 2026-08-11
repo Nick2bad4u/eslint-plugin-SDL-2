@@ -6,7 +6,7 @@ import type {
 import type ts from "typescript";
 
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
-import { isDefined } from "ts-extras";
+import { isDefined, isPresent } from "ts-extras";
 
 type RuleSourceCodeLike = Readonly<{
     parserServices?: unknown;
@@ -87,7 +87,7 @@ export const getNodeTypeAsString = (
         | undefined,
     context: unknown
 ): string => {
-    if (!isDefined(fullTypeChecker) || node === null || node === undefined) {
+    if (!isPresent(node) || !isDefined(fullTypeChecker)) {
         return "any";
     }
 

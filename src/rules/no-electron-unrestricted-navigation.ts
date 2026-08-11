@@ -109,8 +109,8 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
-                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     secondArgument === undefined ||
+                    firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     secondArgument.type === AST_NODE_TYPES.SpreadElement ||
                     !isFunctionExpression(secondArgument)
                 ) {

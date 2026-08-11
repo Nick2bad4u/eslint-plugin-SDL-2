@@ -37,87 +37,89 @@ const isBypassSceMethod = (methodName: string): boolean =>
     );
 
 /** Rule implementation for no-angularjs-bypass-sce. */
-export const noAngularjsBypassSceRule: ReturnType<typeof createRule> =
-    createRule<[], "doNotBypass">({
-        create(context): TSESLint.RuleListener {
-            const report = (node: TSESTree.CallExpression): void => {
-                context.report({
-                    messageId: "doNotBypass",
-                    node,
-                });
-            };
+const noAngularjsBypassSceRule: ReturnType<typeof createRule> = createRule<
+    [],
+    "doNotBypass"
+>({
+    create(context): TSESLint.RuleListener {
+        const report = (node: TSESTree.CallExpression): void => {
+            context.report({
+                messageId: "doNotBypass",
+                node,
+            });
+        };
 
-            return {
-                "CallExpression[callee.type='MemberExpression'][callee.object.type='Identifier'][callee.object.name='$sce'][callee.property.type='Identifier']"(
-                    node: TSESTree.CallExpression
+        return {
+            "CallExpression[callee.type='MemberExpression'][callee.object.type='Identifier'][callee.object.name='$sce'][callee.property.type='Identifier']"(
+                node: TSESTree.CallExpression
+            ) {
+                if (
+                    node.callee.type !== AST_NODE_TYPES.MemberExpression ||
+                    node.callee.property.type !== AST_NODE_TYPES.Identifier
                 ) {
-                    if (
-                        node.callee.type !== AST_NODE_TYPES.MemberExpression ||
-                        node.callee.property.type !== AST_NODE_TYPES.Identifier
-                    ) {
-                        return;
-                    }
+                    return;
+                }
 
-                    if (!isBypassSceMethod(node.callee.property.name)) {
-                        return;
-                    }
+                if (!isBypassSceMethod(node.callee.property.name)) {
+                    return;
+                }
 
-                    const firstArgument = arrayFirst(node.arguments);
+                const firstArgument = arrayFirst(node.arguments);
 
-                    if (
-                        node.arguments.length === 1 &&
-                        isEmptyLiteral(firstArgument)
-                    ) {
-                        return;
-                    }
-
-                    report(node);
-                },
-                "CallExpression[callee.type='MemberExpression'][callee.object.type='Identifier'][callee.object.name='$sceProvider'][callee.property.type='Identifier'][callee.property.name='enabled']"(
-                    node: TSESTree.CallExpression
+                if (
+                    node.arguments.length === 1 &&
+                    isEmptyLiteral(firstArgument)
                 ) {
-                    const firstArgument = arrayFirst(node.arguments);
+                    return;
+                }
 
-                    if (isSceProviderEnabledSafeLiteral(firstArgument)) {
-                        return;
-                    }
-
-                    report(node);
-                },
-                "CallExpression[callee.type='MemberExpression'][callee.property.type='Identifier'][callee.property.name='trustAs']"(
-                    node: TSESTree.CallExpression
-                ) {
-                    const firstArgument = arrayFirst(node.arguments);
-
-                    if (
-                        node.arguments.length === 1 &&
-                        isEmptyLiteral(firstArgument)
-                    ) {
-                        return;
-                    }
-
-                    report(node);
-                },
-            };
-        },
-        meta: {
-            deprecated: false,
-            docs: {
-                description:
-                    "disallow AngularJS SCE bypass APIs that trust unvalidated values.",
-                frozen: false,
-                recommended: false,
-                url: "https://github.com/Nick2bad4u/eslint-plugin-SDL-2/blob/main/docs/rules/no-angularjs-bypass-sce.md",
+                report(node);
             },
-            messages: {
-                doNotBypass:
-                    "Do not bypass AngularJS SCE with untrusted values. Validate and sanitize content before marking it trusted.",
+            "CallExpression[callee.type='MemberExpression'][callee.object.type='Identifier'][callee.object.name='$sceProvider'][callee.property.type='Identifier'][callee.property.name='enabled']"(
+                node: TSESTree.CallExpression
+            ) {
+                const firstArgument = arrayFirst(node.arguments);
+
+                if (isSceProviderEnabledSafeLiteral(firstArgument)) {
+                    return;
+                }
+
+                report(node);
             },
-            schema: [],
-            type: "problem",
+            "CallExpression[callee.type='MemberExpression'][callee.property.type='Identifier'][callee.property.name='trustAs']"(
+                node: TSESTree.CallExpression
+            ) {
+                const firstArgument = arrayFirst(node.arguments);
+
+                if (
+                    node.arguments.length === 1 &&
+                    isEmptyLiteral(firstArgument)
+                ) {
+                    return;
+                }
+
+                report(node);
+            },
+        };
+    },
+    meta: {
+        deprecated: false,
+        docs: {
+            description:
+                "disallow AngularJS SCE bypass APIs that trust unvalidated values.",
+            frozen: false,
+            recommended: false,
+            url: "https://github.com/Nick2bad4u/eslint-plugin-SDL-2/blob/main/docs/rules/no-angularjs-bypass-sce.md",
         },
-        name: "no-angularjs-bypass-sce",
-    });
+        messages: {
+            doNotBypass:
+                "Do not bypass AngularJS SCE with untrusted values. Validate and sanitize content before marking it trusted.",
+        },
+        schema: [],
+        type: "problem",
+    },
+    name: "no-angularjs-bypass-sce",
+});
 
 export default noAngularjsBypassSceRule;
 /* eslint-enable @typescript-eslint/prefer-readonly-parameter-types -- Restore linting after rule implementation declarations. */
