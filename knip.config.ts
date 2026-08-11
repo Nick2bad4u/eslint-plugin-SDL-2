@@ -13,7 +13,6 @@ const knipConfig: KnipConfig = {
     $schema: "https://unpkg.com/knip@6/schema.json",
     ignore: ["docs/docusaurus/src/css/custom.css.d.ts"],
     ignoreBinaries: [
-        "actionlint",
         "gitleaks",
         "grype",
         "lychee",

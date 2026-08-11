@@ -123,7 +123,7 @@
         "knip": "npx cross-env NODE_OPTIONS=--max_old_space_size=4096 NODE_NO_WARNINGS=1 npx knip -c knip.config.ts --cache --cache-location .cache/knip --tsConfig tsconfig.json",
         "lint": "npx cross-env NODE_OPTIONS=--max_old_space_size=16384 npx eslint --cache --cache-strategy content --cache-location .cache/.eslintcache",
         "lint:action": "npm run lint:actions",
-        "lint:actions": "actionlint -color -shellcheck= -pyflakes=",
+        "lint:actions": "node-actionlint",
         "lint:all": "npm run lint && npm run lint:css && npm run lint:prettier && npm run lint:remark && npm run lint:package && npm run lint:secretlint && npm run lint:yaml && npm run lint:yamllint && npm run lint:actions && npm run lint:circular",
         "lint:all:fix": "npm run lint:fix && npm run lint:remark:fix && npm run lint:css:fix && npm run lint:prettier:fix && npm run lint:remark && npm run lint:package && npm run lint:secretlint && npm run lint:yaml:fix && npm run lint:yamllint && npm run lint:actions && npm run lint:circular",
         "lint:all:fix:quiet": "npm run lint:fix:quiet && npm run lint:css:fix && npm run lint:prettier:fix && npm run lint:remark && npm run lint:package && npm run lint:secretlint && npm run lint:yaml:fix && npm run lint:yamllint && npm run lint:actions && npm run lint:circular",
@@ -247,6 +247,7 @@
         "@stryker-mutator/core": "^9.6.1",
         "@stryker-mutator/typescript-checker": "^9.6.1",
         "@stryker-mutator/vitest-runner": "^9.6.1",
+        "@tktco/node-actionlint": "^1.6.0",
         "@types/htmlhint": "^1.1.5",
         "@types/mdast": "^4.0.4",
         "@types/node": "^26.2.0",
@@ -318,12 +319,12 @@
     "devEngines": {
         "runtime": {
             "name": "node",
-            "version": ">=20.19.0",
+            "version": "^22.22.3 || ^24.16.0 || >=26.3.0",
             "onFail": "error"
         },
         "packageManager": {
             "name": "npm",
-            "version": ">=11.0.0",
+            "version": "12.0.2",
             "onFail": "error"
         }
     },
