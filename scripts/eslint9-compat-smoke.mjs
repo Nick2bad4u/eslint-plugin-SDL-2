@@ -7,7 +7,9 @@ import tsParser from "@typescript-eslint/parser";
 import { ESLint } from "eslint";
 import pc from "picocolors";
 
-import plugin from "../plugin.mjs";
+const pluginModuleSpecifier =
+    process.env["SDL_PLUGIN_SPECIFIER"] ?? "../plugin.mjs";
+const { default: plugin } = await import(pluginModuleSpecifier);
 
 /**
  * @typedef {Readonly<{
