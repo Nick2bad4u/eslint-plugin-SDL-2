@@ -1,3 +1,5 @@
+import jsonPlugin from "@eslint/json";
+import { ESLint } from "eslint";
 import { describe, expect, it } from "vitest";
 
 import { sdlConfigNames } from "../src/_internal/config-references";
@@ -188,5 +190,44 @@ describe("sdl plugin entry", () => {
                 `${ruleName} should define meta.languages`
             ).toStrictEqual(["js/js"]);
         }
+    });
+
+    it("scopes JavaScript-only presets away from JSON language files", async () => {
+        expect.hasAssertions();
+
+        const eslint = new ESLint({
+            overrideConfig: [
+                ...sdlPlugin.configs.recommended,
+                {
+                    files: ["**/*.json"],
+                    language: "json/json",
+                    name: "JSON integration fixture",
+                    plugins: {
+                        json: jsonPlugin,
+                    },
+                },
+            ],
+            overrideConfigFile: true,
+        });
+
+        const jsonResults = await eslint.lintText(
+            JSON.stringify({ name: "fixture" }),
+            { filePath: "fixture.json" }
+        );
+        const javascriptResults = await eslint.lintText(
+            'document.write("unsafe");',
+            { filePath: "fixture.js" }
+        );
+
+        expect(jsonResults).toHaveLength(1);
+        expect(jsonResults[0]?.messages).toStrictEqual([]);
+        expect(javascriptResults).toHaveLength(1);
+        expect(javascriptResults[0]?.messages).toStrictEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    ruleId: "sdl/no-document-write",
+                }),
+            ])
+        );
     });
 });
