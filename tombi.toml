@@ -1,0 +1,5 @@
+[format.rules]
+indent-table-key-value-pairs = false
+indent-width = 2
+key-value-equals-sign-alignment = false
+line-ending = "lf"
