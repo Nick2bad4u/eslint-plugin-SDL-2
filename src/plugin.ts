@@ -46,7 +46,8 @@ const typeScriptEslintPlugin = resolvePlugin(typeScriptPluginModule);
 const nodeEslintPlugin = resolvePlugin(nodePluginModule);
 const securityEslintPlugin = resolvePlugin(securityPluginModule);
 
-const typeScriptFiles = ["**/*.{ts,tsx,mts,cts}"];
+const scriptFiles = ["**/*.{js,jsx,mjs,cjs,ts,tsx,cts,mts}"];
+const typeScriptFiles = ["**/*.{ts,tsx,cts,mts}"];
 
 const createNamedConfig = (
     name: string,
@@ -58,6 +59,7 @@ const createNamedConfig = (
 
 const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: Angular Security", {
+        files: [...scriptFiles],
         plugins: {
             sdl: plugin,
         },
@@ -72,6 +74,7 @@ const createAngularConfig = (plugin: SdlPlugin): SdlConfigArray => [
 
 const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: AngularJS Security", {
+        files: [...scriptFiles],
         plugins: {
             sdl: plugin,
         },
@@ -87,6 +90,7 @@ const createAngularJsConfig = (plugin: SdlPlugin): SdlConfigArray => [
 
 const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: Common Web Security", {
+        files: [...scriptFiles],
         plugins: {
             sdl: plugin,
         },
@@ -129,6 +133,7 @@ const createCommonConfig = (plugin: SdlPlugin): SdlConfigArray => [
 
 const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: Electron Security", {
+        files: [...scriptFiles],
         plugins: {
             sdl: plugin,
         },
@@ -159,6 +164,7 @@ const createElectronConfig = (plugin: SdlPlugin): SdlConfigArray => [
 
 const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: Node.js Runtime Safety", {
+        files: [...scriptFiles],
         plugins: {
             n: nodeEslintPlugin,
         },
@@ -167,6 +173,7 @@ const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
         },
     }),
     createNamedConfig("🔐 SDL: Node.js Security", {
+        files: [...scriptFiles],
         plugins: {
             sdl: plugin,
         },
@@ -189,6 +196,7 @@ const createNodeConfig = (plugin: SdlPlugin): SdlConfigArray => [
 
 const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: React JSX Support", {
+        files: [...scriptFiles],
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {
@@ -198,6 +206,7 @@ const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
         },
     }),
     createNamedConfig("🔐 SDL: React Security", {
+        files: [...scriptFiles],
         plugins: {
             sdl: plugin,
         },
@@ -206,6 +215,7 @@ const createReactConfig = (plugin: SdlPlugin): SdlConfigArray => [
 
 const createTypeScriptConfig = (plugin: SdlPlugin): SdlConfigArray => [
     createNamedConfig("🔐 SDL: TypeScript Parser Support", {
+        files: [...typeScriptFiles],
         languageOptions: {
             parserOptions: {
                 ecmaVersion: "latest",
