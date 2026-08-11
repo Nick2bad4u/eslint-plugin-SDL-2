@@ -129,7 +129,8 @@ jobs:
                   cache-dependency-path: "package-lock.json"
 
             - name: "Install dependencies"
-              run: "npm ci"
+              # npm 12 enforces the exact package.json allowScripts policy.
+              run: "npm ci" # NOSONAR -- strict-allow-scripts blocks every unapproved lifecycle script.
 
             - name: "Configure Git for release automation"
               if: "github.event_name == 'workflow_dispatch'"
@@ -390,8 +391,8 @@ jobs:
                   VERSION: "${{ steps.version.outputs.version }}"
               run: |
                   set -euo pipefail
-                  npx publint "$PACKAGE_TARBALL"
-                  npx attw "$PACKAGE_TARBALL" --profile strict
+                  ./node_modules/.bin/publint "$PACKAGE_TARBALL"
+                  ./node_modules/.bin/attw "$PACKAGE_TARBALL" --profile strict
                   tar -tf "$PACKAGE_TARBALL" > temp/package-inventory.txt
                   for required_path in \
                     package/package.json \
@@ -411,7 +412,7 @@ jobs:
                   consumer_dir=$(mktemp -d)
                   cd "$consumer_dir"
                   npm init --yes >/dev/null
-                  npm install --package-lock=false "$PACKAGE_TARBALL" eslint@10.8.1 typescript@6.0.3
+                  npm install --ignore-scripts --save-exact "$PACKAGE_TARBALL" eslint@10.8.1 typescript@6.0.3
                   VERSION="$VERSION" node --input-type=module -e 'import plugin from "eslint-plugin-sdl-2"; if (plugin.meta?.version !== process.env.VERSION) throw new Error("ESM package version mismatch")'
                   VERSION="$VERSION" node -e 'const plugin = require("eslint-plugin-sdl-2"); if (plugin.meta?.version !== process.env.VERSION) throw new Error("CommonJS package version mismatch")'
 

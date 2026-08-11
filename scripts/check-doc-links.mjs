@@ -277,6 +277,40 @@ async function validateLink(markdownPath, link, issues, issueSet, metrics) {
 }
 
 /**
+ * @param {import("mdast").Root} tree
+ * @param {{ imageLinksIgnored: number }} metrics
+ *
+ * @returns {string[]}
+ */
+function collectLinks(tree, metrics) {
+    /** @type {string[]} */
+    const links = [];
+    /** @type {(import("mdast").Root | import("mdast").RootContent)[]} */
+    const nodeStack = [tree];
+
+    while (nodeStack.length > 0) {
+        const node = nodeStack.pop();
+        if (node === undefined) {
+            continue;
+        }
+
+        if (node.type === "image") {
+            metrics.imageLinksIgnored++;
+        } else if (node.type === "link") {
+            links.push(node.url);
+        }
+
+        if ("children" in node && Array.isArray(node.children)) {
+            for (const childNode of node.children) {
+                nodeStack.push(childNode);
+            }
+        }
+    }
+
+    return links;
+}
+
+/**
  * @param {import("node:fs").PathLike | import("node:fs/promises").FileHandle} markdownPath
  * @param {{ file: string; link: string; resolvedPath: string }[]} issues
  * @param {Set<string>} issueSet
@@ -303,29 +337,7 @@ async function checkFile(markdownPath, issues, issueSet, metrics) {
 
     const content = await readFile(markdownPath, "utf8");
     const tree = remark().parse(content);
-    /** @type {string[]} */
-    const links = [];
-    /** @type {(import("mdast").Root | import("mdast").RootContent)[]} */
-    const nodeStack = [tree];
-
-    while (nodeStack.length > 0) {
-        const node = nodeStack.pop();
-        if (node === undefined) {
-            continue;
-        }
-
-        if (node.type === "image") {
-            metrics.imageLinksIgnored++;
-        } else if (node.type === "link") {
-            links.push(node.url);
-        }
-
-        if ("children" in node && Array.isArray(node.children)) {
-            for (const childNode of node.children) {
-                nodeStack.push(childNode);
-            }
-        }
-    }
+    const links = collectLinks(tree, metrics);
 
     if (links.length === 0) {
         metrics.filesWithNoLinks++;
