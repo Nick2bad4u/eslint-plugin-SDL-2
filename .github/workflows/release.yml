@@ -184,6 +184,7 @@ jobs:
                   EXPLICIT_VERSION: "${{ inputs.version }}"
                   RELEASE_TYPE: "${{ inputs.release_type }}"
                   RUN_ATTEMPT: "${{ github.run_attempt }}"
+                  SOURCE_SHA: "${{ steps.source.outputs.sha }}"
               run: |
                   set -euo pipefail
                   if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
@@ -198,13 +199,16 @@ jobs:
                       fi
                       version="$explicit_version"
                     else
-                      if [ "$RUN_ATTEMPT" -gt 1 ]; then
-                        echo "A rerun requires an explicit version so it cannot select a new version." >&2
-                        exit 1
+                      current_sha=$(git rev-parse HEAD)
+                      if [ "$RUN_ATTEMPT" -gt 1 ] && [ "$current_sha" != "$SOURCE_SHA" ]; then
+                        echo "Resuming bump-based release ${current_version} from release commit ${current_sha}."
+                        version="$current_version"
+                        version_changed=false
+                      else
+                        npm version "${RELEASE_TYPE:-patch}" --no-git-tag-version
+                        version=$(node -p "require('./package.json').version")
+                        version_changed=true
                       fi
-                      npm version "${RELEASE_TYPE:-patch}" --no-git-tag-version
-                      version=$(node -p "require('./package.json').version")
-                      version_changed=true
                     fi
                   else
                     version="${GITHUB_REF_NAME#v}"
