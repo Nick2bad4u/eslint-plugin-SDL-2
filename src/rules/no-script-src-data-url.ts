@@ -82,9 +82,9 @@ const rule: ReturnType<typeof createRule> = createRule<[], MessageIds>({
 
                 if (
                     firstArgument === undefined ||
+                    secondArgument === undefined ||
                     firstArgument.type === AST_NODE_TYPES.SpreadElement ||
                     getStaticStringValue(firstArgument) !== "src" ||
-                    secondArgument === undefined ||
                     secondArgument.type === AST_NODE_TYPES.SpreadElement
                 ) {
                     return;

@@ -80,7 +80,7 @@ export type SdlRuleModule = TSESLint.RuleModule<string, Readonly<UnknownArray>>;
 export type SdlRuleNamePattern = `no-${string}`;
 
 /** SDL rule registry keyed by rule name for plugin export wiring. */
-export const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
+const sdlRules: Readonly<Record<SdlRuleNamePattern, SdlRuleModule>> = {
     "no-angular-bypass-sanitizer": noAngularBypassSanitizerRuleModule.default,
     "no-angular-bypass-security-trust-html":
         noAngularBypassSecurityTrustHtmlRuleModule.default,

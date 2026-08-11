@@ -16,5 +16,19 @@ const ruleCreatorFactory: ReturnType<
     // eslint-disable-next-line new-cap -- RuleCreator is intentionally a callable factory.
     ESLintUtils.RuleCreator<SdlRuleDocs>((name) => `${docsBaseUrl}/${name}`);
 
-/** Shared SDL rule helper that injects canonical docs URLs. */
-export const createRule: typeof ruleCreatorFactory = ruleCreatorFactory;
+/**
+ * Shared SDL rule helper that injects canonical docs URLs and declares that
+ * every SDL rule targets ESLint's JavaScript language family. TypeScript uses
+ * the same `js/js` language with a parser override.
+ */
+export const createRule: typeof ruleCreatorFactory = (ruleDefinition) => {
+    const rule = ruleCreatorFactory(ruleDefinition);
+
+    return {
+        ...rule,
+        meta: {
+            ...rule.meta,
+            languages: ["js/js"],
+        },
+    };
+};

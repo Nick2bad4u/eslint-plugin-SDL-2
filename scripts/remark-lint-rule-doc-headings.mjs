@@ -118,12 +118,37 @@ const optionalDetailAllowedParentHeadings = new Set([
     "What this rule reports",
 ]);
 
-const defaultHelperDocPathPattern =
-    /(^|\/)docs\/rules\/(?!overview\.md$|getting-started\.md$|presets\/)[^/]+\.md$/u;
 const defaultRuleCatalogIdLinePattern = /^> \*\*Rule catalog ID:\*\* R\d{3}$/u;
-const defaultPackageDocumentationLabelPattern =
-    /^[^\r\n]+ package documentation:$/mu;
 const eslintPluginPackagePrefix = "eslint-plugin-";
+
+/** @param {string} normalizedPath */
+const isDefaultHelperDocPath = (normalizedPath) => {
+    const rulePathMarker = "/docs/rules/";
+    const normalizedAbsolutePath = `/${normalizedPath}`;
+    const markerIndex = normalizedAbsolutePath.lastIndexOf(rulePathMarker);
+
+    if (markerIndex === -1) {
+        return false;
+    }
+
+    const relativeRulePath = normalizedAbsolutePath.slice(
+        markerIndex + rulePathMarker.length
+    );
+
+    return (
+        relativeRulePath.endsWith(".md") &&
+        !relativeRulePath.includes("/") &&
+        relativeRulePath !== "overview.md" &&
+        relativeRulePath !== "getting-started.md"
+    );
+};
+
+/** @param {string} content */
+const hasDefaultPackageDocumentationLabel = (content) =>
+    content.split(/\r?\n/u).some((line) => {
+        const suffix = " package documentation:";
+        return line.endsWith(suffix) && line.trim().length > suffix.length;
+    });
 
 const packageMetadataCache = new Map();
 
@@ -380,16 +405,14 @@ export default function remarkLintRuleDocHeadings(options = {}) {
         ...defaultHeadingToggles,
         ...(options.headings ?? {}),
     };
-    const helperDocPathPattern =
-        options.helperDocPathPattern ?? defaultHelperDocPathPattern;
+    const helperDocPathPattern = options.helperDocPathPattern;
     const requirePackageDocumentation =
         options.requirePackageDocumentation ?? false;
     const requirePackageDocumentationLabel =
         options.requirePackageDocumentationLabel ??
         options.packageDocumentationLabelPattern !== undefined;
     const packageDocumentationLabelPattern =
-        options.packageDocumentationLabelPattern ??
-        defaultPackageDocumentationLabelPattern;
+        options.packageDocumentationLabelPattern;
     const ruleCatalogIdLinePattern =
         options.ruleCatalogIdLinePattern ?? defaultRuleCatalogIdLinePattern;
     /** @param {keyof typeof defaultHeadingToggles} headingKey */
@@ -422,7 +445,11 @@ export default function remarkLintRuleDocHeadings(options = {}) {
 
         const normalizedPath = normalizePath(file.path);
 
-        if (!helperDocPathPattern.test(normalizedPath)) {
+        if (
+            helperDocPathPattern === undefined
+                ? !isDefaultHelperDocPath(normalizedPath)
+                : !helperDocPathPattern.test(normalizedPath)
+        ) {
             return;
         }
 
@@ -698,7 +725,7 @@ export default function remarkLintRuleDocHeadings(options = {}) {
                 nextH2Heading
             );
 
-            if (!/\[[^\]]+\]\([^\)]+\)/u.test(deprecatedSectionContent)) {
+            if (!deprecatedSectionContent.includes("](")) {
                 file.message(
                     "`## Deprecated` should include a link to the recommended replacement rule or package.",
                     deprecatedSectionHeading,
@@ -740,11 +767,16 @@ export default function remarkLintRuleDocHeadings(options = {}) {
                     nextPackageSectionHeading
                 );
 
-                if (
-                    !packageDocumentationLabelPattern.test(
-                        packageDocumentationContent
-                    )
-                ) {
+                const hasPackageDocumentationLabel =
+                    packageDocumentationLabelPattern === undefined
+                        ? hasDefaultPackageDocumentationLabel(
+                              packageDocumentationContent
+                          )
+                        : packageDocumentationLabelPattern.test(
+                              packageDocumentationContent
+                          );
+
+                if (!hasPackageDocumentationLabel) {
                     file.message(
                         "`## Package documentation` must include at least one `<package> package documentation:` label line.",
                         packageDocumentationHeading,

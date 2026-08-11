@@ -61,15 +61,37 @@ const ensureRulesRecord = (value, label) => {
  */
 const resolveRuleSet = (presetName) => {
     const preset = plugin.configs?.[presetName];
-    if (typeof preset !== "object" || Array.isArray(preset)) {
+    if (!Array.isArray(preset)) {
         throw new TypeError(
-            `plugin.configs.${presetName} must be a flat config object.`
+            `plugin.configs.${presetName} must be a flat config array.`
         );
     }
 
-    return Object.freeze(
-        ensureRulesRecord(preset.rules ?? {}, `${presetName} preset rules`)
-    );
+    /** @type {BenchmarkRules} */
+    const rules = {};
+    for (const [index, config] of preset.entries()) {
+        if (
+            typeof config !== "object" ||
+            config === null ||
+            Array.isArray(config)
+        ) {
+            throw new TypeError(
+                `plugin.configs.${presetName}[${index}] must be a flat config object.`
+            );
+        }
+
+        const configRules = ensureRulesRecord(
+            config.rules ?? {},
+            `${presetName} preset rules at index ${index}`
+        );
+        for (const [ruleName, ruleEntry] of Object.entries(configRules)) {
+            if (!ruleName.includes("/") || ruleName.startsWith("sdl/")) {
+                rules[ruleName] = ruleEntry;
+            }
+        }
+    }
+
+    return Object.freeze(rules);
 };
 
 /** @type {BenchmarkRuleSets} */
@@ -93,7 +115,7 @@ export const createSdlFlatConfig = (options) => [
             parser: tsParser,
             parserOptions: {
                 ecmaVersion: "latest",
-                project: "./tsconfig.eslint.json",
+                project: "./tsconfig.benchmarks.json",
                 sourceType: "module",
                 tsconfigRootDir: repositoryRoot,
             },

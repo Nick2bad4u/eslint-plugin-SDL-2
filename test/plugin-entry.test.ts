@@ -3,6 +3,11 @@ import { describe, expect, it } from "vitest";
 import { sdlConfigNames } from "../src/_internal/config-references";
 import sdlPlugin from "../src/plugin";
 
+const pluginRules = sdlPlugin.rules;
+if (pluginRules === undefined) {
+    throw new TypeError("The SDL plugin must expose a rules record.");
+}
+
 const sortAlphabetically = (values: readonly string[]): readonly string[] =>
     values.toSorted((left, right) => left.localeCompare(right));
 
@@ -82,9 +87,7 @@ describe("sdl plugin entry", () => {
     it("registers all migrated SDL rules", () => {
         expect.hasAssertions();
 
-        const ruleNames = sortAlphabetically(
-            Object.keys(sdlPlugin.rules ?? {})
-        );
+        const ruleNames = sortAlphabetically(Object.keys(pluginRules));
 
         expect(ruleNames).toStrictEqual([
             "no-angular-bypass-sanitizer",
@@ -164,7 +167,7 @@ describe("sdl plugin entry", () => {
     it("declares frozen and deprecated metadata for every rule", () => {
         expect.hasAssertions();
 
-        for (const [ruleName, rule] of Object.entries(sdlPlugin.rules ?? {})) {
+        for (const [ruleName, rule] of Object.entries(pluginRules)) {
             expect(
                 rule.meta?.deprecated,
                 `${ruleName} should define meta.deprecated`
@@ -173,6 +176,17 @@ describe("sdl plugin entry", () => {
                 rule.meta?.docs?.frozen,
                 `${ruleName} should define meta.docs.frozen`
             ).toBe(false);
+        }
+    });
+
+    it("declares JavaScript language support for every rule", () => {
+        expect.hasAssertions();
+
+        for (const [ruleName, rule] of Object.entries(pluginRules)) {
+            expect(
+                rule.meta?.languages,
+                `${ruleName} should define meta.languages`
+            ).toStrictEqual(["js/js"]);
         }
     });
 });

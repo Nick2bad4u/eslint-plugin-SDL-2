@@ -299,7 +299,7 @@ function createScrollIndicator(): CleanupFunction {
 function getRuleNumberPrefix(
     label: string
 ): null | Readonly<{ numberToken: string; remainder: string }> {
-    const match = /^(R?\d{2,3})(?:\s*[-|·•]\s*|\s+)(.+)$/u.exec(label);
+    const match = /^(R?\d{2,3})(.*)$/u.exec(label);
 
     if (match === null) {
         return null;
@@ -308,10 +308,29 @@ function getRuleNumberPrefix(
     const [
         ,
         numberToken,
-        remainder,
+        rawRemainder,
     ] = match;
 
-    if (numberToken === undefined || remainder === undefined) {
+    if (numberToken === undefined || rawRemainder === undefined) {
+        return null;
+    }
+
+    const hasRemainderLeadingWhitespace = /^\s/u.test(rawRemainder);
+    const separatorTrimmedRemainder = rawRemainder.trimStart();
+    const firstRemainderCharacter = separatorTrimmedRemainder.at(0);
+    const hasSeparator = [
+        "-",
+        "·",
+        "•",
+        "|",
+    ].includes(firstRemainderCharacter ?? "");
+    const remainder = (
+        hasSeparator
+            ? separatorTrimmedRemainder.slice(1)
+            : separatorTrimmedRemainder
+    ).trimStart();
+
+    if (remainder === "" || (!hasRemainderLeadingWhitespace && !hasSeparator)) {
         return null;
     }
 

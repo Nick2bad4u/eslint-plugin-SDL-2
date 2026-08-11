@@ -140,6 +140,17 @@ const config = [
         },
     },
     {
+        files: ["src/rules/**/*.ts"],
+        name: "Rule Factory Static Analysis Boundaries",
+        rules: {
+            // The createRule helper injects meta.languages at runtime; the
+            // plugin rule only inspects each object literal.
+            "eslint-plugin/require-meta-languages": "off",
+            // ESLint visitor keys are prescribed AST node names, not conventional function names.
+            "sonarjs/function-name": "off",
+        },
+    },
+    {
         files: ["test/**/*.{ts,tsx,mts,cts}"],
         name: "Vitest Harness Relaxations",
         rules: {

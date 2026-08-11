@@ -1,4 +1,13 @@
 import { spawnSync } from "node:child_process";
+import { createRequire } from "node:module";
+import { dirname, join } from "node:path";
+import process from "node:process";
+
+const require = createRequire(import.meta.url);
+const typedocPackageDirectory = dirname(
+    require.resolve("typedoc/package.json")
+);
+const typedocEntrypoint = join(typedocPackageDirectory, "bin", "typedoc");
 
 /** @param {readonly string[]} arguments_ */
 const normalizeArguments = (arguments_) => {
@@ -30,10 +39,18 @@ const normalizeArguments = (arguments_) => {
 
 const typedocArguments = normalizeArguments(process.argv.slice(2));
 
-const runResult = spawnSync("typedoc", typedocArguments, {
-    shell: true,
-    stdio: "inherit",
-});
+const runResult = spawnSync(
+    process.execPath,
+    [typedocEntrypoint, ...typedocArguments],
+    {
+        shell: false,
+        stdio: "inherit",
+    }
+);
+
+if (runResult.error !== undefined) {
+    throw runResult.error;
+}
 
 if (typeof runResult.status === "number") {
     process.exit(runResult.status);

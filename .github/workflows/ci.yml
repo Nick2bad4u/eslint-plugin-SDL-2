@@ -45,34 +45,35 @@ jobs:
         steps:
             - name: "Harden the runner (Audit all outbound calls)"
               if: "${{ matrix.os == 'ubuntu-latest' }}"
-              uses: "step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411" # v2.19.4
+              uses: "step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40" # v2.20.1
               with:
                   egress-policy: "audit"
 
             - name: "Checkout repository"
-              uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
+              uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
 
             - name: "Setup Node.js"
-              uses: "actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e" # v6.4.0
+              uses: "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020" # v7.0.0
               with:
                   node-version-file: ".node-version"
-                  cache: "npm"
-                  cache-dependency-path: "package-lock.json"
+                  package-manager-cache: false
+
+            - name: "Install repository npm version"
+              run: |
+                  set -euo pipefail
+                  npm_version=$(node -p "require('./package.json').packageManager.split('@').at(-1)")
+                  [[ "$npm_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+                  cd "$RUNNER_TEMP"
+                  npm install --global --ignore-scripts "npm@$npm_version" # NOSONAR -- version is exact in packageManager.
+                  hash -r
+                  test "$(npm --version)" = "$npm_version"
 
             - name: "Install dependencies"
-              run: "npm ci --force"
+              # npm 12 enforces the exact package.json allowScripts policy.
+              run: "npm ci" # NOSONAR -- strict-allow-scripts blocks every unapproved lifecycle script.
 
             - name: "Build package"
               run: "npm run build"
-
-            - name: "Upload bundle analysis to Codecov"
-              if: "${{ matrix.os == 'ubuntu-latest' && !cancelled() && env.CODECOV_TOKEN != '' }}"
-              continue-on-error: true
-              run: >-
-                  npx @codecov/bundle-analyzer ./dist --bundle-name=eslint-plugin-sdl-2 --upload-token="${CODECOV_TOKEN}"
-              env:
-                  GITHUB_SHA: "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
-                  GITHUB_REF: "${{ github.event_name == 'pull_request' && format('refs/heads/{0}', github.head_ref) || github.ref }}"
 
             - name: "Verify README rules table sync"
               run: "npm run sync:readme-rules-table"
@@ -81,7 +82,7 @@ jobs:
               run: "npm run typecheck"
 
             - name: "Run tests with coverage and JUnit report"
-              run: "npx vitest run --coverage --reporter=github-actions --reporter=dot --reporter=junit --outputFile=test-report.junit.xml --silent"
+              run: "npm run test:ci:coverage"
               env:
                   CI: "true"
                   MAX_THREADS: "1"
@@ -146,28 +147,67 @@ jobs:
 
         steps:
             - name: "Harden the runner (Audit all outbound calls)"
-              uses: "step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411" # v2.19.4
+              uses: "step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40" # v2.20.1
               with:
                   egress-policy: "audit"
 
             - name: "Checkout repository"
-              uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
+              uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
 
             - name: "Setup Node.js"
-              uses: "actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e" # v6.4.0
+              uses: "actions/setup-node@820762786026740c76f36085b0efc47a31fe5020" # v7.0.0
               with:
-                  cache: "npm"
-                  cache-dependency-path: "package-lock.json"
                   node-version-file: ".node-version"
+                  package-manager-cache: false
+
+            - name: "Install repository npm version"
+              run: |
+                  set -euo pipefail
+                  npm_version=$(node -p "require('./package.json').packageManager.split('@').at(-1)")
+                  [[ "$npm_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+                  cd "$RUNNER_TEMP"
+                  npm install --global --ignore-scripts "npm@$npm_version" # NOSONAR -- version is exact in packageManager.
+                  hash -r
+                  test "$(npm --version)" = "$npm_version"
 
             - name: "Install dependencies"
-              run: "npm ci --force"
+              # npm 12 enforces the exact package.json allowScripts policy.
+              run: "npm ci" # NOSONAR -- strict-allow-scripts blocks every unapproved lifecycle script.
 
             - name: "Build package"
               run: "npm run build"
 
-            - name: "Install ESLint 9 runtime for compatibility smoke checks"
-              run: "npm install --no-save --force eslint@${{ matrix.eslint-version }} @eslint/js@${{ matrix.eslint-js-version }}"
+            - name: "Pack the compatibility candidate"
+              id: "pack"
+              run: |
+                  set -euo pipefail
+                  npm pack --json --pack-destination "${RUNNER_TEMP}" > "${RUNNER_TEMP}/npm-pack.json"
+                  filename=$(node scripts/read-npm-pack-filename.mjs < "${RUNNER_TEMP}/npm-pack.json")
+                  echo "tarball=${RUNNER_TEMP}/${filename}" >> "$GITHUB_OUTPUT"
+
+            - name: "Install isolated ESLint 9 runtime"
+              env:
+                  ESLINT_JS_VERSION: "${{ matrix.eslint-js-version }}"
+                  ESLINT_VERSION: "${{ matrix.eslint-version }}"
+                  PACKAGE_TARBALL: "${{ steps.pack.outputs.tarball }}"
+              run: |
+                  set -euo pipefail
+                  compat_dir="${RUNNER_TEMP}/eslint9-compat"
+                  mkdir -p "${compat_dir}/scripts" "${compat_dir}/test/fixtures/ts"
+                  cd "$compat_dir"
+                  npm init --yes >/dev/null
+                  typescript_version=$(node -p "require('${GITHUB_WORKSPACE}/package.json').devDependencies.typescript")
+                  npm install --package-lock=false \
+                    "${PACKAGE_TARBALL}" \
+                    "eslint@${ESLINT_VERSION}" \
+                    "@eslint/js@${ESLINT_JS_VERSION}" \
+                    "typescript@${typescript_version}"
+                  cp "${GITHUB_WORKSPACE}/scripts/eslint9-compat-smoke.mjs" scripts/
+                  cp "${GITHUB_WORKSPACE}/test/fixtures/ts/compat-no-insecure-"*.invalid.ts test/fixtures/ts/
+                  printf '%s\n' '{"compilerOptions":{"strict":true,"target":"ESNext"},"include":["test/fixtures/ts/**/*.ts"]}' > tsconfig.eslint.json
 
             - name: "Run ESLint 9 compatibility smoke checks"
-              run: "npm run lint:compat:eslint9 -- --expect-eslint-major=9"
+              run: >-
+                  cd "${RUNNER_TEMP}/eslint9-compat" &&
+                  SDL_PLUGIN_SPECIFIER=eslint-plugin-sdl-2
+                  node scripts/eslint9-compat-smoke.mjs --expect-eslint-major=9

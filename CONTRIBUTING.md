@@ -7,8 +7,10 @@ rules for JavaScript and TypeScript codebases.
 
 ## Prerequisites
 
-- Node.js `>=20.19.0` (see `package.json#engines`)
-- npm `>=11`
+- Node.js `^22.22.3 || ^24.16.0 || >=26.3.0` for repository development
+  (CI uses the exact version in `.node-version`; the published plugin's runtime
+  support remains `>=20.19.0`)
+- npm `12.0.2` (see `packageManager` and `devEngines` in `package.json`)
 - Git
 
 ## Local setup
