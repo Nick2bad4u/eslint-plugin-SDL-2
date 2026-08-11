@@ -1,10 +1,10 @@
 .liveBadgeList {
     display: flex;
     flex-wrap: wrap;
-    margin: 0;
     gap: 0.58rem;
-    list-style-type: "";
     padding-block-start: 1rem;
+    margin: 0;
+    list-style-type: "";
 }
 
 .liveBadgeListItem {
@@ -28,8 +28,8 @@
 
 .liveBadgeImage {
     display: block;
-    block-size: 20px;
     inline-size: auto;
+    block-size: 20px;
 
     @media (width <= 640px) {
         block-size: 18px;

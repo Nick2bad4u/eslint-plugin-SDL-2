@@ -3,23 +3,37 @@ $schema: "https://www.schemastore.org/yamllint.json"
 extends: "node_modules/yamllint-config-nick2bad4u/.yamllint"
 # yaml-language-server: $schema=https://www.schemastore.org/yamllint.json
 
-ignore: |
-    node_modules/
+ignore: "node_modules/
+
     dist/
+
     coverage/
+
     build/
+
     release/
+
     .cache/
+
     .vscode/
+
     .idea/
+
     .stryker-tmp/
+
     docs/docusaurus/.docusaurus/
+
     docs/docusaurus/build/
+
     docs/docusaurus/site-docs/developer/api/
+
     docs/docusaurus/static/eslint-inspector/
+
     docs/docusaurus/static/stylelint-inspector/
+
     docs/Packages/
-    docs/docusaurus/docs/documents/docs/Packages/
+
+    docs/docusaurus/docs/documents/docs/Packages/\n"
 
 rules:
     empty-values: "disable"

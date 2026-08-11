@@ -13,70 +13,70 @@
     );
 
     position: fixed;
+    inset-block-end: 1rem;
+    inset-inline-end: 1rem;
     z-index: 40;
     display: grid;
+    gap: 0.75rem;
+    inline-size: min(24rem, calc(100vi - 2rem));
     padding: 0.95rem 1rem;
+    background: var(--pwa-popup-background-color);
     border: 1px solid var(--pwa-popup-border-color);
     border-radius: 1rem;
-    /* stylelint-disable-next-line css-performance-budget/no-expensive-positioning-patterns -- Small fixed PWA prompt uses blur to match the site surface treatment. */
-    backdrop-filter: blur(16px);
-    background: var(--pwa-popup-background-color);
     /* stylelint-disable-next-line css-performance-budget/no-expensive-positioning-patterns -- Fixed PWA prompt shadow is constrained to a small surface. */
     box-shadow:
         0 24px 40px -28px var(--home-hero-shadow-color, rgb(15 23 42 / 28%)),
         inset 0 1px 0 var(--home-hero-highlight-color, rgb(255 255 255 / 24%));
-    gap: 0.75rem;
-    inline-size: min(24rem, calc(100vi - 2rem));
-    inset-block-end: 1rem;
-    inset-inline-end: 1rem;
+    /* stylelint-disable-next-line css-performance-budget/no-expensive-positioning-patterns -- Small fixed PWA prompt uses blur to match the site surface treatment. */
+    backdrop-filter: blur(16px);
 }
 
 .message {
     margin: 0;
-    color: var(--pwa-popup-text-color);
     font-size: 0.875rem;
     font-weight: 650;
     line-height: 1.5;
+    color: var(--pwa-popup-text-color);
 }
 
 .actions {
     display: flex;
+    gap: 0.75rem;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
 }
 
 .reloadButton {
-    border-color: rgb(168 85 247 / 42%);
+    font-weight: 760;
+    color: #f6f2ff;
     background: linear-gradient(
         140deg,
         rgb(124 92 255 / 94%),
         rgb(91 67 214 / 94%)
     );
-    color: #f6f2ff;
-    font-weight: 760;
+    border-color: rgb(168 85 247 / 42%);
 }
 
 .closeButton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--pwa-popup-text-color);
+    cursor: pointer;
+    background: var(
+        --home-hero-secondary-button-background,
+        rgb(255 255 255 / 76%)
+    );
     border: 1px solid
         var(
             --home-hero-secondary-button-border-color,
             var(--pwa-popup-border-color)
         );
     border-radius: 999px;
-    background: var(
-        --home-hero-secondary-button-background,
-        rgb(255 255 255 / 76%)
-    );
-    block-size: 2rem;
-    color: var(--pwa-popup-text-color);
-    cursor: pointer;
-    font-size: 1rem;
-    inline-size: 2rem;
-    line-height: 1;
 
     &:hover,
     &:focus-visible {
