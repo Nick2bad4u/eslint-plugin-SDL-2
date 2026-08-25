@@ -4,6 +4,8 @@
 
 SDL-focused ESLint plugin with modern flat-config presets and TypeScript-first rule implementations.
 
+> **Oxlint:** Compatible with Oxlint 1.80.0 across all 71 rules and nine presets; the [JavaScript plugin API remains alpha](https://oxc.rs/docs/guide/usage/linter/js-plugins.html), so the release gate reruns ESLint/Oxlint conformance coverage.
+
 ## Installation
 
 ```bash
